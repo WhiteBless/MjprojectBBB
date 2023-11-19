@@ -214,6 +214,8 @@ public class Player : MonoBehaviour
             animator.SetTrigger("doDodge");
             isDodge = true;
 
+            SkillOut();
+
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);
             RaycastHit rayHit;
 
@@ -365,8 +367,8 @@ public class Player : MonoBehaviour
                 Vector3 dodgeStartPosition = transform.position;
                 Vector3 dodgeEndPosition = transform.position + dodgeDirection * 25f;
 
-                StartCoroutine(MoveDuring(dodgeStartPosition, dodgeEndPosition, 0.1f));
-                Invoke("SkillOut", 2f);
+                StartCoroutine(MoveDuring(dodgeStartPosition, dodgeEndPosition, 0.5f));
+                Invoke("SkillOut", 1f);
                 animator.SetTrigger("doSkill3");
 
                 // Enemy 스크립트의 isAttackable 변수 설정
