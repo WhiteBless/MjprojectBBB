@@ -1,0 +1,67 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8786491380260108271
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43a9940f958e79347881876bc04c02dc, type: 3}
+  m_Name: PluginPrefabManagerUI_PrefabViewState
+  m_EditorClassIdentifier: 
+  selectedItems:
+    _serializedList:
+    - _guidString: f944cccd-4267-4c2e-8fc0-a0b15763446b
+  selectRangeBeginId:
+    _guidString: acf88358-a9e4-4a28-8900-247d2c813688
+  selectRangeEndId:
+    _guidString: acf88358-a9e4-4a28-8900-247d2c813688
+  hasSelectRange: 1
+  scrollOffset: {x: 0, y: 1026}
+  vertScrollHighValue: NaN
+  vertScrollLowValue: 0
+--- !u!114 &-4298672438593737802
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d78f77521bb1424d90dc20b0de9cee3, type: 3}
+  m_Name: PrefabLibProfileDbUI_LibViewState
+  m_EditorClassIdentifier: 
+  selectedItems:
+    _serializedList:
+    - _guidString: 9d172b31-7423-4c07-ac1e-58c3751ef399
+  collapsedItems:
+    _serializedList: []
+  selectRangeBeginId:
+    _guidString: 9d172b31-7423-4c07-ac1e-58c3751ef399
+  selectRangeEndId:
+    _guidString: 9d172b31-7423-4c07-ac1e-58c3751ef399
+  hasSelectRange: 1
+  scrollOffset: {x: 0, y: 0}
+  vertScrollHighValue: NaN
+  vertScrollLowValue: 0
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fe82a2417215724a9be3166910ed92e, type: 3}
+  m_Name: PrefabLibProfileDb
+  m_EditorClassIdentifier: 
+  _profiles:
+  - {fileID: 11400000, guid: 68e8304c96f56254ba5cd8f29a9185b4, type: 2}
+  _activeProfile: {fileID: 11400000, guid: 68e8304c96f56254ba5cd8f29a9185b4, type: 2}
+  _prefabCreationSettingsUI: {fileID: 11400000, guid: 2c000ad31b113f1469ad8ce4ca205b6c, type: 2}
+  _objectGroupCreationSettingsUI: {fileID: 0}
