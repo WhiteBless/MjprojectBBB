@@ -30,7 +30,7 @@ public class SceneLoad : MonoBehaviour
 
             else
             {
-                loadtext.text = "Touch Screen";
+                loadtext.text = "Let's Started";
                 SceneManager.LoadScene("Play");//""에 넘어갈 씬 이름으로 변경
             }
 
