@@ -367,7 +367,7 @@ public class Player : MonoBehaviour
                 Vector3 dodgeStartPosition = transform.position;
                 Vector3 dodgeEndPosition = transform.position + dodgeDirection * 25f;
 
-                StartCoroutine(MoveDuring(dodgeStartPosition, dodgeEndPosition, 0.5f));
+                StartCoroutine(MoveDuring(dodgeStartPosition, dodgeEndPosition, 1f));
                 Invoke("SkillOut", 1f);
                 animator.SetTrigger("doSkill3");
 

@@ -1,31 +1,34 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+[System.Serializable]
+public class WarpDestination
+{
+    public Collider warpPortal; // 워프 포탈
+    public Transform warpDestination; // 워프 도착 지점
+}
 
 public class Warp : MonoBehaviour
 {
-    public Collider[] warpPortals; // 워프 포탈들의 배열
-    public Transform[] warpDestinations; // 워프 도착 지점들의 배열
-
+    public WarpDestination[] warpDestinations; // 워프 도착 지점들의 배열
     public float warpDelay = 0.5f; // 워프까지의 딜레이 시간
+    public bool isWarping = false; // 워프 진행 중인지 여부를 나타내는 변수
 
-    private bool isWarping = false; // 워프 진행 중인지 여부를 나타내는 변수
-
-    private void OnTriggerEnter(Collider other)
+    public void OnTriggerEnter(Collider other)
     {
         if (!isWarping && CanWarp(other))
         {
-            StartCoroutine(WarpPlayer(other.gameObject));
+            StartCoroutine(WarpPlayer(other.gameObject, other));
         }
     }
 
-    private bool CanWarp(Collider other)
+    public bool CanWarp(Collider other)
     {
         // 플레이어와 충돌한 경우에만 워프 가능하도록 설정
         return other.CompareTag("Player");
     }
 
-    private IEnumerator WarpPlayer(GameObject player)
+    public IEnumerator WarpPlayer(GameObject Charaacter, Collider portal)
     {
         isWarping = true;
 
@@ -34,15 +37,12 @@ public class Warp : MonoBehaviour
         yield return new WaitForSeconds(warpDelay);
 
         // 워프 포탈과 일치하는 도착지를 찾음
-        for (int i = 0; i < warpPortals.Length; i++)
+        foreach (var warpDestination in warpDestinations)
         {
-            if (warpPortals[i] == GetComponent<Collider>())
+            if (warpDestination.warpPortal == portal)
             {
-                if (i < warpDestinations.Length)
-                {
-                    // 플레이어를 선택된 도착 지점으로 이동
-                    player.transform.position = warpDestinations[i].position;
-                }
+                // 플레이어를 선택된 도착 지점으로 이동
+                Charaacter.transform.position = warpDestination.warpDestination.position;
                 break;
             }
         }
