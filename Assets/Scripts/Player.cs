@@ -42,10 +42,12 @@ public class Player : MonoBehaviour
     public SkinnedMeshRenderer effect3;
     public SkinnedMeshRenderer effect4;
 
+    /*
     public MeshCollider Slash_R;
     public MeshCollider Shash_FX;
     public MeshCollider Shash_FX001;
     public MeshCollider Treak;
+    */
 
     public GameObject MouseMoveEffect;
 
@@ -291,11 +293,6 @@ public class Player : MonoBehaviour
         effect2.enabled = false;
         effect3.enabled = false;
         effect4.enabled = false;
-
-        Slash_R.enabled = false;
-        Shash_FX.enabled = false;
-        Shash_FX001.enabled = false;
-        Treak.enabled = false;
     }
 
     void Skill1()
@@ -437,10 +434,12 @@ public class Player : MonoBehaviour
         effect3.enabled = true;
         effect4.enabled = true;
 
+        /*
         Slash_R.enabled = true;
         Shash_FX.enabled = true;
         Shash_FX001.enabled = true;
         Treak.enabled = true;
+        */
     }
 
     void SkillOut()
@@ -455,9 +454,11 @@ public class Player : MonoBehaviour
         effect3.enabled = false;
         effect4.enabled = false;
 
+        /*
         Slash_R.enabled = false;
         Shash_FX.enabled = false;
         Shash_FX001.enabled = false;
         Treak.enabled = false;
+        */
     }
 }

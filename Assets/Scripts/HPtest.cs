@@ -33,7 +33,7 @@ public class HPtest : MonoBehaviour
             foreach (MeshRenderer mesh in meshs)
                 mesh.material.color = Color.red;
 
-            StartCoroutine(ResetColorAfterDelay(0.5f));
+            StartCoroutine(ResetColorAfterDelay(0.1f));
         }
     }
 
