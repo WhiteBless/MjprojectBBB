@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class potal : MonoBehaviour
+public class Portal : MonoBehaviour
 {
     public GameObject targetObj;
     public GameObject toObj;
-    private bool isWarping = false; // 워프 중인지 체크하는 변수를 추가
+    private bool isWarping = false;
 
     public void OnTriggerEnter(Collider other)
     {
@@ -26,9 +26,18 @@ public class potal : MonoBehaviour
 
     IEnumerator TeleportRoutine()
     {
-        isWarping = true; // 워프 시작
-        yield return new WaitForSeconds(1); // 1초 대기
-        targetObj.transform.position = toObj.transform.position; // 플레이어 이동
-        isWarping = false; // 워프 종료
+        isWarping = true;
+        yield return new WaitForSeconds(1);
+
+        // 플레이어 이동
+        targetObj.transform.position = toObj.transform.position;
+
+        // 자식 오브젝트들도 같은 위치로 이동
+        foreach (Transform childTransform in targetObj.transform)
+        {
+            childTransform.position = toObj.transform.position;
+        }
+
+        isWarping = false;
     }
 }

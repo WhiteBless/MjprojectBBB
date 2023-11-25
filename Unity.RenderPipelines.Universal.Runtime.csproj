@@ -60,7 +60,6 @@
   <ItemGroup>
     <Compile Include="Library\PackageCache\com.unity.render-pipelines.universal@14.0.8\Runtime\Overrides\ColorLookup.cs" />
     <Compile Include="Library\PackageCache\com.unity.render-pipelines.universal@14.0.8\Runtime\2D\UTess2D\UTess.cs" />
-    <Compile Include="Assets\Beautify\URP\Runtime\BeautifyRendererFeature.cs" />
     <Compile Include="Library\PackageCache\com.unity.render-pipelines.universal@14.0.8\Runtime\Decal\Entities\DecalChunk.cs" />
     <Compile Include="Library\PackageCache\com.unity.render-pipelines.universal@14.0.8\Runtime\Overrides\ColorAdjustments.cs" />
     <Compile Include="Library\PackageCache\com.unity.render-pipelines.universal@14.0.8\Runtime\Tiling\TileSize.cs" />
@@ -75,6 +74,7 @@
     <Compile Include="Library\PackageCache\com.unity.render-pipelines.universal@14.0.8\Runtime\RTHandleUtils.cs" />
     <Compile Include="Library\PackageCache\com.unity.render-pipelines.universal@14.0.8\Runtime\Decal\ScreenSpace\DecalScreenSpaceRenderPass.cs" />
     <Compile Include="Library\PackageCache\com.unity.render-pipelines.universal@14.0.8\Runtime\ScriptableRendererFeature.cs" />
+    <Compile Include="Assets\Asset\Beautify\URP\Runtime\Beautify.cs" />
     <Compile Include="Library\PackageCache\com.unity.render-pipelines.universal@14.0.8\Runtime\ForwardLights.cs" />
     <Compile Include="Library\PackageCache\com.unity.render-pipelines.universal@14.0.8\Runtime\Passes\TransparentSettingsPass.cs" />
     <Compile Include="Library\PackageCache\com.unity.render-pipelines.universal@14.0.8\Runtime\Data\UniversalRenderPipelineEditorResources.cs" />
@@ -89,6 +89,7 @@
     <Compile Include="Library\PackageCache\com.unity.render-pipelines.universal@14.0.8\Runtime\Passes\FinalBlitPass.cs" />
     <Compile Include="Library\PackageCache\com.unity.render-pipelines.universal@14.0.8\Runtime\UniversalAdditionalCameraData.cs" />
     <Compile Include="Library\PackageCache\com.unity.render-pipelines.universal@14.0.8\Runtime\External\LibTessDotNet\Tess.cs" />
+    <Compile Include="Assets\Asset\Beautify\URP\Runtime\BeautifyRendererFeature.cs" />
     <Compile Include="Library\PackageCache\com.unity.render-pipelines.universal@14.0.8\Runtime\Passes\MotionVectorRenderPass.cs" />
     <Compile Include="Library\PackageCache\com.unity.render-pipelines.universal@14.0.8\Runtime\Decal\Entities\DecalCreateDrawCallSystem.cs" />
     <Compile Include="Library\PackageCache\com.unity.render-pipelines.universal@14.0.8\Runtime\Overrides\ShadowsMidtonesHighlights.cs" />
@@ -115,6 +116,7 @@
     <Compile Include="Library\PackageCache\com.unity.render-pipelines.universal@14.0.8\Runtime\Passes\DrawObjectsPass.cs" />
     <Compile Include="Library\PackageCache\com.unity.render-pipelines.universal@14.0.8\Runtime\2D\Light2DBlendStyle.cs" />
     <Compile Include="Library\PackageCache\com.unity.render-pipelines.universal@14.0.8\Runtime\UniversalRenderPipelineGlobalSettings.cs" />
+    <Compile Include="Assets\Asset\Beautify\URP\Runtime\BeautifySettings.cs" />
     <Compile Include="Library\PackageCache\com.unity.render-pipelines.universal@14.0.8\Runtime\Overrides\ColorCurves.cs" />
     <Compile Include="Library\PackageCache\com.unity.render-pipelines.universal@14.0.8\Runtime\UniversalRendererRenderGraph.cs" />
     <Compile Include="Library\PackageCache\com.unity.render-pipelines.universal@14.0.8\Runtime\NativeRenderPass.cs" />
@@ -196,7 +198,6 @@
     <Compile Include="Library\PackageCache\com.unity.render-pipelines.universal@14.0.8\Runtime\2D\Renderer2D.cs" />
     <Compile Include="Library\PackageCache\com.unity.render-pipelines.universal@14.0.8\Runtime\Tiling\ZBinningJob.cs" />
     <Compile Include="Library\PackageCache\com.unity.render-pipelines.universal@14.0.8\Runtime\Deprecated.cs" />
-    <Compile Include="Assets\Beautify\URP\Runtime\Beautify.cs" />
     <Compile Include="Library\PackageCache\com.unity.render-pipelines.universal@14.0.8\Runtime\External\LibTessDotNet\Dict.cs" />
     <Compile Include="Library\PackageCache\com.unity.render-pipelines.universal@14.0.8\Runtime\Passes\ColorGradingLutPass.cs" />
     <Compile Include="Library\PackageCache\com.unity.render-pipelines.universal@14.0.8\Runtime\2D\Light2DCullResult.cs" />
@@ -208,7 +209,6 @@
     <Compile Include="Library\PackageCache\com.unity.render-pipelines.universal@14.0.8\Runtime\Passes\DepthOnlyPass.cs" />
     <Compile Include="Library\PackageCache\com.unity.render-pipelines.universal@14.0.8\Runtime\Decal\ScreenSpace\DecalGBufferRenderPass.cs" />
     <Compile Include="Library\PackageCache\com.unity.render-pipelines.universal@14.0.8\Runtime\Overrides\Vignette.cs" />
-    <Compile Include="Assets\Beautify\URP\Runtime\BeautifySettings.cs" />
     <Compile Include="Library\PackageCache\com.unity.render-pipelines.universal@14.0.8\Runtime\ShaderUtils.cs" />
     <Compile Include="Library\PackageCache\com.unity.render-pipelines.universal@14.0.8\Runtime\Debug\DebugDisplayStats.cs" />
     <Compile Include="Library\PackageCache\com.unity.render-pipelines.universal@14.0.8\Runtime\Decal\DBuffer\DecalForwardEmissivePass.cs" />
@@ -234,20 +234,20 @@
     <Compile Include="Library\PackageCache\com.unity.render-pipelines.universal@14.0.8\Runtime\DeferredLights.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\Beautify\URP\Runtime\Resources\Shaders\BeautifyColorTemp.hlsl" />
-    <None Include="Assets\Beautify\URP\Runtime\Resources\Shaders\BeautifyCommon.hlsl" />
-    <None Include="Assets\Beautify\URP\Runtime\BeautifyAsmRef.asmref" />
-    <None Include="Assets\Beautify\URP\Runtime\Resources\Shaders\BeautifyPPSSF.hlsl" />
-    <None Include="Assets\Beautify\URP\Runtime\Resources\Shaders\DepthOnly.shader" />
-    <None Include="Assets\Beautify\URP\Runtime\Resources\Shaders\BeautifyPPSEA.hlsl" />
-    <None Include="Assets\Beautify\URP\Runtime\Resources\Shaders\BeautifyCore.shader" />
-    <None Include="Assets\Beautify\URP\Runtime\Resources\Shaders\BeautifyCore.hlsl" />
-    <None Include="Assets\Beautify\URP\Runtime\Resources\Shaders\BeautifyPPSOutline.hlsl" />
-    <None Include="Assets\Beautify\URP\Runtime\Resources\Shaders\BeautifyACESFitted.hlsl" />
-    <None Include="Assets\Beautify\URP\Runtime\Resources\Shaders\BeautifyPPSLum.hlsl" />
-    <None Include="Assets\Beautify\URP\Runtime\Resources\Shaders\BeautifyDistortion.hlsl" />
-    <None Include="Assets\Beautify\URP\Runtime\Resources\Shaders\BeautifyPPSDoF.hlsl" />
-    <None Include="Assets\Beautify\URP\Runtime\Resources\Shaders\BeautifyCAberration.hlsl" />
+    <None Include="Assets\Asset\Beautify\URP\Runtime\Resources\Shaders\BeautifyColorTemp.hlsl" />
+    <None Include="Assets\Asset\Beautify\URP\Runtime\Resources\Shaders\BeautifyCommon.hlsl" />
+    <None Include="Assets\Asset\Beautify\URP\Runtime\BeautifyAsmRef.asmref" />
+    <None Include="Assets\Asset\Beautify\URP\Runtime\Resources\Shaders\BeautifyPPSSF.hlsl" />
+    <None Include="Assets\Asset\Beautify\URP\Runtime\Resources\Shaders\DepthOnly.shader" />
+    <None Include="Assets\Asset\Beautify\URP\Runtime\Resources\Shaders\BeautifyPPSEA.hlsl" />
+    <None Include="Assets\Asset\Beautify\URP\Runtime\Resources\Shaders\BeautifyCore.shader" />
+    <None Include="Assets\Asset\Beautify\URP\Runtime\Resources\Shaders\BeautifyCore.hlsl" />
+    <None Include="Assets\Asset\Beautify\URP\Runtime\Resources\Shaders\BeautifyPPSOutline.hlsl" />
+    <None Include="Assets\Asset\Beautify\URP\Runtime\Resources\Shaders\BeautifyACESFitted.hlsl" />
+    <None Include="Assets\Asset\Beautify\URP\Runtime\Resources\Shaders\BeautifyPPSLum.hlsl" />
+    <None Include="Assets\Asset\Beautify\URP\Runtime\Resources\Shaders\BeautifyDistortion.hlsl" />
+    <None Include="Assets\Asset\Beautify\URP\Runtime\Resources\Shaders\BeautifyPPSDoF.hlsl" />
+    <None Include="Assets\Asset\Beautify\URP\Runtime\Resources\Shaders\BeautifyCAberration.hlsl" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
