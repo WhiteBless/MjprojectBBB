@@ -114,16 +114,4 @@ public class Skill : MonoBehaviour
             hideSkillButtons.SetActive(false);
         }
     }
-    public void OnButtonClick()
-    {
-        StartCoroutine(SlowMotion());
-    }
-
-    private IEnumerator SlowMotion()
-    {
-        // 원하는 시간 동안 속도를 조절하기 위해 WaitForSecondsRealtime을 사용합니다.
-        Time.timeScale = 0.3f; // Timescale을 3/10로 설정합니다.
-        yield return new WaitForSecondsRealtime(5f); // 5초 동안 대기합니다.
-        Time.timeScale = 1f; // Timescale을 원래 속도로 되돌립니다.
-    }
 }
