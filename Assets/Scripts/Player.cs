@@ -35,7 +35,11 @@ public class Player : MonoBehaviour
 
     private Vector3 movement;
 
-    public Skill effect;
+    public Skill skillManager1;
+    public Skill skillManager2;
+    public Skill skillManager3;
+    public Skill skillManager4;
+    public Skill skillManager5;
 
     public SkinnedMeshRenderer effect1;
     public SkinnedMeshRenderer effect2;
@@ -208,7 +212,7 @@ public class Player : MonoBehaviour
 
     void Dodge()
     {
-        if (spaceDown && !isDodge)
+        if (spaceDown && !isDodge && skillManager5.getSkillTimes <= 0)
         {
             animator.SetBool("isMove", false);
             animator.SetTrigger("doDodge");
@@ -300,7 +304,7 @@ public class Player : MonoBehaviour
 
     void Skill1()
     {
-        if (skill1 && !isAttack && !isSkill1 && !isSkill2 && !isSkill3 && !isSkill4)
+        if (skill1 && !isAttack && !isSkill1 && !isSkill2 && !isSkill3 && !isSkill4 && skillManager1.getSkillTimes <= 0)
         {
             animator.SetBool("isMove", false);
 
@@ -323,7 +327,7 @@ public class Player : MonoBehaviour
 
     void Skill2()
     {
-        if (skill2 && !isAttack && !isSkill1 && !isSkill2 && !isSkill3 && !isSkill4)
+        if (skill2 && !isAttack && !isSkill1 && !isSkill2 && !isSkill3 && !isSkill4 && skillManager2.getSkillTimes <= 0)
         {
             animator.SetBool("isMove", false);
 
@@ -346,7 +350,7 @@ public class Player : MonoBehaviour
 
     void Skill3()
     {
-        if (skill3 && !isAttack && !isSkill1 && !isSkill2 && !isSkill3 && !isSkill4)
+        if (skill3 && !isAttack && !isSkill1 && !isSkill2 && !isSkill3 && !isSkill4 && skillManager3.getSkillTimes <= 0)
         {
             animator.SetBool("isMove", false);
 
@@ -388,7 +392,7 @@ public class Player : MonoBehaviour
 
     void Skill4()
     {
-        if (skill4 && !isAttack && !isSkill1 && !isSkill2 && !isSkill3 && !isSkill4)
+        if (skill4 && !isAttack && !isSkill1 && !isSkill2 && !isSkill3 && !isSkill4 && skillManager4.getSkillTimes <= 0)
         {
             animator.SetBool("isMove", false);
 

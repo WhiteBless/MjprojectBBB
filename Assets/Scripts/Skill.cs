@@ -4,7 +4,7 @@ using System.Threading;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using static Skill;
+
 
 public class Skill : MonoBehaviour
 {
@@ -20,7 +20,7 @@ public class Skill : MonoBehaviour
     public Image hideSkillmages;
     private bool isHideSkills = false;
     public float skillTimes = 30;
-    private float getSkillTimes = 0;
+    public float getSkillTimes = 0;
 
     public Player player;
 
@@ -33,6 +33,8 @@ public class Skill : MonoBehaviour
     void Update()
     {
         HideSkillChk();
+
+        HideSkillSetting();
     }
 
     public void HideSkillSetting()
@@ -40,48 +42,63 @@ public class Skill : MonoBehaviour
         switch (skillType)
         {
             case SkillType.Q:
-                if (skillTimes > 0 && player.skill1)
+                if (getSkillTimes <= 0)
                 {
-                    hideSkillButtons.SetActive(true);
-                    getSkillTimes = skillTimes;
-                    isHideSkills = true;
-                }
+                    if (skillTimes > 0 && player.skill1)
+                    {
+                        hideSkillButtons.SetActive(true);
+                        getSkillTimes = skillTimes;
+                        isHideSkills = true;
+                    }
+                }     
                 break;
 
             case SkillType.W:
-                if (skillTimes > 0 && player.skill2)
+                if (getSkillTimes <= 0)
                 {
-                    hideSkillButtons.SetActive(true);
-                    getSkillTimes = skillTimes;
-                    isHideSkills = true;
+                    if (skillTimes > 0 && player.skill2)
+                    {
+                        hideSkillButtons.SetActive(true);
+                        getSkillTimes = skillTimes;
+                        isHideSkills = true;
+                    }
                 }
                 break;
 
             case SkillType.E:
-                if (skillTimes > 0 && player.skill3)
+                if (getSkillTimes <= 0)
                 {
-                    hideSkillButtons.SetActive(true);
-                    getSkillTimes = skillTimes;
-                    isHideSkills = true;
-                }
+                    if (skillTimes > 0 && player.skill3)
+                    {
+                        hideSkillButtons.SetActive(true);
+                        getSkillTimes = skillTimes;
+                        isHideSkills = true;
+                    }
+                }   
                 break;
 
             case SkillType.R:
-                if (skillTimes > 0 && player.skill4)
+                if (getSkillTimes <= 0)
                 {
-                    hideSkillButtons.SetActive(true);
-                    getSkillTimes = skillTimes;
-                    isHideSkills = true;
+                    if (skillTimes > 0 && player.skill4)
+                    {
+                        hideSkillButtons.SetActive(true);
+                        getSkillTimes = skillTimes;
+                        isHideSkills = true;
+                    }
                 }
                 break;
 
             case SkillType.D:
-                if (skillTimes > 0 && player.spaceDown)
+                if (getSkillTimes == 0)
                 {
-                    hideSkillButtons.SetActive(true);
-                    getSkillTimes = skillTimes;
-                    isHideSkills = true;
-                }
+                    if (skillTimes > 0 && player.spaceDown)
+                    {
+                        hideSkillButtons.SetActive(true);
+                        getSkillTimes = skillTimes;
+                        isHideSkills = true;
+                    }
+                }    
                 break;
         }
     }
