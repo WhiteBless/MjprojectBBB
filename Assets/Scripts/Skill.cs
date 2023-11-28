@@ -42,7 +42,7 @@ public class Skill : MonoBehaviour
         switch (skillType)
         {
             case SkillType.Q:
-                if (getSkillTimes <= 0)
+                if (getSkillTimes <= 0 && !player.isSkill2 && !player.isSkill3 && !player.isSkill4)
                 {
                     if (skillTimes > 0 && player.skill1)
                     {
@@ -54,7 +54,7 @@ public class Skill : MonoBehaviour
                 break;
 
             case SkillType.W:
-                if (getSkillTimes <= 0)
+                if (getSkillTimes <= 0 && !player.isSkill1 && !player.isSkill3 && !player.isSkill4)
                 {
                     if (skillTimes > 0 && player.skill2)
                     {
@@ -66,7 +66,7 @@ public class Skill : MonoBehaviour
                 break;
 
             case SkillType.E:
-                if (getSkillTimes <= 0)
+                if (getSkillTimes <= 0 && !player.isSkill1 && !player.isSkill2 && !player.isSkill4)
                 {
                     if (skillTimes > 0 && player.skill3)
                     {
@@ -78,7 +78,7 @@ public class Skill : MonoBehaviour
                 break;
 
             case SkillType.R:
-                if (getSkillTimes <= 0)
+                if (getSkillTimes <= 0 && !player.isSkill1 && !player.isSkill2 && !player.isSkill3)
                 {
                     if (skillTimes > 0 && player.skill4)
                     {
@@ -90,7 +90,7 @@ public class Skill : MonoBehaviour
                 break;
 
             case SkillType.D:
-                if (getSkillTimes == 0)
+                if (getSkillTimes <= 0)
                 {
                     if (skillTimes > 0 && player.spaceDown)
                     {

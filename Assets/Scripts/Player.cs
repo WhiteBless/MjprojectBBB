@@ -358,8 +358,8 @@ public class Player : MonoBehaviour
                 Vector3 dodgeStartPosition = transform.position;
                 Vector3 dodgeEndPosition = transform.position + dodgeDirection * 25f;
 
-                StartCoroutine(MoveDuring(dodgeStartPosition, dodgeEndPosition, 1f));
-                Invoke("SkillOut", 1f);
+                StartCoroutine(MoveDuring(dodgeStartPosition, dodgeEndPosition, 0.6f));
+                Invoke("SkillOut", 0.7f);
                 animator.SetTrigger("doSkill3");
 
                 // Enemy 스크립트의 isAttackable 변수 설정
