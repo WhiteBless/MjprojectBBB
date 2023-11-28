@@ -15,14 +15,5 @@ public class Attack : MonoBehaviour
     public float rate; //공격속도
     public bool isAttackable;
 
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
 }

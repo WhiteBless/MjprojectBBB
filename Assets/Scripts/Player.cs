@@ -29,10 +29,6 @@ public class Player : MonoBehaviour
 
     bool isBorder;
 
-    bool isFireReady = true;
-
-    float fireDelay;
-
     private Vector3 movement;
 
     public Skill skillManager1;
@@ -41,19 +37,9 @@ public class Player : MonoBehaviour
     public Skill skillManager4;
     public Skill skillManager5;
 
-    public SkinnedMeshRenderer effect1;
-    public SkinnedMeshRenderer effect2;
-    public SkinnedMeshRenderer effect3;
-    public SkinnedMeshRenderer effect4;
-
-    public MeshCollider Slash_R;
-    public MeshCollider Shash_FX;
-    public MeshCollider Shash_FX001;
-    public MeshCollider Treak;
-
     public GameObject MouseMoveEffect;
 
-    public Attack attack;
+    public AttackCollider attack_Collider;
 
     void Awake()
     {
@@ -272,9 +258,12 @@ public class Player : MonoBehaviour
 
             isMove = false;
             isAttack = true;
-            StartCoroutine("Effect");
 
             animator.SetTrigger("Attack");
+
+            attack_Collider.A_NoUse();
+
+            Invoke("AAA_Attack", 0.000001f);
 
             Invoke("AttackOut", 0.8f);
 
@@ -287,19 +276,14 @@ public class Player : MonoBehaviour
 
     }
 
+    void AAA_Attack()
+    {
+        attack_Collider.A_Use();
+    }
+
     void AttackOut()
     {
         isAttack = false;
-
-        effect1.enabled = false;
-        effect2.enabled = false;
-        effect3.enabled = false;
-        effect4.enabled = false;
-
-        Slash_R.enabled = false;
-        Shash_FX.enabled = false;
-        Shash_FX001.enabled = false;
-        Treak.enabled = false;
     }
 
     void Skill1()
@@ -310,9 +294,10 @@ public class Player : MonoBehaviour
 
             isMove = false;
             isSkill1 = true;
-            StartCoroutine("Effect");
 
             animator.SetTrigger("doSkill1");
+
+            attack_Collider.Q_Use();
 
             Invoke("SkillOut", 2f);
 
@@ -333,9 +318,10 @@ public class Player : MonoBehaviour
 
             isMove = false;
             isSkill2 = true;
-            StartCoroutine("Effect");
 
             animator.SetTrigger("doSkill2");
+
+            attack_Collider.W_Use();
 
             Invoke("SkillOut", 2.3f);
 
@@ -356,7 +342,8 @@ public class Player : MonoBehaviour
 
             isMove = false;
             isSkill3 = true;
-            StartCoroutine("Effect");
+
+            attack_Collider.E_Use();
 
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);
             RaycastHit rayHit;
@@ -398,7 +385,8 @@ public class Player : MonoBehaviour
 
             isMove = false;
             isSkill4 = true;
-            StartCoroutine("Effect");
+
+            attack_Collider.R_Use();
 
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);
             RaycastHit rayHit;
@@ -433,35 +421,11 @@ public class Player : MonoBehaviour
         }
     }
 
-    IEnumerator Effect()
-    {
-        yield return new WaitForSeconds(0.1f);
-        effect1.enabled = true;
-        effect2.enabled = true;
-        effect3.enabled = true;
-        effect4.enabled = true;
-
-        Slash_R.enabled = true;
-        Shash_FX.enabled = true;
-        Shash_FX001.enabled = true;
-        Treak.enabled = true;
-    }
-
     void SkillOut()
     {
         isSkill1 = false;
         isSkill2 = false;
         isSkill3 = false;
         isSkill4 = false;
-
-        effect1.enabled = false;
-        effect2.enabled = false;
-        effect3.enabled = false;
-        effect4.enabled = false;
-
-        Slash_R.enabled = false;
-        Shash_FX.enabled = false;
-        Shash_FX001.enabled = false;
-        Treak.enabled = false;
     }
 }

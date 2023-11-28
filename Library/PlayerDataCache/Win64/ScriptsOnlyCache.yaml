@@ -2,19 +2,16 @@ ScriptsOnlyBuild:
   usedScripts:
     Assembly-CSharp.dll:
     - Attack
+    - AttackCollider
     - BeautifyEffect.Beautify
     - BeautifyEffect.BeautifyProfile
     - BossAnimator
     - BossLookAt
     - ButtonSound
     - CaneraController
-    - GSpawn.BoxObjectSpawnSettingsProfile
-    - GSpawn.BoxObjectSpawnSettingsProfileDb
-    - GSpawn.BoxObjectSpawnSettingsProfileDbUI
     - GSpawn.CurveObjectSpawnSettings
     - GSpawn.CurveObjectSpawnSettingsProfile
     - GSpawn.CurveObjectSpawnSettingsProfileDb
-    - GSpawn.IntPattern
     - GSpawn.ListViewState
     - GSpawn.MeshCombineUI
     - GSpawn.ObjectBoxSnapSettings
@@ -29,17 +26,16 @@ ScriptsOnlyBuild:
     - GSpawn.PluginObjectLayer
     - GSpawn.PluginObjectLayerDb
     - GSpawn.PluginObjectLayerDbUI
-    - GSpawn.SegmentsObjectSpawnSettingsProfile
-    - GSpawn.SegmentsObjectSpawnSettingsProfileDb
-    - GSpawn.SegmentsObjectSpawnSettingsProfileDbUI
     - GameManager
     - HPtest
     - Player
     - Portal
+    - ScaleFactorApplyToMaterial
     - SceneChangeButton
     - SceneLoad
     - SetResolution
     - Skill
+    - VariousTranslateMove
     Unity.InputSystem.dll:
     - UnityEngine.InputSystem.InputActionAsset
     - UnityEngine.InputSystem.InputActionReference
@@ -86,7 +82,24 @@ ScriptsOnlyBuild:
     Unity.RenderPipelines.Universal.Runtime.dll:
     - Beautify.Universal.Beautify
     - Beautify.Universal.BeautifySettings
+    - UnityEngine.Rendering.Universal.Bloom
+    - UnityEngine.Rendering.Universal.ChannelMixer
+    - UnityEngine.Rendering.Universal.ChromaticAberration
+    - UnityEngine.Rendering.Universal.ColorAdjustments
+    - UnityEngine.Rendering.Universal.ColorCurves
+    - UnityEngine.Rendering.Universal.ColorLookup
+    - UnityEngine.Rendering.Universal.DepthOfField
+    - UnityEngine.Rendering.Universal.FilmGrain
+    - UnityEngine.Rendering.Universal.LensDistortion
+    - UnityEngine.Rendering.Universal.LiftGammaGain
+    - UnityEngine.Rendering.Universal.MotionBlur
+    - UnityEngine.Rendering.Universal.PaniniProjection
+    - UnityEngine.Rendering.Universal.ShadowsMidtonesHighlights
+    - UnityEngine.Rendering.Universal.SplitToning
+    - UnityEngine.Rendering.Universal.Tonemapping
     - UnityEngine.Rendering.Universal.UniversalRenderPipelineGlobalSettings
+    - UnityEngine.Rendering.Universal.Vignette
+    - UnityEngine.Rendering.Universal.WhiteBalance
     Unity.Rider.Editor.dll:
     - Packages.Rider.Editor.UnitTesting.CallbackData
     Unity.TextMeshPro:
@@ -107,6 +120,7 @@ ScriptsOnlyBuild:
     - UnityEditor.Graphs.AnimationStateMachine.AnyStateNode
     - UnityEditor.Graphs.AnimationStateMachine.Graph
     - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
+    - UnityEditor.Graphs.AnimationStateMachine.StateMachineNode
     - UnityEditor.Graphs.AnimationStateMachine.StateNode
     - UnityEditor.Graphs.AnimatorControllerTool
     UnityEditor.TestRunner.dll:
@@ -504,13 +518,13 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 14104}
     - Class: 114
-      Script: {instanceID: 88654}
+      Script: {instanceID: 2314882}
     - Class: 114
-      Script: {instanceID: 88662}
+      Script: {instanceID: 2314890}
     - Class: 114
-      Script: {instanceID: 88664}
+      Script: {instanceID: 2314892}
     - Class: 114
-      Script: {instanceID: 88666}
+      Script: {instanceID: 2314894}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 121
@@ -593,6 +607,10 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 3076}
     - Class: 114
+      Script: {instanceID: 3858}
+    - Class: 114
+      Script: {instanceID: 4636}
+    - Class: 114
       Script: {instanceID: 6370}
     - Class: 114
       Script: {instanceID: 7004}
@@ -628,6 +646,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 13630}
     - Class: 114
       Script: {instanceID: 13714}
+    - Class: 114
+      Script: {instanceID: 130828}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 121
@@ -2883,7 +2903,7 @@ ScriptsOnlyBuild:
     className: UniversalRenderPipelineAsset
   - hash:
       serializedVersion: 2
-      Hash: e4d536054f1c544239fb1d665ee09650
+      Hash: 4f00be842d2da24687feaa27da78cf9a
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: Player
@@ -3417,7 +3437,7 @@ ScriptsOnlyBuild:
     className: ModularWallsObjectSpawnUI
   - hash:
       serializedVersion: 2
-      Hash: 8cb8a0f5ae3ddd2b8350df091d0c475d
+      Hash: 22768f6e5c29f883f6b9505eee48efff
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: Skill
@@ -4069,9 +4089,15 @@ ScriptsOnlyBuild:
     assemblyName: Unity.VisualScripting.Core
     namespaceName: Unity.VisualScripting
     className: UnityOnSliderValueChangedMessageListener
+  - hash:
+      serializedVersion: 2
+      Hash: 56c44226c00b80abf862a120cccfdafe
+    assemblyName: Assembly-CSharp
+    namespaceName: 
+    className: AttackCollider
   platform: 19
   scenePathNames:
   - Assets/Scenes/Main.unity
   - Assets/Scenes/Loading.unity
   - Assets/Scenes/Play.unity
-  playerPath: C:/Users/kjwoo/Desktop/MJprojectBuild/TripleA.exe
+  playerPath: "C:/Users/82105/Desktop/\uC0C8 \uD3F4\uB354/TripleA.exe"

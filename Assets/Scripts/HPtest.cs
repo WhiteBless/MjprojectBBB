@@ -24,7 +24,7 @@ public class HPtest : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Melee")
+        if (other.tag == "Weapon")
         {
             Attack weapon = other.GetComponent<Attack>();
             Debug.Log("Damage: " + weapon.damage);
