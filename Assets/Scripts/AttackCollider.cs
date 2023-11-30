@@ -155,7 +155,7 @@ public class AttackCollider : MonoBehaviour
 
         Treak_Weapon.enabled = true;
 
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1.8f);
         swordArea.enabled = false;
 
         standoffArea_1.enabled = false;

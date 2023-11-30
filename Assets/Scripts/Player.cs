@@ -55,6 +55,11 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        if (!isDodge && !isAttack && !isSkill1 && !isSkill2 && !isSkill3 && !isSkill4)
+        {
+            Move();
+        }
+
         GetInput();
 
         Dodge();
@@ -85,11 +90,6 @@ public class Player : MonoBehaviour
                 Vector3 nextVec = rayHit.point - transform.position;
                 nextVec.y = 0;
                 transform.LookAt(transform.position + nextVec);
-            }
-
-            foreach (Transform child in transform)
-            {
-                child.localRotation = Quaternion.identity;
             }
 
             // Enemy 스크립트의 isAttackable 변수 설정
@@ -194,10 +194,7 @@ public class Player : MonoBehaviour
     {
         StopToWall();
 
-        if (!isDodge && !isAttack && !isSkill1 && !isSkill2 && !isSkill3 && !isSkill4)
-        {
-            Move();
-        }
+        
     }
 
     void Dodge()
@@ -227,10 +224,6 @@ public class Player : MonoBehaviour
                 Invoke("DodgeOut", 0.7f);
             }
 
-            foreach (Transform child in transform)
-            {
-                child.localRotation = Quaternion.identity;
-            }
         }
     }
 
