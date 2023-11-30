@@ -2,13 +2,30 @@ using UnityEngine;
 
 public class CharP : MonoBehaviour
 {
-    public Transform player; // player 오브젝트의 Transform 컴포넌트를 Inspector 창에서 할당해주세요.
-    public Vector3 offset; // player와 character 사이의 거리를 설정합니다.
+    public Transform player;
+    public Vector3 positionOffset;
+    public Vector3 rotationOffset;
 
-    // Update is called once per frame
-    void Update()
+    private Vector3 currentRotation; // 현재 오일러 각도를 저장할 변수
+
+    // LateUpdate is called after all Update functions have been called.
+    void LateUpdate()
     {
-        // player 오브젝트의 현재 위치에 offset을 더하여 Character 오브젝트의 위치를 설정합니다.
-        transform.position = player.position + offset;
+        // 디버깅 정보 출력
+        Debug.Log($"Player Position: {player.position}");
+        Debug.Log($"Position Offset: {positionOffset}");
+
+        // 월드 좌표계로 변환된 오프셋을 사용하여 플레이어의 위치에 더합니다.
+        transform.position = player.TransformPoint(positionOffset);
+        Debug.Log($"New Position: {transform.position}");
+
+        // 플레이어를 바라보도록 회전을 조절
+        transform.LookAt(player.position);
+
+        // 오일러 각도를 저장하고 새로운 각도를 더한 후에 적용
+        currentRotation += rotationOffset;
+        transform.rotation *= Quaternion.Euler(currentRotation);
+
+        Debug.Log($"New Rotation: {transform.rotation.eulerAngles}");
     }
 }
