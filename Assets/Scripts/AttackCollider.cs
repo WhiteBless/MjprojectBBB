@@ -28,13 +28,13 @@ public class AttackCollider : MonoBehaviour
     public void A_Use()
     {
         StartCoroutine("AAA");
-        //StartCoroutine("AAAAA");
+        StartCoroutine("AAAAA");
     }
 
     public void A_NoUse()
     {
         StopCoroutine("AAA");
-        //StartCoroutine("AAAAA");
+        StopCoroutine("AAAAA");
     }
 
     public void Q_Use()
@@ -60,7 +60,6 @@ public class AttackCollider : MonoBehaviour
 
     IEnumerator AAA()
     {
-        yield return new WaitForSeconds(0.1f);
         swordArea.enabled = true;
 
         standoffArea_1.enabled = true;
@@ -71,11 +70,11 @@ public class AttackCollider : MonoBehaviour
         standoffArea_6.enabled = true;
         standoffArea_7.enabled = true;
 
-        Treak_Weapon.enabled = true;
+        /*Treak_Weapon.enabled = true;
 
         FX_Slash_R.enabled = true;
         R_Shash_FX.enabled = true;
-        R_Shash_FX001.enabled = true;
+        R_Shash_FX001.enabled = true;*/
 
         yield return new WaitForSeconds(0.45f);
         swordArea.enabled = false;
@@ -88,14 +87,14 @@ public class AttackCollider : MonoBehaviour
         standoffArea_6.enabled = false;
         standoffArea_7.enabled = false;
 
-        Treak_Weapon.enabled = false;
+        /*Treak_Weapon.enabled = false;
 
         FX_Slash_R.enabled = false;
         R_Shash_FX.enabled = false;
-        R_Shash_FX001.enabled = false;
+        R_Shash_FX001.enabled = false;*/
     }
 
-    /*IEnumerator AAAAA()
+    IEnumerator AAAAA()
     {
         yield return new WaitForSeconds(0.12f);
         Treak_Weapon.enabled = true;
@@ -110,12 +109,12 @@ public class AttackCollider : MonoBehaviour
         FX_Slash_R.enabled = false;
         R_Shash_FX.enabled = false;
         R_Shash_FX001.enabled = false;
-    }*/
+    }
 
 
     IEnumerator QQQ()
     {
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.001f);
         standoffArea_1.enabled = true;
         standoffArea_2.enabled = true;
         standoffArea_3.enabled = true;
@@ -140,7 +139,7 @@ public class AttackCollider : MonoBehaviour
 
     IEnumerator WWW()
     {
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.001f);
         swordArea.enabled = true;
 
         FX_Slash_R.enabled = true;

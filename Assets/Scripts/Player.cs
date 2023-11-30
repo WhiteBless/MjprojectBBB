@@ -115,6 +115,10 @@ public class Player : MonoBehaviour
                 Vector3 spawnPosition = new Vector3(hit.point.x, hit.point.y + 2f, hit.point.z);
                 // 프리팹을 생성하고 1초 후에 파괴
                 GameObject newPrefab = Instantiate(MouseMoveEffect, spawnPosition, Quaternion.identity);
+
+                // 회전 값을 변경합니다. x 값을 90으로 설정합니다.
+                newPrefab.transform.rotation = Quaternion.Euler(90f, 0f, 0f);
+
                 Destroy(newPrefab, 1.0f);
             }
         }
