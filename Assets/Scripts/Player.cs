@@ -210,6 +210,7 @@ public class Player : MonoBehaviour
             attack_Collider.R_Shash_FX001.enabled = false;
             attack_Collider.Treak_Weapon.enabled = false;
 
+
             SkillOut();
 
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);

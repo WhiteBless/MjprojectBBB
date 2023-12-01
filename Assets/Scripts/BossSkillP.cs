@@ -13,8 +13,10 @@ public class BossSkillP : MonoBehaviour
         Skill1,
         Skill2,
         Skill3,
-        Skill4
+        Skill4,
+        Skill5
     }
+
 
     public BoxCollider boxCollider;
     public CapsuleCollider JumpAttackRange;
@@ -22,6 +24,18 @@ public class BossSkillP : MonoBehaviour
     public GameObject Target;
     public Animator animator;
     public BossLookAt bossLookAt;
+
+    public ShotRazer shotRazer_1;
+    public ShotRazer shotRazer_2;
+    public ShotRazer shotRazer_3;
+    public ShotRazer shotRazer_4;
+    public ShotRazer shotRazer_5;
+    public ShotRazer shotRazer_6;
+    public ShotRazer shotRazer_7;
+    public ShotRazer shotRazer_8;
+
+    public GameObject razerMaker_1;
+    public GameObject razerMaker_2;
 
     void Awake()
     {
@@ -37,18 +51,22 @@ public class BossSkillP : MonoBehaviour
         {
             case BossSkill.Skill1:
                 //StartCoroutine(BossSkill1());
-                StartCoroutine(BossSkill3());
+                StartCoroutine(BossSkill1());
                 break;
             case BossSkill.Skill2:
                 //StartCoroutine(BossSkill2());
-                StartCoroutine(BossSkill3());
+                StartCoroutine(BossSkill2());
                 break;
             case BossSkill.Skill3:
                 StartCoroutine(BossSkill3());
                 break;
             case BossSkill.Skill4:
                 //StartCoroutine(BossSkill4());
-                StartCoroutine(BossSkill3());
+                StartCoroutine(BossSkill4());
+                break;
+            case BossSkill.Skill5:
+                //StartCoroutine(BossSkill4());
+                StartCoroutine(BossSkill5());
                 break;
         }
     }
@@ -95,6 +113,67 @@ public class BossSkillP : MonoBehaviour
         boxCollider.enabled = true;
     }
 
+    IEnumerator BossSkill4()
+    {
+        {
+            bossLookAt.isLook = false;
+
+            razerMaker_1.SetActive(true);
+
+            animator.SetTrigger("doRazer");
+
+            yield return new WaitForSeconds(3f);
+
+            shotRazer_1.UseRazer();
+            shotRazer_2.UseRazer();
+            shotRazer_3.UseRazer();
+            shotRazer_4.UseRazer();
+
+            yield return new WaitForSeconds(0.5f);
+
+            animator.SetTrigger("doRazerReturn");
+
+            yield return new WaitForSeconds(1f);
+
+            razerMaker_1.SetActive(false);
+
+            yield return new WaitForSeconds(10f);
+
+            bossLookAt.isLook = true;
+        }
+    }
+
+    IEnumerator BossSkill5()
+    {
+        {
+            bossLookAt.isLook = false;
+
+            razerMaker_2.SetActive(true);
+
+            animator.SetTrigger("doRazer");
+
+            yield return new WaitForSeconds(3f);
+
+            shotRazer_1.UseRazer();
+            shotRazer_2.UseRazer();
+            shotRazer_3.UseRazer();
+            shotRazer_4.UseRazer();
+
+            yield return new WaitForSeconds(0.5f);
+
+            animator.SetTrigger("doRazerReturn");
+
+            yield return new WaitForSeconds(1f);
+
+            razerMaker_2.SetActive(false);
+
+            yield return new WaitForSeconds(10f);
+
+            bossLookAt.isLook = true;
+        }
+    }
+
+
     IEnumerator JumpDuring(Vector3 startPosition, Vector3 jumpAttackVec, float duration)
     {
         float startTime = Time.time;
@@ -107,11 +186,5 @@ public class BossSkillP : MonoBehaviour
             yield return null;
         }
         transform.position = jumpAttackVec;
-    }
-
-    IEnumerator BossSkill4()
-    {
-        // Skill4의 로직을 여기에 작성
-        yield return null;
     }
 }

@@ -43,7 +43,7 @@ public class BossLookAt : MonoBehaviour
             bossSkillP.enabled = canUseSkills;
             if (canUseSkills)
             {
-                for (int i = 0; i < 4; i++)
+                for (int i = 0; i < 5; i++)
                 {
                     bossSkillP.UseSkill((BossSkillP.BossSkill)i);
                 }
