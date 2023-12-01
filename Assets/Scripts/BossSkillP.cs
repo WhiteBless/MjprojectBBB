@@ -16,7 +16,7 @@ public class BossSkillP : MonoBehaviour
         Skill4,
         Skill5
     }
-
+    public bool isSkillRunning = false; // 스킬 실행 여부
 
     public BoxCollider boxCollider;
     public CapsuleCollider JumpAttackRange;
@@ -37,54 +37,112 @@ public class BossSkillP : MonoBehaviour
     public GameObject razerMaker_1;
     public GameObject razerMaker_2;
 
+    public float skill1Cooldown = 0f; // 쿨타임 수정하는 곳
+    public float skill2Cooldown = 0f;
+    public float skill3Cooldown = 10f;
+    public float skill4Cooldown = 20f;
+    public float skill5Cooldown = 20f;
+
+    private const float baseCooldown = 5f;
+
+    // 쿨타임을 닳게 하는 부분과 실행되는 부분을 묶어서 AttRadyState가 true일 때만 실행하도록 수정
+    private bool AttRadyState = true;
+
     void Awake()
     {
         animator = GetComponentInChildren<Animator>();
         boxCollider = GetComponent<BoxCollider>();
     }
 
+    void Update()
+    {
+        // 스킬 쿨다운을 닳게 합니다. AttRadyState가 true일 때만 쿨다운이 작동합니다.
+        if (AttRadyState)
+        {
+            skill1Cooldown -= Time.deltaTime;
+            skill2Cooldown -= Time.deltaTime;
+            skill3Cooldown -= Time.deltaTime;
+            skill4Cooldown -= Time.deltaTime;
+            skill5Cooldown -= Time.deltaTime;
+        }
+    }
+
     public void UseSkill(BossSkill skill)
     {
-        //Debug.Log("Skill " + (int)skill + " is used.");
-
-        switch (skill)
+        // 스킬을 사용할 때 AttRadyState가 true일 경우에만 시전합니다.
+        if (AttRadyState)
         {
-            case BossSkill.Skill1:
-                //StartCoroutine(BossSkill1());
-                StartCoroutine(BossSkill1());
-                break;
-            case BossSkill.Skill2:
-                //StartCoroutine(BossSkill2());
-                StartCoroutine(BossSkill2());
-                break;
-            case BossSkill.Skill3:
-                StartCoroutine(BossSkill3());
-                break;
-            case BossSkill.Skill4:
-                //StartCoroutine(BossSkill4());
-                StartCoroutine(BossSkill4());
-                break;
-            case BossSkill.Skill5:
-                //StartCoroutine(BossSkill4());
-                StartCoroutine(BossSkill5());
-                break;
+            // 각 스킬의 쿨다운이 0 이하이고 AttRadyState가 true일 때만 스킬을 시전합니다.
+            switch (skill)
+            {
+                case BossSkill.Skill1:
+                    if (skill1Cooldown <= 0f)
+                    {
+                        StartCoroutine(BossSkill1());
+                        skill1Cooldown = baseCooldown;
+                    }
+                    break;
+                case BossSkill.Skill2:
+                    if (skill2Cooldown <= 0f)
+                    {
+                        StartCoroutine(BossSkill2());
+                        skill2Cooldown = baseCooldown;
+                    }
+                    break;
+                case BossSkill.Skill3:
+                    if (skill3Cooldown <= 0f)
+                    {
+                        StartCoroutine(BossSkill3());
+                        skill3Cooldown = baseCooldown;
+                    }
+                    break;
+                case BossSkill.Skill4:
+                    if (skill5Cooldown <= 0f)
+                    {
+                        StartCoroutine(BossSkill4());
+                        skill4Cooldown = baseCooldown;
+                    }
+                    break;
+                case BossSkill.Skill5:
+                    if (skill5Cooldown <= 0f)
+                    {
+                        StartCoroutine(BossSkill5());
+                        skill5Cooldown = baseCooldown;
+                    }
+                    break;
+            }
         }
     }
 
     IEnumerator BossSkill1()
     {
+        if (isSkillRunning)
+        {
+            yield break; // 다른 스킬이 실행 중인 경우, 현재 스킬 중단
+        }
         // Skill1의 로직을 여기에 작성
         yield return null;
     }
 
     IEnumerator BossSkill2()
     {
+        if (isSkillRunning)
+        {
+            yield break; // 다른 스킬이 실행 중인 경우, 현재 스킬 중단
+        }
         // Skill2의 로직을 여기에 작성
         yield return null;
     }
 
     IEnumerator BossSkill3()
     {
+        if (isSkillRunning)
+        {
+            yield break; // 다른 스킬이 실행 중인 경우, 현재 스킬 중단
+        }
+
+        isSkillRunning = true;
+
         Vector3 jumpStartPosition = transform.position;
         Vector3 jumpEndAttackVec = Target.transform.position;
         StartCoroutine(JumpDuring(jumpStartPosition, jumpEndAttackVec, 1.4f));
@@ -111,68 +169,87 @@ public class BossSkillP : MonoBehaviour
         bossLookAt.isLook = true;
 
         boxCollider.enabled = true;
+
+        isSkillRunning = false;
     }
 
     IEnumerator BossSkill4()
     {
+        if (isSkillRunning)
         {
-            bossLookAt.isLook = false;
-
-            razerMaker_1.SetActive(true);
-
-            animator.SetTrigger("doRazer");
-
-            yield return new WaitForSeconds(3f);
-
-            shotRazer_1.UseRazer();
-            shotRazer_2.UseRazer();
-            shotRazer_3.UseRazer();
-            shotRazer_4.UseRazer();
-
-            yield return new WaitForSeconds(0.5f);
-
-            animator.SetTrigger("doRazerReturn");
-
-            yield return new WaitForSeconds(1f);
-
-            razerMaker_1.SetActive(false);
-
-            yield return new WaitForSeconds(10f);
-
-            bossLookAt.isLook = true;
+            yield break; // 다른 스킬이 실행 중인 경우, 현재 스킬 중단
         }
+
+        isSkillRunning = true;
+
+        Vector3 bossPosition = transform.position; // 보스 위치 값을 저장
+
+        bossLookAt.isLook = false;
+
+        razerMaker_1.SetActive(true);
+
+        animator.SetTrigger("doRazer");
+
+        yield return new WaitForSeconds(3f);
+
+        shotRazer_1.UseRazer();
+        shotRazer_2.UseRazer();
+        shotRazer_3.UseRazer();
+        shotRazer_4.UseRazer();
+
+        yield return new WaitForSeconds(0.5f);
+
+        animator.SetTrigger("doRazerReturn");
+
+        yield return new WaitForSeconds(1f);
+
+        razerMaker_1.SetActive(false);
+
+        yield return new WaitForSeconds(10f);
+
+        bossLookAt.isLook = true;
+
+        isSkillRunning = false;
     }
 
     IEnumerator BossSkill5()
     {
+        if (isSkillRunning)
         {
-            bossLookAt.isLook = false;
-
-            razerMaker_2.SetActive(true);
-
-            animator.SetTrigger("doRazer");
-
-            yield return new WaitForSeconds(3f);
-
-            shotRazer_1.UseRazer();
-            shotRazer_2.UseRazer();
-            shotRazer_3.UseRazer();
-            shotRazer_4.UseRazer();
-
-            yield return new WaitForSeconds(0.5f);
-
-            animator.SetTrigger("doRazerReturn");
-
-            yield return new WaitForSeconds(1f);
-
-            razerMaker_2.SetActive(false);
-
-            yield return new WaitForSeconds(10f);
-
-            bossLookAt.isLook = true;
+            yield break; // 다른 스킬이 실행 중인 경우, 현재 스킬 중단
         }
-    }
 
+        isSkillRunning = true;
+
+        Vector3 bossPosition = transform.position; // 보스 위치 값을 저장
+
+        bossLookAt.isLook = false;
+
+        razerMaker_2.SetActive(true);
+
+        animator.SetTrigger("doRazer");
+
+        yield return new WaitForSeconds(3f);
+
+        shotRazer_1.UseRazer();
+        shotRazer_2.UseRazer();
+        shotRazer_3.UseRazer();
+        shotRazer_4.UseRazer();
+
+        yield return new WaitForSeconds(0.5f);
+
+        animator.SetTrigger("doRazerReturn");
+
+        yield return new WaitForSeconds(1f);
+
+        razerMaker_2.SetActive(false);
+
+        yield return new WaitForSeconds(10f);
+
+        bossLookAt.isLook = true;
+
+        isSkillRunning = false;
+    }
 
     IEnumerator JumpDuring(Vector3 startPosition, Vector3 jumpAttackVec, float duration)
     {

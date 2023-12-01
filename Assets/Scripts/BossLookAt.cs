@@ -40,13 +40,17 @@ public class BossLookAt : MonoBehaviour
                 audioSource.Play();
             }
 
-            bossSkillP.enabled = canUseSkills;
             if (canUseSkills)
             {
+                bossSkillP.enabled = true; // 스킬 사용 가능할 때 BossSkillP 스크립트 활성화
                 for (int i = 0; i < 5; i++)
                 {
                     bossSkillP.UseSkill((BossSkillP.BossSkill)i);
                 }
+            }
+            else
+            {
+                bossSkillP.enabled = false; // 스킬 사용 불가능할 때 BossSkillP 스크립트 비활성화
             }
         }
         else if (audioSource.isPlaying)
@@ -55,11 +59,19 @@ public class BossLookAt : MonoBehaviour
         }
     }
 
-    void OnTriggerEnter(Collider other)
+    void OnTriggerStay(Collider other)
     {
         if (other.gameObject == player)
         {
             canUseSkills = true;
+        }
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject == player)
+        {
+            canUseSkills = false;
         }
     }
 }

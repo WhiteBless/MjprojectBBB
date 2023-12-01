@@ -25,7 +25,7 @@ public class BossAnimator : MonoBehaviour
     public void ResetAnimation()
     {
         // 애니메이션 파라미터 초기화
-        animator.SetBool("doLookPlayer", false);
+        animator.SetBool("doIdle", true);
 
     }
 
@@ -35,8 +35,6 @@ public class BossAnimator : MonoBehaviour
         // 애니메이션 파라미터 설정
         animator.SetBool("doLookPlayer", true);
 
-        // 'doLookPlayer' 애니메이션 클립을 처음부터 재생
-        animator.Play("doLookPlayer", -1, 0f);
     }
 
     // Update is called once per frame
