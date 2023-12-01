@@ -15,7 +15,7 @@ public class BossAttRange : MonoBehaviour
     // 플레이어가 공격 범위 안에 들어왔을 때
     void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.CompareTag("Player")) // 충돌한 오브젝트의 태그가 Player라면
+        if (other.gameObject.CompareTag("P")) // 충돌한 오브젝트의 태그가 P라면
         {
             bossAnimator.AttRadyState = true; // AttRadyState를 true로 설정
         }
@@ -24,7 +24,7 @@ public class BossAttRange : MonoBehaviour
     // 플레이어가 공격 범위를 벗어났을 때
     void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.CompareTag("Player")) // 충돌한 오브젝트의 태그가 Player라면
+        if (other.gameObject.CompareTag("P")) // 충돌한 오브젝트의 태그가 Player라면
         {
             bossAnimator.AttRadyState = false; // AttRadyState를 false로 설정
         }

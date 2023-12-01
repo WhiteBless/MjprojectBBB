@@ -34,6 +34,9 @@ public class HPtest : MonoBehaviour
                 mesh.material.color = Color.red;
 
             StartCoroutine(ResetColorAfterDelay(0.5f));
+
+            if (curHealth < 0) 
+                curHealth = 0; // curHealth 값을 0으로 고정
         }
     }
 
@@ -47,4 +50,6 @@ public class HPtest : MonoBehaviour
                 mesh.material.color = Color.white;
         }
     }
+
+
 }
