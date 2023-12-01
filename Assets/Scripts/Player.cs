@@ -205,6 +205,11 @@ public class Player : MonoBehaviour
             animator.SetTrigger("doDodge");
             isDodge = true;
 
+            attack_Collider.FX_Slash_R.enabled = false;
+            attack_Collider.R_Shash_FX.enabled = false;
+            attack_Collider.R_Shash_FX001.enabled = false;
+            attack_Collider.Treak_Weapon.enabled = false;
+
             SkillOut();
 
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);

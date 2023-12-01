@@ -14,6 +14,8 @@ public class BossLookAt : MonoBehaviour
     public bool canUseSkills = false; // 스킬 사용 가능 여부를 결정하는 변수
     public bool isLook = true; // 보스가 플레이어를 바라보는지 여부를 결정하는 변수
 
+    public Vector3 direction;
+
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player"); // Player 태그를 가진 오브젝트를 찾아서 player 변수에 할당
@@ -28,7 +30,7 @@ public class BossLookAt : MonoBehaviour
     {
         if (player != null && bossAnimator.AttRadyState && isLook)
         {
-            Vector3 direction = player.transform.position - transform.position;
+            direction = player.transform.position - transform.position;
             Quaternion rotation = Quaternion.LookRotation(direction);
             transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * 2);
 
