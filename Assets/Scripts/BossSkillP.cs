@@ -20,7 +20,9 @@ public class BossSkillP : MonoBehaviour
 
     public BossAnimator bossAnimator;
     public GameObject JumpEffect;
+
     public GameObject SpiritEffect;
+    public GameObject SpiritEffectPrefab; // SpiritEffect 프리팹 변수 선언
 
     public BoxCollider boxCollider;
     public CapsuleCollider JumpAttackRange;
@@ -121,6 +123,8 @@ public class BossSkillP : MonoBehaviour
         }
     }
 
+    
+
     IEnumerator BossSkill1()
     {
         if (isSkillRunning)
@@ -129,19 +133,35 @@ public class BossSkillP : MonoBehaviour
         }
 
         Vector3 bossPosition = transform.position; // 보스 위치 값을 저장
-        // Skill1의 로직을 여기에 작성
+
         bossLookAt.isLook = false;
 
         animator.SetTrigger("doSpirit");
 
         yield return new WaitForSeconds(1f);
-        //effect
-        //
-        SpiritEffect.SetActive(true);
 
+        // Slash 태그를 가진 오브젝트를 찾습니다.
+        GameObject[] slashObjects = GameObject.FindGameObjectsWithTag("Slash");
+
+        foreach (GameObject slashObject in slashObjects)
+        {
+            // Slash 태그를 가진 오브젝트의 방향을 설정합니다.
+            slashObject.transform.rotation = Quaternion.LookRotation(transform.forward);
+            // SpiritEffect 프리팹을 인스턴스화하여 오브젝트를 생성합니다.
+            GameObject effect = Instantiate(SpiritEffectPrefab, slashObject.transform.position, slashObject.transform.rotation);
+            // 이펙트를 실행합니다.
+            effect.SetActive(true);
+        }
 
         yield return new WaitForSeconds(5f);
-        SpiritEffect.SetActive(false);
+
+        // Slash 태그를 가진 오브젝트의 이펙트를 종료합니다.
+        foreach (GameObject slashObject in slashObjects)
+        {
+            GameObject effect = slashObject.transform.Find("SpiritEffect(Clone)").gameObject;
+            effect.SetActive(false);
+        }
+
         bossLookAt.isLook = true;
     }
 
