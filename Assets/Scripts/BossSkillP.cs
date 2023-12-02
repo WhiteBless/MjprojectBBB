@@ -8,23 +8,15 @@ using GSpawn;
 
 public class BossSkillP : MonoBehaviour
 {
-    public enum BossSkill
-    {
-        Skill1,
-        Skill2,
-        Skill3,
-        Skill4,
-        Skill5
-    }
-    public bool isSkillRunning = false; // 스킬 실행 여부
-
     public BossAnimator bossAnimator;
-    public GameObject JumpEffect;
 
     public GameObject SpiritEffect;
-    public GameObject SpiritEffectPrefab; // SpiritEffect 프리팹 변수 선언
+    public GameObject JumpEffect;
 
-    public BoxCollider boxCollider;
+    //public GameObject SpiritEffect;
+    //public GameObject SpiritEffectPrefab; // SpiritEffect 프리팹 변수 선언
+
+    public BoxCollider boxCollider; //보스 히트 범위
     public CapsuleCollider JumpAttackRange;
 
     public GameObject Target;
@@ -40,21 +32,14 @@ public class BossSkillP : MonoBehaviour
     public ShotRazer shotRazer_7;
     public ShotRazer shotRazer_8;
 
+    public Transform SpiritPos;
+
     Transform bossPos;
 
     public GameObject razerMaker_1;
     public GameObject razerMaker_2;
 
-    public float skill1Cooldown = 1000f; // 쿨타임 수정하는 곳
-    public float skill2Cooldown = 1000f;
-    public float skill3Cooldown = 5;
-    public float skill4Cooldown = 10f;
-    public float skill5Cooldown = 10f;
-
-    private const float baseCooldown = 5f;
-
-    // 쿨타임을 닳게 하는 부분과 실행되는 부분을 묶어서 AttRadyState가 true일 때만 실행하도록 수정
-    private bool AttRadyState = true;
+    public bool isDead = false;
 
     void Awake()
     {
@@ -63,75 +48,91 @@ public class BossSkillP : MonoBehaviour
         bossPos = GetComponent<Transform>();
     }
 
+    void Start()
+    {
+        StartCoroutine(Think());
+    }
+
     void Update()
     {
-        // 스킬 쿨다운을 닳게 합니다. AttRadyState가 true일 때만 쿨다운이 작동합니다.
-        if (AttRadyState)
+        if (isDead)
         {
-            skill1Cooldown -= Time.deltaTime;
-            skill2Cooldown -= Time.deltaTime;
-            skill3Cooldown -= Time.deltaTime;
-            skill4Cooldown -= Time.deltaTime;
-            skill5Cooldown -= Time.deltaTime;
+            StopAllCoroutines();
+            return;
         }
     }
 
-    public void UseSkill(BossSkill skill)
+    public void BossThink()
     {
-        // 스킬을 사용할 때 AttRadyState가 true일 경우에만 시전합니다.
-        if (AttRadyState)
-        {
-            // 각 스킬의 쿨다운이 0 이하이고 AttRadyState가 true일 때만 스킬을 시전합니다.
-            switch (skill)
-            {
-                case BossSkill.Skill1:
-                    if (skill1Cooldown <= 0f)
-                    {
-                        StartCoroutine(BossSkill1());
-                        skill1Cooldown = baseCooldown;
-                    }
-                    break;
-                case BossSkill.Skill2:
-                    if (skill2Cooldown <= 0f)
-                    {
-                        StartCoroutine(BossSkill2());
-                        skill2Cooldown = baseCooldown;
-                    }
-                    break;
-                case BossSkill.Skill3:
-                    if (skill3Cooldown <= 0f)
-                    {
-                        StartCoroutine(BossSkill3());
-                        skill3Cooldown = baseCooldown;
-                    }
-                    break;
-                case BossSkill.Skill4:
-                    if (skill5Cooldown <= 0f)
-                    {
-                        StartCoroutine(BossSkill4());
-                        skill4Cooldown = baseCooldown;
-                    }
-                    break;
-                case BossSkill.Skill5:
-                    if (skill5Cooldown <= 0f)
-                    {
-                        StartCoroutine(BossSkill5());
-                        skill5Cooldown = baseCooldown;
-                    }
-                    break;
-            }
-        }
+        StartCoroutine(Think());
     }
 
-    
+    IEnumerator Think()
+    {
+        yield return new WaitForSeconds(0.1f);
+
+        int ranAction = Random.Range(0, 5);
+
+        switch (ranAction)
+        {
+            case 0:
+                //검기 패턴
+                StartCoroutine(BossSkill1());
+                break;
+
+            case 1:
+                //3번 연속 내려찍기 패턴
+                StartCoroutine(BossSkill1());
+                break;
+
+            case 2:
+                //점프 공격 패턴
+                StartCoroutine(BossSkill1());
+                break;
+
+            case 3:
+                //레이저 공격(꼭지점) 패턴
+                StartCoroutine(BossSkill1());
+                break;
+
+            case 4:
+                //레이저 공격(모서리) 패턴
+                StartCoroutine(BossSkill1());
+                break;
+        }
+    }
 
     IEnumerator BossSkill1()
     {
-        if (isSkillRunning)
-        {
-            yield break; // 다른 스킬이 실행 중인 경우, 현재 스킬 중단
-        }
+        bossLookAt.isLook = false;
+        animator.SetTrigger("doSpirit");
 
+        yield return new WaitForSeconds(1f);
+
+        GameObject SpiritEffectPrf = Instantiate(SpiritEffect, SpiritPos.position, Quaternion.identity);
+
+        float scaleSpeed = 1f;
+
+        Vector3 currentScale = SpiritEffectPrf.transform.localScale;
+        Vector3 targetScale = new Vector3(3f, 3f, 3f);
+
+        currentScale = Vector3.Lerp(currentScale, targetScale, scaleSpeed * Time.deltaTime);
+
+        SpiritEffectPrf.transform.localScale = currentScale;
+
+        yield return new WaitForSeconds(3f);
+
+        Rigidbody SpiritEffect_1 = SpiritEffectPrf.GetComponent<Rigidbody>();
+        SpiritEffect_1.velocity = SpiritPos.forward * 20000;
+
+        yield return new WaitForSeconds(5f);
+
+        bossLookAt.isLook = true;
+        StartCoroutine(Think());
+    }
+
+    /*IEnumerator BossSkill1()
+    {
         Vector3 bossPosition = transform.position; // 보스 위치 값을 저장
 
         bossLookAt.isLook = false;
@@ -163,29 +164,15 @@ public class BossSkillP : MonoBehaviour
         }
 
         bossLookAt.isLook = true;
-    }
+    }*/
 
     IEnumerator BossSkill2()
     {
-        if (isSkillRunning)
-        {
-            yield break; // 다른 스킬이 실행 중인 경우, 현재 스킬 중단
-        }
-        // Skill2의 로직을 여기에 작성
         yield return null;
     }
 
     IEnumerator BossSkill3()
-    {
-        if (isSkillRunning)
-        {
-            yield break; // 다른 스킬이 실행 중인 경우, 현재 스킬 중단
-        }
-
-        isSkillRunning = true;
-
-        
-
+    {  
         Vector3 jumpStartPosition = transform.position;
         Vector3 targetDirection = Target.transform.position - transform.position;
 
@@ -200,10 +187,8 @@ public class BossSkillP : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
 
         JumpAttackRange.enabled = true;
-
         Vector3 bossForward = bossPos.position + bossPos.forward * 5.0f;
         GameObject newPrefab = Instantiate(JumpEffect, bossForward, Quaternion.identity);
-
         Destroy(newPrefab, 1.0f);
 
         yield return new WaitForSeconds(2f);
@@ -221,20 +206,12 @@ public class BossSkillP : MonoBehaviour
         yield return new WaitForSeconds(10f);
 
         bossLookAt.isLook = true;
-
         boxCollider.enabled = true;
-        isSkillRunning = false;
+        StartCoroutine(Think());
     }
 
     IEnumerator BossSkill4()
     {
-        if (isSkillRunning)
-        {
-            yield break; // 다른 스킬이 실행 중인 경우, 현재 스킬 중단
-        }
-
-        isSkillRunning = true;
-
         Vector3 bossPosition = transform.position; // 보스 위치 값을 저장
 
         bossLookAt.isLook = false;
@@ -261,19 +238,11 @@ public class BossSkillP : MonoBehaviour
         yield return new WaitForSeconds(10f);
 
         bossLookAt.isLook = true;
-
-        isSkillRunning = false;
+        StartCoroutine(Think());
     }
 
     IEnumerator BossSkill5()
     {
-        if (isSkillRunning)
-        {
-            yield break; // 다른 스킬이 실행 중인 경우, 현재 스킬 중단
-        }
-
-        isSkillRunning = true;
-
         Vector3 bossPosition = transform.position; // 보스 위치 값을 저장
 
         bossLookAt.isLook = false;
@@ -300,8 +269,7 @@ public class BossSkillP : MonoBehaviour
         yield return new WaitForSeconds(10f);
 
         bossLookAt.isLook = true;
-
-        isSkillRunning = false;
+        StartCoroutine(Think());
     }
 
     IEnumerator JumpDuring(Vector3 startPosition, Vector3 jumpAttackVec, float duration)

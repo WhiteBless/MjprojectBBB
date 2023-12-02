@@ -44,10 +44,7 @@ public class BossLookAt : MonoBehaviour
             if (canUseSkills)
             {
                 bossSkillP.enabled = true; // 스킬 사용 가능할 때 BossSkillP 스크립트 활성화
-                for (int i = 0; i < 5; i++)
-                {
-                    bossSkillP.UseSkill((BossSkillP.BossSkill)i);
-                }
+ 
             }
             else
             {
@@ -60,6 +57,14 @@ public class BossLookAt : MonoBehaviour
         }
     }
 
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Weapon")
+        {
+            canUseSkills = true;
+        }
+    }
+    /*
     void OnTriggerStay(Collider other)
     {
         if (other.gameObject == player)
@@ -76,10 +81,5 @@ public class BossLookAt : MonoBehaviour
 
             Invoke("OffDamaged", 3);
         }
-    }
-
-    void OffDamaged()
-    {
-        gameObject.layer = 10;
-    }
+    }*/
 }
