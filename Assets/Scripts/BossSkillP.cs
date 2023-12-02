@@ -18,6 +18,10 @@ public class BossSkillP : MonoBehaviour
     }
     public bool isSkillRunning = false; // 스킬 실행 여부
 
+    public BossAnimator bossAnimator;
+    public GameObject JumpEffect;
+    public GameObject SpiritEffect;
+
     public BoxCollider boxCollider;
     public CapsuleCollider JumpAttackRange;
 
@@ -37,11 +41,11 @@ public class BossSkillP : MonoBehaviour
     public GameObject razerMaker_1;
     public GameObject razerMaker_2;
 
-    public float skill1Cooldown = 0f; // 쿨타임 수정하는 곳
-    public float skill2Cooldown = 0f;
-    public float skill3Cooldown = 10f;
-    public float skill4Cooldown = 20f;
-    public float skill5Cooldown = 20f;
+    public float skill1Cooldown = 1000f; // 쿨타임 수정하는 곳
+    public float skill2Cooldown = 1000f;
+    public float skill3Cooldown = 5;
+    public float skill4Cooldown = 10f;
+    public float skill5Cooldown = 10f;
 
     private const float baseCooldown = 5f;
 
@@ -120,8 +124,22 @@ public class BossSkillP : MonoBehaviour
         {
             yield break; // 다른 스킬이 실행 중인 경우, 현재 스킬 중단
         }
+
+        Vector3 bossPosition = transform.position; // 보스 위치 값을 저장
         // Skill1의 로직을 여기에 작성
-        yield return null;
+        bossLookAt.isLook = false;
+
+        animator.SetTrigger("doSpirit");
+
+        yield return new WaitForSeconds(1f);
+        //effect
+        //
+        SpiritEffect.SetActive(true);
+
+
+        yield return new WaitForSeconds(5f);
+        SpiritEffect.SetActive(false);
+        bossLookAt.isLook = true;
     }
 
     IEnumerator BossSkill2()
@@ -151,6 +169,7 @@ public class BossSkillP : MonoBehaviour
         boxCollider.enabled = false;
 
         animator.SetTrigger("doJumpAttack");
+        JumpEffect.SetActive(true);
 
         yield return new WaitForSeconds(3f);
 
@@ -169,7 +188,7 @@ public class BossSkillP : MonoBehaviour
         bossLookAt.isLook = true;
 
         boxCollider.enabled = true;
-
+        JumpEffect.SetActive(false);
         isSkillRunning = false;
     }
 

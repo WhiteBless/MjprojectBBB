@@ -81,6 +81,8 @@ public class Player : MonoBehaviour
             isSkill4 = false;
         }
 
+
+
         if (Input.GetMouseButtonDown(0) || skill1 || skill2 || skill3 || skill4)
         {
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);
