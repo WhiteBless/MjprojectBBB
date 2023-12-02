@@ -29,6 +29,8 @@ public class Player : MonoBehaviour
 
     bool isBorder;
 
+    bool isHit = false;
+
     private Vector3 movement;
 
     public Skill skillManager1;
@@ -439,13 +441,18 @@ public class Player : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "EnemyAttack")
+        if(other.tag == "EnemyAttack" && !isHit)
         {
             gameManager.HealthDown();
 
-            gameObject.layer = 11;
+            isHit = true;
+
+            Invoke("ResetCollision", 3f);
         }
     }
 
-    
+    void ResetCollision()
+    {
+        isHit = false;
+    }
 }

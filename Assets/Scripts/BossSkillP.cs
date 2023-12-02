@@ -12,6 +12,7 @@ public class BossSkillP : MonoBehaviour
 
     public GameObject SpiritEffect;
     public GameObject JumpEffect;
+    public GameObject DownAttackRange;
 
     //public GameObject SpiritEffect;
     //public GameObject SpiritEffectPrefab; // SpiritEffect 프리팹 변수 선언
@@ -33,6 +34,7 @@ public class BossSkillP : MonoBehaviour
     public ShotRazer shotRazer_8;
 
     public Transform SpiritPos;
+    public Transform JumpPos;
 
     Transform bossPos;
 
@@ -82,52 +84,49 @@ public class BossSkillP : MonoBehaviour
 
             case 1:
                 //3번 연속 내려찍기 패턴
-                StartCoroutine(BossSkill1());
+                StartCoroutine(BossSkill2());
                 break;
 
             case 2:
                 //점프 공격 패턴
-                StartCoroutine(BossSkill1());
+                StartCoroutine(BossSkill3());
                 break;
 
             case 3:
                 //레이저 공격(꼭지점) 패턴
-                StartCoroutine(BossSkill1());
+                StartCoroutine(BossSkill4());
                 break;
 
             case 4:
                 //레이저 공격(모서리) 패턴
-                StartCoroutine(BossSkill1());
+                StartCoroutine(BossSkill5());
                 break;
         }
     }
 
     IEnumerator BossSkill1()
     {
-        bossLookAt.isLook = false;
         animator.SetTrigger("doSpirit");
+        bossLookAt.isLook = false;
 
         yield return new WaitForSeconds(1f);
 
+        Vector3 targetDirection = Target.transform.position - SpiritPos.position;
+
         GameObject SpiritEffectPrf = Instantiate(SpiritEffect, SpiritPos.position, Quaternion.identity);
 
-        float scaleSpeed = 1f;
+        SpiritEffectPrf.transform.forward = targetDirection;
 
-        Vector3 currentScale = SpiritEffectPrf.transform.localScale;
-        Vector3 targetScale = new Vector3(3f, 3f, 3f);
-
-        currentScale = Vector3.Lerp(currentScale, targetScale, scaleSpeed * Time.deltaTime);
-
-        SpiritEffectPrf.transform.localScale = currentScale;
-
-        yield return new WaitForSeconds(3f);
+        //SpiritEffectPrf.transform.rotation = Quaternion.Euler(SpiritEffectPrf.transform.rotation.x, SpiritEffectPrf.transform.rotation.y, 90);
+  
+        yield return new WaitForSeconds(2f);
 
         Rigidbody SpiritEffect_1 = SpiritEffectPrf.GetComponent<Rigidbody>();
-        SpiritEffect_1.velocity = SpiritPos.forward * 20000;
-
-        yield return new WaitForSeconds(5f);
+        SpiritEffect_1.velocity = targetDirection * 5;
 
         bossLookAt.isLook = true;
+        yield return new WaitForSeconds(5f);
+
         StartCoroutine(Think());
     }
 
@@ -168,7 +167,170 @@ public class BossSkillP : MonoBehaviour
 
     IEnumerator BossSkill2()
     {
-        yield return null;
+        animator.SetTrigger("doDownAttack");
+
+        yield return new WaitForSeconds(1.3f);
+
+        bossLookAt.isLook = false;
+        Vector3 targetDirection_1 = Target.transform.position - JumpPos.position;
+
+        yield return new WaitForSeconds(0.3f);
+
+        
+        GameObject DownAttackRange_1 = Instantiate(DownAttackRange, JumpPos.position, Quaternion.identity);
+        Destroy(DownAttackRange_1, 10.0f);
+        DownAttackRange_1.transform.forward = targetDirection_1;
+        Vector3 currentEulerAngles_1 = DownAttackRange_1.transform.rotation.eulerAngles;
+        DownAttackRange_1.transform.rotation = Quaternion.Euler(currentEulerAngles_1.x, currentEulerAngles_1.y -90, 0);
+
+        yield return new WaitForSeconds(0.1f);
+
+        bossLookAt.isLook = true;
+
+        yield return new WaitForSeconds(1.2f);
+
+        bossLookAt.isLook = false;
+        Vector3 targetDirection_2 = Target.transform.position - JumpPos.position;
+
+        yield return new WaitForSeconds(0.3f);
+
+        
+        GameObject DownAttackRange_2 = Instantiate(DownAttackRange, JumpPos.position, Quaternion.identity);
+        Destroy(DownAttackRange_2, 10.0f);
+        DownAttackRange_2.transform.forward = targetDirection_2;
+        Vector3 currentEulerAngles_2 = DownAttackRange_2.transform.rotation.eulerAngles;
+        DownAttackRange_2.transform.rotation = Quaternion.Euler(currentEulerAngles_2.x, currentEulerAngles_2.y - 90, 0);
+
+        yield return new WaitForSeconds(0.1f);
+
+        bossLookAt.isLook = true;
+
+        yield return new WaitForSeconds(1.2f);
+
+        bossLookAt.isLook = false;
+        Vector3 targetDirection_3 = Target.transform.position - JumpPos.position;
+
+        yield return new WaitForSeconds(0.3f);
+
+        GameObject DownAttackRange_3 = Instantiate(DownAttackRange, JumpPos.position, Quaternion.identity);
+        Destroy(DownAttackRange_3, 10.0f);
+        DownAttackRange_3.transform.forward = targetDirection_3;
+        Vector3 currentEulerAngles_3 = DownAttackRange_3.transform.rotation.eulerAngles;
+        DownAttackRange_3.transform.rotation = Quaternion.Euler(currentEulerAngles_3.x, currentEulerAngles_3.y - 90, 0);
+
+        yield return new WaitForSeconds(1f);
+
+        bossLookAt.isLook = true;
+        animator.SetTrigger("doDownAttack");
+
+        yield return new WaitForSeconds(1.3f);
+
+        bossLookAt.isLook = false;
+        Vector3 targetDirection_4 = Target.transform.position - JumpPos.position;
+
+        yield return new WaitForSeconds(0.3f);
+     
+        GameObject DownAttackRange_4 = Instantiate(DownAttackRange, JumpPos.position, Quaternion.identity);
+        Destroy(DownAttackRange_4, 10.0f);
+        DownAttackRange_4.transform.forward = targetDirection_4;
+        Vector3 currentEulerAngles_4 = DownAttackRange_4.transform.rotation.eulerAngles;
+        DownAttackRange_4.transform.rotation = Quaternion.Euler(currentEulerAngles_4.x, currentEulerAngles_4.y - 90, 0);
+
+        yield return new WaitForSeconds(0.1f);
+
+        bossLookAt.isLook = true;
+
+        yield return new WaitForSeconds(1.2f);
+
+        bossLookAt.isLook = false;
+        Vector3 targetDirection_5 = Target.transform.position - JumpPos.position;
+
+        yield return new WaitForSeconds(0.3f);
+
+        
+        GameObject DownAttackRange_5 = Instantiate(DownAttackRange, JumpPos.position, Quaternion.identity);
+        Destroy(DownAttackRange_5, 10.0f);
+        DownAttackRange_5.transform.forward = targetDirection_5;
+        Vector3 currentEulerAngles_5 = DownAttackRange_5.transform.rotation.eulerAngles;
+        DownAttackRange_5.transform.rotation = Quaternion.Euler(currentEulerAngles_5.x, currentEulerAngles_5.y - 90, 0);
+
+        yield return new WaitForSeconds(0.1f);
+
+        bossLookAt.isLook = true;
+
+        yield return new WaitForSeconds(1.2f);
+
+        bossLookAt.isLook = false;
+        Vector3 targetDirection_6 = Target.transform.position - JumpPos.position;
+
+        yield return new WaitForSeconds(0.3f);
+     
+        GameObject DownAttackRange_6 = Instantiate(DownAttackRange, JumpPos.position, Quaternion.identity);
+        Destroy(DownAttackRange_6, 10.0f);
+        DownAttackRange_6.transform.forward = targetDirection_6;
+        Vector3 currentEulerAngles_6 = DownAttackRange_6.transform.rotation.eulerAngles;
+        DownAttackRange_6.transform.rotation = Quaternion.Euler(currentEulerAngles_6.x, currentEulerAngles_6.y - 90, 0);
+
+        yield return new WaitForSeconds(1f);
+
+        bossLookAt.isLook = true;
+        animator.SetTrigger("doDownAttack");
+
+        yield return new WaitForSeconds(1.3f);
+
+        bossLookAt.isLook = false;
+        Vector3 targetDirection_7 = Target.transform.position - JumpPos.position;
+
+        yield return new WaitForSeconds(0.3f);
+      
+        GameObject DownAttackRange_7 = Instantiate(DownAttackRange, JumpPos.position, Quaternion.identity);
+        Destroy(DownAttackRange_7, 10.0f);
+        DownAttackRange_7.transform.forward = targetDirection_7;
+        Vector3 currentEulerAngles_7 = DownAttackRange_7.transform.rotation.eulerAngles;
+        DownAttackRange_7.transform.rotation = Quaternion.Euler(currentEulerAngles_7.x, currentEulerAngles_7.y - 90, 0);
+
+        yield return new WaitForSeconds(0.1f);
+
+        bossLookAt.isLook = true;
+
+        yield return new WaitForSeconds(1.2f);
+
+        bossLookAt.isLook = false;
+        Vector3 targetDirection_8 = Target.transform.position - JumpPos.position;
+
+        yield return new WaitForSeconds(0.3f);
+ 
+        GameObject DownAttackRange_8 = Instantiate(DownAttackRange, JumpPos.position, Quaternion.identity);
+        Destroy(DownAttackRange_8, 10.0f);
+        DownAttackRange_8.transform.forward = targetDirection_8;
+        Vector3 currentEulerAngles_8 = DownAttackRange_8.transform.rotation.eulerAngles;
+        DownAttackRange_8.transform.rotation = Quaternion.Euler(currentEulerAngles_8.x, currentEulerAngles_8.y - 90, 0);
+
+        yield return new WaitForSeconds(0.1f);
+
+        bossLookAt.isLook = true;
+
+        yield return new WaitForSeconds(1.2f);
+
+        bossLookAt.isLook = false;
+        Vector3 targetDirection_9 = Target.transform.position - JumpPos.position;
+
+        yield return new WaitForSeconds(0.3f);
+ 
+        GameObject DownAttackRange_9 = Instantiate(DownAttackRange, JumpPos.position, Quaternion.identity);
+        Destroy(DownAttackRange_9, 10.0f);
+        DownAttackRange_9.transform.forward = targetDirection_9;
+        Vector3 currentEulerAngles_9 = DownAttackRange_9.transform.rotation.eulerAngles;
+        DownAttackRange_9.transform.rotation = Quaternion.Euler(currentEulerAngles_9.x, currentEulerAngles_9.y - 90, 0);
+
+        yield return new WaitForSeconds(0.1f);
+
+        bossLookAt.isLook = true;
+
+        yield return new WaitForSeconds(5f);
+
+        bossLookAt.isLook = true;
+        StartCoroutine(Think());
     }
 
     IEnumerator BossSkill3()
@@ -184,7 +346,7 @@ public class BossSkillP : MonoBehaviour
 
         animator.SetTrigger("doJumpAttack");
 
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1.2f);
 
         JumpAttackRange.enabled = true;
         Vector3 bossForward = bossPos.position + bossPos.forward * 5.0f;
@@ -192,7 +354,6 @@ public class BossSkillP : MonoBehaviour
         Destroy(newPrefab, 1.0f);
 
         yield return new WaitForSeconds(2f);
-
         
         boxCollider.enabled = true;
         animator.SetTrigger("doReturn");
@@ -203,10 +364,12 @@ public class BossSkillP : MonoBehaviour
         JumpAttackRange.enabled = false;
         boxCollider.enabled = false;
 
-        yield return new WaitForSeconds(10f);
+        yield return new WaitForSeconds(1f);
 
         bossLookAt.isLook = true;
         boxCollider.enabled = true;
+
+        yield return new WaitForSeconds(5f);
         StartCoroutine(Think());
     }
 
@@ -234,10 +397,10 @@ public class BossSkillP : MonoBehaviour
         yield return new WaitForSeconds(1f);
 
         razerMaker_1.SetActive(false);
-
-        yield return new WaitForSeconds(10f);
-
         bossLookAt.isLook = true;
+
+        yield return new WaitForSeconds(5f);
+ 
         StartCoroutine(Think());
     }
 
@@ -253,10 +416,10 @@ public class BossSkillP : MonoBehaviour
 
         yield return new WaitForSeconds(3f);
 
-        shotRazer_1.UseRazer();
-        shotRazer_2.UseRazer();
-        shotRazer_3.UseRazer();
-        shotRazer_4.UseRazer();
+        shotRazer_5.UseRazer();
+        shotRazer_6.UseRazer();
+        shotRazer_7.UseRazer();
+        shotRazer_8.UseRazer();
 
         yield return new WaitForSeconds(0.5f);
 
@@ -265,10 +428,10 @@ public class BossSkillP : MonoBehaviour
         yield return new WaitForSeconds(1f);
 
         razerMaker_2.SetActive(false);
-
-        yield return new WaitForSeconds(10f);
-
         bossLookAt.isLook = true;
+
+        yield return new WaitForSeconds(5f);
+  
         StartCoroutine(Think());
     }
 
