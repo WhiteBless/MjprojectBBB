@@ -40,6 +40,7 @@ public class Player : MonoBehaviour
     public GameObject MouseMoveEffect;
 
     public AttackCollider attack_Collider;
+    public GameManager gameManager;
 
     void Awake()
     {
@@ -206,6 +207,8 @@ public class Player : MonoBehaviour
             animator.SetBool("isMove", false);
             animator.SetTrigger("doDodge");
             isDodge = true;
+
+            attack_Collider.D_Use();
 
             attack_Collider.FX_Slash_R.enabled = false;
             attack_Collider.R_Shash_FX.enabled = false;
@@ -433,4 +436,16 @@ public class Player : MonoBehaviour
         isSkill3 = false;
         isSkill4 = false;
     }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if(other.tag == "EnemyAttack")
+        {
+            gameManager.HealthDown();
+
+            gameObject.layer = 11;
+        }
+    }
+
+    
 }

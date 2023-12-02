@@ -38,6 +38,8 @@ public class BossSkillP : MonoBehaviour
     public ShotRazer shotRazer_7;
     public ShotRazer shotRazer_8;
 
+    Transform bossPos;
+
     public GameObject razerMaker_1;
     public GameObject razerMaker_2;
 
@@ -56,6 +58,7 @@ public class BossSkillP : MonoBehaviour
     {
         animator = GetComponentInChildren<Animator>();
         boxCollider = GetComponent<BoxCollider>();
+        bossPos = GetComponent<Transform>();
     }
 
     void Update()
@@ -161,19 +164,31 @@ public class BossSkillP : MonoBehaviour
 
         isSkillRunning = true;
 
+        
+
         Vector3 jumpStartPosition = transform.position;
-        Vector3 jumpEndAttackVec = Target.transform.position;
+        Vector3 targetDirection = Target.transform.position - transform.position;
+
+        Vector3 jumpEndAttackVec = Target.transform.position - targetDirection.normalized * 5.0f;
         StartCoroutine(JumpDuring(jumpStartPosition, jumpEndAttackVec, 1.4f));
 
         bossLookAt.isLook = false;
         boxCollider.enabled = false;
 
         animator.SetTrigger("doJumpAttack");
-        JumpEffect.SetActive(true);
 
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(1.5f);
 
         JumpAttackRange.enabled = true;
+
+        Vector3 bossForward = bossPos.position + bossPos.forward * 5.0f;
+        GameObject newPrefab = Instantiate(JumpEffect, bossForward, Quaternion.identity);
+
+        Destroy(newPrefab, 1.0f);
+
+        yield return new WaitForSeconds(2f);
+
+        
         boxCollider.enabled = true;
         animator.SetTrigger("doReturn");
         StartCoroutine(JumpDuring(jumpEndAttackVec, jumpStartPosition, 1.1f));
@@ -188,7 +203,6 @@ public class BossSkillP : MonoBehaviour
         bossLookAt.isLook = true;
 
         boxCollider.enabled = true;
-        JumpEffect.SetActive(false);
         isSkillRunning = false;
     }
 

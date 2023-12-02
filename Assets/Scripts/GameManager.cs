@@ -6,12 +6,10 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    public int stageIndex;
     public int health;
-    public Player player;
+    //public Player player;
 
     public Image[] UIhealth;
-    public Text UIStage;
 
     void Update()
     {
@@ -24,14 +22,14 @@ public class GameManager : MonoBehaviour
         {
             health--;
 
-            UIhealth[health].color = new Color(1, 0, 0, 0.4f);
+            UIhealth[health].color = new Color(1, 0, 0, 0.01f);
         }
 
 
         else
         {
             //All Health UI Off
-            UIhealth[0].color = new Color(1, 0, 0, 0.4f);
+            UIhealth[0].color = new Color(1, 0, 0, 0.01f);
 
             //Player Die Effect
            // player.Die();
@@ -41,14 +39,4 @@ public class GameManager : MonoBehaviour
         }
 
     }
-
-    void OnTriggerEnter(Collider collision)
-    {
-        if (collision.gameObject.tag == "Player")
-        {
-            //Health Down
-            HealthDown();
-        }
-    }
-
 }

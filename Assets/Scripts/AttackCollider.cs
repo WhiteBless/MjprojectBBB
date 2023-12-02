@@ -58,6 +58,11 @@ public class AttackCollider : MonoBehaviour
         StartCoroutine("RRR"); 
     }
 
+    public void D_Use()
+    {
+        StartCoroutine("DDD");
+    }
+
     IEnumerator AAA()
     {
         swordArea.enabled = true;
@@ -200,5 +205,21 @@ public class AttackCollider : MonoBehaviour
         Treak_Weapon.enabled = false;
 
         FX_Slash_R.enabled = false;
+    }
+
+    IEnumerator DDD()
+    {
+        yield return new WaitForSeconds(0.1f);
+        swordArea.enabled = false;
+
+        standoffArea_1.enabled = false;
+        standoffArea_2.enabled = false;
+        standoffArea_3.enabled = false;
+        standoffArea_4.enabled = false;
+        standoffArea_5.enabled = false;
+        standoffArea_6.enabled = false;
+        standoffArea_7.enabled = false;
+
+        RnageArea.enabled = false;
     }
 }

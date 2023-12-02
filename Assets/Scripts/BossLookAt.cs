@@ -1,3 +1,4 @@
+using GSpawn;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -72,6 +73,13 @@ public class BossLookAt : MonoBehaviour
         if (other.gameObject == player)
         {
             canUseSkills = false;
+
+            Invoke("OffDamaged", 3);
         }
+    }
+
+    void OffDamaged()
+    {
+        gameObject.layer = 10;
     }
 }
