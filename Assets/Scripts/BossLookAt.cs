@@ -1,10 +1,13 @@
-using GSpawn;
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class BossLookAt : MonoBehaviour
 {
+
+    public GameObject bossHPCanvas;
+
     public GameObject player; // Player 객체를 참조하는 변수
     public BossAnimator bossAnimator; // BossAnimator 스크립트를 참조하는 변수
     public AudioSource audioSource; // 배경 음악을 재생하기 위한 오디오 소스
@@ -25,6 +28,9 @@ public class BossLookAt : MonoBehaviour
 
         bossSkillP = GetComponent<BossSkillP>(); // BossSkillP 컴포넌트를 찾아서 bossSkillP 변수에 할당
         bossSkillP.enabled = false; // BossSkillP 스크립트를 처음에는 비활성화
+
+        bossHPCanvas = GameObject.FindGameObjectWithTag("BossHPC");
+        bossHPCanvas.SetActive(false); // 처음에는 비활성화
     }
 
     void Update()
@@ -34,7 +40,7 @@ public class BossLookAt : MonoBehaviour
             direction = player.transform.position - transform.position;
             Quaternion rotation = Quaternion.LookRotation(direction);
             transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * 2);
-
+            bossHPCanvas.SetActive(true);
             if (!audioSource.isPlaying)
             {
                 audioSource.clip = bgmClip;

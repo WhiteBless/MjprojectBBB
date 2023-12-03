@@ -8,11 +8,17 @@ public class Portal : MonoBehaviour
     public GameObject toObj;
     private bool isWarping = false;
 
+    public AudioSource audioSource; // 효과음을 재생할 AudioSource
+    public AudioClip portalSound; // 포탈 효과음
+
     public void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
             targetObj = other.gameObject;
+
+            // 포탈 효과음 재생
+            audioSource.PlayOneShot(portalSound, 1.0f); // 포탈 효과음 재생 (볼륨은 1.0)
         }
     }
 

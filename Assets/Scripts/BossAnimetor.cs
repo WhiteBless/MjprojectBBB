@@ -21,13 +21,6 @@ public class BossAnimator : MonoBehaviour
         animator.SetBool("doLookPlayer", AttRadyState);
     }
 
-    // 애니메이션을 처음 상태로 되돌립니다.
-    public void ResetAnimation()
-    {
-        // 애니메이션 파라미터 초기화
-        animator.SetBool("doIdle", true);
-
-    }
 
     // 'doLookPlayer' 애니메이션을 처음부터 시작합니다.
     public void StartAnimation()
@@ -45,9 +38,6 @@ public class BossAnimator : MonoBehaviour
         {
             StartAnimation();
         }
-        else
-        {
-            ResetAnimation();
-        }
+
     }
 }

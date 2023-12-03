@@ -11,6 +11,10 @@ public class GameManager : MonoBehaviour
 
     public Image[] UIhealth;
 
+    public AudioSource audioSource; // 피격음을 재생할 AudioSource
+    public AudioClip hitSound; // 피격음
+
+
     void Update()
     {
         
@@ -23,6 +27,9 @@ public class GameManager : MonoBehaviour
             health--;
 
             UIhealth[health].color = new Color(1, 0, 0, 0.01f);
+
+            // 피격음 재생
+            audioSource.PlayOneShot(hitSound, 1.0f); // 피격음 재생 (볼륨은 1.0)
         }
 
 
