@@ -41,19 +41,23 @@ public class BossLookAt : MonoBehaviour
                 audioSource.Play();
             }
 
+            // 스킬 사용 가능 여부에 따라 스킬 스크립트를 활성화 또는 비활성화
             if (canUseSkills)
             {
                 bossSkillP.enabled = true; // 스킬 사용 가능할 때 BossSkillP 스크립트 활성화
- 
             }
             else
             {
                 bossSkillP.enabled = false; // 스킬 사용 불가능할 때 BossSkillP 스크립트 비활성화
             }
         }
-        else if (audioSource.isPlaying)
+        else if (canUseSkills)
         {
-            audioSource.Stop();
+            if (!audioSource.isPlaying)
+            {
+                audioSource.clip = bgmClip;
+                audioSource.Play();
+            }
         }
     }
 
