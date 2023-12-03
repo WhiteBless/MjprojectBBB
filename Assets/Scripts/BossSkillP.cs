@@ -27,6 +27,8 @@ public class BossSkillP : MonoBehaviour
     public Animator animator;
     public BossLookAt bossLookAt;
 
+    public GameObject BossObj;
+
     public ShotRazer shotRazer_1;
     public ShotRazer shotRazer_2;
     public ShotRazer shotRazer_3;
@@ -101,7 +103,7 @@ public class BossSkillP : MonoBehaviour
         StartCoroutine(CanvasWidthLerp());
         yield return new WaitForSeconds(10f);
         bossAnimator.AttRadyState = false;
-        this.gameObject.SetActive(false); // 보스 객체 비활성화
+        BossObj.gameObject.SetActive(false); // 보스 객체 비활성화
     }
 
     IEnumerator CanvasWidthLerp()
