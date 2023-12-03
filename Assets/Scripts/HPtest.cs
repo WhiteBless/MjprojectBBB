@@ -27,7 +27,7 @@ public class HPtest : MonoBehaviour
         virtualHealths = new int[healthBars.Length - 1];
         for (int i = 0; i < virtualHealths.Length; i++)
         {
-            virtualHealths[i] = 8000;
+            virtualHealths[i] = 1000;
             healthBars[i].maxValue = virtualHealths[i]; // 슬라이더의 최대 값을 가상 체력의 최대 값으로 설정
         }
 
