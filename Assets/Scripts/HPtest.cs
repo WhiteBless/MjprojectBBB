@@ -21,7 +21,7 @@ public class HPtest : MonoBehaviour
     void Awake()
     {
         meshs = GetComponentsInChildren<MeshRenderer>();
-        healthBarCanvas = healthBars[0].transform.parent.GetComponent<Canvas>();
+        healthBarCanvas = healthBars[healthBars.Length - 1].transform.parent.GetComponent<Canvas>();
 
         // 가상 체력들을 초기화
         virtualHealths = new int[healthBars.Length - 1];
