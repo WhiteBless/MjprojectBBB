@@ -11,10 +11,16 @@ ScriptsOnlyBuild:
     - BossSkillP
     - ButtonSound
     - CaneraController
+    - DelayActive
     - ExitPopup
+    - GSpawn.BoxObjectSpawnSettingsProfile
+    - GSpawn.BoxObjectSpawnSettingsProfileDb
+    - GSpawn.BoxObjectSpawnSettingsProfileDbUI
     - GSpawn.CurveObjectSpawnSettings
     - GSpawn.CurveObjectSpawnSettingsProfile
     - GSpawn.CurveObjectSpawnSettingsProfileDb
+    - GSpawn.IntPattern
+    - GSpawn.ListViewState
     - GSpawn.MeshCombineUI
     - GSpawn.ObjectBoxSnapSettings
     - GSpawn.ObjectExtrudeGizmoSettings
@@ -25,6 +31,12 @@ ScriptsOnlyBuild:
     - GSpawn.ObjectSurfaceSnapSettings
     - GSpawn.ObjectVertexSnapSettings
     - GSpawn.PluginInstanceData
+    - GSpawn.PluginObjectLayer
+    - GSpawn.PluginObjectLayerDb
+    - GSpawn.PluginObjectLayerDbUI
+    - GSpawn.SegmentsObjectSpawnSettingsProfile
+    - GSpawn.SegmentsObjectSpawnSettingsProfileDb
+    - GSpawn.SegmentsObjectSpawnSettingsProfileDbUI
     - GameManager
     - HPtest
     - LobSB
@@ -37,6 +49,7 @@ ScriptsOnlyBuild:
     - SetResolution
     - ShotRazer
     - Skill
+    - UpdatePopup
     Unity.InputSystem.dll:
     - UnityEngine.InputSystem.InputActionAsset
     - UnityEngine.InputSystem.InputActionReference
@@ -101,8 +114,10 @@ ScriptsOnlyBuild:
     UnityEditor.Graphs.dll:
     - UnityEditor.Graphs.AnimationBlendTree.Graph
     - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
+    - UnityEditor.Graphs.AnimationStateMachine.AnyStateNode
     - UnityEditor.Graphs.AnimationStateMachine.Graph
     - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
+    - UnityEditor.Graphs.AnimationStateMachine.StateNode
     - UnityEditor.Graphs.AnimatorControllerTool
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
@@ -215,6 +230,9 @@ ScriptsOnlyBuild:
   - assembly: Assembly-CSharp
     fullTypeName: ExitPopup
     methodName: OnClickXb
+  - assembly: Assembly-CSharp
+    fullTypeName: UpdatePopup
+    methodName: OnClickUpdatePop
   - assembly: Assembly-CSharp
     fullTypeName: ExitPopup
     methodName: OnClickOb
@@ -512,13 +530,15 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 14118}
     - Class: 114
-      Script: {instanceID: 235552}
+      Script: {instanceID: 1731062}
     - Class: 114
-      Script: {instanceID: 235560}
+      Script: {instanceID: 1731070}
     - Class: 114
-      Script: {instanceID: 235562}
+      Script: {instanceID: 1731072}
     - Class: 114
-      Script: {instanceID: 235564}
+      Script: {instanceID: 1731074}
+    - Class: 114
+      Script: {instanceID: 3395202}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 121
@@ -645,6 +665,8 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 11310}
     - Class: 114
+      Script: {instanceID: 11560}
+    - Class: 114
       Script: {instanceID: 11642}
     - Class: 114
       Script: {instanceID: 11928}
@@ -652,6 +674,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 12090}
     - Class: 114
       Script: {instanceID: 12382}
+    - Class: 114
+      Script: {instanceID: 13296}
     - Class: 114
       Script: {instanceID: 13644}
     - Class: 114
@@ -1689,7 +1713,7 @@ ScriptsOnlyBuild:
     className: ObjectBoxSnapSession
   - hash:
       serializedVersion: 2
-      Hash: 4eb71f20ff3728bec64b98d771263ab6
+      Hash: 12237d3ee9f07b86c3bdde2f3b77461a
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: BossSkillP
@@ -2073,7 +2097,7 @@ ScriptsOnlyBuild:
     className: VertexJitter
   - hash:
       serializedVersion: 2
-      Hash: 7ff61756aa013af288ab8224d5fc689f
+      Hash: d1e6d7ea0f5fa227e57cbf5402adbd81
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: GameManager
@@ -2361,7 +2385,7 @@ ScriptsOnlyBuild:
     className: Demo2
   - hash:
       serializedVersion: 2
-      Hash: bb466b3188e407f518ea483b2a0a145b
+      Hash: c08bccc487e5bc046cbcd49c014f542d
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: Portal
@@ -3285,7 +3309,7 @@ ScriptsOnlyBuild:
     className: TMP_TextEventCheck
   - hash:
       serializedVersion: 2
-      Hash: fadb1c336fa602cb044172f3b806ef94
+      Hash: 7fbef12e5ebab8f3ae9c5312213c1472
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: BossLookAt
@@ -3609,7 +3633,7 @@ ScriptsOnlyBuild:
     className: ObjectSurfaceSnapSettings
   - hash:
       serializedVersion: 2
-      Hash: e6d6b0931f6a151a89926d0f9d6d6b8e
+      Hash: 13ac12d20a00eb4583008f98abb32134
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: HPtest
@@ -4141,6 +4165,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.VisualScripting.Core
     namespaceName: Unity.VisualScripting
     className: UnityOnSliderValueChangedMessageListener
+  - hash:
+      serializedVersion: 2
+      Hash: 059d2ad986a0c2ecf126ba659cce5616
+    assemblyName: Assembly-CSharp
+    namespaceName: 
+    className: UpdatePopup
   platform: 19
   scenePathNames:
   - Assets/Scenes/Main.unity
