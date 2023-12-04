@@ -13,13 +13,9 @@ ScriptsOnlyBuild:
     - CaneraController
     - DelayActive
     - ExitPopup
-    - GSpawn.BoxObjectSpawnSettingsProfile
-    - GSpawn.BoxObjectSpawnSettingsProfileDb
-    - GSpawn.BoxObjectSpawnSettingsProfileDbUI
     - GSpawn.CurveObjectSpawnSettings
     - GSpawn.CurveObjectSpawnSettingsProfile
     - GSpawn.CurveObjectSpawnSettingsProfileDb
-    - GSpawn.IntPattern
     - GSpawn.ListViewState
     - GSpawn.MeshCombineUI
     - GSpawn.ObjectBoxSnapSettings
@@ -34,9 +30,6 @@ ScriptsOnlyBuild:
     - GSpawn.PluginObjectLayer
     - GSpawn.PluginObjectLayerDb
     - GSpawn.PluginObjectLayerDbUI
-    - GSpawn.SegmentsObjectSpawnSettingsProfile
-    - GSpawn.SegmentsObjectSpawnSettingsProfileDb
-    - GSpawn.SegmentsObjectSpawnSettingsProfileDbUI
     - GameManager
     - HPtest
     - LobSB
@@ -114,10 +107,8 @@ ScriptsOnlyBuild:
     UnityEditor.Graphs.dll:
     - UnityEditor.Graphs.AnimationBlendTree.Graph
     - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
-    - UnityEditor.Graphs.AnimationStateMachine.AnyStateNode
     - UnityEditor.Graphs.AnimationStateMachine.Graph
     - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
-    - UnityEditor.Graphs.AnimationStateMachine.StateNode
     - UnityEditor.Graphs.AnimatorControllerTool
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
@@ -278,6 +269,9 @@ ScriptsOnlyBuild:
   - assembly: Assembly-CSharp
     fullTypeName: Skill
     methodName: HideSkillSetting
+  - assembly: Assembly-CSharp
+    fullTypeName: GameManager
+    methodName: GoToMainMenu
   - assembly: Assembly-CSharp
     fullTypeName: Skill
     methodName: HideSkillSetting
@@ -530,15 +524,15 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 14118}
     - Class: 114
-      Script: {instanceID: 1731062}
+      Script: {instanceID: 14234}
     - Class: 114
-      Script: {instanceID: 1731070}
+      Script: {instanceID: 309044}
     - Class: 114
-      Script: {instanceID: 1731072}
+      Script: {instanceID: 309052}
     - Class: 114
-      Script: {instanceID: 1731074}
+      Script: {instanceID: 309054}
     - Class: 114
-      Script: {instanceID: 3395202}
+      Script: {instanceID: 309056}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 121
@@ -711,6 +705,8 @@ ScriptsOnlyBuild:
     - Class: 223
       Script: {instanceID: 0}
     - Class: 224
+      Script: {instanceID: 0}
+    - Class: 225
       Script: {instanceID: 0}
     - Class: 238
       Script: {instanceID: 0}
@@ -1713,7 +1709,7 @@ ScriptsOnlyBuild:
     className: ObjectBoxSnapSession
   - hash:
       serializedVersion: 2
-      Hash: 12237d3ee9f07b86c3bdde2f3b77461a
+      Hash: 0704a8ea1a1e7299d3997e863399028b
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: BossSkillP
@@ -3633,7 +3629,7 @@ ScriptsOnlyBuild:
     className: ObjectSurfaceSnapSettings
   - hash:
       serializedVersion: 2
-      Hash: 13ac12d20a00eb4583008f98abb32134
+      Hash: 250a9a493e01ea6967a690872480e594
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: HPtest
@@ -4131,6 +4127,12 @@ ScriptsOnlyBuild:
     className: ObjectRotationGizmo
   - hash:
       serializedVersion: 2
+      Hash: 059d2ad986a0c2ecf126ba659cce5616
+    assemblyName: Assembly-CSharp
+    namespaceName: 
+    className: UpdatePopup
+  - hash:
+      serializedVersion: 2
       Hash: c25ae5d8adecd1d3ab7f266be5f8ca21
     assemblyName: Assembly-CSharp
     namespaceName: GSpawn
@@ -4165,12 +4167,6 @@ ScriptsOnlyBuild:
     assemblyName: Unity.VisualScripting.Core
     namespaceName: Unity.VisualScripting
     className: UnityOnSliderValueChangedMessageListener
-  - hash:
-      serializedVersion: 2
-      Hash: 059d2ad986a0c2ecf126ba659cce5616
-    assemblyName: Assembly-CSharp
-    namespaceName: 
-    className: UpdatePopup
   platform: 19
   scenePathNames:
   - Assets/Scenes/Main.unity

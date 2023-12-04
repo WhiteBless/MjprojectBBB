@@ -12,6 +12,7 @@ public class BossSkillP : MonoBehaviour
     public GameObject gameClearCanvas;
     public RectTransform gameClearCanvasRect; // 게임 클리어 캔버스의 RectTransform
 
+    public HPtest hp;
 
     public GameObject SpiritEffect;
     public GameObject JumpEffect;
@@ -63,65 +64,15 @@ public class BossSkillP : MonoBehaviour
 
     void Update()
     {
-        if (isDead)
+        if (hp.isDead) // HPtest 스크립트의 isDead를 사용합니다.
         {
-            
-            BossDie();  //보스가 죽었을 때, 호출할 함수 추가
             StopAllCoroutines();
             return;
         }
     }
 
-    void BossDie()
-    {
-        int ranDie = Random.Range(0, 2); // doDie1과 doDie2 중 랜덤한 애니메이션 선택
 
-        // 애니메이션 재생
-        switch (ranDie)
-        {
-            case 0:
-                animator.SetTrigger("doDie1");
-                break;
-            case 1:
-                animator.SetTrigger("doDie2");
-                break;
-        }
 
-        // 5초 후에 보스 객체를 비활성화하고, GameClear 캔버스를 활성화
-
-        StartCoroutine(DieAndClear());
-
-    }
-
-    IEnumerator DieAndClear()
-    {
-
-        yield return new WaitForSeconds(5f);
-        gameClearCanvas.SetActive(true); // 게임 클리어 캔버스 활성화
-
-        // 캔버스가 활성화 될 때 width 값이 0에서 650까지 선형 보간
-        StartCoroutine(CanvasWidthLerp());
-        yield return new WaitForSeconds(10f);
-        bossAnimator.AttRadyState = false;
-        BossObj.gameObject.SetActive(false); // 보스 객체 비활성화
-    }
-
-    IEnumerator CanvasWidthLerp()
-    {
-        float duration = 2.0f; // 보간에 걸리는 시간
-        float time = 0;
-
-        while (time < duration)
-        {
-            float t = time / duration;
-            float width = Mathf.Lerp(0, 650, t); // width 값이 0에서 650까지 선형 보간
-            gameClearCanvasRect.sizeDelta = new Vector2(width, gameClearCanvasRect.sizeDelta.y); // width 값 변경
-
-            time += Time.deltaTime;
-            yield return null;
-        }
-        gameClearCanvasRect.sizeDelta = new Vector2(650, gameClearCanvasRect.sizeDelta.y); // 최종 width 값 설정
-    }
     public void BossThink()
     {
         StartCoroutine(Think());

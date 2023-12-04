@@ -40,6 +40,12 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void GoToMainMenu()
+    {
+        Time.timeScale = 1; // 타임스케일을 원래대로 복구
+        SceneManager.LoadScene("Main"); // "MainMenu"라는 이름의 Scene을 로드
+    }
+
     void Update()
     {
         if (deathMenu.activeSelf) // 사망 메뉴가 활성화된 경우
