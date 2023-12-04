@@ -379,11 +379,11 @@ public class Player : MonoBehaviour
                     enemy.attack.isAttackable = false;
                 }
             }
-
+            /*
             foreach (Transform child in transform)
             {
                 child.localRotation = Quaternion.identity;
-            }
+            }*/
         }
     }
 
@@ -423,11 +423,11 @@ public class Player : MonoBehaviour
                     enemy.attack.isAttackable = false;
                 }
             }
-
+            /*
             foreach (Transform child in transform)
             {
                 child.localRotation = Quaternion.identity;
-            }
+            }*/
         }
     }
 
@@ -447,7 +447,7 @@ public class Player : MonoBehaviour
 
             isHit = true;
 
-            Invoke("ResetCollision", 3f);
+            Invoke("ResetCollision", 1f);
         }
     }
 

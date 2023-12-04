@@ -3,9 +3,6 @@ using System.Collections;
 using static UnityEngine.GraphicsBuffer;
 using System.Runtime.CompilerServices;
 
-
-
-
 public class BossSkillP : MonoBehaviour
 {
     public BossAnimator bossAnimator;
@@ -116,25 +113,30 @@ public class BossSkillP : MonoBehaviour
     IEnumerator BossSkill1()
     {
         animator.SetTrigger("doSpirit");
-        bossLookAt.isLook = false;
 
         yield return new WaitForSeconds(1f);
 
         Vector3 targetDirection = Target.transform.position - SpiritPos.position;
 
         GameObject SpiritEffectPrf = Instantiate(SpiritEffect, SpiritPos.position, Quaternion.identity);
+        Vector3 SpiritEffectPrf_Quaternion = SpiritEffectPrf.transform.rotation.eulerAngles;
+        SpiritEffectPrf.transform.rotation = Quaternion.Euler(SpiritEffectPrf_Quaternion.x, SpiritEffectPrf_Quaternion.y, 90);
+        Destroy(SpiritEffectPrf, 15.0f);
 
         SpiritEffectPrf.transform.forward = targetDirection;
 
         //SpiritEffectPrf.transform.rotation = Quaternion.Euler(SpiritEffectPrf.transform.rotation.x, SpiritEffectPrf.transform.rotation.y, 90);
-  
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(0.1f);
+
+        bossLookAt.isLook = false;
+
+        yield return new WaitForSeconds(1.9f);
 
         Rigidbody SpiritEffect_1 = SpiritEffectPrf.GetComponent<Rigidbody>();
         SpiritEffect_1.velocity = targetDirection * 5;
 
         bossLookAt.isLook = true;
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(2f);
 
         StartCoroutine(Think());
     }
@@ -167,7 +169,7 @@ public class BossSkillP : MonoBehaviour
         bossLookAt.isLook = false;
         Vector3 targetDirection_2 = Target.transform.position - JumpPos.position;
 
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(0.35f);
 
         
         GameObject DownAttackRange_2 = Instantiate(DownAttackRange, JumpPos.position, Quaternion.identity);
@@ -185,7 +187,7 @@ public class BossSkillP : MonoBehaviour
         bossLookAt.isLook = false;
         Vector3 targetDirection_3 = Target.transform.position - JumpPos.position;
 
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(0.45f);
 
         GameObject DownAttackRange_3 = Instantiate(DownAttackRange, JumpPos.position, Quaternion.identity);
         Destroy(DownAttackRange_3, 10.0f);
@@ -220,7 +222,7 @@ public class BossSkillP : MonoBehaviour
         bossLookAt.isLook = false;
         Vector3 targetDirection_5 = Target.transform.position - JumpPos.position;
 
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(0.35f);
 
         
         GameObject DownAttackRange_5 = Instantiate(DownAttackRange, JumpPos.position, Quaternion.identity);
@@ -238,7 +240,7 @@ public class BossSkillP : MonoBehaviour
         bossLookAt.isLook = false;
         Vector3 targetDirection_6 = Target.transform.position - JumpPos.position;
 
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(0.45f);
      
         GameObject DownAttackRange_6 = Instantiate(DownAttackRange, JumpPos.position, Quaternion.identity);
         Destroy(DownAttackRange_6, 10.0f);
@@ -273,7 +275,7 @@ public class BossSkillP : MonoBehaviour
         bossLookAt.isLook = false;
         Vector3 targetDirection_8 = Target.transform.position - JumpPos.position;
 
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(0.35f);
  
         GameObject DownAttackRange_8 = Instantiate(DownAttackRange, JumpPos.position, Quaternion.identity);
         Destroy(DownAttackRange_8, 10.0f);
@@ -290,7 +292,7 @@ public class BossSkillP : MonoBehaviour
         bossLookAt.isLook = false;
         Vector3 targetDirection_9 = Target.transform.position - JumpPos.position;
 
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(0.45f);
  
         GameObject DownAttackRange_9 = Instantiate(DownAttackRange, JumpPos.position, Quaternion.identity);
         Destroy(DownAttackRange_9, 10.0f);
@@ -302,7 +304,7 @@ public class BossSkillP : MonoBehaviour
 
         bossLookAt.isLook = true;
 
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(2f);
 
         bossLookAt.isLook = true;
         StartCoroutine(Think());
@@ -344,7 +346,7 @@ public class BossSkillP : MonoBehaviour
         bossLookAt.isLook = true;
         boxCollider.enabled = true;
 
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(2f);
         StartCoroutine(Think());
     }
 
@@ -374,7 +376,7 @@ public class BossSkillP : MonoBehaviour
         razerMaker_1.SetActive(false);
         bossLookAt.isLook = true;
 
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(2f);
  
         StartCoroutine(Think());
     }
@@ -405,7 +407,7 @@ public class BossSkillP : MonoBehaviour
         razerMaker_2.SetActive(false);
         bossLookAt.isLook = true;
 
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(2f);
   
         StartCoroutine(Think());
     }

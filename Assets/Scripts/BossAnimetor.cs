@@ -5,6 +5,7 @@ public class BossAnimator : MonoBehaviour
 {
     public Animator animator;   // 애니메이터 컴포넌트
     public bool AttRadyState;   // AttRadyState 변수
+    private bool animationStarted = false;
 
     private void Start()
     {
@@ -25,9 +26,18 @@ public class BossAnimator : MonoBehaviour
     // 'doLookPlayer' 애니메이션을 처음부터 시작합니다.
     public void StartAnimation()
     {
+        // 애니메이션이 이미 시작되었으면 더 이상 실행하지 않음
+        if (animationStarted)
+        {
+            animator.SetBool("doIdle", true);
+        }
+
+
         // 애니메이션 파라미터 설정
         animator.SetBool("doLookPlayer", true);
 
+        // 애니메이션이 시작되었다고 표시
+        animationStarted = true;
     }
 
     // Update is called once per frame

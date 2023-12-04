@@ -81,7 +81,7 @@ public class AttackCollider : MonoBehaviour
         R_Shash_FX.enabled = true;
         R_Shash_FX001.enabled = true;*/
 
-        yield return new WaitForSeconds(0.45f);
+        yield return new WaitForSeconds(0.1f);
         swordArea.enabled = false;
 
         standoffArea_1.enabled = false;
@@ -108,7 +108,7 @@ public class AttackCollider : MonoBehaviour
         R_Shash_FX.enabled = true;
         R_Shash_FX001.enabled = true;
 
-        yield return new WaitForSeconds(0.45f);
+        yield return new WaitForSeconds(0.1f);
         Treak_Weapon.enabled = false;
 
         FX_Slash_R.enabled = false;
@@ -130,7 +130,7 @@ public class AttackCollider : MonoBehaviour
 
         Treak_Weapon.enabled = true;
 
-        yield return new WaitForSeconds(1.3f);
+        yield return new WaitForSeconds(1.4f);
         standoffArea_1.enabled = false;
         standoffArea_2.enabled = false;
         standoffArea_3.enabled = false;
