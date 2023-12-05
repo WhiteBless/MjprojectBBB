@@ -1,25 +1,36 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UpdatePopup : MonoBehaviour
 {
-    public GameObject Updatepopup; // ExitPop 이미지 오브젝트를 Inspector에서 연결합니다.
-    public GameObject updateObject; // Update 오브젝트를 Inspector에서 연결합니다.
+    public GameObject updateUI; // Update 태그를 가진 UI 오브젝트를 Inspector에서 드래그로 연결해줍니다.
+    public Button[] openUpdateButtons; // Update UI를 활성화하기 위한 버튼들. Inspector에서 연결해줍니다.
+    public Button[] closeUpdateButtons; // Update UI를 비활성화하기 위한 X 버튼들. Inspector에서 연결해줍니다.
 
-    // Update 함수에서 'Esc' 키 입력을 체크합니다.
-    void Update()
+    void Start()
     {
+        updateUI.SetActive(false); // 시작 시 Update UI 비활성화
 
+        foreach (Button button in openUpdateButtons)
+        {
+            button.onClick.AddListener(OpenUpdateUI); // 각 버튼 클릭 이벤트에 리스너 추가
+        }
+
+        foreach (Button button in closeUpdateButtons)
+        {
+            button.onClick.AddListener(CloseUpdateUI); // 각 X 버튼 클릭 이벤트에 리스너 추가
+        }
     }
 
-    // Ob 버튼이 눌렸을 때의 동작을 정의한 함수입니다.
-
-    public void OnClickUpdatePop()
+    void OpenUpdateUI()
     {
-        if (updateObject != null) // updateObject가 존재하면
-        {
-            updateObject.SetActive(true); // 해당 오브젝트를 활성화합니다.
-        }
+        updateUI.SetActive(true); // Update UI 활성화
+    }
+
+    void CloseUpdateUI()
+    {
+        updateUI.SetActive(false); // Update UI 비활성화
     }
 }
