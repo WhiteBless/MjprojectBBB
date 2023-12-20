@@ -13,4 +13,11 @@ public class Define
     {
         QarterView,
     }
+
+    // 캐릭터 구분
+    public enum Character_Name
+    {
+        Assensin,
+
+    }
 }
