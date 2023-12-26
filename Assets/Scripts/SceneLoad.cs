@@ -16,7 +16,7 @@ public class SceneLoad : MonoBehaviour
     IEnumerator LoadScene()
     {
         yield return null;
-        AsyncOperation operation = SceneManager.LoadSceneAsync("Play");//""에 넘어갈 씬 이름으로 변경
+        AsyncOperation operation = SceneManager.LoadSceneAsync("Play_Test");//""에 넘어갈 씬 이름으로 변경
         operation.allowSceneActivation = false;
 
         while (!operation.isDone)
@@ -29,7 +29,7 @@ public class SceneLoad : MonoBehaviour
 
             else
             {
-                SceneManager.LoadScene("Play");//""에 넘어갈 씬 이름으로 변경
+                SceneManager.LoadScene("Play_Test");//""에 넘어갈 씬 이름으로 변경
             }
 
             if (Input.touchCount > 0 && progressbar.value >= 1f && operation.progress >= 0.9f)
