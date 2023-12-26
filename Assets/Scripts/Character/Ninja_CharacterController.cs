@@ -7,6 +7,8 @@ public class Ninja_CharacterController : CharacterBase
 {
     [Header("Player 이동속도")]
     public float moveSpeed;
+    [Header("Player 도약거라")]
+    public float DodgeDistance;
 
     Rigidbody rigid;
     public Camera cam;
@@ -44,7 +46,20 @@ public class Ninja_CharacterController : CharacterBase
     public GameObject MouseMoveEffect;
 
     public AttackCollider attack_Collider;
-    public GameManager gameManager;
+    public PlaySceneManager playscenemanager;
+    [SerializeField]
+    LayerMask obstacleMask;
+
+    public float rayDistance = 5.0f;
+    private RaycastHit Wallhit;
+    private RaycastHit SkillWallhit;
+    [SerializeField]
+    Transform WallCheckTrans;
+    [SerializeField]
+    bool isWall;
+
+    public float MoveSkill_rayDistance = 20.0f;
+
 
     void Awake()
     {
@@ -57,7 +72,7 @@ public class Ninja_CharacterController : CharacterBase
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
     private void FixedUpdate()
     {
@@ -66,7 +81,7 @@ public class Ninja_CharacterController : CharacterBase
             Move();
         }
     }
-    
+
     // Update is called once per frame
     void Update()
     {
@@ -150,7 +165,38 @@ public class Ninja_CharacterController : CharacterBase
     #region Move
     // TODO ## 닌자 캐릭터 이동 관련함수
     public override void Move()
-    {            
+    {
+        // TODO ## 닌자 벽 장애물 체크
+        // 캐릭터의 위치와 방향으로 Ray를 쏩니다.
+        if (Physics.Raycast(WallCheckTrans.position, WallCheckTrans.forward, out Wallhit, rayDistance) && Wallhit.collider.CompareTag("Wall"))
+        {
+            // 레이가 충돌한 지점까지 빨간색으로 시각화합니다.
+            Debug.DrawRay(WallCheckTrans.position, WallCheckTrans.forward * Wallhit.distance, Color.red);
+
+            isWall = true;
+
+            if (isWall == true)
+            {
+                moveSpeed = 0.0f;
+                DodgeDistance = 0.0f;
+                isMove = false;
+                animator.SetBool("isMove", false);
+            }
+        }
+        else
+        {
+            // 레이가 충돌하지 않고 최대 거리까지 도달한 경우 초록색으로 시각화합니다.
+            Debug.DrawRay(transform.position, transform.forward * rayDistance, Color.green);
+
+            isWall = false;
+
+            if (isWall == false)
+            {
+                moveSpeed = 15.0f;
+                DodgeDistance = 20.0f;
+            }
+        }
+
         if (Input.GetMouseButton(1))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -165,26 +211,31 @@ public class Ninja_CharacterController : CharacterBase
                 NotMove();
             }
 
-            //RaycastHit hit;
-            //Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+            if (hit.collider.CompareTag("Wall"))
+            {
+                // 벽에 닿으면 여기에 원하는 동작을 추가할 수 있습니다.
+                Debug.Log("이동할 수 없는 구역입니다!");
+                return; // 벽에 닿으면 이동하지 않도록 리턴
+            }
 
-            //if (Physics.Raycast(ray, out hit) && hit.collider.CompareTag("Ground"))
-            //{
-            //    SetMove(hit.point);
-            //}
-            //else if (Physics.Raycast(ray, out hit) && hit.collider.CompareTag("Wall"))
-            //{
-            //    NotMove();
-            //}
+            //    Vector3 mousePosition = hit.point;
+            //    Vector3 direction = (mousePosition - transform.position).normalized;
+
+            //    수직 방향은 여기서 사용자가 원하는 대로 조정해야 합니다.
+            //    direction.y = 0;
+
+            //    rigid.MovePosition(rigid.position + direction * moveSpeed * Time.deltaTime);
         }
+
+
 
         if (isMove)
         {
             Vector3 dir = movement - transform.position;
             ClickPoint = dir;
-            
+
             animator.transform.forward = dir;
-           
+
 
             if (!isBorder)
             {
@@ -255,8 +306,8 @@ public class Ninja_CharacterController : CharacterBase
     }
     #endregion
 
-        #region Dodge
-        // TODO ## 닌자 도약
+    #region Dodge
+    // TODO ## 닌자 도약
     public override void Dodge()
     {
         if (spaceDown && !isDodge && skillManager5.getSkillTimes <= 0)
@@ -272,7 +323,6 @@ public class Ninja_CharacterController : CharacterBase
             attack_Collider.R_Shash_FX001.enabled = false;
             attack_Collider.Treak_Weapon.enabled = false;
 
-
             SkillOut();
 
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);
@@ -286,7 +336,7 @@ public class Ninja_CharacterController : CharacterBase
                 transform.LookAt(transform.position + dodgeDirection);
 
                 Vector3 dodgeStartPosition = transform.position;
-                Vector3 dodgeEndPosition = transform.position + dodgeDirection * 25f;
+                Vector3 dodgeEndPosition = transform.position + dodgeDirection * DodgeDistance;
 
                 StartCoroutine(MoveDuring(dodgeStartPosition, dodgeEndPosition, 0.7f));
                 Invoke("DodgeOut", 0.7f);
@@ -315,7 +365,7 @@ public class Ninja_CharacterController : CharacterBase
     }
     #endregion
 
-#region Skill
+    #region Skill
     // TODO ## Ninja_Q_Skill
     public override void Skill_1()
     {
@@ -483,7 +533,7 @@ public class Ninja_CharacterController : CharacterBase
     {
         if (other.tag == "EnemyAttack" && !isHit)
         {
-            gameManager.HealthDown();
+            playscenemanager.HealthDown();
 
             isHit = true;
 

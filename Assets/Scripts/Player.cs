@@ -42,7 +42,7 @@ public class Player : MonoBehaviour
     public GameObject MouseMoveEffect;
 
     public AttackCollider attack_Collider;
-    public GameManager gameManager;
+    public PlaySceneManager playscenemanager;
 
     void Awake()
     {
@@ -443,7 +443,7 @@ public class Player : MonoBehaviour
     {
         if(other.tag == "EnemyAttack" && !isHit)
         {
-            gameManager.HealthDown();
+            playscenemanager.HealthDown();
 
             isHit = true;
 
