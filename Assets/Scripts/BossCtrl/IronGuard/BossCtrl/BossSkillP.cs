@@ -94,7 +94,7 @@ public class BossSkillP : MonoBehaviour
 
         int ranAction = Random.Range(0, 5);
 
-        switch (3)
+        switch (1)
         {
             case 0:
                 //검기 패턴
@@ -170,16 +170,17 @@ public class BossSkillP : MonoBehaviour
 
         GameObject DownAttackRange_1 = objPool.GetObjectFromPool();
         StartCoroutine(DownEffect_ActiveF(DownAttackRange_1));
-        DownAttackRange_1.transform.position = JumpPos.position;
-        DownAttackRange_1.transform.rotation = Quaternion.identity;
+        DownAttackRange_1.transform.position = JumpPos.transform.position + JumpPos.transform.forward * 30.0f;
+        // DownAttackRange_1.transform.rotation = Quaternion.LookRotation(transform.forward);
         DownAttackRange_1.transform.parent = DownSword_SpawnTr;
 
 
         //PoolEffectObj.Add(DownAttackRange_1);
         // Destroy(DownAttackRange_1, 10.0f);
-        DownAttackRange_1.transform.forward = targetDirection_1;
-        Vector3 currentEulerAngles_1 = DownAttackRange_1.transform.rotation.eulerAngles;
-        DownAttackRange_1.transform.rotation = Quaternion.Euler(currentEulerAngles_1.x, currentEulerAngles_1.y - 90, 0);
+        //DownAttackRange_1.transform.forward = targetDirection_1;
+        //Vector3 currentEulerAngles_1 = DownAttackRange_1.transform.rotation.eulerAngles;
+        //DownAttackRange_1.transform.rotation = Quaternion.Euler(currentEulerAngles_1.x, currentEulerAngles_1.y, 0);
+        DownAttackRange_1.transform.rotation = Quaternion.LookRotation(transform.forward);
 
         yield return new WaitForSeconds(0.1f);
 
@@ -193,14 +194,16 @@ public class BossSkillP : MonoBehaviour
         yield return new WaitForSeconds(0.35f);
         GameObject DownAttackRange_2 = objPool.GetObjectFromPool();
         StartCoroutine(DownEffect_ActiveF(DownAttackRange_2));
-        DownAttackRange_2.transform.position = JumpPos.position;
-        DownAttackRange_2.transform.rotation = Quaternion.identity;
+        DownAttackRange_2.transform.position = JumpPos.transform.position + JumpPos.transform.forward * 30.0f;
+        //DownAttackRange_2.transform.rotation = Quaternion.LookRotation(transform.forward);
         DownAttackRange_2.transform.parent = DownSword_SpawnTr;
+
         // PoolEffectObj.Add(DownAttackRange_2);
         //Destroy(DownAttackRange_2, 10.0f);
-        DownAttackRange_2.transform.forward = targetDirection_2;
-        Vector3 currentEulerAngles_2 = DownAttackRange_2.transform.rotation.eulerAngles;
-        DownAttackRange_2.transform.rotation = Quaternion.Euler(currentEulerAngles_2.x, currentEulerAngles_2.y - 90, 0);
+        //DownAttackRange_2.transform.forward = targetDirection_2;
+        //Vector3 currentEulerAngles_2 = DownAttackRange_2.transform.rotation.eulerAngles;
+        //DownAttackRange_2.transform.rotation = Quaternion.Euler(currentEulerAngles_2.x, currentEulerAngles_2.y, 0);
+        DownAttackRange_2.transform.rotation = Quaternion.LookRotation(transform.forward);
 
         yield return new WaitForSeconds(0.1f);
 
@@ -215,14 +218,16 @@ public class BossSkillP : MonoBehaviour
 
         GameObject DownAttackRange_3 = objPool.GetObjectFromPool();
         StartCoroutine(DownEffect_ActiveF(DownAttackRange_3));
-        DownAttackRange_3.transform.position = JumpPos.position;
-        DownAttackRange_3.transform.rotation = Quaternion.identity;
+        DownAttackRange_3.transform.position = JumpPos.transform.position + JumpPos.transform.forward * 30.0f;
+        //DownAttackRange_3.transform.rotation = Quaternion.LookRotation(transform.forward);
         DownAttackRange_3.transform.parent = DownSword_SpawnTr;
+
         // PoolEffectObj.Add(DownAttackRange_3);
         //Destroy(DownAttackRange_3, 10.0f);
-        DownAttackRange_3.transform.forward = targetDirection_3;
-        Vector3 currentEulerAngles_3 = DownAttackRange_3.transform.rotation.eulerAngles;
-        DownAttackRange_3.transform.rotation = Quaternion.Euler(currentEulerAngles_3.x, currentEulerAngles_3.y - 90, 0);
+        //DownAttackRange_3.transform.forward = targetDirection_3;
+        //Vector3 currentEulerAngles_3 = DownAttackRange_3.transform.rotation.eulerAngles;
+        //DownAttackRange_3.transform.rotation = Quaternion.Euler(currentEulerAngles_3.x, currentEulerAngles_3.y, 0);
+        DownAttackRange_3.transform.rotation = Quaternion.LookRotation(transform.forward);
 
         yield return new WaitForSeconds(1f);
 
@@ -238,14 +243,16 @@ public class BossSkillP : MonoBehaviour
 
         GameObject DownAttackRange_4 = objPool.GetObjectFromPool();
         StartCoroutine(DownEffect_ActiveF(DownAttackRange_4));
-        DownAttackRange_4.transform.position = JumpPos.position;
-        DownAttackRange_4.transform.rotation = Quaternion.identity;
+        DownAttackRange_4.transform.position = JumpPos.transform.position + JumpPos.transform.forward * 30.0f;
+        //DownAttackRange_4.transform.rotation = Quaternion.LookRotation(transform.forward);
         DownAttackRange_4.transform.parent = DownSword_SpawnTr;
+
         //PoolEffectObj.Add(DownAttackRange_4);
         //Destroy(DownAttackRange_4, 10.0f);
-        DownAttackRange_4.transform.forward = targetDirection_4;
-        Vector3 currentEulerAngles_4 = DownAttackRange_4.transform.rotation.eulerAngles;
-        DownAttackRange_4.transform.rotation = Quaternion.Euler(currentEulerAngles_4.x, currentEulerAngles_4.y - 90, 0);
+        //DownAttackRange_4.transform.forward = targetDirection_4;
+        //Vector3 currentEulerAngles_4 = DownAttackRange_4.transform.rotation.eulerAngles;
+        //DownAttackRange_4.transform.rotation = Quaternion.Euler(currentEulerAngles_4.x, currentEulerAngles_4.y, 0);
+        DownAttackRange_4.transform.rotation = Quaternion.LookRotation(transform.forward);
 
         yield return new WaitForSeconds(0.1f);
 
@@ -261,14 +268,16 @@ public class BossSkillP : MonoBehaviour
 
         GameObject DownAttackRange_5 = objPool.GetObjectFromPool();
         StartCoroutine(DownEffect_ActiveF(DownAttackRange_5));
-        DownAttackRange_5.transform.position = JumpPos.position;
-        DownAttackRange_5.transform.rotation = Quaternion.identity;
+        DownAttackRange_5.transform.position = JumpPos.transform.position + JumpPos.transform.forward * 30.0f;
+        //DownAttackRange_5.transform.rotation = Quaternion.LookRotation(transform.forward);
         DownAttackRange_5.transform.parent = DownSword_SpawnTr;
+
         // PoolEffectObj.Add(DownAttackRange_5);
         // Destroy(DownAttackRange_5, 10.0f);
-        DownAttackRange_5.transform.forward = targetDirection_5;
-        Vector3 currentEulerAngles_5 = DownAttackRange_5.transform.rotation.eulerAngles;
-        DownAttackRange_5.transform.rotation = Quaternion.Euler(currentEulerAngles_5.x, currentEulerAngles_5.y - 90, 0);
+        //DownAttackRange_5.transform.forward = targetDirection_5;
+        //Vector3 currentEulerAngles_5 = DownAttackRange_5.transform.rotation.eulerAngles;
+        //DownAttackRange_5.transform.rotation = Quaternion.Euler(currentEulerAngles_5.x, currentEulerAngles_5.y, 0);
+        DownAttackRange_5.transform.rotation = Quaternion.LookRotation(transform.forward);
 
         yield return new WaitForSeconds(0.1f);
 
@@ -283,14 +292,16 @@ public class BossSkillP : MonoBehaviour
 
         GameObject DownAttackRange_6 = objPool.GetObjectFromPool();
         StartCoroutine(DownEffect_ActiveF(DownAttackRange_6));
-        DownAttackRange_6.transform.position = JumpPos.position;
-        DownAttackRange_6.transform.rotation = Quaternion.identity;
+        DownAttackRange_6.transform.position = JumpPos.transform.position + JumpPos.transform.forward * 30.0f;
+        //DownAttackRange_6.transform.rotation = Quaternion.LookRotation(transform.forward);
         DownAttackRange_6.transform.parent = DownSword_SpawnTr;
+
         // PoolEffectObj.Add(DownAttackRange_6);
         // Destroy(DownAttackRange_6, 10.0f);
-        DownAttackRange_6.transform.forward = targetDirection_6;
-        Vector3 currentEulerAngles_6 = DownAttackRange_6.transform.rotation.eulerAngles;
-        DownAttackRange_6.transform.rotation = Quaternion.Euler(currentEulerAngles_6.x, currentEulerAngles_6.y - 90, 0);
+        //DownAttackRange_6.transform.forward = targetDirection_6;
+        //Vector3 currentEulerAngles_6 = DownAttackRange_6.transform.rotation.eulerAngles;
+        //DownAttackRange_6.transform.rotation = Quaternion.Euler(currentEulerAngles_6.x, currentEulerAngles_6.y, 0);
+        DownAttackRange_6.transform.rotation = Quaternion.LookRotation(transform.forward);
 
         yield return new WaitForSeconds(1f);
 
@@ -306,14 +317,16 @@ public class BossSkillP : MonoBehaviour
 
         GameObject DownAttackRange_7 = objPool.GetObjectFromPool();
         StartCoroutine(DownEffect_ActiveF(DownAttackRange_7));
-        DownAttackRange_7.transform.position = JumpPos.position;
-        DownAttackRange_7.transform.rotation = Quaternion.identity;
+        DownAttackRange_7.transform.position = JumpPos.transform.position + JumpPos.transform.forward * 30.0f;
+        //DownAttackRange_7.transform.rotation = Quaternion.LookRotation(transform.forward);
         DownAttackRange_7.transform.parent = DownSword_SpawnTr;
+
         //PoolEffectObj.Add(DownAttackRange_7);
         // Destroy(DownAttackRange_7, 10.0f);
-        DownAttackRange_7.transform.forward = targetDirection_7;
-        Vector3 currentEulerAngles_7 = DownAttackRange_7.transform.rotation.eulerAngles;
-        DownAttackRange_7.transform.rotation = Quaternion.Euler(currentEulerAngles_7.x, currentEulerAngles_7.y - 90, 0);
+        //DownAttackRange_7.transform.forward = targetDirection_7;
+        //Vector3 currentEulerAngles_7 = DownAttackRange_7.transform.rotation.eulerAngles;
+        //DownAttackRange_7.transform.rotation = Quaternion.Euler(currentEulerAngles_7.x, currentEulerAngles_7.y, 0);
+        DownAttackRange_7.transform.rotation = Quaternion.LookRotation(transform.forward);
 
         yield return new WaitForSeconds(0.1f);
 
@@ -328,14 +341,16 @@ public class BossSkillP : MonoBehaviour
 
         GameObject DownAttackRange_8 = objPool.GetObjectFromPool();
         StartCoroutine(DownEffect_ActiveF(DownAttackRange_8));
-        DownAttackRange_8.transform.position = JumpPos.position;
-        DownAttackRange_8.transform.rotation = Quaternion.identity;
+        DownAttackRange_8.transform.position = JumpPos.transform.position + JumpPos.transform.forward * 30.0f;
+        //DownAttackRange_8.transform.rotation = Quaternion.identity;
         DownAttackRange_8.transform.parent = DownSword_SpawnTr;
+
         // PoolEffectObj.Add(DownAttackRange_8);
         // Destroy(DownAttackRange_8, 10.0f);
-        DownAttackRange_8.transform.forward = targetDirection_8;
-        Vector3 currentEulerAngles_8 = DownAttackRange_8.transform.rotation.eulerAngles;
-        DownAttackRange_8.transform.rotation = Quaternion.Euler(currentEulerAngles_8.x, currentEulerAngles_8.y - 90, 0);
+        //DownAttackRange_8.transform.forward = targetDirection_8;
+        //Vector3 currentEulerAngles_8 = DownAttackRange_8.transform.rotation.eulerAngles;
+        //DownAttackRange_8.transform.rotation = Quaternion.Euler(currentEulerAngles_8.x, currentEulerAngles_8.y, 0);
+        DownAttackRange_8.transform.rotation = Quaternion.LookRotation(transform.forward);
 
         yield return new WaitForSeconds(0.1f);
 
@@ -350,14 +365,16 @@ public class BossSkillP : MonoBehaviour
 
         GameObject DownAttackRange_9 = objPool.GetObjectFromPool();
         StartCoroutine(DownEffect_ActiveF(DownAttackRange_9));
-        DownAttackRange_9.transform.position = JumpPos.position;
-        DownAttackRange_9.transform.rotation = Quaternion.identity;
+        DownAttackRange_9.transform.position = JumpPos.transform.position + JumpPos.transform.forward * 30.0f;
+        //DownAttackRange_9.transform.rotation = Quaternion.identity;
         DownAttackRange_9.transform.parent = DownSword_SpawnTr;
+
         //PoolEffectObj.Add(DownAttackRange_9);
         //Destroy(DownAttackRange_9, 10.0f);
-        DownAttackRange_9.transform.forward = targetDirection_9;
-        Vector3 currentEulerAngles_9 = DownAttackRange_9.transform.rotation.eulerAngles;
-        DownAttackRange_9.transform.rotation = Quaternion.Euler(currentEulerAngles_9.x, currentEulerAngles_9.y - 90, 0);
+        //DownAttackRange_9.transform.forward = targetDirection_9;
+        //Vector3 currentEulerAngles_9 = DownAttackRange_9.transform.rotation.eulerAngles;
+        //DownAttackRange_9.transform.rotation = Quaternion.Euler(currentEulerAngles_9.x, currentEulerAngles_9.y, 0);
+        DownAttackRange_9.transform.rotation = Quaternion.LookRotation(transform.forward);
 
         yield return new WaitForSeconds(0.1f);
 
