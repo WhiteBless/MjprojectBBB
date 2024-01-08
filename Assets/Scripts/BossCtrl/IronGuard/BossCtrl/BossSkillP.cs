@@ -47,6 +47,11 @@ public class BossSkillP : MonoBehaviour
     public GameObject razerMaker_1;
     public GameObject razerMaker_2;
 
+    [SerializeField]
+    GameObject RazerOBJ_Effect_1;
+    [SerializeField]
+    GameObject RazerOBJ_Effect_2;
+
     public bool isDead = false;
     [SerializeField]
     Transform Razer_SpawnTr;
@@ -94,7 +99,7 @@ public class BossSkillP : MonoBehaviour
 
         int ranAction = Random.Range(0, 5);
 
-        switch (1)
+        switch (3)
         {
             case 0:
                 //검기 패턴
@@ -169,11 +174,17 @@ public class BossSkillP : MonoBehaviour
         yield return new WaitForSeconds(0.3f);
 
         GameObject DownAttackRange_1 = objPool.GetObjectFromPool();
+
+        // 오브젝트 풀로 사리질 때 적용시킨 collider를 다시 킨다.
+        if (DownAttackRange_1.GetComponent<BoxCollider>().enabled == false)
+        {
+            DownAttackRange_1.GetComponent<BoxCollider>().enabled = true;
+        }
+
         StartCoroutine(DownEffect_ActiveF(DownAttackRange_1));
         DownAttackRange_1.transform.position = JumpPos.transform.position + JumpPos.transform.forward * 30.0f;
         // DownAttackRange_1.transform.rotation = Quaternion.LookRotation(transform.forward);
         DownAttackRange_1.transform.parent = DownSword_SpawnTr;
-
 
         //PoolEffectObj.Add(DownAttackRange_1);
         // Destroy(DownAttackRange_1, 10.0f);
@@ -193,6 +204,13 @@ public class BossSkillP : MonoBehaviour
 
         yield return new WaitForSeconds(0.35f);
         GameObject DownAttackRange_2 = objPool.GetObjectFromPool();
+
+        // 오브젝트 풀로 사리질 때 적용시킨 collider를 다시 킨다.
+        if (DownAttackRange_2.GetComponent<BoxCollider>().enabled == false)
+        {
+            DownAttackRange_2.GetComponent<BoxCollider>().enabled = true;
+        }
+
         StartCoroutine(DownEffect_ActiveF(DownAttackRange_2));
         DownAttackRange_2.transform.position = JumpPos.transform.position + JumpPos.transform.forward * 30.0f;
         //DownAttackRange_2.transform.rotation = Quaternion.LookRotation(transform.forward);
@@ -217,6 +235,13 @@ public class BossSkillP : MonoBehaviour
         yield return new WaitForSeconds(0.45f);
 
         GameObject DownAttackRange_3 = objPool.GetObjectFromPool();
+
+        // 오브젝트 풀로 사리질 때 적용시킨 collider를 다시 킨다.
+        if (DownAttackRange_3.GetComponent<BoxCollider>().enabled == false)
+        {
+            DownAttackRange_3.GetComponent<BoxCollider>().enabled = true;
+        }
+
         StartCoroutine(DownEffect_ActiveF(DownAttackRange_3));
         DownAttackRange_3.transform.position = JumpPos.transform.position + JumpPos.transform.forward * 30.0f;
         //DownAttackRange_3.transform.rotation = Quaternion.LookRotation(transform.forward);
@@ -242,6 +267,13 @@ public class BossSkillP : MonoBehaviour
         yield return new WaitForSeconds(0.3f);
 
         GameObject DownAttackRange_4 = objPool.GetObjectFromPool();
+
+        // 오브젝트 풀로 사리질 때 적용시킨 collider를 다시 킨다.
+        if (DownAttackRange_4.GetComponent<BoxCollider>().enabled == false)
+        {
+            DownAttackRange_4.GetComponent<BoxCollider>().enabled = true;
+        }
+
         StartCoroutine(DownEffect_ActiveF(DownAttackRange_4));
         DownAttackRange_4.transform.position = JumpPos.transform.position + JumpPos.transform.forward * 30.0f;
         //DownAttackRange_4.transform.rotation = Quaternion.LookRotation(transform.forward);
@@ -267,6 +299,13 @@ public class BossSkillP : MonoBehaviour
 
 
         GameObject DownAttackRange_5 = objPool.GetObjectFromPool();
+
+        // 오브젝트 풀로 사리질 때 적용시킨 collider를 다시 킨다.
+        if (DownAttackRange_5.GetComponent<BoxCollider>().enabled == false)
+        {
+            DownAttackRange_5.GetComponent<BoxCollider>().enabled = true;
+        }
+
         StartCoroutine(DownEffect_ActiveF(DownAttackRange_5));
         DownAttackRange_5.transform.position = JumpPos.transform.position + JumpPos.transform.forward * 30.0f;
         //DownAttackRange_5.transform.rotation = Quaternion.LookRotation(transform.forward);
@@ -291,6 +330,13 @@ public class BossSkillP : MonoBehaviour
         yield return new WaitForSeconds(0.45f);
 
         GameObject DownAttackRange_6 = objPool.GetObjectFromPool();
+
+        // 오브젝트 풀로 사리질 때 적용시킨 collider를 다시 킨다.
+        if (DownAttackRange_6.GetComponent<BoxCollider>().enabled == false)
+        {
+            DownAttackRange_6.GetComponent<BoxCollider>().enabled = true;
+        }
+
         StartCoroutine(DownEffect_ActiveF(DownAttackRange_6));
         DownAttackRange_6.transform.position = JumpPos.transform.position + JumpPos.transform.forward * 30.0f;
         //DownAttackRange_6.transform.rotation = Quaternion.LookRotation(transform.forward);
@@ -316,6 +362,13 @@ public class BossSkillP : MonoBehaviour
         yield return new WaitForSeconds(0.3f);
 
         GameObject DownAttackRange_7 = objPool.GetObjectFromPool();
+
+        // 오브젝트 풀로 사리질 때 적용시킨 collider를 다시 킨다.
+        if (DownAttackRange_7.GetComponent<BoxCollider>().enabled == false)
+        {
+            DownAttackRange_7.GetComponent<BoxCollider>().enabled = true;
+        }
+
         StartCoroutine(DownEffect_ActiveF(DownAttackRange_7));
         DownAttackRange_7.transform.position = JumpPos.transform.position + JumpPos.transform.forward * 30.0f;
         //DownAttackRange_7.transform.rotation = Quaternion.LookRotation(transform.forward);
@@ -340,6 +393,13 @@ public class BossSkillP : MonoBehaviour
         yield return new WaitForSeconds(0.35f);
 
         GameObject DownAttackRange_8 = objPool.GetObjectFromPool();
+
+        // 오브젝트 풀로 사리질 때 적용시킨 collider를 다시 킨다.
+        if (DownAttackRange_8.GetComponent<BoxCollider>().enabled == false)
+        {
+            DownAttackRange_8.GetComponent<BoxCollider>().enabled = true;
+        }
+
         StartCoroutine(DownEffect_ActiveF(DownAttackRange_8));
         DownAttackRange_8.transform.position = JumpPos.transform.position + JumpPos.transform.forward * 30.0f;
         //DownAttackRange_8.transform.rotation = Quaternion.identity;
@@ -364,6 +424,13 @@ public class BossSkillP : MonoBehaviour
         yield return new WaitForSeconds(0.45f);
 
         GameObject DownAttackRange_9 = objPool.GetObjectFromPool();
+
+        // 오브젝트 풀로 사리질 때 적용시킨 collider를 다시 킨다.
+        if (DownAttackRange_9.GetComponent<BoxCollider>().enabled == false)
+        {
+            DownAttackRange_9.GetComponent<BoxCollider>().enabled = true;
+        }
+
         StartCoroutine(DownEffect_ActiveF(DownAttackRange_9));
         DownAttackRange_9.transform.position = JumpPos.transform.position + JumpPos.transform.forward * 30.0f;
         //DownAttackRange_9.transform.rotation = Quaternion.identity;
@@ -394,8 +461,10 @@ public class BossSkillP : MonoBehaviour
     // 이펙트 안보이게
     IEnumerator DownEffect_ActiveF(GameObject effect)
     {
-        yield return new WaitForSeconds(2.0f);
+        yield return new WaitForSeconds(1.0f);
+        effect.GetComponent<BoxCollider>().enabled = false;
 
+        yield return new WaitForSeconds(2.0f);
         effect.SetActive(false);
     }
 
@@ -475,7 +544,11 @@ public class BossSkillP : MonoBehaviour
     #region IronGuard_Skill4
     IEnumerator BossSkill4()
     {
+        RazerOBJ_Effect_1.SetActive(true);
+
         Vector3 bossPosition = transform.position; // 보스 위치 값을 저장
+        // 레이저 공격 실행 아직 안함
+        razerMaker_1.GetComponent<RazerMaker_Ctrl>().isRazerAtk = false;
 
         bossLookAt.isLook = false;
 
@@ -493,12 +566,16 @@ public class BossSkillP : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
 
         animator.SetTrigger("doRazerReturn");
-
+       
         yield return new WaitForSeconds(1.5f);
 
-        razerMaker_1.SetActive(false);
-        bossLookAt.isLook = true;
+        RazerOBJ_Effect_1.SetActive(false);
+        // 레이저 공격 실행
+        razerMaker_1.GetComponent<RazerMaker_Ctrl>().isRazerAtk = true;
 
+        // razerMaker_1.SetActive(false);
+
+        bossLookAt.isLook = true;
         yield return new WaitForSeconds(2f);
 
         StartCoroutine(Think());
@@ -509,7 +586,10 @@ public class BossSkillP : MonoBehaviour
     #region IronGuard_Skill5
     IEnumerator BossSkill5()
     {
+        RazerOBJ_Effect_2.SetActive(true);
         Vector3 bossPosition = transform.position; // 보스 위치 값을 저장
+        // 레이저 공격 실행 아직 안함
+        razerMaker_2.GetComponent<RazerMaker_Ctrl>().isRazerAtk = false;
 
         bossLookAt.isLook = false;
 
@@ -517,7 +597,8 @@ public class BossSkillP : MonoBehaviour
 
         animator.SetTrigger("doRazer");
 
-        yield return new WaitForSeconds(3f);
+        // yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(1f);
 
         shotRazer_5.UseRazer();
         shotRazer_6.UseRazer();
@@ -528,9 +609,14 @@ public class BossSkillP : MonoBehaviour
 
         animator.SetTrigger("doRazerReturn");
 
-        yield return new WaitForSeconds(1f);
+        // yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(1.5f);
 
-        razerMaker_2.SetActive(false);
+        RazerOBJ_Effect_2.SetActive(false);
+        // 레이저 공격 실행
+        razerMaker_2.GetComponent<RazerMaker_Ctrl>().isRazerAtk = true;
+        // razerMaker_2.SetActive(false);
+
         bossLookAt.isLook = true;
 
         yield return new WaitForSeconds(2f);
