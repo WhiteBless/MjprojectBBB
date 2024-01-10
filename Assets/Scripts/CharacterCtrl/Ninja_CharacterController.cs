@@ -534,6 +534,7 @@ public class Ninja_CharacterController : CharacterBase
         if (other.tag == "EnemyAttack" && !isHit)
         {
             playscenemanager.HealthDown();
+            Debug.Log(other.gameObject.name);
 
             isHit = true;
 

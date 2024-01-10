@@ -5,17 +5,54 @@ using UnityEngine;
 public class ShotRazer : MonoBehaviour
 {
     [Header("레이저")]
+    public GameObject[] Beams;
+    public GameObject[] Electrics;
+
     public Transform RazerPos_1;
     public Transform RazerPos_2;
     public Transform RazerPos_3;
     public Transform RazerPos_4;
     public Transform RazerPos_5;
     public Transform RazerPos_6;
+
     [SerializeField]
     GameObject Razer;
+    [SerializeField]
+    float Beam_Speed;
 
     [SerializeField]
     IronGuard_ObjPool Razer_Pooling;
+
+    public bool isShot;
+
+    void Update()
+    {
+        // 레이저 공격 실행시키면
+        if(isShot == true)
+        {
+            for (int i = 0; i < Beams.Length; i++)
+            {
+                Electrics[i].SetActive(true);
+                // 레이저 늘리기
+                float newYScale = Beams[i].transform.localScale.y + Beam_Speed * Time.deltaTime;
+                Beams[i].transform.localScale = new Vector3(Beams[i].transform.localScale.x, newYScale, Beams[i].transform.localScale.z);
+
+                // Beams[i].transform.localScale = new Vector3(0.1f, Beam_Speed * Time.deltaTime, 0.1f);
+            }
+        }
+    }
+
+    public void End_Razer_Atk()
+    {
+        isShot = false;
+
+        for (int i = 0; i < Beams.Length; i++)
+        {
+            Beams[i].transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+            Electrics[i].SetActive(false);
+        }
+    }
+
 
     public void UseRazer()
     {
