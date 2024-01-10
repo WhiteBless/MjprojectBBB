@@ -99,7 +99,7 @@ public class BossSkillP : MonoBehaviour
 
         int ranAction = Random.Range(0, 5);
 
-        switch (3)
+        switch (ranAction)
         {
             case 0:
                 //검기 패턴
@@ -558,18 +558,27 @@ public class BossSkillP : MonoBehaviour
 
         yield return new WaitForSeconds(1f);
 
-        shotRazer_1.UseRazer();
-        shotRazer_2.UseRazer();
-        shotRazer_3.UseRazer();
-        shotRazer_4.UseRazer();
+        //shotRazer_1.UseRazer();
+        //shotRazer_2.UseRazer();
+        //shotRazer_3.UseRazer();
+        //shotRazer_4.UseRazer();
+
+        shotRazer_1.isShot = true;
+        shotRazer_2.isShot = true;
+        shotRazer_3.isShot = true;
+        shotRazer_4.isShot = true;
 
         yield return new WaitForSeconds(0.5f);
 
         animator.SetTrigger("doRazerReturn");
        
         yield return new WaitForSeconds(1.5f);
-
         RazerOBJ_Effect_1.SetActive(false);
+        shotRazer_1.End_Razer_Atk();
+        shotRazer_2.End_Razer_Atk();
+        shotRazer_3.End_Razer_Atk();
+        shotRazer_4.End_Razer_Atk();
+
         // 레이저 공격 실행
         razerMaker_1.GetComponent<RazerMaker_Ctrl>().isRazerAtk = true;
 
@@ -600,10 +609,15 @@ public class BossSkillP : MonoBehaviour
         // yield return new WaitForSeconds(3f);
         yield return new WaitForSeconds(1f);
 
-        shotRazer_5.UseRazer();
-        shotRazer_6.UseRazer();
-        shotRazer_7.UseRazer();
-        shotRazer_8.UseRazer();
+        //shotRazer_5.UseRazer();
+        //shotRazer_6.UseRazer();
+        //shotRazer_7.UseRazer();
+        //shotRazer_8.UseRazer();
+
+        shotRazer_5.isShot = true;
+        shotRazer_6.isShot = true;
+        shotRazer_7.isShot = true;
+        shotRazer_8.isShot = true;
 
         yield return new WaitForSeconds(0.5f);
 
@@ -611,8 +625,13 @@ public class BossSkillP : MonoBehaviour
 
         // yield return new WaitForSeconds(1f);
         yield return new WaitForSeconds(1.5f);
-
         RazerOBJ_Effect_2.SetActive(false);
+        // 레이저 이펙트 초기화
+        shotRazer_5.End_Razer_Atk();
+        shotRazer_6.End_Razer_Atk();
+        shotRazer_7.End_Razer_Atk();
+        shotRazer_8.End_Razer_Atk();
+
         // 레이저 공격 실행
         razerMaker_2.GetComponent<RazerMaker_Ctrl>().isRazerAtk = true;
         // razerMaker_2.SetActive(false);
