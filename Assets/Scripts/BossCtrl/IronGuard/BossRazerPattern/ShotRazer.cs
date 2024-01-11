@@ -33,6 +33,7 @@ public class ShotRazer : MonoBehaviour
             for (int i = 0; i < Beams.Length; i++)
             {
                 Electrics[i].SetActive(true);
+                Beams[i].SetActive(true);
                 // 레이저 늘리기
                 float newYScale = Beams[i].transform.localScale.y + Beam_Speed * Time.deltaTime;
                 Beams[i].transform.localScale = new Vector3(Beams[i].transform.localScale.x, newYScale, Beams[i].transform.localScale.z);
@@ -49,6 +50,7 @@ public class ShotRazer : MonoBehaviour
         for (int i = 0; i < Beams.Length; i++)
         {
             Beams[i].transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+            Beams[i].SetActive(false);
             Electrics[i].SetActive(false);
         }
     }

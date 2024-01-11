@@ -99,7 +99,7 @@ public class BossSkillP : MonoBehaviour
 
         int ranAction = Random.Range(0, 5);
 
-        switch (ranAction)
+        switch (2)
         {
             case 0:
                 //검기 패턴
@@ -327,7 +327,7 @@ public class BossSkillP : MonoBehaviour
         bossLookAt.isLook = false;
         Vector3 targetDirection_6 = Target.transform.position - JumpPos.position;
 
-        yield return new WaitForSeconds(0.45f);
+        yield return new WaitForSeconds(0.7f);
 
         GameObject DownAttackRange_6 = objPool.GetObjectFromPool();
 
@@ -421,7 +421,7 @@ public class BossSkillP : MonoBehaviour
         bossLookAt.isLook = false;
         Vector3 targetDirection_9 = Target.transform.position - JumpPos.position;
 
-        yield return new WaitForSeconds(0.45f);
+        yield return new WaitForSeconds(0.7f);
 
         GameObject DownAttackRange_9 = objPool.GetObjectFromPool();
 
@@ -505,7 +505,9 @@ public class BossSkillP : MonoBehaviour
         Vector3 targetDirection = Target.transform.position - transform.position;
 
         Vector3 jumpEndAttackVec = Target.transform.position - targetDirection.normalized * 5.0f;
-        StartCoroutine(JumpDuring(jumpStartPosition, jumpEndAttackVec, 1.4f));
+        StartCoroutine(JumpDuring(jumpStartPosition, jumpEndAttackVec, 0.5f));
+
+        Debug.Log(Vector3.Distance(jumpStartPosition, jumpEndAttackVec));
 
         bossLookAt.isLook = false;
         boxCollider.enabled = false;
@@ -515,15 +517,40 @@ public class BossSkillP : MonoBehaviour
         yield return new WaitForSeconds(1.2f);
 
         JumpAttackRange.enabled = true;
-        Vector3 bossForward = bossPos.position + bossPos.forward * 0.0f;
+        Vector3 bossForward = bossPos.position + bossPos.forward * 15.0f;
         GameObject newPrefab = Instantiate(JumpEffect, bossForward, Quaternion.identity);
-        Destroy(newPrefab, 1.0f);
+        Destroy(newPrefab, 2.0f);
 
-        yield return new WaitForSeconds(2f);
-        
+        yield return new WaitForSeconds(0.5f);
+
+        if (Vector3.Distance(jumpStartPosition, jumpEndAttackVec) >= 0.0f && Vector3.Distance(jumpStartPosition, jumpEndAttackVec) <= 20.0f)
+        {
+            animator.SetTrigger("doReturn");
+            animator.SetFloat("ReturnSpeed", 0.8f);
+            yield return new WaitForSeconds(0.2f);
+        }
+        else if (Vector3.Distance(jumpStartPosition, jumpEndAttackVec) > 20.0f && Vector3.Distance(jumpStartPosition, jumpEndAttackVec) <= 40.0f)
+        {
+            animator.SetTrigger("doReturn");
+            animator.SetFloat("ReturnSpeed", 0.9f);
+            yield return new WaitForSeconds(0.35f);
+        }
+        else if (Vector3.Distance(jumpStartPosition, jumpEndAttackVec) > 40.0f && Vector3.Distance(jumpStartPosition, jumpEndAttackVec) <= 60.0f)
+        {
+            animator.SetTrigger("doReturn");
+            animator.SetFloat("ReturnSpeed", 0.8f);
+            yield return new WaitForSeconds(0.4f);
+        }
+        else if (Vector3.Distance(jumpStartPosition, jumpEndAttackVec) > 60.0f)
+        {
+            animator.SetTrigger("doReturn");
+            animator.SetFloat("ReturnSpeed", 0.7f);
+            yield return new WaitForSeconds(0.5f);
+        }
+
         boxCollider.enabled = true;
-        animator.SetTrigger("doReturn");
-        StartCoroutine(JumpDuring(jumpEndAttackVec, jumpStartPosition, 1.1f));
+        // animator.SetTrigger("doReturn");
+        StartCoroutine(JumpDuring(jumpEndAttackVec, jumpStartPosition, 1.0f));
 
         yield return new WaitForSeconds(1f);
 
@@ -537,6 +564,20 @@ public class BossSkillP : MonoBehaviour
 
         yield return new WaitForSeconds(2f);
         StartCoroutine(Think());
+    }
+
+    IEnumerator JumpDuring(Vector3 startPosition, Vector3 jumpAttackVec, float duration)
+    {
+        float startTime = Time.time;
+
+        while (Time.time - startTime < duration)
+        {
+            // Dodge 동작 중에 플레이어를 움직입니다.
+            float t = (Time.time - startTime) / duration; // 시간 계산
+            transform.position = Vector3.Lerp(startPosition, jumpAttackVec, t); // 시작 지점에서 도착 지점까지 t만큼 시간 소요
+            yield return null;
+        }
+        transform.position = jumpAttackVec;
     }
     #endregion
 
@@ -643,19 +684,4 @@ public class BossSkillP : MonoBehaviour
         StartCoroutine(Think());
     }
     #endregion
-
-
-    IEnumerator JumpDuring(Vector3 startPosition, Vector3 jumpAttackVec, float duration)
-    {
-        float startTime = Time.time;
-
-        while (Time.time - startTime < duration)
-        {
-            // Dodge 동작 중에 플레이어를 움직입니다.
-            float t = (Time.time - startTime) / duration; // 시간 계산
-            transform.position = Vector3.Lerp(startPosition, jumpAttackVec, t); // 시작 지점에서 도착 지점까지 t만큼 시간 소요
-            yield return null;
-        }
-        transform.position = jumpAttackVec;
-    }
 }
