@@ -99,7 +99,7 @@ public class BossSkillP : MonoBehaviour
 
         int ranAction = Random.Range(0, 5);
 
-        switch (2)
+        switch (ranAction)
         {
             case 0:
                 //검기 패턴
@@ -589,7 +589,7 @@ public class BossSkillP : MonoBehaviour
 
         Vector3 bossPosition = transform.position; // 보스 위치 값을 저장
         // 레이저 공격 실행 아직 안함
-        razerMaker_1.GetComponent<RazerMaker_Ctrl>().isRazerAtk = false;
+        razerMaker_1.GetComponent<RazerMaker_Ctrl1>().isRazerAtk = false;
 
         bossLookAt.isLook = false;
 
@@ -621,7 +621,7 @@ public class BossSkillP : MonoBehaviour
         shotRazer_4.End_Razer_Atk();
 
         // 레이저 공격 실행
-        razerMaker_1.GetComponent<RazerMaker_Ctrl>().isRazerAtk = true;
+        razerMaker_1.GetComponent<RazerMaker_Ctrl1>().isRazerAtk = true;
 
         // razerMaker_1.SetActive(false);
 
@@ -639,7 +639,7 @@ public class BossSkillP : MonoBehaviour
         RazerOBJ_Effect_2.SetActive(true);
         Vector3 bossPosition = transform.position; // 보스 위치 값을 저장
         // 레이저 공격 실행 아직 안함
-        razerMaker_2.GetComponent<RazerMaker_Ctrl>().isRazerAtk = false;
+        razerMaker_2.GetComponent<RazerMaker_Ctrl1>().isRazerAtk = false;
 
         bossLookAt.isLook = false;
 
@@ -674,7 +674,7 @@ public class BossSkillP : MonoBehaviour
         shotRazer_8.End_Razer_Atk();
 
         // 레이저 공격 실행
-        razerMaker_2.GetComponent<RazerMaker_Ctrl>().isRazerAtk = true;
+        razerMaker_2.GetComponent<RazerMaker_Ctrl1>().isRazerAtk = true;
         // razerMaker_2.SetActive(false);
 
         bossLookAt.isLook = true;
