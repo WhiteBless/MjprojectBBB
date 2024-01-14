@@ -59,9 +59,8 @@ public class BossSkillP : MonoBehaviour
     Transform ThrowSword_SpawnTr;
     [SerializeField]
     Transform DownSword_SpawnTr;
-
-    [Header("----IronGuard_Skill2_Var----")]
-    [SerializeField] int JumpCount;
+    [SerializeField]
+    Transform TargetTr;
 
     void Awake()
     {
@@ -135,24 +134,33 @@ public class BossSkillP : MonoBehaviour
 
         yield return new WaitForSeconds(1f);
 
-        Vector3 targetDirection = Target.transform.position - SpiritPos.position;
+        // Vector3 targetDirection = Target.transform.position - SpiritPos.position;
 
-        GameObject SpiritEffectPrf = Instantiate(SpiritEffect, SpiritPos.position, Quaternion.identity);
-        Vector3 SpiritEffectPrf_Quaternion = SpiritEffectPrf.transform.rotation.eulerAngles;
-        SpiritEffectPrf.transform.rotation = Quaternion.Euler(SpiritEffectPrf_Quaternion.x, SpiritEffectPrf_Quaternion.y, 90);
-        Destroy(SpiritEffectPrf, 15.0f);
+        Vector3 targetTrDirection = TargetTr.transform.position - SpiritPos.position;
+        // GameObject SpiritEffectPrf = Instantiate(SpiritEffect);
 
-        SpiritEffectPrf.transform.forward = targetDirection;
+        GameObject SpiritEffectPrf = objPool.Get_SpiritSword_ObjectFromPool();
+        SpiritEffectPrf.transform.position = SpiritPos.position + SpiritPos.forward * 5.0f;
+        SpiritEffectPrf.transform.rotation = Quaternion.LookRotation(targetTrDirection);
+        // Vector3 SpiritEffectPrf_Quaternion = SpiritEffectPrf.transform.rotation.eulerAngles;
+        // Destroy(SpiritEffectPrf, 15.0f);
+        // SpiritEffectPrf.transform.forward = targetDirection;
 
-        //SpiritEffectPrf.transform.rotation = Quaternion.Euler(SpiritEffectPrf.transform.rotation.x, SpiritEffectPrf.transform.rotation.y, 90);
+        // SpiritEffectPrf.transform.rotation = Quaternion.Euler(SpiritEffectPrf.transform.rotation.x, SpiritEffectPrf.transform.rotation.y, 90.0f);
         yield return new WaitForSeconds(0.1f);
 
         bossLookAt.isLook = false;
 
-        yield return new WaitForSeconds(1.9f);
+        yield return new WaitForSeconds(0.1f);
 
-        Rigidbody SpiritEffect_1 = SpiritEffectPrf.GetComponent<Rigidbody>();
-        SpiritEffect_1.velocity = targetDirection * 5;
+        SpiritEffectPrf.GetComponent<SwordParticle_Eff>().isBig = true;
+
+        yield return new WaitForSeconds(1.9f);
+        SpiritEffectPrf.GetComponent<SwordParticle_Eff>().isBig = false;
+        SpiritEffectPrf.GetComponent<SwordParticle_Eff>().isShot = true;
+
+        // Rigidbody SpiritEffect_1 = SpiritEffectPrf.GetComponent<Rigidbody>();
+        // SpiritEffect_1.velocity = targetDirection * 5;
 
         bossLookAt.isLook = true;
         yield return new WaitForSeconds(2f);
