@@ -98,7 +98,7 @@ public class BossSkillP : MonoBehaviour
 
         int ranAction = Random.Range(0, 5);
 
-        switch (ranAction)
+        switch (0)
         {
             case 0:
                 //검기 패턴
@@ -151,12 +151,8 @@ public class BossSkillP : MonoBehaviour
 
         bossLookAt.isLook = false;
 
-        yield return new WaitForSeconds(0.1f);
-
-        SpiritEffectPrf.GetComponent<SwordParticle_Eff>().isBig = true;
-
         yield return new WaitForSeconds(1.9f);
-        SpiritEffectPrf.GetComponent<SwordParticle_Eff>().isBig = false;
+        SpiritEffectPrf.GetComponent<SwordParticle_Eff>().isBig = true;
         SpiritEffectPrf.GetComponent<SwordParticle_Eff>().isShot = true;
 
         // Rigidbody SpiritEffect_1 = SpiritEffectPrf.GetComponent<Rigidbody>();
