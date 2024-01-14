@@ -52,7 +52,7 @@ public class SwordParticle_Eff : MonoBehaviour
         if (isShot == true)
         {
             // 로컬 좌표 기준으로 이동
-            transform.Translate(Vector3.forward * 100.0f * Time.deltaTime, Space.Self);
+            transform.Translate(Vector3.forward * 80.0f * Time.deltaTime, Space.Self);
         }
     }
 
@@ -78,6 +78,7 @@ public class SwordParticle_Eff : MonoBehaviour
         yield return new WaitForSeconds(5.0f);
         this.gameObject.transform.localScale = StartScale;
         isShot = false;
+        isBig = false;
         this.gameObject.SetActive(false);
     }
 

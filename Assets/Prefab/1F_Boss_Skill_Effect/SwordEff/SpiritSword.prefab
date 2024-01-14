@@ -27,8 +27,8 @@ Transform:
   m_GameObject: {fileID: 98900064558122669}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -2.41, y: -0.61, z: -0.21}
+  m_LocalScale: {x: 2, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1233010467109672509}
@@ -41,7 +41,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 98900064558122669}
   serializedVersion: 8
-  lengthInSec: 1
+  lengthInSec: 0.1
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
@@ -9854,7 +9854,8 @@ MonoBehaviour:
   - {fileID: 2270048531371117871}
   particleSystem: {fileID: 0}
   isBig: 0
-  UpScale: 0.3
+  isShot: 0
+  UpScale: 1
 --- !u!1 &1952637200638554557
 GameObject:
   m_ObjectHideFlags: 0
@@ -9872,7 +9873,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1754431659176499172
 Transform:
   m_ObjectHideFlags: 0
@@ -9882,9 +9883,9 @@ Transform:
   m_GameObject: {fileID: 1952637200638554557}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -1.404, y: 0, z: 0.251}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1233010467109672509}
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
@@ -9896,7 +9897,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1952637200638554557}
   serializedVersion: 8
-  lengthInSec: 1
+  lengthInSec: 0.1
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
@@ -14779,7 +14780,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1233010467109672509}
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
@@ -14791,7 +14792,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4908335860350253914}
   serializedVersion: 8
-  lengthInSec: 1
+  lengthInSec: 0.1
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
