@@ -44,13 +44,17 @@ public class BossSkillP : MonoBehaviour
 
     Transform bossPos;
 
-    public GameObject razerMaker_1;
-    public GameObject razerMaker_2;
+    
+    public GameObject[] razerMaker;
+    // public GameObject razerMaker_2;
+    [SerializeField]
+    GameObject Razer;
+    [SerializeField]
+    GameObject[] RazerOBJ_Effect;
+    // GameObject RazerOBJ_Effect_2;
+    [SerializeField]
+    int[] SelectRazerNum;
 
-    [SerializeField]
-    GameObject RazerOBJ_Effect_1;
-    [SerializeField]
-    GameObject RazerOBJ_Effect_2;
 
     public bool isDead = false;
     [SerializeField]
@@ -96,9 +100,9 @@ public class BossSkillP : MonoBehaviour
     {
         yield return new WaitForSeconds(0.1f);
 
-        int ranAction = Random.Range(0, 5);
+        int ranAction = Random.Range(0, 4);
 
-        switch (0)
+        switch (3)
         {
             case 0:
                 //검기 패턴
@@ -120,10 +124,10 @@ public class BossSkillP : MonoBehaviour
                 StartCoroutine(BossSkill4());
                 break;
 
-            case 4:
-                //레이저 공격(모서리) 패턴
-                StartCoroutine(BossSkill5());
-                break;
+            //case 4:
+            //    //레이저 공격(모서리) 패턴
+            //    StartCoroutine(BossSkill5());
+            //    break;
         }
     }
     // TODO ## IronGuard_Skill1
@@ -589,103 +593,160 @@ public class BossSkillP : MonoBehaviour
     #region IronGuard_Skill4
     IEnumerator BossSkill4()
     {
-        RazerOBJ_Effect_1.SetActive(true);
-
+        SelectRazerNum = GenerateUniqueRandomValues(4, 0, 7);
         Vector3 bossPosition = transform.position; // 보스 위치 값을 저장
+
+        Razer.SetActive(true);
+        // 랜덤으로 뽑힌 오브젝트에 있는 RazerMaker_Ctrl1의 bool값 조정
+        Razer.GetComponent<RazerMaker_Ctrl1>().isRazerAtk = false;
+
         // 레이저 공격 실행 아직 안함
-        razerMaker_1.GetComponent<RazerMaker_Ctrl1>().isRazerAtk = false;
+        for (int i = 0; i < SelectRazerNum.Length; i++)
+        {
+            // 랜덤으로 뽑힌 오브젝트 활성화
+            razerMaker[SelectRazerNum[i]].SetActive(true);
+            RazerOBJ_Effect[SelectRazerNum[i]].SetActive(true);
+        }
 
         bossLookAt.isLook = false;
-
-        razerMaker_1.SetActive(true);
-
+        
         animator.SetTrigger("doRazer");
 
         yield return new WaitForSeconds(1f);
 
-        //shotRazer_1.UseRazer();
-        //shotRazer_2.UseRazer();
-        //shotRazer_3.UseRazer();
-        //shotRazer_4.UseRazer();
+        for (int i = 0; i < SelectRazerNum.Length; i++)
+        {
+            // 랜덤으로 뽑힌 오브젝트 빔 발사
+            razerMaker[SelectRazerNum[i]].transform.GetChild(0).GetComponent<ShotRazer>().isShot = true;
+        }
 
-        shotRazer_1.isShot = true;
-        shotRazer_2.isShot = true;
-        shotRazer_3.isShot = true;
-        shotRazer_4.isShot = true;
+        //shotRazer_1.isShot = true;
+        //shotRazer_2.isShot = true;
+        //shotRazer_3.isShot = true;
+        //shotRazer_4.isShot = true;
 
         yield return new WaitForSeconds(0.5f);
-
         animator.SetTrigger("doRazerReturn");
-       
+
         yield return new WaitForSeconds(1.5f);
-        RazerOBJ_Effect_1.SetActive(false);
-        shotRazer_1.End_Razer_Atk();
-        shotRazer_2.End_Razer_Atk();
-        shotRazer_3.End_Razer_Atk();
-        shotRazer_4.End_Razer_Atk();
+        
+        // RazerOBJ_Effect.SetActive(false);
+
+        for (int i = 0; i < SelectRazerNum.Length; i++)
+        {
+            // 랜덤으로 뽑힌 오브젝트 빔 발사
+            razerMaker[SelectRazerNum[i]].transform.GetChild(0).GetComponent<ShotRazer>().End_Razer_Atk();
+            // 소환진 이펙트 끄기
+            RazerOBJ_Effect[SelectRazerNum[i]].SetActive(false);
+        }
+
+        //shotRazer_1.End_Razer_Atk();
+        //shotRazer_2.End_Razer_Atk();
+        //shotRazer_3.End_Razer_Atk();
+        //shotRazer_4.End_Razer_Atk();
 
         // 레이저 공격 실행
-        razerMaker_1.GetComponent<RazerMaker_Ctrl1>().isRazerAtk = true;
+        Razer.GetComponent<RazerMaker_Ctrl1>().isRazerAtk = true;
 
-        // razerMaker_1.SetActive(false);
-
-        bossLookAt.isLook = true;
+        //bossLookAt.isLook = true;
         yield return new WaitForSeconds(2f);
+
+        // 레이저 공격 실행 아직 안함
+        for (int i = 0; i < SelectRazerNum.Length; i++)
+        {
+            // 랜덤으로 뽑힌 오브젝트 활성화
+            razerMaker[SelectRazerNum[i]].SetActive(false);
+        }
 
         StartCoroutine(Think());
     }
     #endregion
 
+    int[] GenerateUniqueRandomValues(int count, int minValue, int maxValue)
+    {
+        if (count > maxValue - minValue + 1)
+        {
+            Debug.LogError("Count should be less than or equal to the range of unique values.");
+            return null;
+        }
+
+        int[] values = new int[maxValue - minValue + 1];
+
+        // 초기화: minValue부터 maxValue까지의 순차적인 값으로 배열 초기화
+        for (int i = 0; i < values.Length; i++)
+        {
+            values[i] = minValue + i;
+        }
+
+        // Fisher-Yates 셔플 알고리즘을 사용하여 배열 섞기
+        for (int i = values.Length - 1; i > 0; i--)
+        {
+            int randomIndex = Random.Range(0, i + 1);
+            int temp = values[i];
+            values[i] = values[randomIndex];
+            values[randomIndex] = temp;
+        }
+
+        // count 만큼의 값만 반환
+        int[] result = new int[count];
+        for (int i = 0; i < count; i++)
+        {
+            result[i] = values[i];
+        }
+
+        return result;
+    }
+
     // TODO ## IronGuard_Skill5
     #region IronGuard_Skill5
-    IEnumerator BossSkill5()
-    {
-        RazerOBJ_Effect_2.SetActive(true);
-        Vector3 bossPosition = transform.position; // 보스 위치 값을 저장
-        // 레이저 공격 실행 아직 안함
-        razerMaker_2.GetComponent<RazerMaker_Ctrl1>().isRazerAtk = false;
+    //IEnumerator BossSkill5()
+    //{
+    //    RazerOBJ_Effect_2.SetActive(true);
+    //    Vector3 bossPosition = transform.position; // 보스 위치 값을 저장
+    //    // 레이저 공격 실행 아직 안함
+    //    razerMaker_2.GetComponent<RazerMaker_Ctrl1>().isRazerAtk = false;
 
-        bossLookAt.isLook = false;
+    //    bossLookAt.isLook = false;
 
-        razerMaker_2.SetActive(true);
+    //    razerMaker_2.SetActive(true);
 
-        animator.SetTrigger("doRazer");
+    //    animator.SetTrigger("doRazer");
 
-        // yield return new WaitForSeconds(3f);
-        yield return new WaitForSeconds(1f);
+    //    // yield return new WaitForSeconds(3f);
+    //    yield return new WaitForSeconds(1f);
 
-        //shotRazer_5.UseRazer();
-        //shotRazer_6.UseRazer();
-        //shotRazer_7.UseRazer();
-        //shotRazer_8.UseRazer();
+    //    //shotRazer_5.UseRazer();
+    //    //shotRazer_6.UseRazer();
+    //    //shotRazer_7.UseRazer();
+    //    //shotRazer_8.UseRazer();
 
-        shotRazer_5.isShot = true;
-        shotRazer_6.isShot = true;
-        shotRazer_7.isShot = true;
-        shotRazer_8.isShot = true;
+    //    shotRazer_5.isShot = true;
+    //    shotRazer_6.isShot = true;
+    //    shotRazer_7.isShot = true;
+    //    shotRazer_8.isShot = true;
 
-        yield return new WaitForSeconds(0.5f);
+    //    yield return new WaitForSeconds(0.5f);
 
-        animator.SetTrigger("doRazerReturn");
+    //    animator.SetTrigger("doRazerReturn");
 
-        // yield return new WaitForSeconds(1f);
-        yield return new WaitForSeconds(1.5f);
-        RazerOBJ_Effect_2.SetActive(false);
-        // 레이저 이펙트 초기화
-        shotRazer_5.End_Razer_Atk();
-        shotRazer_6.End_Razer_Atk();
-        shotRazer_7.End_Razer_Atk();
-        shotRazer_8.End_Razer_Atk();
+    //    // yield return new WaitForSeconds(1f);
+    //    yield return new WaitForSeconds(1.5f);
+    //    RazerOBJ_Effect_2.SetActive(false);
+    //    // 레이저 이펙트 초기화
+    //    shotRazer_5.End_Razer_Atk();
+    //    shotRazer_6.End_Razer_Atk();
+    //    shotRazer_7.End_Razer_Atk();
+    //    shotRazer_8.End_Razer_Atk();
 
-        // 레이저 공격 실행
-        razerMaker_2.GetComponent<RazerMaker_Ctrl1>().isRazerAtk = true;
-        // razerMaker_2.SetActive(false);
+    //    // 레이저 공격 실행
+    //    razerMaker_2.GetComponent<RazerMaker_Ctrl1>().isRazerAtk = true;
+    //    // razerMaker_2.SetActive(false);
 
-        bossLookAt.isLook = true;
+    //    bossLookAt.isLook = true;
 
-        yield return new WaitForSeconds(2f);
-  
-        StartCoroutine(Think());
-    }
+    //    yield return new WaitForSeconds(2f);
+
+    //    StartCoroutine(Think());
+    //}
     #endregion
 }
