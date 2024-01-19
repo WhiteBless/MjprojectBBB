@@ -55,6 +55,8 @@ public class BossSkillP : MonoBehaviour
     [SerializeField]
     int[] SelectRazerNum;
 
+    [SerializeField]
+    GameObject[] GuideLine;
 
     public bool isDead = false;
     [SerializeField]
@@ -102,7 +104,7 @@ public class BossSkillP : MonoBehaviour
 
         int ranAction = Random.Range(0, 4);
 
-        switch (3)
+        switch (0)
         {
             case 0:
                 //검기 패턴
@@ -150,12 +152,16 @@ public class BossSkillP : MonoBehaviour
         // Destroy(SpiritEffectPrf, 15.0f);
         // SpiritEffectPrf.transform.forward = targetDirection;
 
+        yield return new WaitForSeconds(0.3f);
+        SpiritEffectPrf.transform.GetChild(4).gameObject.SetActive(true);
         // SpiritEffectPrf.transform.rotation = Quaternion.Euler(SpiritEffectPrf.transform.rotation.x, SpiritEffectPrf.transform.rotation.y, 90.0f);
+
         yield return new WaitForSeconds(0.1f);
 
         bossLookAt.isLook = false;
 
         yield return new WaitForSeconds(1.9f);
+        SpiritEffectPrf.transform.GetChild(4).gameObject.SetActive(false);
         SpiritEffectPrf.GetComponent<SwordParticle_Eff>().isBig = true;
         SpiritEffectPrf.GetComponent<SwordParticle_Eff>().isShot = true;
 
@@ -174,6 +180,7 @@ public class BossSkillP : MonoBehaviour
     IEnumerator BossSkill2()
     {
         animator.SetTrigger("doDownAttack");
+        GuideLine[1].SetActive(true);
         yield return new WaitForSeconds(1.3f);
 
         bossLookAt.isLook = false;
@@ -189,6 +196,7 @@ public class BossSkillP : MonoBehaviour
             DownAttackRange_1.GetComponent<BoxCollider>().enabled = true;
         }
 
+        GuideLine[1].SetActive(false);
         StartCoroutine(DownEffect_ActiveF(DownAttackRange_1));
         DownAttackRange_1.transform.position = JumpPos.transform.position + JumpPos.transform.forward * 30.0f;
         // DownAttackRange_1.transform.rotation = Quaternion.LookRotation(transform.forward);
@@ -203,14 +211,17 @@ public class BossSkillP : MonoBehaviour
 
         yield return new WaitForSeconds(0.1f);
 
+        GuideLine[1].SetActive(true);
         bossLookAt.isLook = true;
 
         yield return new WaitForSeconds(1.2f);
 
+        
         bossLookAt.isLook = false;
         Vector3 targetDirection_2 = Target.transform.position - JumpPos.position;
 
         yield return new WaitForSeconds(0.35f);
+        GuideLine[1].SetActive(false);
         GameObject DownAttackRange_2 = objPool.GetObjectFromPool();
 
         // 오브젝트 풀로 사리질 때 적용시킨 collider를 다시 킨다.
@@ -233,6 +244,7 @@ public class BossSkillP : MonoBehaviour
 
         yield return new WaitForSeconds(0.1f);
 
+        GuideLine[1].SetActive(true);
         bossLookAt.isLook = true;
 
         yield return new WaitForSeconds(1.2f);
@@ -241,7 +253,7 @@ public class BossSkillP : MonoBehaviour
         Vector3 targetDirection_3 = Target.transform.position - JumpPos.position;
 
         yield return new WaitForSeconds(0.45f);
-
+        GuideLine[1].SetActive(false);
         GameObject DownAttackRange_3 = objPool.GetObjectFromPool();
 
         // 오브젝트 풀로 사리질 때 적용시킨 collider를 다시 킨다.
@@ -264,6 +276,7 @@ public class BossSkillP : MonoBehaviour
 
         yield return new WaitForSeconds(1f);
 
+        GuideLine[1].SetActive(true);
         bossLookAt.isLook = true;
         animator.SetTrigger("doDownAttack");
 
@@ -273,7 +286,7 @@ public class BossSkillP : MonoBehaviour
         Vector3 targetDirection_4 = Target.transform.position - JumpPos.position;
 
         yield return new WaitForSeconds(0.3f);
-
+        GuideLine[1].SetActive(false);
         GameObject DownAttackRange_4 = objPool.GetObjectFromPool();
 
         // 오브젝트 풀로 사리질 때 적용시킨 collider를 다시 킨다.
@@ -296,6 +309,7 @@ public class BossSkillP : MonoBehaviour
 
         yield return new WaitForSeconds(0.1f);
 
+        GuideLine[1].SetActive(true);
         bossLookAt.isLook = true;
 
         yield return new WaitForSeconds(1.2f);
@@ -305,7 +319,7 @@ public class BossSkillP : MonoBehaviour
 
         yield return new WaitForSeconds(0.35f);
 
-
+        GuideLine[1].SetActive(false);
         GameObject DownAttackRange_5 = objPool.GetObjectFromPool();
 
         // 오브젝트 풀로 사리질 때 적용시킨 collider를 다시 킨다.
@@ -328,6 +342,7 @@ public class BossSkillP : MonoBehaviour
 
         yield return new WaitForSeconds(0.1f);
 
+        GuideLine[1].SetActive(true);
         bossLookAt.isLook = true;
 
         yield return new WaitForSeconds(1.2f);
@@ -336,7 +351,7 @@ public class BossSkillP : MonoBehaviour
         Vector3 targetDirection_6 = Target.transform.position - JumpPos.position;
 
         yield return new WaitForSeconds(0.7f);
-
+        GuideLine[1].SetActive(false);
         GameObject DownAttackRange_6 = objPool.GetObjectFromPool();
 
         // 오브젝트 풀로 사리질 때 적용시킨 collider를 다시 킨다.
@@ -358,7 +373,7 @@ public class BossSkillP : MonoBehaviour
         DownAttackRange_6.transform.rotation = Quaternion.LookRotation(transform.forward);
 
         yield return new WaitForSeconds(1f);
-
+        GuideLine[1].SetActive(true);
         bossLookAt.isLook = true;
         animator.SetTrigger("doDownAttack");
 
@@ -368,7 +383,7 @@ public class BossSkillP : MonoBehaviour
         Vector3 targetDirection_7 = Target.transform.position - JumpPos.position;
 
         yield return new WaitForSeconds(0.3f);
-
+        GuideLine[1].SetActive(false);
         GameObject DownAttackRange_7 = objPool.GetObjectFromPool();
 
         // 오브젝트 풀로 사리질 때 적용시킨 collider를 다시 킨다.
@@ -390,7 +405,7 @@ public class BossSkillP : MonoBehaviour
         DownAttackRange_7.transform.rotation = Quaternion.LookRotation(transform.forward);
 
         yield return new WaitForSeconds(0.1f);
-
+        GuideLine[1].SetActive(true);
         bossLookAt.isLook = true;
 
         yield return new WaitForSeconds(1.2f);
@@ -399,7 +414,7 @@ public class BossSkillP : MonoBehaviour
         Vector3 targetDirection_8 = Target.transform.position - JumpPos.position;
 
         yield return new WaitForSeconds(0.35f);
-
+        GuideLine[1].SetActive(false);
         GameObject DownAttackRange_8 = objPool.GetObjectFromPool();
 
         // 오브젝트 풀로 사리질 때 적용시킨 collider를 다시 킨다.
@@ -421,7 +436,7 @@ public class BossSkillP : MonoBehaviour
         DownAttackRange_8.transform.rotation = Quaternion.LookRotation(transform.forward);
 
         yield return new WaitForSeconds(0.1f);
-
+        GuideLine[1].SetActive(true);
         bossLookAt.isLook = true;
 
         yield return new WaitForSeconds(1.2f);
@@ -430,7 +445,7 @@ public class BossSkillP : MonoBehaviour
         Vector3 targetDirection_9 = Target.transform.position - JumpPos.position;
 
         yield return new WaitForSeconds(0.7f);
-
+        GuideLine[1].SetActive(false);
         GameObject DownAttackRange_9 = objPool.GetObjectFromPool();
 
         // 오브젝트 풀로 사리질 때 적용시킨 collider를 다시 킨다.
@@ -513,21 +528,37 @@ public class BossSkillP : MonoBehaviour
         Vector3 targetDirection = Target.transform.position - transform.position;
 
         Vector3 jumpEndAttackVec = Target.transform.position - targetDirection.normalized * 5.0f;
-        StartCoroutine(JumpDuring(jumpStartPosition, jumpEndAttackVec, 0.5f));
 
-        Debug.Log(Vector3.Distance(jumpStartPosition, jumpEndAttackVec));
+        // 가이드 라인 표시
 
         bossLookAt.isLook = false;
         boxCollider.enabled = false;
+
+        GuideLine[0].SetActive(true);
+        GuideLine[0].transform.position = jumpEndAttackVec + bossPos.forward * 15.0f;
+
+        yield return new WaitForSeconds(0.3f);
+        // 가이드 라인 제거
+        GuideLine[0].SetActive(false);
+        // 해당위치로 공격실행
+        StartCoroutine(JumpDuring(jumpStartPosition, jumpEndAttackVec, 0.5f));
+
+        // 점프 거리
+        // Debug.Log(Vector3.Distance(jumpStartPosition, jumpEndAttackVec));
+
+       
 
         animator.SetTrigger("doJumpAttack");
 
         yield return new WaitForSeconds(1.2f);
 
-        JumpAttackRange.enabled = true;
+        // JumpAttackRange.enabled = true;
         Vector3 bossForward = bossPos.position + bossPos.forward * 15.0f;
-        GameObject newPrefab = Instantiate(JumpEffect, bossForward, Quaternion.identity);
-        Destroy(newPrefab, 2.0f);
+        GameObject newPrefab = objPool.Get_JumpAtk_ObjectFromPool();
+        newPrefab.transform.position = bossForward;
+        newPrefab.transform.rotation = Quaternion.identity;
+        // GameObject newPrefab = Instantiate(JumpEffect, bossForward, Quaternion.identity);
+        // Destroy(newPrefab, 2.0f);
 
         yield return new WaitForSeconds(0.5f);
 
@@ -560,10 +591,11 @@ public class BossSkillP : MonoBehaviour
         // animator.SetTrigger("doReturn");
         StartCoroutine(JumpDuring(jumpEndAttackVec, jumpStartPosition, 1.0f));
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.8f);
 
-        JumpAttackRange.enabled = false;
-        boxCollider.enabled = false;
+        newPrefab.SetActive(false);
+        // JumpAttackRange.enabled = false;
+        // boxCollider.enabled = false;
 
         yield return new WaitForSeconds(1f);
 
@@ -660,7 +692,6 @@ public class BossSkillP : MonoBehaviour
 
         StartCoroutine(Think());
     }
-    #endregion
 
     int[] GenerateUniqueRandomValues(int count, int minValue, int maxValue)
     {
@@ -696,6 +727,7 @@ public class BossSkillP : MonoBehaviour
 
         return result;
     }
+    #endregion
 
     // TODO ## IronGuard_Skill5
     #region IronGuard_Skill5
