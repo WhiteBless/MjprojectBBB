@@ -17,6 +17,7 @@ public class BossLookAt : MonoBehaviour
 
     public bool canUseSkills = false; // 스킬 사용 가능 여부를 결정하는 변수
     public bool isLook = true; // 보스가 플레이어를 바라보는지 여부를 결정하는 변수
+    public float Boss_RotSpeed;
 
     public Vector3 direction;
 
@@ -39,7 +40,7 @@ public class BossLookAt : MonoBehaviour
         {
             direction = player.transform.position - transform.position;
             Quaternion rotation = Quaternion.LookRotation(direction);
-            transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * 2);
+            transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * Boss_RotSpeed);
             bossHPCanvas.SetActive(true);
             if (!audioSource.isPlaying)
             {
