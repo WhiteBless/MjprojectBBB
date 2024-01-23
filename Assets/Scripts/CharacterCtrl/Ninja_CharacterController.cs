@@ -22,6 +22,7 @@ public class Ninja_CharacterController : CharacterBase
     public bool isSkill2;
     public bool isSkill3;
     public bool isSkill4;
+    public bool isDie;
 
     public bool spaceDown;
 
@@ -533,13 +534,48 @@ public class Ninja_CharacterController : CharacterBase
     {
         if (other.tag == "EnemyAttack" && !isHit)
         {
-            playscenemanager.HealthDown();
-            Debug.Log(other.gameObject.name);
+            if (other.CompareTag("Weapon")) return;
 
-            isHit = true;
+            if (playscenemanager.health > 1)
+            {
+                playscenemanager.HealthDown();
+                Debug.Log(other.gameObject.name);
 
-            Invoke("ResetCollision", 1f);
+                isHit = true;
+
+                Invoke("ResetCollision", 1f);
+            }
+            else
+            {
+                Die();
+                Invoke("DieOut", 3f);
+            }
         }
+    }
+
+    public override void Die()
+    {
+        animator.SetBool("isDie", true);
+        isDie = true;
+
+        isMove   = false;
+        isDodge  = false;
+        isAttack = false;
+        SkillOut();
+
+        attack_Collider.D_Use();
+
+        attack_Collider.FX_Slash_R.enabled = false;
+        attack_Collider.R_Shash_FX.enabled = false;
+        attack_Collider.R_Shash_FX001.enabled = false;
+        attack_Collider.Treak_Weapon.enabled = false;
+        playscenemanager.UIhealth[0].color = new Color(1, 0, 0, 0.01f);
+    }
+
+    public override void DieOut()
+    {
+        isDie = false;
+        playscenemanager.CharacterDie();
     }
 
 }
