@@ -38,4 +38,8 @@ public abstract class CharacterBase : MonoBehaviour
     public abstract void AAA_Attack();
 
     public abstract void ResetCollision();
+
+    public abstract void Die();
+
+    public abstract void DieOut();
 }

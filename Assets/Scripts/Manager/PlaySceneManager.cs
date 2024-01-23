@@ -78,14 +78,13 @@ public class PlaySceneManager : MonoBehaviour
             GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.HitSound);
             // hitAudioSource.PlayOneShot(hitSound, 1.0f); // 피격음 재생 (볼륨은 1.0)
         }
-
-
-        else
-        {
+    }
+    public void CharacterDie()
+    {
             //bossAnimator.AttRadyState = false; // 플레이어가 사망하였으므로 AttReadyState를 false로 설정
 
             //All Health UI Off
-            UIhealth[0].color = new Color(1, 0, 0, 0.01f);
+            
 
             //Player Die Effect
             Time.timeScale = 0; // 타임스케일을 0으로 설정
@@ -125,9 +124,8 @@ public class PlaySceneManager : MonoBehaviour
 
             //Result UI
             Debug.Log("죽었습니다!");
-        }
-
     }
+
 
     private void Init()
     {
