@@ -14,10 +14,6 @@ public class SceneLoad : MonoBehaviour
         StartCoroutine(LoadScene());
     }
 
-    public void StopLoadSceneCoroutine()
-    {
-        StopCoroutine("LoadScene");
-    }
     IEnumerator LoadScene()
     {
         yield return null;

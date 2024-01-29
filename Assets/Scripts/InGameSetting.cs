@@ -46,6 +46,10 @@ public class InGameSetting : MonoBehaviour
 
     void GoToMainScene()
     {
+        // BGM 클립 중단
+        int bgmIndex = 0;
+        AudioClip bgmClip = SoundManager.Instance.BGMClips[bgmIndex];
+        SoundManager.Instance.StopBGM(bgmClip);
 
         SceneManager.LoadScene("Main"); // Main 씬 로드
     }
