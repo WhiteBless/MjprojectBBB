@@ -7,6 +7,8 @@ using System;
 
 public class SoundManager : MonoBehaviour
 {
+    public static SoundManager Instance { get; private set; } // 인스턴스 추가
+
     /** 배경음악 관련 */
     [Header("---BGM---")]
     public AudioClip[] BGMClips;
@@ -41,6 +43,16 @@ public class SoundManager : MonoBehaviour
     void Awake()
     {
         Init();
+
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     void Init()
@@ -140,6 +152,18 @@ public class SoundManager : MonoBehaviour
             /** 재생 */
             BGMPlayers[LoopIndex].Play();
             break;
+        }
+    }
+
+    public void StopBGM(AudioClip clipToStop)
+    {
+        // BGM 오디오 소스를 중단시킴
+        foreach (AudioSource bgmSource in BGMPlayers)
+        {
+            if (bgmSource.clip == clipToStop)
+            {
+                bgmSource.Stop();
+            }
         }
     }
 
