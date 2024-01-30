@@ -104,7 +104,7 @@ public class BossSkillP : MonoBehaviour
 
         int ranAction = Random.Range(0, 4);
 
-        switch (ranAction)
+        switch (0)
         {
             case 0:
                 //검기 패턴
@@ -153,6 +153,7 @@ public class BossSkillP : MonoBehaviour
         // SpiritEffectPrf.transform.forward = targetDirection;
 
         yield return new WaitForSeconds(0.3f);
+        StartCoroutine(GuideLineF(SpiritEffectPrf));
         SpiritEffectPrf.transform.GetChild(4).gameObject.SetActive(true);
         // SpiritEffectPrf.transform.rotation = Quaternion.Euler(SpiritEffectPrf.transform.rotation.x, SpiritEffectPrf.transform.rotation.y, 90.0f);
 
@@ -161,7 +162,7 @@ public class BossSkillP : MonoBehaviour
         bossLookAt.isLook = false;
 
         yield return new WaitForSeconds(1.9f);
-        SpiritEffectPrf.transform.GetChild(4).gameObject.SetActive(false);
+        // SpiritEffectPrf.transform.GetChild(4).gameObject.SetActive(false);
         SpiritEffectPrf.GetComponent<SwordParticle_Eff>().isBig = true;
         SpiritEffectPrf.GetComponent<SwordParticle_Eff>().isShot = true;
 
@@ -173,6 +174,12 @@ public class BossSkillP : MonoBehaviour
 
         StartCoroutine(Think());
     }
+
+    IEnumerator GuideLineF(GameObject _obj)
+    {
+        yield return new WaitForSeconds(0.5f);
+        _obj.transform.GetChild(4).gameObject.SetActive(false);
+    }
     #endregion
 
     // TODO ## IronGuard_Skill2
@@ -180,13 +187,14 @@ public class BossSkillP : MonoBehaviour
     IEnumerator BossSkill2()
     {
         animator.SetTrigger("doDownAttack");
-        GuideLine[1].SetActive(true);
-        yield return new WaitForSeconds(1.3f);
+        //
+        yield return new WaitForSeconds(1.1f);
 
+        GuideLine[1].SetActive(true);
         bossLookAt.isLook = false;
         Vector3 targetDirection_1 = Target.transform.position - JumpPos.position;
 
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(0.35f);
 
         GameObject DownAttackRange_1 = objPool.GetObjectFromPool();
 
@@ -211,12 +219,11 @@ public class BossSkillP : MonoBehaviour
 
         yield return new WaitForSeconds(0.1f);
 
-        GuideLine[1].SetActive(true);
         bossLookAt.isLook = true;
 
         yield return new WaitForSeconds(1.2f);
 
-        
+        GuideLine[1].SetActive(true);
         bossLookAt.isLook = false;
         Vector3 targetDirection_2 = Target.transform.position - JumpPos.position;
 
@@ -244,15 +251,16 @@ public class BossSkillP : MonoBehaviour
 
         yield return new WaitForSeconds(0.1f);
 
-        GuideLine[1].SetActive(true);
+        // GuideLine[1].SetActive(true);
         bossLookAt.isLook = true;
 
         yield return new WaitForSeconds(1.2f);
 
+        GuideLine[1].SetActive(true);
         bossLookAt.isLook = false;
         Vector3 targetDirection_3 = Target.transform.position - JumpPos.position;
 
-        yield return new WaitForSeconds(0.45f);
+        yield return new WaitForSeconds(0.7f);
         GuideLine[1].SetActive(false);
         GameObject DownAttackRange_3 = objPool.GetObjectFromPool();
 
@@ -276,16 +284,17 @@ public class BossSkillP : MonoBehaviour
 
         yield return new WaitForSeconds(1f);
 
-        GuideLine[1].SetActive(true);
+        // GuideLine[1].SetActive(true);
         bossLookAt.isLook = true;
         animator.SetTrigger("doDownAttack");
 
-        yield return new WaitForSeconds(1.3f);
+        yield return new WaitForSeconds(1.1f);
 
+        GuideLine[1].SetActive(true);
         bossLookAt.isLook = false;
         Vector3 targetDirection_4 = Target.transform.position - JumpPos.position;
 
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(0.35f);
         GuideLine[1].SetActive(false);
         GameObject DownAttackRange_4 = objPool.GetObjectFromPool();
 
@@ -309,11 +318,12 @@ public class BossSkillP : MonoBehaviour
 
         yield return new WaitForSeconds(0.1f);
 
-        GuideLine[1].SetActive(true);
+        // GuideLine[1].SetActive(true);
         bossLookAt.isLook = true;
 
         yield return new WaitForSeconds(1.2f);
 
+        GuideLine[1].SetActive(true);
         bossLookAt.isLook = false;
         Vector3 targetDirection_5 = Target.transform.position - JumpPos.position;
 
@@ -342,11 +352,12 @@ public class BossSkillP : MonoBehaviour
 
         yield return new WaitForSeconds(0.1f);
 
-        GuideLine[1].SetActive(true);
+        // GuideLine[1].SetActive(true);
         bossLookAt.isLook = true;
 
         yield return new WaitForSeconds(1.2f);
 
+        GuideLine[1].SetActive(true);
         bossLookAt.isLook = false;
         Vector3 targetDirection_6 = Target.transform.position - JumpPos.position;
 
@@ -373,16 +384,17 @@ public class BossSkillP : MonoBehaviour
         DownAttackRange_6.transform.rotation = Quaternion.LookRotation(transform.forward);
 
         yield return new WaitForSeconds(1f);
-        GuideLine[1].SetActive(true);
+        //GuideLine[1].SetActive(true);
         bossLookAt.isLook = true;
         animator.SetTrigger("doDownAttack");
 
-        yield return new WaitForSeconds(1.3f);
+        yield return new WaitForSeconds(1.1f);
 
+        GuideLine[1].SetActive(true);
         bossLookAt.isLook = false;
         Vector3 targetDirection_7 = Target.transform.position - JumpPos.position;
 
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(0.35f);
         GuideLine[1].SetActive(false);
         GameObject DownAttackRange_7 = objPool.GetObjectFromPool();
 
@@ -405,11 +417,12 @@ public class BossSkillP : MonoBehaviour
         DownAttackRange_7.transform.rotation = Quaternion.LookRotation(transform.forward);
 
         yield return new WaitForSeconds(0.1f);
-        GuideLine[1].SetActive(true);
+        //GuideLine[1].SetActive(true);
         bossLookAt.isLook = true;
 
         yield return new WaitForSeconds(1.2f);
 
+        GuideLine[1].SetActive(true);
         bossLookAt.isLook = false;
         Vector3 targetDirection_8 = Target.transform.position - JumpPos.position;
 
@@ -436,11 +449,12 @@ public class BossSkillP : MonoBehaviour
         DownAttackRange_8.transform.rotation = Quaternion.LookRotation(transform.forward);
 
         yield return new WaitForSeconds(0.1f);
-        GuideLine[1].SetActive(true);
+        //GuideLine[1].SetActive(true);
         bossLookAt.isLook = true;
 
         yield return new WaitForSeconds(1.2f);
 
+        GuideLine[1].SetActive(true);
         bossLookAt.isLook = false;
         Vector3 targetDirection_9 = Target.transform.position - JumpPos.position;
 

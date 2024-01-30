@@ -55,7 +55,7 @@
     <UnityVersion>2022.3.17f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Analyzer Include="C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
+    <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\2022.3.17f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.SourceGenerators.dll" />
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\2022.3.17f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
@@ -89,6 +89,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventHandler.cs" />
     <Compile Include="Assets\Asset\Hovl Studio\HSFiles\Scripts\HS_ProjectileMover.cs" />
     <Compile Include="Assets\Scripts\BossCtrl\IronGuard\BossCtrl\IronGuard_ObjPool.cs" />
+    <Compile Include="Assets\TheReaper\Scrips\Deleteable\AxisTouchButton.cs" />
     <Compile Include="Assets\#NVJOB Dynamic Sky\#NVJOB Dynamic Sky\DynamicSky.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\UI\Actions\ScrollToItem.cs" />
     <Compile Include="Assets\#NVJOB Dynamic Sky\Example Scenes\Environment\Standard Assets\Effects\ImageEffects\Scripts\ScreenSpaceAmbientObscurance.cs" />
@@ -124,6 +125,7 @@
     <Compile Include="Assets\Scripts\Warp.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Shortcuts\FixedShortcuts.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Prefabs\RandomPrefabProfileDbUI.cs" />
+    <Compile Include="Assets\TheReaper\Scrips\Deleteable\LookatTarget.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Prefabs\RandomPrefabProfileDbWindow.cs" />
     <Compile Include="Assets\Asset\SkillsEffectsPack\Scripts\VariousMouseOrbit.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\UI\ListView\ListViewState.cs" />
@@ -141,6 +143,7 @@
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Level Design\Object Spawn\ObjectSpawnGuideSettings.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Mesh\Creation\LineMesh.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\UI\PluginDragAndDrop.cs" />
+    <Compile Include="Assets\TheReaper\Scrips\Deleteable\StandaloneInput.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_A.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\UI\PluginInspectorUI.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Level Design\Int Pattern\IntPatternLexer.cs" />
@@ -166,6 +169,7 @@
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\UI\GUIStyleDb.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Level Design\Object Selection\ObjectSelectionBox.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Objects\Transform Sessions\ObjectBoxSnapSettings.cs" />
+    <Compile Include="Assets\TheReaper\Scrips\Balrond3Pcontroller\Balrond3pCameraFollow.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Level Design\TerrainFlattenSettings.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Level Design\Object Spawn\TileRuleProfileDbUI.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Objects\Masks\UIObjectMaskEntryItem.cs" />
@@ -193,6 +197,7 @@
     <Compile Include="Assets\#NVJOB Dynamic Sky\Example Scenes\Environment\Standard Assets\Effects\ImageEffects\Scripts\ColorCorrectionLookup.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Level Design\Gizmos\Object Transform Gizmos\ObjectUniversalGizmo.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\UI\Tree View\ITreeView.cs" />
+    <Compile Include="Assets\TheReaper\Scrips\Deleteable\TargetFieldOfView.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Objects\Projection\ObjectOnPlaneProjector.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Core\SerializableDictionary.cs" />
     <Compile Include="Assets\#NVJOB Dynamic Sky\Example Scenes\Environment\Standard Assets\Effects\ImageEffects\Scripts\Blur.cs" />
@@ -222,12 +227,14 @@
     <Compile Include="Assets\Scripts\BossCtrl\IronGuard\BossRazerPattern\RazerMaker_Ctrl1.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Math\PlaneDescriptor.cs" />
     <Compile Include="Assets\Scripts\Manager\SoundManager.cs" />
+    <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Core\Extensions\RayEx.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Prefabs\PrefabLib.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\UI\UIHeader.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Math\Quad3D.cs" />
     <Compile Include="Assets\Asset\Beautify\Scripts\Beautify.ShaderParams.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Level Design\Object Spawn\UITileRuleGridItem.cs" />
+    <Compile Include="Assets\TheReaper\Scrips\Deleteable\TiltInput.cs" />
     <Compile Include="Assets\Asset\Beautify\URP\Demo\DemoSources\Scripts\CameraAnimator.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Level Design\Object Spawn\CurveObjectSpawnUI.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Prefabs\CurvePrefabProfileDbUI.cs" />
@@ -239,12 +246,14 @@
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Level Design\Object Spawn\ScatterBrushObjectSpawnSettings.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Core\PluginSettings.cs" />
     <Compile Include="Assets\#NVJOB Dynamic Sky\Example Scenes\Environment\Standard Assets\Effects\ImageEffects\Scripts\SunShafts.cs" />
+    <Compile Include="Assets\TheReaper\Scrips\Balrond3Pcontroller\Balrond3personCameraCollision.cs" />
     <Compile Include="Assets\Asset\JMO Assets\Cartoon FX (legacy)\Scripts\CFX_AutoRotate.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Core\Extensions\Vector3IntEx.cs" />
     <Compile Include="Assets\#NVJOB Dynamic Sky\Example Scenes\Environment\Standard Assets\Effects\ImageEffects\Scripts\Grayscale.cs" />
     <Compile Include="Assets\#NVJOB Dynamic Sky\Example Scenes\Environment\Standard Assets\Effects\ImageEffects\Scripts\CameraMotionBlur.cs" />
     <Compile Include="Assets\Asset\ProceduralLightning\Prefab\Scripts\LightningBoltPrefabScript.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Level Design\Object Spawn\BoxObjectSpawnSettingsProfileDbUI.cs" />
+    <Compile Include="Assets\TheReaper\Scrips\Deleteable\PivotBasedCameraRig.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Core\EditorUpdateAction.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Math\Circle2D.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Core\Extensions\TerrainEx.cs" />
@@ -291,7 +300,9 @@
     <Compile Include="Assets\Asset\SkillsEffectsPack\Scripts\ForEffects\ObjectMoveDestroy.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Scene\TerrainRaycastConfig.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Objects\Layers\PluginObjectLayerDbUI.cs" />
+    <Compile Include="Assets\TheReaper\Scrips\Deleteable\MobileControlRig.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Prefabs\PrefabCategoryName.cs" />
+    <Compile Include="Assets\TheReaper\Scrips\Deleteable\ThirdPersonCharacter.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Level Design\Object Selection\ObjectSelectionSettings.cs" />
     <Compile Include="Assets\Asset\ProceduralLightning\Prefab\Scripts\Spells\LightningParticleSpellScript.cs" />
     <Compile Include="Assets\Scripts\AttackCollider.cs" />
@@ -342,6 +353,7 @@
     <Compile Include="Assets\Scripts\Attack.cs" />
     <Compile Include="Assets\Asset\JMO Assets\Cartoon FX (legacy)\Demo\Assets\CFX_Demo_RandomDir.cs" />
     <Compile Include="Assets\#NVJOB Dynamic Sky\Example Scenes\Environment\Standard Assets\Effects\ImageEffects\Scripts\BloomAndFlares.cs" />
+    <Compile Include="Assets\TheReaper\Scrips\Deleteable\TouchPad.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Prefabs\PrefabFromSelectedObjectsCreationSettings.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Prefabs\PluginPrefabManagerWindow.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Commands\GlobalCommands.cs" />
@@ -370,10 +382,12 @@
     <Compile Include="Assets\Asset\JMO Assets\Cartoon FX (legacy)\Scripts\CFX_AutoDestructShuriken.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\UI\ListView\ListView.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Grid\GridSettingsProfileDb.cs" />
+    <Compile Include="Assets\TheReaper\Scrips\Deleteable\AbstractTargetFollower.cs" />
     <Compile Include="Assets\Scripts\BossCtrl\IronGuard\BossRazerPattern\Razer.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Core\TransformDiffCheck.cs" />
     <Compile Include="Assets\Asset\Hovl Studio\HSFiles\Scripts\HS_FrontMover.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Shapes\XYQuad3D.cs" />
+    <Compile Include="Assets\TheReaper\Scrips\Deleteable\InputAxisScrollbar.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\PluginAssetModificationProcessor.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Level Design\Object Spawn\ModularWallsObjectSpawnUI.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Core\Extensions\GUIEx.cs" />
@@ -406,6 +420,7 @@
     <Compile Include="Assets\Asset\Beautify\Demos\DemoSources\Scripts\Demo1.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Level Design\Object Spawn\TileRuleMask.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Level Design\Object Selection\ObjectSelectionSegments.cs" />
+    <Compile Include="Assets\TheReaper\Scrips\Deleteable\ProtectCameraFromWallClip.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Core\FileSystem.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Level Design\Object Spawn\ObjectSpawnTool.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Mesh\Creation\BoxMesh.cs" />
@@ -464,6 +479,7 @@
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Shortcuts\KeyCombo.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Core\Extensions\EnumEx.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Prefabs\PrefabData.cs" />
+    <Compile Include="Assets\TheReaper\Scrips\Deleteable\Joystick.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Events\PluginPrefabEvents.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Objects\ObjectScaleStartData.cs" />
     <Compile Include="Assets\#NVJOB Dynamic Sky\Example Scenes\Environment\Standard Assets\Effects\ImageEffects\Scripts\ColorCorrectionCurves.cs" />
@@ -504,6 +520,7 @@
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Core\Extensions\ColorEx.cs" />
     <Compile Include="Assets\#NVJOB Dynamic Sky\Example Scenes\Environment\Standard Assets\Effects\ImageEffects\Scripts\MotionBlur.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Optimization\MeshCombineWindow.cs" />
+    <Compile Include="Assets\TheReaper\Scrips\Deleteable\MobileInput.cs" />
     <Compile Include="Assets\#NVJOB Dynamic Sky\Example Scenes\Environment\Standard Assets\Effects\ImageEffects\Scripts\PostEffectsHelper.cs" />
     <Compile Include="Assets\Asset\SkillsEffectsPack\Scripts\VariousEffectsScene.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Shapes\Shape3D.cs" />
@@ -548,6 +565,7 @@
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Objects\Object Groups\ObjectGroupActionFilters.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Level Design\Object Erase\ObjectEraseTool.cs" />
     <Compile Include="Assets\Asset\ProceduralLightning\Demo\Scripts\DemoScriptRotate.cs" />
+    <Compile Include="Assets\TheReaper\Scrips\Deleteable\ThirdPersonUserControl.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Shortcuts\Shortcut.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Level Design\Int Pattern\IntPatternDb.cs" />
     <Compile Include="Assets\Scripts\SetResolution.cs" />
@@ -584,6 +602,7 @@
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Level Design\CircleBrush3D.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Prefabs\IntRangePrefabProfile.cs" />
     <Compile Include="Assets\Scripts\potal.cs" />
+    <Compile Include="Assets\TheReaper\Scrips\Deleteable\ButtonHandler.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Level Design\Gizmos\PluginGizmo.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Prefabs\RandomPrefabProfileDb.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Shortcuts\ShortcutsWindow.cs" />
@@ -626,6 +645,7 @@
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Scene\ObjectOverlapConfig.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Core\Extensions\LayerEx.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Level Design\Object Spawn\TileRuleProfileDbWindow.cs" />
+    <Compile Include="Assets\TheReaper\Scrips\Balrond3Pcontroller\Balrond3pMainCamera.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Prefabs\PrefabDataDb.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Objects\ObjectScaleStartDataMap.cs" />
     <Compile Include="Assets\Asset\SkillsEffectsPack\Scripts\ForEffects\MultipleObjectsMake.cs" />
@@ -646,6 +666,7 @@
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\UI\ListView\ListViewItemPool.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Prefabs\ObjectGroupsFromPrefabLibsCreationSettingsWindow.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Input\NiceKeyCodeStrings.cs" />
+    <Compile Include="Assets\TheReaper\Scrips\Deleteable\VirtualInput.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Objects\Transform Sessions\ObjectProjectionSession.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\UI\ListView\IListView.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Core\Extensions\SceneViewEx.cs" />
@@ -672,6 +693,7 @@
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Math\Symmetry.cs" />
     <Compile Include="Assets\Scripts\Define.cs" />
     <Compile Include="Assets\Asset\ProceduralLightning\Prefab\Scripts\MeshHelper.cs" />
+    <Compile Include="Assets\TheReaper\Scrips\Deleteable\CrossPlatformInputManager.cs" />
     <Compile Include="Assets\Asset\ProceduralLightning\Prefab\Scripts\LightningMeshSurfaceScript.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Level Design\Object Spawn\TileRuleObjectSpawnSettings.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Core\Extensions\SelectionEx.cs" />
@@ -692,6 +714,7 @@
     <Compile Include="Assets\Asset\ProceduralLightning\Demo\Scripts\DemoMeshScript.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\TheReaper\Shaders\DawnShader\SkinShaderHDRP.shader" />
     <None Include="Assets\Asset\Beautify\Resources\Shaders\BeautifyDistortion.cginc" />
     <None Include="Assets\Asset\Boss\1F_IronGuard\__CubemapsShaders\ASE_StandartPlants.shader" />
     <None Include="Assets\Asset\Boss\1F_IronGuard\__CubemapsShaders\VertexColorTransp.shader" />
@@ -705,12 +728,15 @@
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
     <None Include="Assets\#NVJOB Dynamic Sky\Example Scenes\Environment\Standard Assets\Effects\ImageEffects\Shaders\_DepthOfField\DepthOfFieldDX11.shader" />
     <None Include="Assets\Asset\JMO Assets\Cartoon FX (legacy)\Shaders\CFX3 Multiply Color.shader" />
+    <None Include="Assets\TheReaper\Shaders\DawnShader\EyeslashShader.shader" />
+    <None Include="Assets\TheReaper\Shaders\DawnShaderURP\EyesShaderURP.shader" />
     <None Include="Assets\#NVJOB Dynamic Sky\Example Scenes\Environment\Standard Assets\Effects\ImageEffects\Shaders\BlendModesOverlay.shader" />
     <None Include="Assets\#NVJOB Dynamic Sky\Example Scenes\Environment\Standard Assets\Effects\ImageEffects\Shaders\ConvertDepth.shader" />
     <None Include="Assets\Asset\SkillsEffectsPack\Shader_ForEffects\Shader_Decal.shader" />
     <None Include="Assets\#NVJOB Dynamic Sky\Example Scenes\Environment\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\BlurAndFlares.shader" />
     <None Include="Assets\#NVJOB Dynamic Sky\Example Scenes\Environment\Standard Assets\Effects\ImageEffects\Shaders\Tonemapper.shader" />
     <None Include="Assets\taecgLibrary\SkillIndicator\Examples\Meshes\ProjectorLight.shader" />
+    <None Include="Assets\TheReaper\Shaders\DawnShader\HornShader.shader" />
     <None Include="Assets\#NVJOB Dynamic Sky\Example Scenes\Environment\Standard Assets\Effects\ImageEffects\Shaders\_DepthOfField\DepthOfFieldScatter.shader" />
     <None Include="Assets\Asset\JMO Assets\Cartoon FX Remaster\CFXR Assets\Shaders\CFXR_SETTINGS.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
@@ -723,6 +749,7 @@
     <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\Oswald-Bold - OFL.txt" />
     <None Include="Assets\Asset\Boss\1F_IronGuard\__CubemapsShaders\ASE_StandartVertexCDetails.shader" />
     <None Include="Assets\Asset\Hovl Studio\Epic toon VFX 2\Prefabs\Punches\Readme.txt" />
+    <None Include="Assets\TheReaper\Shaders\DawnShader\HairShader.shader" />
     <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\Anton OFL.txt" />
     <None Include="Assets\#NVJOB Dynamic Sky\Example Scenes\Environment\Standard Assets\Effects\ImageEffects\Shaders\ColorCorrectionEffect.shader" />
     <None Include="Assets\Asset\Beautify\Resources\Shaders\Beautify.cginc" />
@@ -736,6 +763,8 @@
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF SSD.shader" />
     <None Include="Assets\Asset\ProceduralLightning\Readme.txt" />
     <None Include="Assets\#NVJOB Dynamic Sky\Example Scenes\Environment\Standard Assets\Effects\ImageEffects\Shaders\VortexEffect.shader" />
+    <None Include="Assets\TheReaper\Shaders\DawnShaderURP\SkinShaderHDRP.shader" />
+    <None Include="Assets\TheReaper\Shaders\DawnShaderHDRP\HairShaderHDRP.shader" />
     <None Include="Assets\Asset\ProceduralLightning\ChangeLog.txt" />
     <None Include="Assets\Asset\Boss\1F_IronGuard\__CubemapsShaders\ASE_StandartInnerGlow.shader" />
     <None Include="Assets\Asset\Beautify\_README FIRST!.txt" />
@@ -743,7 +772,9 @@
     <None Include="Assets\Asset\Boss\1F_IronGuard\__CubemapsShaders\ASE_StandartMaskedDetails.shader" />
     <None Include="Assets\#NVJOB Dynamic Sky\Example Scenes\Environment\Standard Assets\Effects\ImageEffects\Shaders\ScreenSpaceRaytrace.cginc" />
     <None Include="Assets\#NVJOB Dynamic Sky\Example Scenes\Environment\Standard Assets\Effects\ImageEffects\Shaders\ContrastComposite.shader" />
+    <None Include="Assets\TheReaper\Shaders\DawnShader\ClothingShader.shader" />
     <None Include="Assets\Asset\Beautify\Resources\Shaders\BeautifyCommon.cginc" />
+    <None Include="Assets\TheReaper\Shaders\DawnShaderHDRP\SkinShaderHDRP.shader" />
     <None Include="Assets\#NVJOB Dynamic Sky\Example Scenes\Environment\Standard Assets\Effects\ImageEffects\Shaders\_DepthOfField\SeparableWeightedBlurDof34.shader" />
     <None Include="Assets\Asset\GSpawn - Level Designer\Resources\Shaders\SimpleDiffuseTex.shader" />
     <None Include="Assets\Asset\Boss\1F_IronGuard\__CubemapsShaders\ASE_StandartTransparent.shader" />
@@ -757,15 +788,20 @@
     <None Include="Assets\#NVJOB Dynamic Sky\Example Scenes\Environment\Standard Assets\Effects\ImageEffects\Shaders\VignettingShader.shader" />
     <None Include="Assets\Asset\Boss\1F_IronGuard\__CubemapsShaders\ASE_StandartPlantsT.shader" />
     <None Include="Assets\Asset\SkillsEffectsPack\Shader_ForEffects\Shader_DistortionEffect.shader" />
+    <None Include="Assets\TheReaper\Shaders\DawnShaderHDRP\HornShaderHDRP.shader" />
+    <None Include="Assets\TheReaper\Shaders\DawnShader\HairShaderV2.shader" />
     <None Include="Assets\Asset\Hovl Studio\HSFiles\Shaders\Blend_TwoSides.shader" />
     <None Include="Assets\#NVJOB Dynamic Sky\Example Scenes\Environment\Standard Assets\Effects\ImageEffects\Shaders\ColorCorrection3DLut.shader" />
     <None Include="Assets\Asset\Hovl Studio\Epic toon VFX 2\Demo scene\Readme.txt" />
+    <None Include="Assets\TheReaper\Shaders\DawnShader\EyesGradianShader.shader" />
     <None Include="Assets\#NVJOB Dynamic Sky\license_nvjob.txt" />
     <None Include="Assets\Asset\Beautify\Resources\Shaders\BeautifyOutline.cginc" />
     <None Include="Assets\Asset\Hovl Studio\HSFiles\Shaders\Blend_CenterGlow.shader" />
+    <None Include="Assets\TheReaper\Shaders\DawnShaderURP\ClothingShaderURP.shader" />
     <None Include="Assets\#NVJOB Dynamic Sky\Example Scenes\Environment\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\MobileBlur.shader" />
     <None Include="Assets\#NVJOB Dynamic Sky\Example Scenes\Environment\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\VignetteShader.shader" />
     <None Include="Assets\#NVJOB Dynamic Sky\Example Scenes\Environment\Standard Assets\Effects\ImageEffects\Shaders\EdgeDetectNormals.shader" />
+    <None Include="Assets\TheReaper\Shaders\DawnShaderURP\EyesGradianShaderURP.shader" />
     <None Include="Assets\Asset\Beautify\Resources\Particles\ParticleBlendZBuffer.shader" />
     <None Include="Assets\#NVJOB Dynamic Sky\Example Scenes\Environment\Standard Assets\Effects\ImageEffects\Shaders\NoiseEffectShaderYUV.shader" />
     <None Include="Assets\Asset\Boss\1F_IronGuard\__CubemapsShaders\ASE_StandartInnerGlowIce.shader" />
@@ -773,6 +809,8 @@
     <None Include="Assets\Asset\Beautify\Resources\Shaders\BeautifyCAberration.cginc" />
     <None Include="Assets\Asset\Vefects\Free Fire\Shaders\SH_Vefects_VFX_SRP_Heat_Haze_01.shader" />
     <None Include="Assets\Asset\Beautify\Resources\Shaders\BeautifyLum.cginc" />
+    <None Include="Assets\TheReaper\Shaders\DawnShaderHDRP\EyesGradianShaderHDRP.shader" />
+    <None Include="Assets\TheReaper\Scrips\PhysicBone\ClassLibrary1.dll" />
     <None Include="Assets\Asset\Beautify\Resources\Shaders\BeautifyEA.cginc" />
     <None Include="Assets\#NVJOB Dynamic Sky\Example Scenes\Environment\Standard Assets\Effects\ImageEffects\Shaders\_DepthOfField\SeparableBlur.shader" />
     <None Include="Assets\Asset\Boss\1F_IronGuard\__CubemapsShaders\ASE_StandartInnerGlowIceT.shader" />
@@ -781,6 +819,8 @@
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface.shader" />
     <None Include="Assets\Asset\ProceduralLightning\Prefab\Materials\LightningBoltShaderMesh.shader" />
     <None Include="Assets\#NVJOB Dynamic Sky\Example Scenes\Environment\Standard Assets\Effects\ImageEffects\Shaders\CameraMotionBlur.shader" />
+    <None Include="Assets\TheReaper\Shaders\DawnShader\EyesShader.shader" />
+    <None Include="Assets\TheReaper\Shaders\DawnShaderHDRP\EyesTearShaderHDRP.shader" />
     <None Include="Assets\#NVJOB Dynamic Sky\#NVJOB Dynamic Sky\Dynamic Sky.shader" />
     <None Include="Assets\Asset\Beautify\Resources\Shaders\BeautifyAdvancedParams.cginc" />
     <None Include="Assets\Asset\GSpawn - Level Designer\Resources\Shaders\SimpleDiffuse.shader" />
@@ -796,8 +836,10 @@
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile SSD.shader" />
     <None Include="Assets\#NVJOB Dynamic Sky\Example Scenes\Environment\Standard Assets\Effects\ImageEffects\Shaders\BlurEffectConeTaps.shader" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
+    <None Include="Assets\TheReaper\Shaders\DawnShaderURP\HornShaderURP.shader" />
     <None Include="Assets\#NVJOB Dynamic Sky\Example Scenes\Environment\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\MobileBloom.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Properties.cginc" />
+    <None Include="Assets\TheReaper\Shaders\DawnShader\EyesTearShader.shader" />
     <None Include="Assets\#NVJOB Dynamic Sky\Example Scenes\Environment\Standard Assets\Effects\ImageEffects\Shaders\PrepareSunShaftsBlur.shader" />
     <None Include="Assets\#NVJOB Dynamic Sky\Example Scenes\Environment\Standard Assets\Effects\ImageEffects\Shaders\SSAOShader.shader" />
     <None Include="Assets\#NVJOB Dynamic Sky\Example Scenes\Environment\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\Blend.shader" />
@@ -821,10 +863,12 @@
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
     <None Include="Assets\Asset\Beautify\Resources\Shaders\BeautifyBasic.cginc" />
     <None Include="Assets\Asset\ProceduralLightning\Prefab\Materials\DarkCloudShader.shader" />
+    <None Include="Assets\TheReaper\Shaders\DawnShaderURP\EyesTearShaderURP.shader" />
     <None Include="Assets\Asset\Hovl Studio\HSFiles\Shaders\AddTrail.shader" />
     <None Include="Assets\Asset\Beautify\README.txt" />
     <None Include="Assets\#NVJOB Dynamic Sky\Example Scenes\Environment\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\LensFlareCreate.shader" />
     <None Include="Assets\Asset\Frank_Assassin\Documentation\Frank_Assassin_MotionList.txt" />
+    <None Include="Assets\TheReaper\Shaders\DawnShaderHDRP\HairShaderHDRP_V2.shader" />
     <None Include="Assets\#NVJOB Dynamic Sky\Example Scenes\Environment\Standard Assets\Effects\ImageEffects\Shaders\FisheyeShader.shader" />
     <None Include="Assets\Asset\Beautify\Resources\Shaders\CopyDepthBiased.shader" />
     <None Include="Assets\#NVJOB Dynamic Sky\Example Scenes\Environment\Standard Assets\Effects\ImageEffects\Shaders\Contrast Stretch\Luminance.shader" />
@@ -842,6 +886,7 @@
     <None Include="Assets\Asset\GSpawn - Level Designer\Resources\Shaders\XZGridInclude.cginc" />
     <None Include="Assets\Asset\ProceduralLightning\Prefab\Materials\LightningBoltShaderMeshNoGlow.shader" />
     <None Include="Assets\Asset\Beautify\Resources\Textures\README Textures.txt" />
+    <None Include="Assets\TheReaper\Shaders\DawnShaderHDRP\EyesShaderHDRP.shader" />
     <None Include="Assets\Asset\Beautify\Resources\Shaders\BeautifyMobile.cginc" />
     <None Include="Assets\Asset\SkillsEffectsPack\Shader_ForEffects\Shader_IntegratedEffect.shader" />
     <None Include="Assets\#NVJOB Dynamic Sky\Example Scenes\Environment\Standard Assets\Effects\ImageEffects\Shaders\_Antialiasing\FXAAPreset2.shader" />
@@ -850,8 +895,10 @@
     <None Include="Assets\Asset\Boss\1F_IronGuard\__CubemapsShaders\ASE_Standart2SidedTrans.shader" />
     <None Include="Assets\Asset\GSpawn - Level Designer\Docs\Readme.txt" />
     <None Include="Assets\#NVJOB Dynamic Sky\Example Scenes\Environment\Standard Assets\Effects\ImageEffects\Shaders\Contrast Stretch\Adaptation.shader" />
+    <None Include="Assets\TheReaper\Shaders\DawnShaderURP\ClothingShader2SidesURP.shader" />
     <None Include="Assets\Asset\Boss\1F_IronGuard\__CubemapsShaders\ASE_StandartArray.shader" />
     <None Include="Assets\#NVJOB Dynamic Sky\license_unity.txt" />
+    <None Include="Assets\TheReaper\Shaders\DawnShader\ClothingShader2Sides.shader" />
     <None Include="Assets\#NVJOB Dynamic Sky\Example Scenes\Environment\Standard Assets\Effects\ImageEffects\Shaders\TwirlEffect.shader" />
     <None Include="Assets\#NVJOB Dynamic Sky\Example Scenes\Environment\Standard Assets\Effects\ImageEffects\Shaders\Contrast Stretch\Apply.shader" />
     <None Include="Assets\Asset\Hovl Studio\HSFiles\Shaders\Add_CenterGlow.shader" />
@@ -860,6 +907,7 @@
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Mobile.shader" />
     <None Include="Assets\Asset\Hovl Studio\Epic toon VFX 2\Demo scene\HDRP and URP(LWRP).txt" />
     <None Include="Assets\Asset\JMO Assets\Cartoon FX Remaster\CFXR Assets\Shaders\CFXR_URP.cginc" />
+    <None Include="Assets\TheReaper\Shaders\DawnShaderURP\HairShaderURP.shader" />
     <None Include="Assets\#NVJOB Dynamic Sky\Example Scenes\Environment\Standard Assets\Effects\ImageEffects\Shaders\ChromaticAberrationShader.shader" />
     <None Include="Assets\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />
     <None Include="Assets\#NVJOB Dynamic Sky\Example Scenes\Environment\Standard Assets\Effects\ImageEffects\Shaders\frag_ao.cginc" />
@@ -867,12 +915,14 @@
     <None Include="Assets\#NVJOB Dynamic Sky\Example Scenes\Environment\Standard Assets\Effects\ImageEffects\Shaders\CreaseApply.shader" />
     <None Include="Assets\#NVJOB Dynamic Sky\Example Scenes\Environment\Standard Assets\Effects\ImageEffects\Shaders\ColorCorrectionSelective.shader" />
     <None Include="Assets\#NVJOB Dynamic Sky\Example Scenes\Environment\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\MultiPassHollywoodFlares.shader" />
+    <None Include="Assets\TheReaper\Shaders\DawnShaderHDRP\ClothingShaderHDRP.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile.shader" />
     <None Include="Assets\Asset\Beautify\Demos\DemoSources\Skybox\README_SKYBOX.txt" />
     <None Include="Assets\Asset\Hovl Studio\Magic effects pack\Demo scene\Readme.txt" />
     <None Include="Assets\Asset\Beautify\Resources\Shaders\BeautifyBasic.shader" />
     <None Include="Assets\Asset\Boss\1F_IronGuard\__CubemapsShaders\ASE_StandartSkin.shader" />
     <None Include="Assets\#NVJOB Dynamic Sky\Example Scenes\Environment\Standard Assets\Effects\ImageEffects\Shaders\_Antialiasing\DLAA.shader" />
+    <None Include="Assets\TheReaper\Shaders\DawnShaderURP\HairShaderURP_V2.shader" />
     <None Include="Assets\Asset\Beautify\Resources\Shaders\BeautifyACESFitted.cginc" />
     <None Include="Assets\Asset\Beautify\Resources\Shaders\BeautifyMobile.shader" />
     <None Include="Assets\taecgLibrary\SkillIndicator\Shaders\WarningArrow.shader" />
@@ -1218,8 +1268,24 @@
       <HintPath>Library\PackageCache\com.unity.testtools.codecoverage@1.2.4\lib\ReportGenerator\ReportGeneratorMerged.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="ClassLibrary1">
+      <HintPath>Assets\TheReaper\Scrips\PhysicBone\ClassLibrary1.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Unity.VisualScripting.Antlr3.Runtime">
       <HintPath>Library\PackageCache\com.unity.visualscripting@1.9.1\Runtime\VisualScripting.Flow\Dependencies\NCalc\Unity.VisualScripting.Antlr3.Runtime.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.Android.Types">
+      <HintPath>C:\Program Files\Unity\Hub\Editor\2022.3.17f1\Editor\Data\PlaybackEngines\AndroidPlayer\Unity.Android.Types.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.Android.Gradle">
+      <HintPath>C:\Program Files\Unity\Hub\Editor\2022.3.17f1\Editor\Data\PlaybackEngines\AndroidPlayer\Unity.Android.Gradle.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.Android.GradleProject">
+      <HintPath>C:\Program Files\Unity\Hub\Editor\2022.3.17f1\Editor\Data\PlaybackEngines\AndroidPlayer\Unity.Android.GradleProject.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="netstandard">

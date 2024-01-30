@@ -10,6 +10,8 @@ public class BossHP_Ctrl : MonoBehaviour
     Image CurBoss_HP_Img;
     [SerializeField]
     Image NextBoss_HP_Img;
+    [SerializeField]
+    Image TakeDamage_Img;
 
     [Tooltip("One Line Hp Value")]
     [Header("--HP_Var--")]
@@ -19,6 +21,10 @@ public class BossHP_Ctrl : MonoBehaviour
     [Tooltip("Hp Value")]
     public int BossMax_HP;
     public int BossCur_HP;
+    public int Before_Boss_HP;
+
+    [SerializeField]
+    int remain_BossHP_Line;
 
     [Tooltip("Hp Colors")]
     public List<Color> HP_Colors;
@@ -28,13 +34,13 @@ public class BossHP_Ctrl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        // Refresh_BossHP();
     }
 
     // Update is called once per frame
     void Update()
     {
-        Refresh_BossHP();
+       
     }
 
     public void Refresh_BossHP()
@@ -46,10 +52,31 @@ public class BossHP_Ctrl : MonoBehaviour
 
         // 현재 체력 색 조정
         CurBoss_HP_Img.color = GetColorByLayer(BossCur_HP);
+        StartCoroutine(TakeDamageBar_Refresh());
         // 다음 체력바 색으로 표시, 0이하로 떨어질 시 검정색으로 표시
         NextBoss_HP_Img.color = GetColorByLayer(BossCur_HP - Boss_SingleBarHP);
 
         HP_Text.text = "X " + (int)(BossCur_HP / Boss_SingleBarHP);
+
+        if (remain_BossHP_Line != (int)(BossCur_HP / Boss_SingleBarHP))
+        {
+            // 사이즈 비율 조정
+            TakeDamage_Img.rectTransform.sizeDelta =
+                new Vector2(NextBoss_HP_Img.rectTransform.sizeDelta.x * GetHPRatioSingleBar(BossCur_HP),
+                NextBoss_HP_Img.rectTransform.sizeDelta.y);
+        }
+
+        remain_BossHP_Line = (int)(BossCur_HP / Boss_SingleBarHP);
+    }
+
+    IEnumerator TakeDamageBar_Refresh()
+    {
+        yield return new WaitForSeconds(1.5f);
+
+        // 사이즈 비율 조정
+        TakeDamage_Img.rectTransform.sizeDelta =
+            new Vector2(NextBoss_HP_Img.rectTransform.sizeDelta.x * GetHPRatioSingleBar(BossCur_HP),
+            NextBoss_HP_Img.rectTransform.sizeDelta.y);
     }
 
     float GetHPRatioSingleBar(int _targetHP)

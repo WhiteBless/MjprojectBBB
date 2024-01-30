@@ -75,6 +75,8 @@ public class HPtest : MonoBehaviour
                     
                     // TODO ## 보스 현재 체력 HP바에 전달하는 부분
                     this.GetComponent<BossLookAt>().bossHPCanvas.GetComponent<BossHP_Ctrl>().BossCur_HP = curHealth;
+
+                    this.GetComponent<BossLookAt>().bossHPCanvas.GetComponent<BossHP_Ctrl>().Refresh_BossHP();
                 }
 
                 // 체력이 감소한 후에 체력바를 갱신

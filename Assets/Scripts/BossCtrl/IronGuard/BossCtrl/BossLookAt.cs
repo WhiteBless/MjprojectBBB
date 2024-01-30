@@ -20,6 +20,7 @@ public class BossLookAt : MonoBehaviour
     public float Boss_RotSpeed;
 
     public Vector3 direction;
+    public bool isCheck = false;
 
     void Start()
     {
@@ -35,6 +36,9 @@ public class BossLookAt : MonoBehaviour
 
         bossHPCanvas.GetComponent<BossHP_Ctrl>().BossMax_HP = this.GetComponent<HPtest>().maxHealth;
         bossHPCanvas.GetComponent<BossHP_Ctrl>().BossCur_HP = this.GetComponent<HPtest>().maxHealth;
+
+        
+       
     }
 
     void Update()
@@ -44,7 +48,15 @@ public class BossLookAt : MonoBehaviour
             direction = player.transform.position - transform.position;
             Quaternion rotation = Quaternion.LookRotation(direction);
             transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * Boss_RotSpeed);
+
             bossHPCanvas.SetActive(true);
+
+            if (bossHPCanvas.activeSelf == true && isCheck == false)
+            {
+                isCheck = true;
+
+                bossHPCanvas.GetComponent<BossHP_Ctrl>().Refresh_BossHP();
+            }
             if (!audioSource.isPlaying)
             {
                 audioSource.clip = bgmClip;
