@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using TMPro;
 
 public class PlaySceneManager : MonoBehaviour
 {
@@ -31,6 +32,8 @@ public class PlaySceneManager : MonoBehaviour
 
     public BossAnimator bossAnimator; // BossAnimator의 참조
 
+    public TextMeshProUGUI[] keyCodeTMP;
+
     private void Awake()
     {
         deathMenu.SetActive(false);
@@ -49,7 +52,12 @@ public class PlaySceneManager : MonoBehaviour
     private void Start()
     {
         Init();
+        for(int i = 0; i < keyCodeTMP.Length; i++)
+        {
+            keyCodeTMP[i].text = KeySetting.Keys[(KeyAction)i].ToString();
+        }
     }
+        
 
     public void GoToMainMenu()
     {
@@ -63,6 +71,11 @@ public class PlaySceneManager : MonoBehaviour
         {
             currentWidth = Mathf.Lerp(currentWidth, 650, Time.unscaledDeltaTime * 0.02f); // 선형보간 함수를 이용해 Width 값을 천천히 증가시킴
             deathMenuRectTransform.sizeDelta = new Vector2(currentWidth, deathMenuRectTransform.sizeDelta.y); // 새로 계산된 Width 값으로 사망 메뉴의 Width를 업데이트
+        }
+
+        for (int i = 0; i < keyCodeTMP.Length; i++)
+        {
+            keyCodeTMP[i].text = KeySetting.Keys[(KeyAction)i].ToString();
         }
     }
 
@@ -177,4 +190,14 @@ public class PlaySceneManager : MonoBehaviour
     }
 
     #endregion
+
+    public void OpenConfig(GameObject obj)
+    {
+        obj.gameObject.SetActive(true);
+    }
+
+    public void CloseConfig(GameObject obj)
+    {
+        obj.gameObject.SetActive(false);
+    }
 }
