@@ -154,13 +154,12 @@ public class Ninja_CharacterController : CharacterBase
 
     public override void GetInput()
     {
-        spaceDown = Input.GetKey(KeySetting.Keys[KeyAction.Dodge]);
+        spaceDown = Input.GetButtonDown("Dodge");
 
-        skill1 = Input.GetKey(KeySetting.Keys[KeyAction.Skill1]);
-            //Input.GetButtonDown("Skill1");
-        skill2 = Input.GetKey(KeySetting.Keys[KeyAction.Skill2]);
-        skill3 = Input.GetKey(KeySetting.Keys[KeyAction.Skill3]);
-        skill4 = Input.GetKey(KeySetting.Keys[KeyAction.Skill4]);
+        skill1 = Input.GetButtonDown("Skill1");
+        skill2 = Input.GetButtonDown("Skill2");
+        skill3 = Input.GetButtonDown("Skill3");
+        skill4 = Input.GetButtonDown("Skill4");
     }
 
 
