@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using TMPro;
 
 public class PlaySceneManager : MonoBehaviour
 {
@@ -22,6 +23,8 @@ public class PlaySceneManager : MonoBehaviour
     Slider SFX_Slider;
     [SerializeField]
     Slider BGM_Slider;
+
+    public TextMeshProUGUI[] keyCodeName;
 
 
     // public AudioSource hitAudioSource; // 피격음을 재생할 AudioSource
@@ -49,6 +52,11 @@ public class PlaySceneManager : MonoBehaviour
     private void Start()
     {
         Init();
+
+        for(int i = 0; i < keyCodeName.Length; i++)
+        {
+            keyCodeName[i].text = KeySetting.Keys[(KeyAction)i].ToString();
+        }
     }
 
     public void GoToMainMenu()
@@ -63,6 +71,11 @@ public class PlaySceneManager : MonoBehaviour
         {
             currentWidth = Mathf.Lerp(currentWidth, 650, Time.unscaledDeltaTime * 0.02f); // 선형보간 함수를 이용해 Width 값을 천천히 증가시킴
             deathMenuRectTransform.sizeDelta = new Vector2(currentWidth, deathMenuRectTransform.sizeDelta.y); // 새로 계산된 Width 값으로 사망 메뉴의 Width를 업데이트
+        }
+
+        for (int i = 0; i < keyCodeName.Length; i++)
+        {
+            keyCodeName[i].text = KeySetting.Keys[(KeyAction)i].ToString();
         }
     }
 
@@ -177,4 +190,13 @@ public class PlaySceneManager : MonoBehaviour
     }
 
     #endregion
+
+    public void OpenToConfig(GameObject obj)
+    {
+        obj.gameObject.SetActive(true);
+    }
+    public void CloseToConfig(GameObject obj)
+    {
+        obj.gameObject.SetActive(false);
+    }
 }
