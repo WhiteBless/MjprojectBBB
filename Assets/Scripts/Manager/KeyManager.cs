@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum KeyAction { Skill1, Skill2, Skill3, Skill4, Dodge, KeyCount }
 
@@ -12,6 +13,7 @@ public static class KeySetting
 public class KeyManager : MonoBehaviour
 {
     KeyCode[] defaultKeys = new KeyCode[] { KeyCode.Q, KeyCode.W, KeyCode.E, KeyCode.R, KeyCode.Space };
+    public PlaySceneManager playSceneManager;
 
     private void Awake()
     {
@@ -24,7 +26,7 @@ public class KeyManager : MonoBehaviour
         }
     }
 
-    private void OnGUI()
+    public void OnGUI()
     {
         Event keyEvent = Event.current;
 
@@ -39,7 +41,8 @@ public class KeyManager : MonoBehaviour
             }
             else
             {
-                Debug.LogWarning("이미 사용 중인 키입니다.");
+                playSceneManager.keySettingFailImage.SetActive(true);
+                
             }
 
             key = -1;

@@ -61,6 +61,8 @@ public class Ninja_CharacterController : CharacterBase
 
     public float MoveSkill_rayDistance = 20.0f;
 
+    public InGameSetting inGameSetting;
+
 
     void Awake()
     {
@@ -271,25 +273,28 @@ public class Ninja_CharacterController : CharacterBase
     // TODO ## 닌자 기본 공격
     public override void Attack()
     {
-        if (Input.GetMouseButtonDown(0) && !isSkill1 && !isSkill2 && !isSkill3 && !isSkill4)
+        if (!inGameSetting.isPaused)
         {
-            animator.SetBool("isMove", false);
-
-            isMove = false;
-            isAttack = true;
-
-            animator.SetTrigger("Attack");
-
-            attack_Collider.A_NoUse();
-
-            Invoke("AAA_Attack", 0.000001f);
-
-            Invoke("AttackOut", 0.8f);
-
-            Enemy[] enemies = FindObjectsOfType<Enemy>();
-            foreach (Enemy enemy in enemies)
+            if (Input.GetMouseButtonDown(0) && !isSkill1 && !isSkill2 && !isSkill3 && !isSkill4)
             {
-                enemy.attack.isAttackable = false;
+                animator.SetBool("isMove", false);
+
+                isMove = false;
+                isAttack = true;
+
+                animator.SetTrigger("Attack");
+
+                attack_Collider.A_NoUse();
+
+                Invoke("AAA_Attack", 0.000001f);
+
+                Invoke("AttackOut", 0.8f);
+
+                Enemy[] enemies = FindObjectsOfType<Enemy>();
+                foreach (Enemy enemy in enemies)
+                {
+                    enemy.attack.isAttackable = false;
+                }
             }
         }
 
@@ -311,36 +316,39 @@ public class Ninja_CharacterController : CharacterBase
     // TODO ## 닌자 도약
     public override void Dodge()
     {
-        if (spaceDown && !isDodge && skillManager5.getSkillTimes <= 0)
+        if (!inGameSetting.isPaused)
         {
-            animator.SetBool("isMove", false);
-            animator.SetTrigger("doDodge");
-            isDodge = true;
-
-            attack_Collider.D_Use();
-
-            attack_Collider.FX_Slash_R.enabled = false;
-            attack_Collider.R_Shash_FX.enabled = false;
-            attack_Collider.R_Shash_FX001.enabled = false;
-            attack_Collider.Treak_Weapon.enabled = false;
-
-            SkillOut();
-
-            Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-            RaycastHit rayHit;
-
-            if (Physics.Raycast(ray, out rayHit, 100))
+            if (spaceDown && !isDodge && skillManager5.getSkillTimes <= 0)
             {
-                Vector3 dodgeDirection = rayHit.point - transform.position;
-                dodgeDirection.y = 0;
-                dodgeDirection.Normalize(); // 벡터를 정규화합니다.
-                transform.LookAt(transform.position + dodgeDirection);
+                animator.SetBool("isMove", false);
+                animator.SetTrigger("doDodge");
+                isDodge = true;
 
-                Vector3 dodgeStartPosition = transform.position;
-                Vector3 dodgeEndPosition = transform.position + dodgeDirection * DodgeDistance;
+                attack_Collider.D_Use();
 
-                StartCoroutine(MoveDuring(dodgeStartPosition, dodgeEndPosition, 0.7f));
-                Invoke("DodgeOut", 0.7f);
+                attack_Collider.FX_Slash_R.enabled = false;
+                attack_Collider.R_Shash_FX.enabled = false;
+                attack_Collider.R_Shash_FX001.enabled = false;
+                attack_Collider.Treak_Weapon.enabled = false;
+
+                SkillOut();
+
+                Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+                RaycastHit rayHit;
+
+                if (Physics.Raycast(ray, out rayHit, 100))
+                {
+                    Vector3 dodgeDirection = rayHit.point - transform.position;
+                    dodgeDirection.y = 0;
+                    dodgeDirection.Normalize(); // 벡터를 정규화합니다.
+                    transform.LookAt(transform.position + dodgeDirection);
+
+                    Vector3 dodgeStartPosition = transform.position;
+                    Vector3 dodgeEndPosition = transform.position + dodgeDirection * DodgeDistance;
+
+                    StartCoroutine(MoveDuring(dodgeStartPosition, dodgeEndPosition, 0.7f));
+                    Invoke("DodgeOut", 0.7f);
+                }
             }
         }
     }
@@ -370,24 +378,27 @@ public class Ninja_CharacterController : CharacterBase
     // TODO ## Ninja_Q_Skill
     public override void Skill_1()
     {
-        if (skill1 && !isAttack && !isSkill1 && !isSkill2 && !isSkill3 && !isSkill4 && skillManager1.getSkillTimes <= 0)
+        if (!inGameSetting.isPaused)
         {
-            animator.SetBool("isMove", false);
-
-            isMove = false;
-            isSkill1 = true;
-
-            animator.SetTrigger("doSkill1");
-
-            attack_Collider.Q_Use();
-
-            Invoke("SkillOut", 2f);
-
-            // Enemy 스크립트의 isAttackable 변수 설정
-            Enemy[] enemies = FindObjectsOfType<Enemy>();
-            foreach (Enemy enemy in enemies)
+            if (skill1 && !isAttack && !isSkill1 && !isSkill2 && !isSkill3 && !isSkill4 && skillManager1.getSkillTimes <= 0)
             {
-                enemy.attack.isAttackable = false;
+                animator.SetBool("isMove", false);
+
+                isMove = false;
+                isSkill1 = true;
+
+                animator.SetTrigger("doSkill1");
+
+                attack_Collider.Q_Use();
+
+                Invoke("SkillOut", 2f);
+
+                // Enemy 스크립트의 isAttackable 변수 설정
+                Enemy[] enemies = FindObjectsOfType<Enemy>();
+                foreach (Enemy enemy in enemies)
+                {
+                    enemy.attack.isAttackable = false;
+                }
             }
         }
     }
@@ -404,24 +415,27 @@ public class Ninja_CharacterController : CharacterBase
     // TODO ## Ninja_W_Skill
     public override void Skill_2()
     {
-        if (skill2 && !isAttack && !isSkill1 && !isSkill2 && !isSkill3 && !isSkill4 && skillManager2.getSkillTimes <= 0)
+        if (!inGameSetting.isPaused)
         {
-            animator.SetBool("isMove", false);
-
-            isMove = false;
-            isSkill2 = true;
-
-            animator.SetTrigger("doSkill2");
-
-            attack_Collider.W_Use();
-
-            Invoke("SkillOut", 2.3f);
-
-            // Enemy 스크립트의 isAttackable 변수 설정
-            Enemy[] enemies = FindObjectsOfType<Enemy>();
-            foreach (Enemy enemy in enemies)
+            if (skill2 && !isAttack && !isSkill1 && !isSkill2 && !isSkill3 && !isSkill4 && skillManager2.getSkillTimes <= 0)
             {
-                enemy.attack.isAttackable = false;
+                animator.SetBool("isMove", false);
+
+                isMove = false;
+                isSkill2 = true;
+
+                animator.SetTrigger("doSkill2");
+
+                attack_Collider.W_Use();
+
+                Invoke("SkillOut", 2.3f);
+
+                // Enemy 스크립트의 isAttackable 변수 설정
+                Enemy[] enemies = FindObjectsOfType<Enemy>();
+                foreach (Enemy enemy in enemies)
+                {
+                    enemy.attack.isAttackable = false;
+                }
             }
         }
     }
@@ -429,89 +443,95 @@ public class Ninja_CharacterController : CharacterBase
     // TODO ## Ninja_E_Skill
     public override void Skill_3()
     {
-        if (skill3 && !isAttack && !isSkill1 && !isSkill2 && !isSkill3 && !isSkill4 && skillManager3.getSkillTimes <= 0)
+        if (!inGameSetting.isPaused)
         {
-            animator.SetBool("isMove", false);
-
-            isMove = false;
-            isSkill3 = true;
-
-            attack_Collider.E_Use();
-
-            Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-            RaycastHit rayHit;
-
-            if (Physics.Raycast(ray, out rayHit, 100))
+            if (skill3 && !isAttack && !isSkill1 && !isSkill2 && !isSkill3 && !isSkill4 && skillManager3.getSkillTimes <= 0)
             {
-                Vector3 dodgeDirection = rayHit.point - transform.position;
-                dodgeDirection.y = 0;
-                dodgeDirection.Normalize(); // 벡터를 정규화합니다.
-                transform.LookAt(transform.position + dodgeDirection);
+                animator.SetBool("isMove", false);
 
-                Vector3 dodgeStartPosition = transform.position;
-                Vector3 dodgeEndPosition = transform.position + dodgeDirection * 25f;
+                isMove = false;
+                isSkill3 = true;
 
-                StartCoroutine(MoveDuring(dodgeStartPosition, dodgeEndPosition, 0.6f));
-                Invoke("SkillOut", 0.7f);
-                animator.SetTrigger("doSkill3");
+                attack_Collider.E_Use();
 
-                // Enemy 스크립트의 isAttackable 변수 설정
-                Enemy[] enemies = FindObjectsOfType<Enemy>();
-                foreach (Enemy enemy in enemies)
+                Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+                RaycastHit rayHit;
+
+                if (Physics.Raycast(ray, out rayHit, 100))
                 {
-                    enemy.attack.isAttackable = false;
+                    Vector3 dodgeDirection = rayHit.point - transform.position;
+                    dodgeDirection.y = 0;
+                    dodgeDirection.Normalize(); // 벡터를 정규화합니다.
+                    transform.LookAt(transform.position + dodgeDirection);
+
+                    Vector3 dodgeStartPosition = transform.position;
+                    Vector3 dodgeEndPosition = transform.position + dodgeDirection * 25f;
+
+                    StartCoroutine(MoveDuring(dodgeStartPosition, dodgeEndPosition, 0.6f));
+                    Invoke("SkillOut", 0.7f);
+                    animator.SetTrigger("doSkill3");
+
+                    // Enemy 스크립트의 isAttackable 변수 설정
+                    Enemy[] enemies = FindObjectsOfType<Enemy>();
+                    foreach (Enemy enemy in enemies)
+                    {
+                        enemy.attack.isAttackable = false;
+                    }
                 }
+                /*
+                foreach (Transform child in transform)
+                {
+                    child.localRotation = Quaternion.identity;
+                }*/
             }
-            /*
-            foreach (Transform child in transform)
-            {
-                child.localRotation = Quaternion.identity;
-            }*/
         }
     }
 
     // TODO ## Ninja_R_Skill
     public override void Skill_4()
     {
-        if (skill4 && !isAttack && !isSkill1 && !isSkill2 && !isSkill3 && !isSkill4 && skillManager4.getSkillTimes <= 0)
+        if (!inGameSetting.isPaused)
         {
-            animator.SetBool("isMove", false);
-
-            isMove = false;
-            isSkill4 = true;
-
-            attack_Collider.R_Use();
-
-            Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-            RaycastHit rayHit;
-
-            if (Physics.Raycast(ray, out rayHit, 100))
+            if (skill4 && !isAttack && !isSkill1 && !isSkill2 && !isSkill3 && !isSkill4 && skillManager4.getSkillTimes <= 0)
             {
-                Vector3 dodgeDirection = rayHit.point - transform.position;
-                dodgeDirection.y = 0;
-                dodgeDirection.Normalize(); // 벡터를 정규화합니다.
-                transform.LookAt(transform.position + dodgeDirection);
+                animator.SetBool("isMove", false);
 
-                Vector3 dodgeStartPosition = transform.position;
-                Vector3 dodgeEndPosition = transform.position + dodgeDirection * 25f;
+                isMove = false;
+                isSkill4 = true;
 
-                StartCoroutine(MoveDuring(dodgeStartPosition, dodgeEndPosition, 0.1f));
-                animator.SetTrigger("doSkill4");
-                Invoke("SkillOut", 1f);
+                attack_Collider.R_Use();
 
-                // Enemy 스크립트의 isAttackable 변수 설정
-                // Enemy 스크립트의 isAttackable 변수 설정
-                Enemy[] enemies = FindObjectsOfType<Enemy>();
-                foreach (Enemy enemy in enemies)
+                Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+                RaycastHit rayHit;
+
+                if (Physics.Raycast(ray, out rayHit, 100))
                 {
-                    enemy.attack.isAttackable = false;
+                    Vector3 dodgeDirection = rayHit.point - transform.position;
+                    dodgeDirection.y = 0;
+                    dodgeDirection.Normalize(); // 벡터를 정규화합니다.
+                    transform.LookAt(transform.position + dodgeDirection);
+
+                    Vector3 dodgeStartPosition = transform.position;
+                    Vector3 dodgeEndPosition = transform.position + dodgeDirection * 25f;
+
+                    StartCoroutine(MoveDuring(dodgeStartPosition, dodgeEndPosition, 0.1f));
+                    animator.SetTrigger("doSkill4");
+                    Invoke("SkillOut", 1f);
+
+                    // Enemy 스크립트의 isAttackable 변수 설정
+                    // Enemy 스크립트의 isAttackable 변수 설정
+                    Enemy[] enemies = FindObjectsOfType<Enemy>();
+                    foreach (Enemy enemy in enemies)
+                    {
+                        enemy.attack.isAttackable = false;
+                    }
                 }
+                /*
+                foreach (Transform child in transform)
+                {
+                    child.localRotation = Quaternion.identity;
+                }*/
             }
-            /*
-            foreach (Transform child in transform)
-            {
-                child.localRotation = Quaternion.identity;
-            }*/
         }
     }
 

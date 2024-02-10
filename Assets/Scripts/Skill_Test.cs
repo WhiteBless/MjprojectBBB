@@ -23,7 +23,7 @@ public class Skill_Test : MonoBehaviour
     public float getSkillTimes = 0;
 
     public Ninja_CharacterController ninja_CharacterController;
-
+    public InGameSetting inGameSetting;
     void Start()
     {
         hideSkillTimeTexts = textPros.GetComponent<TextMeshProUGUI>();
@@ -39,76 +39,79 @@ public class Skill_Test : MonoBehaviour
 
     public void HideSkillSetting()
     {
-        switch (skillType)
+        if (!inGameSetting.isPaused)
         {
-            case SkillType.Q:
-                if (getSkillTimes <= 0 && !ninja_CharacterController.isSkill2 && !ninja_CharacterController.isSkill3 && !ninja_CharacterController.isSkill4)
-                {
-                    if (skillTimes > 0 && ninja_CharacterController.skill1)
+            switch (skillType)
+            {
+                case SkillType.Q:
+                    if (getSkillTimes <= 0 && !ninja_CharacterController.isSkill2 && !ninja_CharacterController.isSkill3 && !ninja_CharacterController.isSkill4)
                     {
-                        hideSkillButtons.SetActive(true);
-                        getSkillTimes = skillTimes;
-                        isHideSkills = true;
+                        if (skillTimes > 0 && ninja_CharacterController.skill1)
+                        {
+                            hideSkillButtons.SetActive(true);
+                            getSkillTimes = skillTimes;
+                            isHideSkills = true;
+                        }
                     }
-                }     
-                break;
+                    break;
 
-            case SkillType.W:
-                if (getSkillTimes <= 0 && !ninja_CharacterController.isSkill1 && !ninja_CharacterController.isSkill3 && !ninja_CharacterController.isSkill4)
-                {
-                    if (skillTimes > 0 && ninja_CharacterController.skill2)
+                case SkillType.W:
+                    if (getSkillTimes <= 0 && !ninja_CharacterController.isSkill1 && !ninja_CharacterController.isSkill3 && !ninja_CharacterController.isSkill4)
                     {
-                        hideSkillButtons.SetActive(true);
-                        getSkillTimes = skillTimes;
-                        isHideSkills = true;
+                        if (skillTimes > 0 && ninja_CharacterController.skill2)
+                        {
+                            hideSkillButtons.SetActive(true);
+                            getSkillTimes = skillTimes;
+                            isHideSkills = true;
+                        }
                     }
-                }
-                break;
+                    break;
 
-            case SkillType.E:
-                if (getSkillTimes <= 0 && !ninja_CharacterController.isSkill1 && !ninja_CharacterController.isSkill2 && !ninja_CharacterController.isSkill4)
-                {
-                    if (skillTimes > 0 && ninja_CharacterController.skill3)
+                case SkillType.E:
+                    if (getSkillTimes <= 0 && !ninja_CharacterController.isSkill1 && !ninja_CharacterController.isSkill2 && !ninja_CharacterController.isSkill4)
                     {
-                        hideSkillButtons.SetActive(true);
-                        getSkillTimes = skillTimes;
-                        isHideSkills = true;
+                        if (skillTimes > 0 && ninja_CharacterController.skill3)
+                        {
+                            hideSkillButtons.SetActive(true);
+                            getSkillTimes = skillTimes;
+                            isHideSkills = true;
+                        }
                     }
-                }   
-                break;
+                    break;
 
-            case SkillType.R:
-                if (getSkillTimes <= 0 && !ninja_CharacterController.isSkill1 && !ninja_CharacterController.isSkill2 && !ninja_CharacterController.isSkill3)
-                {
-                    if (skillTimes > 0 && ninja_CharacterController.skill4)
+                case SkillType.R:
+                    if (getSkillTimes <= 0 && !ninja_CharacterController.isSkill1 && !ninja_CharacterController.isSkill2 && !ninja_CharacterController.isSkill3)
                     {
-                        hideSkillButtons.SetActive(true);
-                        getSkillTimes = skillTimes;
-                        isHideSkills = true;
+                        if (skillTimes > 0 && ninja_CharacterController.skill4)
+                        {
+                            hideSkillButtons.SetActive(true);
+                            getSkillTimes = skillTimes;
+                            isHideSkills = true;
+                        }
                     }
-                }
-                break;
+                    break;
 
-            case SkillType.D:
-                if (getSkillTimes <= 0)
-                {
-                    if (skillTimes > 0 && ninja_CharacterController.spaceDown)
+                case SkillType.D:
+                    if (getSkillTimes <= 0)
                     {
-                        hideSkillButtons.SetActive(true);
-                        getSkillTimes = skillTimes;
-                        isHideSkills = true;
+                        if (skillTimes > 0 && ninja_CharacterController.spaceDown)
+                        {
+                            hideSkillButtons.SetActive(true);
+                            getSkillTimes = skillTimes;
+                            isHideSkills = true;
+                        }
                     }
-                }    
-                break;
+                    break;
+            }
         }
     }
 
     private void HideSkillChk()
     {
-        if (isHideSkills)
-        {
-            StartCoroutine(SkillTimeCHk());
-        }
+            if (isHideSkills)
+            {
+                StartCoroutine(SkillTimeCHk());
+            }
     }
 
     IEnumerator SkillTimeCHk()
