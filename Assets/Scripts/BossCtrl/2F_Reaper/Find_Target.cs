@@ -15,7 +15,7 @@ public class Find_Target : MonoBehaviour
 
             ReaperCtrl.isTargetFind = true; // 플레이어 확인
             ReaperCtrl.Reaper_animator.SetBool("isFind", ReaperCtrl.isTargetFind);
-
+            ReaperCtrl.reaperState = ReaperState.RaidStart;
             this.GetComponent<SphereCollider>().enabled = false;
         }
     }
