@@ -63,7 +63,6 @@ public class Ninja_CharacterController : CharacterBase
 
     public InGameSetting inGameSetting;
 
-
     void Awake()
     {
         cam = Camera.main;
@@ -166,6 +165,24 @@ public class Ninja_CharacterController : CharacterBase
 
 
     #region Move
+    // TODO ## Raycast 모든 물체 반환
+    //void FindTerrain()
+    //{
+    //    RaycastHit[] hits = Physics.RaycastAll(GetMouseRay());
+        
+    //    foreach(RaycastHit hit in hits)
+    //    {
+    //        Ground ground = hit.transform.GetComponent<Ground>();
+
+    //        if (ground == null) continue;
+
+    //        if (Input.GetMouseButton(1))
+    //        {
+
+    //        }
+    //    }
+    //}
+
     // TODO ## 닌자 캐릭터 이동 관련함수
     public override void Move()
     {
@@ -202,14 +219,13 @@ public class Ninja_CharacterController : CharacterBase
 
         if (Input.GetMouseButton(1))
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
-
-            if (Physics.Raycast(ray, out hit))
+            if (Physics.Raycast(GetMouseRay(), out hit))
             {
+                //  Debug.Log(hit.collider.name);
                 SetMove(hit.point);
             }
-            else if (Physics.Raycast(ray, out hit) && hit.collider.CompareTag("Wall"))
+            else if (Physics.Raycast(GetMouseRay(), out hit) && hit.collider.CompareTag("Wall"))
             {
                 NotMove();
             }
@@ -253,6 +269,10 @@ public class Ninja_CharacterController : CharacterBase
         }
     }
 
+    private static Ray GetMouseRay()
+    {
+        return Camera.main.ScreenPointToRay(Input.mousePosition);
+    }
 
     public override void NotMove()
     {

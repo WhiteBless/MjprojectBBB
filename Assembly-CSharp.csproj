@@ -88,7 +88,6 @@
     <Compile Include="Assets\Asset\ProceduralLightning\Prefab\Scripts\LightningWhipScript.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventHandler.cs" />
     <Compile Include="Assets\Asset\Hovl Studio\HSFiles\Scripts\HS_ProjectileMover.cs" />
-    <Compile Include="Assets\Scripts\BossCtrl\IronGuard\BossCtrl\IronGuard_ObjPool.cs" />
     <Compile Include="Assets\TheReaper\Scrips\Deleteable\AxisTouchButton.cs" />
     <Compile Include="Assets\#NVJOB Dynamic Sky\#NVJOB Dynamic Sky\DynamicSky.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\UI\Actions\ScrollToItem.cs" />
@@ -107,6 +106,7 @@
     <Compile Include="Assets\#NVJOB Dynamic Sky\Example Scenes\Environment\Standard Assets\Effects\ImageEffects\Scripts\TiltShift.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Core\Extensions\MeshEx.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Level Design\Object Spawn\TileRuleObjectSpawnUI.cs" />
+    <Compile Include="Assets\Scripts\BossCtrl\1F_IronGuard\BossCtrl\BossLookAt.cs" />
     <Compile Include="Assets\Asset\SkillsEffectsPack\Scripts\ChangeSizeColor.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Level Design\Object Spawn\PhysicsObjectSpawnSettings.cs" />
     <Compile Include="Assets\Asset\ProceduralLightning\Prefab\Scripts\LightningBoltPathScript.cs" />
@@ -152,6 +152,7 @@
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Graphs\BVH\BinarySphereTree.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Objects\Projection\ObjectOnTerrainMeshProjector.cs" />
     <Compile Include="Assets\#NVJOB Dynamic Sky\Example Scenes\Environment\Standard Assets\Effects\ImageEffects\Scripts\ScreenOverlay.cs" />
+    <Compile Include="Assets\Scripts\BossCtrl\1F_IronGuard\BossSword\SwordParticle_Eff.cs" />
     <Compile Include="Assets\Asset\ProceduralLightning\Demo\Scripts\DemoScript.cs" />
     <Compile Include="Assets\#NVJOB Dynamic Sky\Example Scenes\Environment\Standard Assets\Effects\ImageEffects\Scripts\ImageEffectBase.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Parsing\Parser.cs" />
@@ -179,13 +180,12 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ChatController.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Core\Extensions\IntegerFieldEx.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Core\ObjectLayerDiffCheck.cs" />
-    <Compile Include="Assets\Scripts\BossCtrl\IronGuard\BossRazerPattern\ShotRazer.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Prefabs\ModularWallPrefab.cs" />
+    <Compile Include="Assets\Scripts\BossCtrl\1F_IronGuard\BossRazerPattern\Razer.cs" />
     <Compile Include="Assets\#NVJOB Dynamic Sky\Example Scenes\Environment\Standard Assets\Effects\ImageEffects\Scripts\Tonemapping.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Math\Splines\ISpline3D.cs" />
     <Compile Include="Assets\#NVJOB Dynamic Sky\Example Scenes\Environment\Standard Assets\Effects\ImageEffects\Scripts\NoiseAndGrain.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Prefabs\ObjectGroupsFromPrefabLibsCreationSettings.cs" />
-    <Compile Include="Assets\Scripts\BossCtrl\IronGuard\BossCtrl\BossAnimetor.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Prefabs\UIScatterBrushPrefabItem.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Core\Extensions\DragPerformEventEx.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Prefabs\CurvePrefabProfile.cs" />
@@ -225,10 +225,10 @@
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Math\OBB.cs" />
     <Compile Include="Assets\#NVJOB Dynamic Sky\Example Scenes\Environment\Standard Assets\Effects\ImageEffects\Scripts\BlurOptimized.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Prefabs\PluginPrefab.cs" />
-    <Compile Include="Assets\Scripts\BossCtrl\IronGuard\BossRazerPattern\RazerMaker_Ctrl1.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Math\PlaneDescriptor.cs" />
     <Compile Include="Assets\Scripts\Manager\SoundManager.cs" />
     <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
+    <Compile Include="Assets\Scripts\BossCtrl\1F_IronGuard\BossRazerPattern\ShotRazer.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Core\Extensions\RayEx.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Prefabs\PrefabLib.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\UI\UIHeader.cs" />
@@ -267,6 +267,7 @@
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Prefabs\PrefabLibFolderPath.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Shortcuts\ShortcutLogger.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Level Design\Object Erase\ObjectEraseBrush3D.cs" />
+    <Compile Include="Assets\Scripts\Enviroment\Ground.cs" />
     <Compile Include="Assets\Scripts\InGameSetting.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\UI\General\DeleteEntityWindow.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Prefabs\IntRangePrefabProfileDbUI.cs" />
@@ -288,11 +289,11 @@
     <Compile Include="Assets\Asset\Hovl Studio\HSFiles\Scripts\HS_EffectSound.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Core\Extensions\VisualElementEx.cs" />
     <Compile Include="Assets\Asset\Beautify\Demos\DemoSources\Scripts\CameraAnimator.cs" />
+    <Compile Include="Assets\Scripts\BossCtrl\1F_IronGuard\BossCtrl\BossSkillP.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Core\Extensions\CameraEx.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Scene\RayHit.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Prefs\ObjectTransformSessionPrefs.cs" />
     <Compile Include="Assets\Asset\SkillsEffectsPack\Scripts\NewMaterialChange.cs" />
-    <Compile Include="Assets\Scripts\BossCtrl\IronGuard\BossCtrl\BossSkillP.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Commands\ObjectEraseCommands.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\UI\PluginGenericMenu.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Math\AABB.cs" />
@@ -308,6 +309,7 @@
     <Compile Include="Assets\Asset\ProceduralLightning\Prefab\Scripts\Spells\LightningParticleSpellScript.cs" />
     <Compile Include="Assets\Scripts\AttackCollider.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Level Design\Physics\PhysicsSimulation.cs" />
+    <Compile Include="Assets\Scripts\BossCtrl\1F_IronGuard\BossRazerPattern\RazerMaker_Ctrl1.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Prefabs\CurvePrefab.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Prefabs\RandomPrefab.cs" />
     <Compile Include="Assets\Asset\Beautify\Scripts\BeautifyProfile.cs" />
@@ -378,16 +380,15 @@
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Prefabs\PluginPrefabManagerUI.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Core\Extensions\GameObjectEx.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Mesh\PluginMeshAABBTree.cs" />
-    <Compile Include="Assets\Scripts\BossCtrl\IronGuard\BossCtrl\BossLookAt.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Commands\PluginCommand.cs" />
     <Compile Include="Assets\Asset\JMO Assets\Cartoon FX (legacy)\Scripts\CFX_AutoDestructShuriken.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\UI\ListView\ListView.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Grid\GridSettingsProfileDb.cs" />
     <Compile Include="Assets\TheReaper\Scrips\Deleteable\AbstractTargetFollower.cs" />
-    <Compile Include="Assets\Scripts\BossCtrl\IronGuard\BossRazerPattern\Razer.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Core\TransformDiffCheck.cs" />
     <Compile Include="Assets\Asset\Hovl Studio\HSFiles\Scripts\HS_FrontMover.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Shapes\XYQuad3D.cs" />
+    <Compile Include="Assets\Scripts\BossCtrl\Boss_Atk_Range.cs" />
     <Compile Include="Assets\TheReaper\Scrips\Deleteable\InputAxisScrollbar.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\PluginAssetModificationProcessor.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Level Design\Object Spawn\ModularWallsObjectSpawnUI.cs" />
@@ -401,6 +402,7 @@
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Core\Extensions\FloatFieldEx.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Level Design\Object Spawn\ObjectSpawnGuide.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Math\Box3D.cs" />
+    <Compile Include="Assets\Scripts\BossCtrl\2F_Reaper\Find_Target.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Level Design\Object Spawn\BoxObjectSpawnSettingsProfileDb.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Core\Extensions\ScriptableObjectEx.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Prefabs\ObjectGroupsFromPrefabLibsCreationSettingsUI.cs" />
@@ -430,6 +432,7 @@
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Level Design\Object Spawn\TileRuleGrid.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Prefabs\RandomPrefabProfile.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Mesh\Creation\QuadMesh.cs" />
+    <Compile Include="Assets\Scripts\BossCtrl\1F_IronGuard\BossCtrl\BossAnimetor.cs" />
     <Compile Include="Assets\Asset\ProceduralLightning\Demo\Scripts\DemoScriptPrefabTutorial.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Shortcuts\ShortcutProfileDb.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_ExampleScript_01.cs" />
@@ -448,6 +451,7 @@
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Core\Extensions\EventEx.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexColorCycler.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Objects\Masks\ObjectMask.cs" />
+    <Compile Include="Assets\Scripts\BossCtrl\1F_IronGuard\BossCtrl\BossAttRange.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Objects\Object Groups\ObjectGroupDbWindow.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Core\Extensions\ShortcutManagerEx.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Export\DataExportWindow.cs" />
@@ -480,6 +484,7 @@
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Shortcuts\KeyCombo.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Core\Extensions\EnumEx.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Prefabs\PrefabData.cs" />
+    <Compile Include="Assets\Scripts\BossCtrl\2F_Reaper\Reaper_Controller.cs" />
     <Compile Include="Assets\TheReaper\Scrips\Deleteable\Joystick.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Events\PluginPrefabEvents.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Objects\ObjectScaleStartData.cs" />
@@ -557,7 +562,6 @@
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\UI\Tree View\TreeViewItem.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Math\Cylinder.cs" />
     <Compile Include="Assets\Asset\ProceduralLightning\Prefab\Scripts\LightningGizmoScript.cs" />
-    <Compile Include="Assets\Scripts\BossCtrl\IronGuard\BossSword\SwordParticle_Eff.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_UiFrameRateCounter.cs" />
     <Compile Include="Assets\#NVJOB Dynamic Sky\Example Scenes\Environment\Standard Assets\Effects\ImageEffects\Scripts\EdgeDetection.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Prefs\ObjectSpawnPrefs.cs" />
@@ -592,13 +596,13 @@
     <Compile Include="Assets\Scripts\RotateZero.cs" />
     <Compile Include="Assets\Asset\ProceduralLightning\Prefab\Scripts\Spells\LightningBeamSpellScript.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Core\PluginGuid.cs" />
-    <Compile Include="Assets\Scripts\BossCtrl\IronGuard\BossCtrl\BossAttRange.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Level Design\Int Pattern\IntPatternDbUI.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_B.cs" />
     <Compile Include="Assets\Scripts\SceneLoad.cs" />
     <Compile Include="Assets\Asset\SkillsEffectsPack\Scripts\VariousRotateObject.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Objects\Masks\ObjectMaskEntry.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Level Design\Object Erase\ObjectEraseCursor.cs" />
+    <Compile Include="Assets\Scripts\BossCtrl\Boss_BehaviorCtrl_Base.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Math\PlaneClassifyResult.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Level Design\CircleBrush3D.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Prefabs\IntRangePrefabProfile.cs" />
@@ -696,6 +700,7 @@
     <Compile Include="Assets\Asset\ProceduralLightning\Prefab\Scripts\MeshHelper.cs" />
     <Compile Include="Assets\TheReaper\Scrips\Deleteable\CrossPlatformInputManager.cs" />
     <Compile Include="Assets\Asset\ProceduralLightning\Prefab\Scripts\LightningMeshSurfaceScript.cs" />
+    <Compile Include="Assets\Scripts\BossCtrl\1F_IronGuard\BossCtrl\IronGuard_ObjPool.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Level Design\Object Spawn\TileRuleObjectSpawnSettings.cs" />
     <Compile Include="Assets\Asset\GSpawn - Level Designer\Scripts\Core\Extensions\SelectionEx.cs" />
     <Compile Include="Assets\#NVJOB Dynamic Sky\Example Scenes\Environment\Standard Assets\Effects\ImageEffects\Scripts\ScreenSpaceAmbientOcclusion.cs" />
