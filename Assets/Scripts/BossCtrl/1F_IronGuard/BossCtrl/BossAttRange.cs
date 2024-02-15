@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class BossAttRange : MonoBehaviour
 {
+    public GameObject bossHPCanvas;
+    public GameObject IronGuard_obj;
+
     BossAnimator bossAnimator; // BossAnimator 스크립트를 참조하는 변수
 
     // Start is called before the first frame update
@@ -18,6 +21,10 @@ public class BossAttRange : MonoBehaviour
         if (other.gameObject.CompareTag("P")) // 충돌한 오브젝트의 태그가 P라면
         {
             bossAnimator.AttRadyState = true; // AttRadyState를 true로 설정
+
+            //bossHPCanvas.SetActive(true);
+            //bossHPCanvas.GetComponent<BossHP_Ctrl>().BossMax_HP = IronGuard_obj.GetComponent<HPtest>().maxHealth;
+            //bossHPCanvas.GetComponent<BossHP_Ctrl>().BossCur_HP = IronGuard_obj.GetComponent<HPtest>().maxHealth;
         }
     }
 

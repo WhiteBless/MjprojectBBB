@@ -139,7 +139,7 @@ public class Ninja_CharacterController : CharacterBase
             RaycastHit hit;
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);
 
-            if (Physics.Raycast(ray, out hit) && hit.collider.CompareTag("Ground"))
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity, obstacleMask) && hit.collider.CompareTag("Ground"))
             {
                 Vector3 spawnPosition = new Vector3(hit.point.x, hit.point.y + 2f, hit.point.z);
                 // 프리팹을 생성하고 1초 후에 파괴
