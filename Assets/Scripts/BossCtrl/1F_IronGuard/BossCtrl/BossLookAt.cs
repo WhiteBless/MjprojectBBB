@@ -34,11 +34,10 @@ public class BossLookAt : MonoBehaviour
         bossHPCanvas = GameObject.FindGameObjectWithTag("BossHPC");
         bossHPCanvas.SetActive(false); // 처음에는 비활성화
 
+        // TODO ## 1층보스 HP 시작 시 넘겨주는 부분
         bossHPCanvas.GetComponent<BossHP_Ctrl>().BossMax_HP = this.GetComponent<HPtest>().maxHealth;
         bossHPCanvas.GetComponent<BossHP_Ctrl>().BossCur_HP = this.GetComponent<HPtest>().maxHealth;
 
-        
-       
     }
 
     void Update()

@@ -53,6 +53,7 @@ public class BossHP_Ctrl : MonoBehaviour
         // 현재 체력 색 조정
         CurBoss_HP_Img.color = GetColorByLayer(BossCur_HP);
         StartCoroutine(TakeDamageBar_Refresh());
+
         // 다음 체력바 색으로 표시, 0이하로 떨어질 시 검정색으로 표시
         NextBoss_HP_Img.color = GetColorByLayer(BossCur_HP - Boss_SingleBarHP);
 
@@ -71,7 +72,7 @@ public class BossHP_Ctrl : MonoBehaviour
 
     IEnumerator TakeDamageBar_Refresh()
     {
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1.0f);
 
         // 사이즈 비율 조정
         TakeDamage_Img.rectTransform.sizeDelta =

@@ -7,43 +7,61 @@ public enum ReaperState
     RaidStart,      // 0
     Idle,           // 1
     Move,           // 2
+    Teleport,
+    
+    BaseAtk_0,      // 
+    BaseAtk_1,      // 
 
-    BaseAtk_0,      // 3
-    BaseAtk_1,      // 4
-
-
-    Dark_Hand,      // 5
-    Dark_Decline,   // 6
+    Dark_Hand,      // 
+    Dark_Decline,   // 
 }
 
 public class Reaper_Controller : Boss_BehaviorCtrl_Base
 {
     [Header("-----Reaper State-----")]
     public ReaperState reaperState;
-    public float Skill_Think_Range;
-    public float TargetDistance;
-    public float LockCloseDistance;
-
-    public GameObject Target;   // 플레이어
-    public Reaper_Atk_Range Reaper_AtkRange;
-    Vector3 dir; // 각도
-    Rigidbody rigid;
-    [SerializeField]
-    float Boss_RotSpeed;
-    [SerializeField]
-    float moveSpeed;
     public bool isLock;               // 각도 조절 여부
     public bool isAttacking;          // 공격 중 인지 여부
-    public bool CanAttack;
+
+    [Header("-----Reaper Reference-----")]
+    public Reaper_Atk_Range Reaper_AtkRange; //  
+    public Boss_HP_Controller boss_hp_ctrl;  // HP 컨트롤러
+
+    [Header("-----Reaper Variable-----")]
+    public GameObject Target;       // 플레이어
+    public float TargetDistance;    // 플레이어와의 거리
+
+    [Header("-----Reaper State Variable-----")]
+    public int MaxHP;   // 리퍼 체력
+
+    [SerializeField]
+    float Boss_RotSpeed;    //  회전 속도
+    [SerializeField]
+    float moveSpeed;        // 움직임 속도
+    public float Skill_Think_Range; // 스킬 시전 가능 범위
+
+
+    Vector3 dir; // 각도
+    // Rigidbody rigid;
 
     [Header("-----Animation Var-----")]
     public Animator Reaper_animator;   // 애니메이터
-
     public bool isMove;         // 이동 여부
-    public bool isTargetFind;   // 첫 조우 여부
 
-    [Header("-----Skill Dark Decline-----")]
-    public float Dark_Decline_Delay;
+    [Header("-----Skill_ BaseAtk_0-----")]
+    [SerializeField]
+    float BaseAtk_0_LockTime; // 기본 공격_0 회전 제어
+
+    [Header("-----Skill_ BaseAtk_1-----")]
+    [SerializeField]
+    float BaseAtk_1_LockTime; // // 기본 공격_1 회전 제어
+
+    [Header("-----Skill_Dark_Decline-----")]
+    public float Dark_Decline_Delay; // 어둠의 쇠락 스킬 모션 딜레이
+    [SerializeField]
+    float Decline_LockTime; // 회전 제한 시간
+    [SerializeField]
+    float Decline_UnLockTime; // 회전 제한 해제 시간
 
     #region Reaper_Rotate
     public override void LookAtPlayer()
@@ -56,6 +74,9 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
         // this.transform.LookAt(Target.transform);
 
         dir = Target.transform.position - transform.position;
+        // y축 정보 제거
+        dir.y = 0.0f;
+
         Quaternion rotation = Quaternion.LookRotation(dir, Vector3.up);
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * Boss_RotSpeed);
     }
@@ -85,31 +106,16 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
     // Start is called before the first frame update
     void Start()
     {
+        boss_hp_ctrl = GetComponent<Boss_HP_Controller>();
         Reaper_animator = GetComponent<Animator>();
-        rigid = GetComponent<Rigidbody>();
+        // rigid = GetComponent<Rigidbody>();
 
-        StartCoroutine(SeePlayer());
-    }
-
-    IEnumerator SeePlayer()
-    {
-        Reaper_animator.SetTrigger("IsFindPlayer");
-
-        yield return new WaitForSeconds(Reaper_animator.GetCurrentAnimatorStateInfo(0).length + 3.0f);
-
-        // 거리에 따라 원거리 공격 근거리 공격
-        if (TargetDistance > Skill_Think_Range)
-        {
-            Reaper_Long_nextAct();
-        }
-        else if(TargetDistance <= Skill_Think_Range)
-        {
-            Reaper_Short_nextAct();
-        }
+        // 최대 체력 전달 현재 체력 
+        boss_hp_ctrl.BossMaxHP = MaxHP;  
     }
 
     private void FixedUpdate()
-    {
+    { 
         // 현재 상태가 움직이는 Move고 대상이 멀면
         if (reaperState == ReaperState.Move && TargetDistance > Skill_Think_Range)
         {
@@ -126,20 +132,11 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
             TargetDistance = Vector3.Distance(Target.transform.position, this.transform.position);
         }
 
-        // 거리가 설정한 거리보다 멀면 회전
-        if (TargetDistance <= LockCloseDistance)
-        {
-            
-        }
-        else if (TargetDistance > LockCloseDistance)
-        {
-            LookAtPlayer();
-        }  
+        LookAtPlayer();
     }
 
-
     #region Reaper_Next_Skill
-    void Reaper_Short_nextAct()
+    public void Reaper_Short_nextAct()
     {
         // 현재 공격중이라면 return
         if (isAttacking == true)
@@ -168,7 +165,7 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
         }
     }
 
-    void Reaper_Long_nextAct()
+    public void Reaper_Long_nextAct()
     {
         // 현재 공격중이라면 return
         if (isAttacking == true)
@@ -180,7 +177,7 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
         if (TargetDistance > Skill_Think_Range)
         {
             // 원거리
-            int randomIndex = Random.Range(0, 2);
+            int randomIndex = Random.Range(0, 3);
 
             switch (randomIndex)
             {
@@ -191,59 +188,15 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
                     break;
 
                 case 1:
+                    StartCoroutine(Teleport());
+                    break;
+
+                case 2:
                     StartCoroutine(Dark_Hand());
                     break;
             }
         }
     }
-    #endregion
-
-    #region Reaper_Atk_Think
-    // TODO ## 2층 보스 패턴 적용
-    public void Skill_Think()
-    {
-        if (isAttacking == true)
-        {
-            return;
-        }
-
-        if (TargetDistance <= Skill_Think_Range)
-        {
-            // 근접
-            int randomIndex = Random.Range(0, 3);
-
-            switch (randomIndex)
-            {
-                case 0:
-                    Reaper_animator.SetTrigger("BaseAtk_0");
-                    break;
-                case 1:
-                    Reaper_animator.SetTrigger("BaseAtk_1");
-                    break;
-                case 2:
-                    Reaper_animator.SetTrigger("Dark_Decline");
-                    break;      
-            }
-        }
-        else if (TargetDistance > Skill_Think_Range)
-        {
-            // 원거리
-            int randomIndex = Random.Range(0, 2);
-
-            switch (randomIndex)
-            {
-                case 0:
-                    isMove = true;
-                    break;
-
-                case 1:
-                    
-                    Reaper_animator.SetTrigger("Dark_Hand");
-                    break;
-            }
-        }
-    }
-
     #endregion
 
     #region Reaper_PlayerCheck
@@ -253,6 +206,48 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
         if (TargetDistance < Skill_Think_Range)
         {
             isMove = false;
+            Reaper_Short_nextAct();
+        }
+    }
+
+    #endregion
+
+    #region Reaper_Idle
+    public void Reaper_Idle()
+    {
+        reaperState = ReaperState.Idle;
+    }
+    #endregion
+
+    #region Boss_Reaper_Teleport
+    IEnumerator Teleport()
+    {
+        reaperState = ReaperState.Teleport;
+        Reaper_animator.SetTrigger("Teleport");
+
+
+        // 플레이어 주위에서 랜덤한 각도와 거리로 텔레포트
+        float randomAngle = Random.Range(0f, 360f);
+
+        // 플레이어의 위치에서 오일러 각 만큼 위치에서 * (Skill_Think_Range - 3.0f)만큼 거리에 위치
+        Vector3 randomDirection = Quaternion.Euler(0f, randomAngle, 0f) * Vector3.forward;
+        Vector3 randomPosition = Target.transform.position + randomDirection * (Skill_Think_Range - 5.0f);
+
+        // Y 좌표는 0으로 고정
+        randomPosition.y = 1.5f;
+
+        // 텔레포트
+        transform.position = randomPosition;
+
+        yield return new WaitForSeconds(0.1f);
+
+        // 거리에 따른 다음 공격
+        if (TargetDistance > Skill_Think_Range && isAttacking == false)
+        {
+            Reaper_Long_nextAct();
+        }
+        else if (TargetDistance <= Skill_Think_Range && isAttacking == false)
+        {
             Reaper_Short_nextAct();
         }
     }
@@ -273,8 +268,12 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
         isMove = false;
         Reaper_animator.SetBool("isMove", isMove);
 
-        yield return new WaitForSeconds(Reaper_animator.GetCurrentAnimatorStateInfo(0).length);
+        yield return new WaitForSeconds(BaseAtk_0_LockTime);
+        isLock = true;
+
+        yield return new WaitForSeconds(Reaper_animator.GetCurrentAnimatorStateInfo(0).length - BaseAtk_0_LockTime);
         // Debug.Log(Reaper_animator.GetCurrentAnimatorStateInfo(0).length);
+        isLock = false;
 
         // 4초 후 공격 가능
         yield return new WaitForSeconds(4.0f);
@@ -306,15 +305,19 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
         isMove = false;
         Reaper_animator.SetBool("isMove", isMove);
 
-        yield return new WaitForSeconds(Reaper_animator.GetCurrentAnimatorStateInfo(0).length);
+        yield return new WaitForSeconds(BaseAtk_1_LockTime);
+        isLock = true;
+
+        yield return new WaitForSeconds(Reaper_animator.GetCurrentAnimatorStateInfo(0).length - BaseAtk_1_LockTime);
         Debug.Log(Reaper_animator.GetCurrentAnimatorStateInfo(0).length);
+        isLock = false;
 
         // 4초 후 실행
         yield return new WaitForSeconds(4.0f);
 
         // 공격 가능
         isAttacking = false;
-
+       
         // 거리에 따른 다음 공격
         if (TargetDistance > Skill_Think_Range && isAttacking == false)
         {
@@ -341,15 +344,37 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
         // 애니메이션 실행_1
         Reaper_animator.SetTrigger("Dark_Decline");
 
+        yield return new WaitForSeconds(Decline_LockTime);
+        isLock = true;
+
+        yield return new WaitForSeconds(Decline_UnLockTime);
+        isLock = false;
+
         // Dark_Decline_Delay 후 실행
-        yield return new WaitForSeconds(Dark_Decline_Delay);
+        yield return new WaitForSeconds(Dark_Decline_Delay - (Decline_LockTime + Decline_UnLockTime));
         // 애니메이션 실행_2
         Reaper_animator.SetTrigger("Dark_Decline");
 
+        yield return new WaitForSeconds(Decline_LockTime);
+        isLock = true;
+
+        yield return new WaitForSeconds(Decline_UnLockTime);
+        isLock = false;
+
         // Dark_Decline_Delay 후 실행
-        yield return new WaitForSeconds(Dark_Decline_Delay);
+        yield return new WaitForSeconds(Dark_Decline_Delay - (Decline_LockTime + Decline_UnLockTime));
+
         // 애니메이션 실행_3
         Reaper_animator.SetTrigger("Dark_Decline");
+
+        yield return new WaitForSeconds(Decline_LockTime);
+        isLock = true;
+
+        yield return new WaitForSeconds(Decline_UnLockTime);
+        isLock = false;
+
+        // Dark_Decline_Delay 후 실행
+        yield return new WaitForSeconds(Dark_Decline_Delay - (Decline_LockTime + Decline_UnLockTime));
 
         // 4초 후 실행
         yield return new WaitForSeconds(4.0f);
@@ -380,20 +405,21 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
 
         // 공격 중
         isAttacking = true;
+        isLock = true;
 
         // 이동 멈춤
         isMove = false;
         Reaper_animator.SetBool("isMove", isMove);
 
-
+        // 애니메이션이 끝나고 난 뒤
         yield return new WaitForSeconds(Reaper_animator.GetCurrentAnimatorStateInfo(0).length);
         Debug.Log(Reaper_animator.GetCurrentAnimatorStateInfo(0).length);
 
-        // 공격 가능
-        isAttacking = false;
-
         // 2초 후
         yield return new WaitForSeconds(2.0f);
+        // 공격 가능
+        isAttacking = false;
+        isLock = false;
 
         // 거리에 따른 다음 공격
         if (TargetDistance > Skill_Think_Range && isAttacking == false)
