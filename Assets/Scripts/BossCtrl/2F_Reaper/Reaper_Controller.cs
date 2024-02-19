@@ -52,9 +52,11 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
     [SerializeField]
     float BaseAtk_0_LockTime; // 기본 공격_0 회전 제어
 
+
     [Header("-----Skill_ BaseAtk_1-----")]
     [SerializeField]
     float BaseAtk_1_LockTime; // // 기본 공격_1 회전 제어
+    public GameObject BaseAtk_1_Eff;
 
     [Header("-----Skill_Dark_Decline-----")]
     public float Dark_Decline_Delay; // 어둠의 쇠락 스킬 모션 딜레이
@@ -327,6 +329,20 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
         {
             Reaper_Short_nextAct();
         }
+    }
+
+    public void BaseAtk1_Eff()
+    {
+        StartCoroutine(Play_BaseAtk1_Eff());
+    }
+
+    IEnumerator Play_BaseAtk1_Eff()
+    {
+        BaseAtk_1_Eff.SetActive(true);
+
+        yield return new WaitForSeconds(2.0f);
+
+        BaseAtk_1_Eff.SetActive(false);
     }
     #endregion
 
