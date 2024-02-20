@@ -26,6 +26,8 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
     [Header("-----Reaper Reference-----")]
     public Reaper_Atk_Range Reaper_AtkRange; //  
     public Boss_HP_Controller boss_hp_ctrl;  // HP 컨트롤러
+    [SerializeField]
+    Reaper_ObjPool reaper_ObjPoolRef;
 
     [Header("-----Reaper Variable-----")]
     public GameObject Target;       // 플레이어
@@ -39,27 +41,39 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
     [SerializeField]
     float moveSpeed;        // 움직임 속도
     public float Skill_Think_Range; // 스킬 시전 가능 범위
-
-
+    [SerializeField]
+    GameObject Skill_Pos; // 스킬 생성 위치
+    [SerializeField]
+    GameObject Skill_Look; // 스킬이 바라보는 방향
     Vector3 dir; // 각도
     // Rigidbody rigid;
 
     [Header("-----Animation Var-----")]
     public Animator Reaper_animator;   // 애니메이터
     public bool isMove;         // 이동 여부
+    [SerializeField]
+    float nextActTime;
 
     [Header("-----Skill_ BaseAtk_0-----")]
     [SerializeField]
     float BaseAtk_0_LockTime; // 기본 공격_0 회전 제어
-
+    [SerializeField]
+    GameObject BaseAtk_0_Eff;
 
     [Header("-----Skill_ BaseAtk_1-----")]
     [SerializeField]
     float BaseAtk_1_LockTime; // // 기본 공격_1 회전 제어
-    public GameObject BaseAtk_1_Eff;
+    [SerializeField]
+    GameObject BaseAtk_1_Eff;
 
     [Header("-----Skill_Dark_Decline-----")]
     public float Dark_Decline_Delay; // 어둠의 쇠락 스킬 모션 딜레이
+    [SerializeField]
+    GameObject Dark_Decline_Slash;
+    [SerializeField]
+    float DarkDecline_Rot;
+    [SerializeField]
+    float DarkDecline_Dis;  // 어둠의 쇠락 생성 거리
     [SerializeField]
     float Decline_LockTime; // 회전 제한 시간
     [SerializeField]
@@ -109,6 +123,7 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
     void Start()
     {
         boss_hp_ctrl = GetComponent<Boss_HP_Controller>();
+        reaper_ObjPoolRef = GetComponent<Reaper_ObjPool>();
         Reaper_animator = GetComponent<Animator>();
         // rigid = GetComponent<Rigidbody>();
 
@@ -278,7 +293,7 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
         isLock = false;
 
         // 4초 후 공격 가능
-        yield return new WaitForSeconds(4.0f);
+        yield return new WaitForSeconds(nextActTime);
         isAttacking = false;
 
         // 거리에 따른 다음 공격
@@ -291,6 +306,21 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
             Reaper_Short_nextAct();
         }
     }
+
+    public void BaseAtk0_Eff()
+    {
+        StartCoroutine(Play_BaseAtk0_Eff());
+    }
+
+    IEnumerator Play_BaseAtk0_Eff()
+    {
+        BaseAtk_0_Eff.SetActive(true);
+
+        yield return new WaitForSeconds(2.0f);
+
+        BaseAtk_0_Eff.SetActive(false);
+    }
+
     #endregion
 
     #region Boss_Atk_1
@@ -315,7 +345,7 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
         isLock = false;
 
         // 4초 후 실행
-        yield return new WaitForSeconds(4.0f);
+        yield return new WaitForSeconds(nextActTime);
 
         // 공격 가능
         isAttacking = false;
@@ -362,9 +392,20 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
 
         yield return new WaitForSeconds(Decline_LockTime);
         isLock = true;
+        // 오브젝트 풀에서 이펙트 위치 조정시켜 생성
+        GameObject DarkDeclineEff_1 = reaper_ObjPoolRef.GetDarkDeclineFromPool();
+        DarkDeclineEff_1.transform.position = Skill_Pos.transform.position + Skill_Pos.transform.forward * DarkDecline_Dis;
+
+        Vector3 d1 = DarkDeclineEff_1.transform.position - Skill_Look.transform.position;
+        d1.y = 0.0f;
+        Quaternion q1 = Quaternion.LookRotation(d1);
+        DarkDeclineEff_1.transform.rotation = q1 * Quaternion.Euler(0f, 90f, 0f);
 
         yield return new WaitForSeconds(Decline_UnLockTime);
         isLock = false;
+       
+        // 오브젝트 풀로 비활성화
+        //DarkDeclineEff_1.SetActive(false);
 
         // Dark_Decline_Delay 후 실행
         yield return new WaitForSeconds(Dark_Decline_Delay - (Decline_LockTime + Decline_UnLockTime));
@@ -373,9 +414,19 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
 
         yield return new WaitForSeconds(Decline_LockTime);
         isLock = true;
+        // 오브젝트 풀에서 이펙트 위치 조정시켜 생성
+        GameObject DarkDeclineEff_2 = reaper_ObjPoolRef.GetDarkDeclineFromPool();
+        // DarkDeclineEff_2.transform.forward = Vector3.right;
+        DarkDeclineEff_2.transform.position = Skill_Pos.transform.position + Skill_Pos.transform.forward * DarkDecline_Dis;
+
+        Vector3 d2 = DarkDeclineEff_2.transform.position - Skill_Look.transform.position;
+        d2.y = 0.0f;
+        Quaternion q2 = Quaternion.LookRotation(d2);
+        DarkDeclineEff_2.transform.rotation = q2 * Quaternion.Euler(0f, 90f, 0f);
 
         yield return new WaitForSeconds(Decline_UnLockTime);
         isLock = false;
+       
 
         // Dark_Decline_Delay 후 실행
         yield return new WaitForSeconds(Dark_Decline_Delay - (Decline_LockTime + Decline_UnLockTime));
@@ -385,15 +436,27 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
 
         yield return new WaitForSeconds(Decline_LockTime);
         isLock = true;
+        // 오브젝트 풀에서 이펙트 위치 조정시켜 생성
+        GameObject DarkDeclineEff_3 = reaper_ObjPoolRef.GetDarkDeclineFromPool();
+        //DarkDeclineEff_3.transform.forward = Vector3.right;
+        DarkDeclineEff_3.transform.position = Skill_Pos.transform.position + Skill_Pos.transform.forward * DarkDecline_Dis;
+        Vector3 d3 = DarkDeclineEff_3.transform.position - Skill_Look.transform.position;
+        d3.y = 0.0f;
+        Quaternion q3 = Quaternion.LookRotation(d3);
+        DarkDeclineEff_3.transform.rotation = q3 * Quaternion.Euler(0f, 90f, 0f);
 
         yield return new WaitForSeconds(Decline_UnLockTime);
         isLock = false;
+        
 
         // Dark_Decline_Delay 후 실행
         yield return new WaitForSeconds(Dark_Decline_Delay - (Decline_LockTime + Decline_UnLockTime));
 
         // 4초 후 실행
-        yield return new WaitForSeconds(4.0f);
+        yield return new WaitForSeconds(nextActTime);
+        DarkDeclineEff_1.SetActive(false);
+        DarkDeclineEff_2.SetActive(false);
+        DarkDeclineEff_3.SetActive(false);
 
         // 공격 가능
         isAttacking = false;
@@ -407,6 +470,20 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
         {
             Reaper_Short_nextAct();
         }
+    }
+
+    public void Dark_Decline_Eff()
+    {
+        StartCoroutine(Play_Dark_Decline_Eff());
+    }
+
+    IEnumerator Play_Dark_Decline_Eff()
+    {
+        Dark_Decline_Slash.SetActive(true);
+
+        yield return new WaitForSeconds(2.0f);
+
+        Dark_Decline_Slash.SetActive(false);
     }
     #endregion
 

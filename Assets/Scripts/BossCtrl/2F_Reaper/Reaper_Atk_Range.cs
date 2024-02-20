@@ -12,6 +12,6 @@ public class Reaper_Atk_Range : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        this.transform.position = obj.position;
+        this.transform.position = obj.position + obj.forward * 5.0f;
     }
 }

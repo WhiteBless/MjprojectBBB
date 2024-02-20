@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2826097458391882708}
-  - component: {fileID: 5027040490773032184}
+  - component: {fileID: 1104760711211984328}
   m_Layer: 0
   m_Name: Effect_45_BlastFlame
   m_TagString: EnemyAttack
@@ -26,8 +26,8 @@ Transform:
   m_GameObject: {fileID: 2826097458391882711}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -30.2}
-  m_LocalScale: {x: 1, y: 0.4, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1632953935885850215}
@@ -37,7 +37,7 @@ Transform:
   - {fileID: 1632953934261048712}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &5027040490773032184
+--- !u!65 &1104760711211984328
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -56,7 +56,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 7, y: 20, z: 45}
+  m_Size: {x: 9, y: 3, z: 45}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &2808736787790950116
 PrefabInstance:
@@ -66,6 +66,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2826097458391882708}
     m_Modifications:
+    - target: {fileID: 126931540777222997, guid: 099eb0bceb74fb4428621a4259fa03c2, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 126931541442105884, guid: 099eb0bceb74fb4428621a4259fa03c2, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2172662834975972320, guid: 099eb0bceb74fb4428621a4259fa03c2, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3571700135996851296, guid: 099eb0bceb74fb4428621a4259fa03c2, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -110,6 +122,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6099037329824132673, guid: 099eb0bceb74fb4428621a4259fa03c2, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8398201861461398018, guid: 099eb0bceb74fb4428621a4259fa03c2, type: 3}
       propertyPath: m_Name
       value: Effect_45_BlastFlame(Part)_3
@@ -132,6 +148,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2826097458391882708}
     m_Modifications:
+    - target: {fileID: 126931540777222997, guid: 099eb0bceb74fb4428621a4259fa03c2, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 126931541442105884, guid: 099eb0bceb74fb4428621a4259fa03c2, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2172662834975972320, guid: 099eb0bceb74fb4428621a4259fa03c2, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3571700135996851296, guid: 099eb0bceb74fb4428621a4259fa03c2, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -176,6 +204,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6099037329824132673, guid: 099eb0bceb74fb4428621a4259fa03c2, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8398201861461398018, guid: 099eb0bceb74fb4428621a4259fa03c2, type: 3}
       propertyPath: m_Name
       value: Effect_45_BlastFlame(Part)_5
@@ -198,6 +230,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2826097458391882708}
     m_Modifications:
+    - target: {fileID: 126931540777222997, guid: 099eb0bceb74fb4428621a4259fa03c2, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 126931541442105884, guid: 099eb0bceb74fb4428621a4259fa03c2, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2172662834975972320, guid: 099eb0bceb74fb4428621a4259fa03c2, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3571700135996851296, guid: 099eb0bceb74fb4428621a4259fa03c2, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -242,6 +286,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6099037329824132673, guid: 099eb0bceb74fb4428621a4259fa03c2, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8398201861461398018, guid: 099eb0bceb74fb4428621a4259fa03c2, type: 3}
       propertyPath: m_Name
       value: Effect_45_BlastFlame(Part)_4
@@ -264,6 +312,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2826097458391882708}
     m_Modifications:
+    - target: {fileID: 126931540777222997, guid: 099eb0bceb74fb4428621a4259fa03c2, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 126931541442105884, guid: 099eb0bceb74fb4428621a4259fa03c2, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2172662834975972320, guid: 099eb0bceb74fb4428621a4259fa03c2, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3571700135996851296, guid: 099eb0bceb74fb4428621a4259fa03c2, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -308,6 +368,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6099037329824132673, guid: 099eb0bceb74fb4428621a4259fa03c2, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8398201861461398018, guid: 099eb0bceb74fb4428621a4259fa03c2, type: 3}
       propertyPath: m_Name
       value: Effect_45_BlastFlame(Part)_2
@@ -330,6 +394,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2826097458391882708}
     m_Modifications:
+    - target: {fileID: 126931540777222997, guid: 099eb0bceb74fb4428621a4259fa03c2, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 126931541442105884, guid: 099eb0bceb74fb4428621a4259fa03c2, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2172662834975972320, guid: 099eb0bceb74fb4428621a4259fa03c2, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3571700135996851296, guid: 099eb0bceb74fb4428621a4259fa03c2, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -373,6 +449,10 @@ PrefabInstance:
     - target: {fileID: 3571700135996851296, guid: 099eb0bceb74fb4428621a4259fa03c2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6099037329824132673, guid: 099eb0bceb74fb4428621a4259fa03c2, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8398201861461398018, guid: 099eb0bceb74fb4428621a4259fa03c2, type: 3}
       propertyPath: m_Name

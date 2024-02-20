@@ -207,6 +207,7 @@ public class BossSkillP : MonoBehaviour
         GuideLine[1].SetActive(false);
         StartCoroutine(DownEffect_ActiveF(DownAttackRange_1));
         DownAttackRange_1.transform.position = JumpPos.transform.position + JumpPos.transform.forward * 30.0f;
+        DownAttackRange_1.transform.position = new Vector3(DownAttackRange_1.transform.position.x, 1.0f, DownAttackRange_1.transform.position.z);
         // DownAttackRange_1.transform.rotation = Quaternion.LookRotation(transform.forward);
         DownAttackRange_1.transform.parent = DownSword_SpawnTr;
 
@@ -239,7 +240,7 @@ public class BossSkillP : MonoBehaviour
 
         StartCoroutine(DownEffect_ActiveF(DownAttackRange_2));
         DownAttackRange_2.transform.position = JumpPos.transform.position + JumpPos.transform.forward * 30.0f;
-        //DownAttackRange_2.transform.rotation = Quaternion.LookRotation(transform.forward);
+        DownAttackRange_2.transform.position = new Vector3(DownAttackRange_2.transform.position.x, 1.0f, DownAttackRange_2.transform.position.z);
         DownAttackRange_2.transform.parent = DownSword_SpawnTr;
 
         // PoolEffectObj.Add(DownAttackRange_2);
@@ -272,7 +273,7 @@ public class BossSkillP : MonoBehaviour
 
         StartCoroutine(DownEffect_ActiveF(DownAttackRange_3));
         DownAttackRange_3.transform.position = JumpPos.transform.position + JumpPos.transform.forward * 30.0f;
-        //DownAttackRange_3.transform.rotation = Quaternion.LookRotation(transform.forward);
+        DownAttackRange_3.transform.position = new Vector3(DownAttackRange_3.transform.position.x, 1.0f, DownAttackRange_3.transform.position.z);
         DownAttackRange_3.transform.parent = DownSword_SpawnTr;
 
         // PoolEffectObj.Add(DownAttackRange_3);
@@ -306,7 +307,7 @@ public class BossSkillP : MonoBehaviour
 
         StartCoroutine(DownEffect_ActiveF(DownAttackRange_4));
         DownAttackRange_4.transform.position = JumpPos.transform.position + JumpPos.transform.forward * 30.0f;
-        //DownAttackRange_4.transform.rotation = Quaternion.LookRotation(transform.forward);
+        DownAttackRange_4.transform.position = new Vector3(DownAttackRange_4.transform.position.x, 1.0f, DownAttackRange_4.transform.position.z);
         DownAttackRange_4.transform.parent = DownSword_SpawnTr;
 
         //PoolEffectObj.Add(DownAttackRange_4);
@@ -340,7 +341,7 @@ public class BossSkillP : MonoBehaviour
 
         StartCoroutine(DownEffect_ActiveF(DownAttackRange_5));
         DownAttackRange_5.transform.position = JumpPos.transform.position + JumpPos.transform.forward * 30.0f;
-        //DownAttackRange_5.transform.rotation = Quaternion.LookRotation(transform.forward);
+        DownAttackRange_5.transform.position = new Vector3(DownAttackRange_5.transform.position.x, 1.0f, DownAttackRange_5.transform.position.z);
         DownAttackRange_5.transform.parent = DownSword_SpawnTr;
 
         // PoolEffectObj.Add(DownAttackRange_5);
@@ -373,7 +374,7 @@ public class BossSkillP : MonoBehaviour
 
         StartCoroutine(DownEffect_ActiveF(DownAttackRange_6));
         DownAttackRange_6.transform.position = JumpPos.transform.position + JumpPos.transform.forward * 30.0f;
-        //DownAttackRange_6.transform.rotation = Quaternion.LookRotation(transform.forward);
+        DownAttackRange_6.transform.position = new Vector3(DownAttackRange_6.transform.position.x, 1.0f, DownAttackRange_6.transform.position.z);
         DownAttackRange_6.transform.parent = DownSword_SpawnTr;
 
         // PoolEffectObj.Add(DownAttackRange_6);
@@ -406,7 +407,7 @@ public class BossSkillP : MonoBehaviour
 
         StartCoroutine(DownEffect_ActiveF(DownAttackRange_7));
         DownAttackRange_7.transform.position = JumpPos.transform.position + JumpPos.transform.forward * 30.0f;
-        //DownAttackRange_7.transform.rotation = Quaternion.LookRotation(transform.forward);
+        DownAttackRange_7.transform.position = new Vector3(DownAttackRange_7.transform.position.x, 1.0f, DownAttackRange_7.transform.position.z);
         DownAttackRange_7.transform.parent = DownSword_SpawnTr;
 
         //PoolEffectObj.Add(DownAttackRange_7);
@@ -438,7 +439,7 @@ public class BossSkillP : MonoBehaviour
 
         StartCoroutine(DownEffect_ActiveF(DownAttackRange_8));
         DownAttackRange_8.transform.position = JumpPos.transform.position + JumpPos.transform.forward * 30.0f;
-        //DownAttackRange_8.transform.rotation = Quaternion.identity;
+        DownAttackRange_8.transform.position = new Vector3(DownAttackRange_8.transform.position.x, 1.0f, DownAttackRange_8.transform.position.z);
         DownAttackRange_8.transform.parent = DownSword_SpawnTr;
 
         // PoolEffectObj.Add(DownAttackRange_8);
@@ -470,7 +471,7 @@ public class BossSkillP : MonoBehaviour
 
         StartCoroutine(DownEffect_ActiveF(DownAttackRange_9));
         DownAttackRange_9.transform.position = JumpPos.transform.position + JumpPos.transform.forward * 30.0f;
-        //DownAttackRange_9.transform.rotation = Quaternion.identity;
+        DownAttackRange_9.transform.position = new Vector3(DownAttackRange_9.transform.position.x, 1.0f, DownAttackRange_9.transform.position.z);
         DownAttackRange_9.transform.parent = DownSword_SpawnTr;
 
         //PoolEffectObj.Add(DownAttackRange_9);

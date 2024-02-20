@@ -35,8 +35,8 @@ public class BossLookAt : MonoBehaviour
         bossHPCanvas.SetActive(false); // 처음에는 비활성화
 
         // TODO ## 1층보스 HP 시작 시 넘겨주는 부분
-        bossHPCanvas.GetComponent<BossHP_Ctrl>().BossMax_HP = this.GetComponent<HPtest>().maxHealth;
-        bossHPCanvas.GetComponent<BossHP_Ctrl>().BossCur_HP = this.GetComponent<HPtest>().maxHealth;
+        bossHPCanvas.GetComponent<BossHP_UI_Ctrl>().BossMax_HP = this.GetComponent<HPtest>().maxHealth;
+        bossHPCanvas.GetComponent<BossHP_UI_Ctrl>().BossCur_HP = this.GetComponent<HPtest>().maxHealth;
 
     }
 
@@ -54,7 +54,7 @@ public class BossLookAt : MonoBehaviour
             {
                 isCheck = true;
 
-                bossHPCanvas.GetComponent<BossHP_Ctrl>().Refresh_BossHP();
+                bossHPCanvas.GetComponent<BossHP_UI_Ctrl>().Refresh_BossHP();
             }
             if (!audioSource.isPlaying)
             {
