@@ -26,9 +26,9 @@ public class Boss_HP_Controller : MonoBehaviour
 
                 BossCurHP -= weapon.damage;
 
-                Boss_HP_Canvas.GetComponent<BossHP_Ctrl>().BossCur_HP = BossCurHP;
+                Boss_HP_Canvas.GetComponent<BossHP_UI_Ctrl>().BossCur_HP = BossCurHP;
                 // this.GetComponent<Reaper_Controller>().CurHP = BossCurHP;
-                Boss_HP_Canvas.GetComponent<BossHP_Ctrl>().Refresh_BossHP();
+                Boss_HP_Canvas.GetComponent<BossHP_UI_Ctrl>().Refresh_BossHP();
             }
         }
     }

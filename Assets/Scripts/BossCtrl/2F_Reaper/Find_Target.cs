@@ -26,9 +26,9 @@ public class Find_Target : MonoBehaviour
             ReaperCtrl.boss_hp_ctrl.Boss_HP_Canvas.SetActive(true);
 
             // HP바 UI 컨트롤러에 현재 보스의 HP를 준다
-            HP_Canvas.GetComponent<BossHP_Ctrl>().BossMax_HP = boss_hp_ctrl.BossMaxHP;
-            HP_Canvas.GetComponent<BossHP_Ctrl>().BossCur_HP = boss_hp_ctrl.BossMaxHP;
-            HP_Canvas.GetComponent<BossHP_Ctrl>().Refresh_BossHP();
+            HP_Canvas.GetComponent<BossHP_UI_Ctrl>().BossMax_HP = boss_hp_ctrl.BossMaxHP;
+            HP_Canvas.GetComponent<BossHP_UI_Ctrl>().BossCur_HP = boss_hp_ctrl.BossMaxHP;
+            HP_Canvas.GetComponent<BossHP_UI_Ctrl>().Refresh_BossHP();
 
             // 레이드 시작 시 현재 체력 최대 체력으로 설정
             boss_hp_ctrl.BossCurHP = boss_hp_ctrl.BossMaxHP;
