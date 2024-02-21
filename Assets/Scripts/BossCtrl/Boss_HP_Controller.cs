@@ -8,6 +8,8 @@ public class Boss_HP_Controller : MonoBehaviour
     public int BossMaxHP;
     public int BossCurHP;
 
+    public bool isAwakening;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -18,9 +20,15 @@ public class Boss_HP_Controller : MonoBehaviour
     {
         if (other.CompareTag("Weapon"))
         {
-            // HP 0이하면 작동 금지
+            // HP가 0이상일 시 작동
             if (BossCurHP > 0)
             {
+                // 보스 체력이 30퍼 보다 작아지면
+                if (BossCurHP <= (BossMaxHP / 100) * 30 && isAwakening == false)
+                {
+                    isAwakening = true;
+                }
+
                 Attack weapon = other.GetComponent<Attack>();
                 Debug.Log("Damage: " + weapon.damage);
 

@@ -8,21 +8,26 @@ public class RFX4_ReplaceModelOnCollision : MonoBehaviour
 
     private bool isCollided = false;
     Transform t;
+    public Vector3 StartPos;
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
         if (!isCollided)
         {
-            if (collision.gameObject.name == "2F_Tile")
+            if (other.CompareTag("Ground"))
             {
+                
                 isCollided = true;
                 foreach (var physicsObj in PhysicsObjects)
-                {
+                {    
                     physicsObj.SetActive(true);
                 }
                 var mesh = GetComponent<MeshRenderer>();
                 if (mesh != null)
+                {
                     mesh.enabled = false;
+                    this.transform.position = StartPos;
+                }
                 //var rb = GetComponent<Rigidbody>();
                 //rb.isKinematic = true;
                 //rb.detectCollisions = false;
