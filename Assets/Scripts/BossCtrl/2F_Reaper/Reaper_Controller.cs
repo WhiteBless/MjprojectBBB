@@ -16,10 +16,17 @@ public enum ReaperState
     Dark_Decline,   // 
 }
 
+public enum Reaper_Awake
+{
+    NORMAL,
+    AWAKENING,
+}
+
 public class Reaper_Controller : Boss_BehaviorCtrl_Base
 {
     [Header("-----Reaper State-----")]
     public ReaperState reaperState;
+    public Reaper_Awake reaperAwakeState;
     public bool isLock;               // 각도 조절 여부
     public bool isAttacking;          // 공격 중 인지 여부
 
@@ -32,6 +39,8 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
     [Header("-----Reaper Variable-----")]
     public GameObject Target;       // 플레이어
     public float TargetDistance;    // 플레이어와의 거리
+    [SerializeField]
+    GameObject DeathSycthe;
 
     [Header("-----Reaper State Variable-----")]
     public int MaxHP;   // 리퍼 체력
@@ -53,6 +62,10 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
     public bool isMove;         // 이동 여부
     [SerializeField]
     float nextActTime;
+
+    [Header("-----Awakening-----")]
+    [SerializeField]
+    GameObject Aura;
 
     [Header("-----Skill_ BaseAtk_0-----")]
     [SerializeField]
@@ -78,6 +91,10 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
     float Decline_LockTime; // 회전 제한 시간
     [SerializeField]
     float Decline_UnLockTime; // 회전 제한 해제 시간
+
+    [Header("-----Skill_Dark_Hand-----")]
+    [SerializeField]
+    GameObject CastingEff;
 
     #region Reaper_Rotate
     public override void LookAtPlayer()
@@ -119,13 +136,14 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
     }
     #endregion
 
+    #region Start/Update
     // Start is called before the first frame update
     void Start()
     {
         boss_hp_ctrl = GetComponent<Boss_HP_Controller>();
         reaper_ObjPoolRef = GetComponent<Reaper_ObjPool>();
         Reaper_animator = GetComponent<Animator>();
-        // rigid = GetComponent<Rigidbody>();
+        reaperAwakeState = Reaper_Awake.NORMAL;
 
         // 최대 체력 전달 현재 체력 
         boss_hp_ctrl.BossMaxHP = MaxHP;  
@@ -151,6 +169,7 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
 
         LookAtPlayer();
     }
+    #endregion
 
     #region Reaper_Next_Skill
     public void Reaper_Short_nextAct()
@@ -196,7 +215,7 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
             // 원거리
             int randomIndex = Random.Range(0, 3);
 
-            switch (randomIndex)
+            switch (2)
             {
                 case 0:
                     // 이동
@@ -233,6 +252,13 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
     public void Reaper_Idle()
     {
         reaperState = ReaperState.Idle;
+    }
+    #endregion
+
+    #region Awakening
+    public void Aura_On()
+    {
+        Aura.SetActive(true);
     }
     #endregion
 
@@ -296,6 +322,17 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
         yield return new WaitForSeconds(nextActTime);
         isAttacking = false;
 
+        // 각성
+        if (boss_hp_ctrl.isAwakening == true && reaperAwakeState == Reaper_Awake.NORMAL)
+        {
+            // 각성 상태
+            reaperAwakeState = Reaper_Awake.AWAKENING;
+            Reaper_animator.SetTrigger("Awakening");
+            // 4초 후 실행
+            yield return new WaitForSeconds(nextActTime);
+        }
+
+
         // 거리에 따른 다음 공격
         if (TargetDistance > Skill_Think_Range && isAttacking == false)
         {
@@ -306,7 +343,7 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
             Reaper_Short_nextAct();
         }
     }
-
+    // 기본 공격 슬래쉬 이펙트 적용
     public void BaseAtk0_Eff()
     {
         StartCoroutine(Play_BaseAtk0_Eff());
@@ -349,7 +386,18 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
 
         // 공격 가능
         isAttacking = false;
-       
+
+        // 각성
+        if (boss_hp_ctrl.isAwakening == true && reaperAwakeState == Reaper_Awake.NORMAL)
+        {
+            // 각성 상태
+            reaperAwakeState = Reaper_Awake.AWAKENING;
+            Reaper_animator.SetTrigger("Awakening");
+            // 4초 후 실행
+            yield return new WaitForSeconds(nextActTime);
+        }
+
+
         // 거리에 따른 다음 공격
         if (TargetDistance > Skill_Think_Range && isAttacking == false)
         {
@@ -361,6 +409,7 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
         }
     }
 
+    // 기본 공격 슬래쉬 이펙트 적용
     public void BaseAtk1_Eff()
     {
         StartCoroutine(Play_BaseAtk1_Eff());
@@ -448,7 +497,6 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
         yield return new WaitForSeconds(Decline_UnLockTime);
         isLock = false;
         
-
         // Dark_Decline_Delay 후 실행
         yield return new WaitForSeconds(Dark_Decline_Delay - (Decline_LockTime + Decline_UnLockTime));
 
@@ -461,6 +509,16 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
         // 공격 가능
         isAttacking = false;
 
+        // 각성
+        if (boss_hp_ctrl.isAwakening == true && reaperAwakeState == Reaper_Awake.NORMAL)
+        {
+            // 각성 상태
+            reaperAwakeState = Reaper_Awake.AWAKENING;
+            Reaper_animator.SetTrigger("Awakening");
+            // 4초 후 실행
+            yield return new WaitForSeconds(nextActTime);
+        }
+
         // 거리에 따른 다음 공격
         if (TargetDistance > Skill_Think_Range && isAttacking == false)
         {
@@ -471,7 +529,7 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
             Reaper_Short_nextAct();
         }
     }
-
+    // 슬래쉬 이펙트 생성
     public void Dark_Decline_Eff()
     {
         StartCoroutine(Play_Dark_Decline_Eff());
@@ -491,38 +549,165 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
     // TODO ## Reaper_DarkHand
     IEnumerator Dark_Hand()
     {
-        // 상태 변경
-        reaperState = ReaperState.Dark_Hand;
-        // 애니메이션 작동
-        Reaper_animator.SetTrigger("Dark_Hand");
-
-        // 공격 중
-        isAttacking = true;
-        isLock = true;
-
-        // 이동 멈춤
-        isMove = false;
-        Reaper_animator.SetBool("isMove", isMove);
-
-        // 애니메이션이 끝나고 난 뒤
-        yield return new WaitForSeconds(Reaper_animator.GetCurrentAnimatorStateInfo(0).length);
-        Debug.Log(Reaper_animator.GetCurrentAnimatorStateInfo(0).length);
-
-        // 2초 후
-        yield return new WaitForSeconds(2.0f);
-        // 공격 가능
-        isAttacking = false;
-        isLock = false;
-
-        // 거리에 따른 다음 공격
-        if (TargetDistance > Skill_Think_Range && isAttacking == false)
+        // 어둠의 손짓 각성 전 
+        if (reaperAwakeState == Reaper_Awake.NORMAL)
         {
-            Reaper_Long_nextAct();
+            // 상태 변경
+            reaperState = ReaperState.Dark_Hand;
+            // 애니메이션 작동
+            Reaper_animator.SetTrigger("Dark_Hand");
+
+            // 공격 중
+            isAttacking = true;
+            isLock = true;
+
+            // 이동 멈춤
+            isMove = false;
+            Reaper_animator.SetBool("isMove", isMove);
+
+            // 애니메이션이 끝나고 난 뒤
+            yield return new WaitForSeconds(Reaper_animator.GetCurrentAnimatorStateInfo(0).length);
+            // Debug.Log(Reaper_animator.GetCurrentAnimatorStateInfo(0).length);
+
+            // 2초 후
+            yield return new WaitForSeconds(2.0f);
+            // 공격 가능
+            isAttacking = false;
+            isLock = false;
+
+            // 각성
+            if (boss_hp_ctrl.isAwakening == true && reaperAwakeState == Reaper_Awake.NORMAL)
+            {
+                // 각성 상태
+                reaperAwakeState = Reaper_Awake.AWAKENING;
+                Reaper_animator.SetTrigger("Awakening");
+                // 4초 후 실행
+                yield return new WaitForSeconds(nextActTime);
+            }
+
+            // 거리에 따른 다음 공격
+            if (TargetDistance > Skill_Think_Range && isAttacking == false)
+            {
+                Reaper_Long_nextAct();
+            }
+            else if (TargetDistance <= Skill_Think_Range && isAttacking == false)
+            {
+                Reaper_Short_nextAct();
+            }
         }
-        else if (TargetDistance <= Skill_Think_Range && isAttacking == false)
+        else // 어둠의 손짓 각성 후
         {
-            Reaper_Short_nextAct();
+            // 상태 변경
+            reaperState = ReaperState.Dark_Hand;
+            // 애니메이션 작동
+            Reaper_animator.SetTrigger("UnEquip_Scythe");
+            // 공격 중
+            isAttacking = true;
+            isLock = true;
+            // 이동 멈춤
+            isMove = false;
+            Reaper_animator.SetBool("isMove", isMove);
+            // 애니메이션이 끝나고 난 뒤
+            yield return new WaitForSeconds(Reaper_animator.GetCurrentAnimatorStateInfo(0).length);
+
+            DeathSycthe.SetActive(false);
+            // 애니메이션 작동
+            Reaper_animator.SetTrigger("Casting");
+            // 애니메이션이 끝나고 난 뒤
+            yield return new WaitForSeconds(Reaper_animator.GetCurrentAnimatorStateInfo(0).length + 2.0f);
+
+            // 애니메이션 작동
+            Reaper_animator.SetTrigger("Dark_Hand_2");
+            // 애니메이션이 끝나고 난 뒤
+            yield return new WaitForSeconds(4.0f);
+
+            // 애니메이션 작동
+            Reaper_animator.SetTrigger("Dark_Hand_2");
+            // 애니메이션이 끝나고 난 뒤
+            yield return new WaitForSeconds(4.0f);
+
+            DeathSycthe.SetActive(true);
+            // 애니메이션 작동
+            Reaper_animator.SetTrigger("Equip_Scythe");
+
+            // 애니메이션이 끝나고 난 뒤
+            yield return new WaitForSeconds(Reaper_animator.GetCurrentAnimatorStateInfo(0).length + nextActTime);
+
+            // 공격 가능
+            isAttacking = false;
+            isLock = false;
+      
+            // 거리에 따른 다음 공격
+            if (TargetDistance > Skill_Think_Range && isAttacking == false)
+            {
+                Reaper_Long_nextAct();
+            }
+            else if (TargetDistance <= Skill_Think_Range && isAttacking == false)
+            {
+                Reaper_Short_nextAct();
+            }
         }
     }
+
+    // 폭발이펙트 생성
+    public void DarkHand_Eff()
+    {
+        StartCoroutine(Play_DarkHand_Eff());
+    }
+
+    IEnumerator Play_DarkHand_Eff()
+    {
+        Vector3 Pos = Target.transform.position;
+
+        yield return new WaitForSeconds(1.5f);
+
+        // 오브젝트 풀에서 이펙트 위치 조정시켜 생성
+        GameObject DarkHnad_Explosion = reaper_ObjPoolRef.GetDarkHandFromPool();
+        DarkHnad_Explosion.transform.position = Pos;
+
+        yield return new WaitForSeconds(5.0f);
+        DarkHnad_Explosion.SetActive(false);
+    }
+
+    // 캐스팅 이펙트 
+    public void Casting_Eff()
+    {
+        StartCoroutine(Play_Casting_Eff());
+    }
+    IEnumerator Play_Casting_Eff()
+    {
+        CastingEff.SetActive(true);
+        CastingEff.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+        yield return new WaitForSeconds(5.0f);
+
+        CastingEff.SetActive(false);
+    }
+
+    // 폭발이펙트 생성
+    public void DarkHand2_Eff()
+    {
+        StartCoroutine(Play_DarkHand2_Eff());
+    }
+
+    IEnumerator Play_DarkHand2_Eff()
+    {
+        Vector3 Pos = Target.transform.position;
+
+        yield return new WaitForSeconds(1.5f);
+
+        // 오브젝트 풀에서 이펙트 위치 조정시켜 생성
+        GameObject DarkHnad2_Explosion = reaper_ObjPoolRef.GetDarkHand2FromPool();
+        DarkHnad2_Explosion.transform.GetChild(2).GetChild(0).GetComponent<RFX4_PhysXSetImpulse>().enabled = true;
+        DarkHnad2_Explosion.transform.GetChild(2).GetChild(1).GetComponent<RFX4_PhysXSetImpulse>().enabled = true;
+        DarkHnad2_Explosion.transform.position = Pos;
+
+        yield return new WaitForSeconds(8.0f);
+        DarkHnad2_Explosion.transform.GetChild(2).GetChild(0).GetComponent<RFX4_PhysXSetImpulse>().enabled = false;
+        DarkHnad2_Explosion.transform.GetChild(2).GetChild(1).GetComponent<RFX4_PhysXSetImpulse>().enabled = false;
+        DarkHnad2_Explosion.transform.GetChild(2).GetChild(0).transform.localPosition = Vector3.zero;
+        DarkHnad2_Explosion.transform.GetChild(2).GetChild(1).transform.localPosition = Vector3.zero;
+        DarkHnad2_Explosion.SetActive(false);
+    }
+
     #endregion
 }

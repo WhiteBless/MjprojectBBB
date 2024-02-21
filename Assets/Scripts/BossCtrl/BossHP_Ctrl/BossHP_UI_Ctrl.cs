@@ -28,20 +28,7 @@ public class BossHP_UI_Ctrl : MonoBehaviour
 
     [Tooltip("Hp Colors")]
     public List<Color> HP_Colors;
-
     public Text HP_Text;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        // Refresh_BossHP();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-       
-    }
 
     public void Refresh_BossHP()
     {
