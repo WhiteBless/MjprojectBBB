@@ -100,7 +100,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SkinPore:
-        m_Texture: {fileID: 2800000, guid: 577d5dc29fdadce4c820dd1f693a97fb, type: 3}
+        m_Texture: {fileID: 2800000, guid: 303ba05039ff1c0428964d57f3c03912, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SkinRoughness:
@@ -119,10 +119,6 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _texcoord2:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
     - _AddPrecomputedVelocity: 1
@@ -134,7 +130,7 @@ Material:
     - _AoIntensity: 1
     - _BlendMode: 0
     - _BumpScale: 1
-    - _ColorPow: 1
+    - _ColorPow: 0.45
     - _Contrast: 0
     - _CullMode: 2
     - _CullModeForward: 2
@@ -176,7 +172,7 @@ Material:
     - _SkinIntensity: 1.3
     - _SkinPore_Power: 0.25
     - _SkinPore_Tilling: 35
-    - _SkinRounghnessBoots: 0.7
+    - _SkinRounghnessBoots: 0
     - _SmoothnessTextureChannel: 0
     - _SpecularAmbient: 0
     - _SpecularHighlights: 1
