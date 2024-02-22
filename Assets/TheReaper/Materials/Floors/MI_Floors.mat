@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: MI_Floors
-  m_Shader: {fileID: 4800000, guid: e8fef9d6695952d41af2fb80d35bd427, type: 3}
+  m_Shader: {fileID: 4800000, guid: c6710fc4925049b489716304e8c8a7d9, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -106,10 +106,6 @@ Material:
         m_Texture: {fileID: 2800000, guid: 97283a3e446146045a0180e7da62c515, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _SSSMask:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
         m_Texture: {fileID: 2800000, guid: 97283a3e446146045a0180e7da62c515, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -155,10 +151,6 @@ Material:
     - _CullMode: 2
     - _CullModeForward: 2
     - _Cutoff: 0.5
-    - _DMBlendColorPower01: 0
-    - _DMBlendColorPower02: 0
-    - _DMBlendColorPower03: 0
-    - _DMBlendColorPower04: 0
     - _DarkMode: 0
     - _DetailNormalMapScale: 1
     - _DirtBoots: 0
@@ -207,14 +199,6 @@ Material:
     - _StencilWriteMaskGBuffer: 14
     - _StencilWriteMaskMV: 40
     - _SurfaceType: 0
-    - _TransAmbient: 0.1
-    - _TransDirect: 0.9
-    - _TransNormal: 0.5
-    - _TransNormalDistortion: 0.1
-    - _TransScattering: 2
-    - _TransShadow: 0.5
-    - _TransStrength: 1
-    - _Translucency: 1
     - _TransparentBackfaceEnable: 0
     - _TransparentCullMode: 2
     - _TransparentSortPriority: 0
@@ -240,5 +224,4 @@ Material:
     - _EmissiveColor4: {r: 0, g: 0, b: 0, a: 0}
     - _EmissiveColor5: {r: 0, g: 0, b: 0, a: 0}
     - _PannerProperty1: {r: 0, g: 0, b: 0, a: 0}
-    - _SSSColor: {r: 1, g: 0.8184171, b: 0.7122642, a: 1}
   m_BuildTextureStacks: []
