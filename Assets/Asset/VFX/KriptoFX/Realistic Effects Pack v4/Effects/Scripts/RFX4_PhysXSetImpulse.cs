@@ -13,8 +13,6 @@ public class RFX4_PhysXSetImpulse : MonoBehaviour
 
     public float fallSpeed;
 
-    public GameObject Target;
-
     // Use this for initialization
     void Start () 
     {

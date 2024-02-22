@@ -8,7 +8,8 @@ public class RFX4_ReplaceModelOnCollision : MonoBehaviour
 
     private bool isCollided = false;
     Transform t;
-    public Vector3 StartPos;
+
+    public MeshRenderer mesh;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -22,12 +23,14 @@ public class RFX4_ReplaceModelOnCollision : MonoBehaviour
                 {    
                     physicsObj.SetActive(true);
                 }
+
                 var mesh = GetComponent<MeshRenderer>();
+
                 if (mesh != null)
-                {
-                    mesh.enabled = false;
-                    this.transform.position = StartPos;
-                }
+                    mesh.enabled = true;
+
+                this.transform.parent.gameObject.SetActive(false);
+                // this.gameObject.SetActive(false);
                 //var rb = GetComponent<Rigidbody>();
                 //rb.isKinematic = true;
                 //rb.detectCollisions = false;
