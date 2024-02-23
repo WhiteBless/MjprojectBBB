@@ -5,12 +5,15 @@ using UnityEngine;
 public class Reaper_ObjPool : MonoBehaviour
 {
     public GameObject DarkDecline_objectPrefab; // 어둠의쇠락
+    public GameObject DarkDecline2_objectPrefab; // 어둠의쇠락 각성
     public GameObject DarkHand_objectPrefab; // 어둠의손짓
     public GameObject DarkHand2_objectPrefab; // 어둠의손짓2
 
     public int poolSize; // 풀 크기
     [SerializeField]
     private List<GameObject> DarkDecline_objectPool; // 오브젝트 풀
+    [SerializeField]
+    private List<GameObject> DarkDecline2_objectPool; // 오브젝트 풀
     [SerializeField]
     private List<GameObject> DarkHand_objectPool; // 오브젝트 풀
     [SerializeField]
@@ -19,6 +22,8 @@ public class Reaper_ObjPool : MonoBehaviour
 
     [SerializeField]
     Transform DarkDecline_Parent;
+    [SerializeField]
+    Transform DarkDecline2_Parent;
     [SerializeField]
     Transform DarkHand_Parent;
     [SerializeField]
@@ -34,33 +39,51 @@ public class Reaper_ObjPool : MonoBehaviour
         // 초기에 풀에 오브젝트를 생성하여 저장
         for (int i = 0; i < poolSize; i++)
         {
-            GameObject obj = Instantiate(DarkDecline_objectPrefab);
-            obj.transform.Rotate(Vector3.zero);
-            obj.SetActive(false);
-            obj.transform.parent = DarkDecline_Parent;
-            DarkDecline_objectPool.Add(obj);
-        }
+            GameObject obj_1 = Instantiate(DarkDecline_objectPrefab);
+            obj_1.transform.Rotate(Vector3.zero);
+            obj_1.SetActive(false);
+            obj_1.transform.parent = DarkDecline_Parent;
+            DarkDecline_objectPool.Add(obj_1);
 
-        // 초기에 풀에 오브젝트를 생성하여 저장
-        for (int i = 0; i < poolSize; i++)
-        {
-            GameObject obj = Instantiate(DarkHand_objectPrefab);
-            obj.transform.Rotate(Vector3.zero);
-            obj.SetActive(false);
-            obj.transform.parent = DarkHand_Parent;
-            DarkHand_objectPool.Add(obj);
-        }
+            GameObject obj_2 = Instantiate(DarkHand_objectPrefab);
+            obj_2.transform.Rotate(Vector3.zero);
+            obj_2.SetActive(false);
+            obj_2.transform.parent = DarkHand_Parent;
+            DarkHand_objectPool.Add(obj_2);
 
-        // 초기에 풀에 오브젝트를 생성하여 저장
-        for (int i = 0; i < poolSize; i++)
-        {
-            GameObject obj = Instantiate(DarkHand2_objectPrefab);
-            obj.transform.Rotate(Vector3.zero);
-            obj.SetActive(false);
-            obj.transform.parent = DarkHand2_Parent;
-            DarkHand2_objectPool.Add(obj);
+            GameObject obj_3 = Instantiate(DarkHand2_objectPrefab);
+            obj_3.transform.Rotate(Vector3.zero);
+            obj_3.SetActive(false);
+            obj_3.transform.parent = DarkHand2_Parent;
+            DarkHand2_objectPool.Add(obj_3);
+
+            GameObject obj_4 = Instantiate(DarkDecline2_objectPrefab);
+            obj_4.transform.Rotate(Vector3.zero);
+            obj_4.SetActive(false);
+            obj_4.transform.parent = DarkDecline2_Parent;
+            DarkDecline2_objectPool.Add(obj_4);
         }
     }
+
+        //// 초기에 풀에 오브젝트를 생성하여 저장
+        //for (int i = 0; i < poolSize; i++)
+        //{
+        //    GameObject obj_2 = Instantiate(DarkHand_objectPrefab);
+        //    obj_2.transform.Rotate(Vector3.zero);
+        //    obj_2.SetActive(false);
+        //    obj_2.transform.parent = DarkHand_Parent;
+        //    DarkHand_objectPool.Add(obj_2);
+        //}
+
+        //// 초기에 풀에 오브젝트를 생성하여 저장
+        //for (int i = 0; i < poolSize; i++)
+        //{
+        //    GameObject obj_3 = Instantiate(DarkHand2_objectPrefab);
+        //    obj_3.transform.Rotate(Vector3.zero);
+        //    obj_3.SetActive(false);
+        //    obj_3.transform.parent = DarkHand2_Parent;
+        //    DarkHand2_objectPool.Add(obj_3);
+        //}
 
     public GameObject GetDarkDeclineFromPool()
     {
@@ -79,6 +102,26 @@ public class Reaper_ObjPool : MonoBehaviour
         newObj.SetActive(true);
         DarkDecline_objectPool.Add(newObj);
         newObj.transform.parent = DarkDecline_Parent;
+        return newObj;
+    }
+
+    public GameObject GetDarkDecline2FromPool()
+    {
+        // 비활성화된 오브젝트를 찾아 반환
+        for (int i = 0; i < DarkDecline2_objectPool.Count; i++)
+        {
+            if (!DarkDecline2_objectPool[i].activeInHierarchy)
+            {
+                DarkDecline2_objectPool[i].SetActive(true);
+                return DarkDecline2_objectPool[i];
+            }
+        }
+
+        // 모든 오브젝트가 사용 중일 경우 새로운 오브젝트 생성 후 반환
+        GameObject newObj = Instantiate(DarkDecline2_objectPrefab);
+        newObj.SetActive(true);
+        DarkDecline2_objectPool.Add(newObj);
+        newObj.transform.parent = DarkDecline2_Parent;
         return newObj;
     }
 

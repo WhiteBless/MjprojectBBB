@@ -101,6 +101,8 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
     [SerializeField]
     GameObject DarkSoul_Skill_Eff;
     [SerializeField]
+    float Slow_RotSpeed;
+    [SerializeField]
     float DarkSoul_Running_Time;
 
     #region Reaper_Rotate
@@ -118,7 +120,7 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
         dir.y = 0.0f;
 
         Quaternion rotation = Quaternion.LookRotation(dir, Vector3.up);
-        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * Boss_RotSpeed);
+        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * (Boss_RotSpeed - Slow_RotSpeed));
     }
     #endregion
 
@@ -477,105 +479,201 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
     // TODO ## Reaper_DarkDecline
     IEnumerator Dark_Decline()
     {
-        // 현재 상태 변경
-        reaperState = ReaperState.Dark_Decline;
-        // 공격 가능
-        isAttacking = true;
-        // 이동 멈춤
-        isMove = false;
-        Reaper_animator.SetBool("isMove", isMove);
-        // 애니메이션 실행_1
-        Reaper_animator.SetTrigger("Dark_Decline");
-
-        yield return new WaitForSeconds(Decline_LockTime);
-        isLock = true;
-        // 오브젝트 풀에서 이펙트 위치 조정시켜 생성
-        GameObject DarkDeclineEff_1 = reaper_ObjPoolRef.GetDarkDeclineFromPool();
-        DarkDeclineEff_1.transform.position = Skill_Pos.transform.position + Skill_Pos.transform.forward * DarkDecline_Dis;
-
-        Vector3 d1 = DarkDeclineEff_1.transform.position - Skill_Look.transform.position;
-        d1.y = 0.0f;
-        Quaternion q1 = Quaternion.LookRotation(d1);
-        DarkDeclineEff_1.transform.rotation = q1 * Quaternion.Euler(0f, 90f, 0f);
-
-        yield return new WaitForSeconds(Decline_UnLockTime);
-        isLock = false;
-       
-        // 오브젝트 풀로 비활성화
-        //DarkDeclineEff_1.SetActive(false);
-
-        // Dark_Decline_Delay 후 실행
-        yield return new WaitForSeconds(Dark_Decline_Delay - (Decline_LockTime + Decline_UnLockTime));
-        // 애니메이션 실행_2
-        Reaper_animator.SetTrigger("Dark_Decline");
-
-        yield return new WaitForSeconds(Decline_LockTime);
-        isLock = true;
-        // 오브젝트 풀에서 이펙트 위치 조정시켜 생성
-        GameObject DarkDeclineEff_2 = reaper_ObjPoolRef.GetDarkDeclineFromPool();
-        // DarkDeclineEff_2.transform.forward = Vector3.right;
-        DarkDeclineEff_2.transform.position = Skill_Pos.transform.position + Skill_Pos.transform.forward * DarkDecline_Dis;
-
-        Vector3 d2 = DarkDeclineEff_2.transform.position - Skill_Look.transform.position;
-        d2.y = 0.0f;
-        Quaternion q2 = Quaternion.LookRotation(d2);
-        DarkDeclineEff_2.transform.rotation = q2 * Quaternion.Euler(0f, 90f, 0f);
-
-        yield return new WaitForSeconds(Decline_UnLockTime);
-        isLock = false;
-       
-
-        // Dark_Decline_Delay 후 실행
-        yield return new WaitForSeconds(Dark_Decline_Delay - (Decline_LockTime + Decline_UnLockTime));
-
-        // 애니메이션 실행_3
-        Reaper_animator.SetTrigger("Dark_Decline");
-
-        yield return new WaitForSeconds(Decline_LockTime);
-        isLock = true;
-        // 오브젝트 풀에서 이펙트 위치 조정시켜 생성
-        GameObject DarkDeclineEff_3 = reaper_ObjPoolRef.GetDarkDeclineFromPool();
-        //DarkDeclineEff_3.transform.forward = Vector3.right;
-        DarkDeclineEff_3.transform.position = Skill_Pos.transform.position + Skill_Pos.transform.forward * DarkDecline_Dis;
-        Vector3 d3 = DarkDeclineEff_3.transform.position - Skill_Look.transform.position;
-        d3.y = 0.0f;
-        Quaternion q3 = Quaternion.LookRotation(d3);
-        DarkDeclineEff_3.transform.rotation = q3 * Quaternion.Euler(0f, 90f, 0f);
-
-        yield return new WaitForSeconds(Decline_UnLockTime);
-        isLock = false;
-        
-        // Dark_Decline_Delay 후 실행
-        yield return new WaitForSeconds(Dark_Decline_Delay - (Decline_LockTime + Decline_UnLockTime));
-
-        // 4초 후 실행
-        yield return new WaitForSeconds(nextActTime);
-        DarkDeclineEff_1.SetActive(false);
-        DarkDeclineEff_2.SetActive(false);
-        DarkDeclineEff_3.SetActive(false);
-
-        // 공격 가능
-        isAttacking = false;
-
-        // 각성
-        if (boss_hp_ctrl.isAwakening == true && reaperAwakeState == Reaper_Awake.NORMAL)
+        // 각성 전 어둠의 쇠락
+        if (reaperAwakeState == Reaper_Awake.NORMAL)
         {
-            // 각성 상태
-            reaperAwakeState = Reaper_Awake.AWAKENING;
-            Reaper_animator.SetTrigger("Awakening");
-            nextActTime = 1.0f;
-            // 다음행동 시간 + 1
-            yield return new WaitForSeconds(nextActTime + 1.0f);
+            // 현재 상태 변경
+            reaperState = ReaperState.Dark_Decline;
+            // 공격 가능
+            isAttacking = true;
+            // 이동 멈춤
+            isMove = false;
+            Reaper_animator.SetBool("isMove", isMove);
+            // 애니메이션 실행_1
+            Reaper_animator.SetTrigger("Dark_Decline");
+
+            yield return new WaitForSeconds(Decline_LockTime);
+            isLock = true;
+            // 오브젝트 풀에서 이펙트 위치 조정시켜 생성
+            GameObject DarkDeclineEff_1 = reaper_ObjPoolRef.GetDarkDeclineFromPool();
+            DarkDeclineEff_1.transform.position = Skill_Pos.transform.position + Skill_Pos.transform.forward * DarkDecline_Dis;
+
+            Vector3 d1 = DarkDeclineEff_1.transform.position - Skill_Look.transform.position;
+            d1.y = 0.0f;
+            Quaternion q1 = Quaternion.LookRotation(d1);
+            DarkDeclineEff_1.transform.rotation = q1 * Quaternion.Euler(0f, 90f, 0f);
+
+            yield return new WaitForSeconds(Decline_UnLockTime);
+            isLock = false;
+
+            // 오브젝트 풀로 비활성화
+            //DarkDeclineEff_1.SetActive(false);
+
+            // Dark_Decline_Delay 후 실행
+            yield return new WaitForSeconds(Dark_Decline_Delay - (Decline_LockTime + Decline_UnLockTime));
+            // 애니메이션 실행_2
+            Reaper_animator.SetTrigger("Dark_Decline");
+
+            yield return new WaitForSeconds(Decline_LockTime);
+            isLock = true;
+            // 오브젝트 풀에서 이펙트 위치 조정시켜 생성
+            GameObject DarkDeclineEff_2 = reaper_ObjPoolRef.GetDarkDeclineFromPool();
+            // DarkDeclineEff_2.transform.forward = Vector3.right;
+            DarkDeclineEff_2.transform.position = Skill_Pos.transform.position + Skill_Pos.transform.forward * DarkDecline_Dis;
+
+            Vector3 d2 = DarkDeclineEff_2.transform.position - Skill_Look.transform.position;
+            d2.y = 0.0f;
+            Quaternion q2 = Quaternion.LookRotation(d2);
+            DarkDeclineEff_2.transform.rotation = q2 * Quaternion.Euler(0f, 90f, 0f);
+
+            yield return new WaitForSeconds(Decline_UnLockTime);
+            isLock = false;
+
+
+            // Dark_Decline_Delay 후 실행
+            yield return new WaitForSeconds(Dark_Decline_Delay - (Decline_LockTime + Decline_UnLockTime));
+
+            // 애니메이션 실행_3
+            Reaper_animator.SetTrigger("Dark_Decline");
+
+            yield return new WaitForSeconds(Decline_LockTime);
+            isLock = true;
+            // 오브젝트 풀에서 이펙트 위치 조정시켜 생성
+            GameObject DarkDeclineEff_3 = reaper_ObjPoolRef.GetDarkDeclineFromPool();
+            //DarkDeclineEff_3.transform.forward = Vector3.right;
+            DarkDeclineEff_3.transform.position = Skill_Pos.transform.position + Skill_Pos.transform.forward * DarkDecline_Dis;
+            Vector3 d3 = DarkDeclineEff_3.transform.position - Skill_Look.transform.position;
+            d3.y = 0.0f;
+            Quaternion q3 = Quaternion.LookRotation(d3);
+            DarkDeclineEff_3.transform.rotation = q3 * Quaternion.Euler(0f, 90f, 0f);
+
+            yield return new WaitForSeconds(Decline_UnLockTime);
+            isLock = false;
+
+            // Dark_Decline_Delay 후 실행
+            yield return new WaitForSeconds(Dark_Decline_Delay - (Decline_LockTime + Decline_UnLockTime));
+
+            // 4초 후 실행
+            yield return new WaitForSeconds(nextActTime);
+            DarkDeclineEff_1.SetActive(false);
+            DarkDeclineEff_2.SetActive(false);
+            DarkDeclineEff_3.SetActive(false);
+
+            // 공격 가능
+            isAttacking = false;
+
+            // 각성
+            if (boss_hp_ctrl.isAwakening == true && reaperAwakeState == Reaper_Awake.NORMAL)
+            {
+                // 각성 상태
+                reaperAwakeState = Reaper_Awake.AWAKENING;
+                Reaper_animator.SetTrigger("Awakening");
+                nextActTime = 1.0f;
+                // 다음행동 시간 + 1
+                yield return new WaitForSeconds(nextActTime + 1.0f);
+            }
+
+            // 거리에 따른 다음 공격
+            if (TargetDistance > Skill_Think_Range && isAttacking == false)
+            {
+                Reaper_Long_nextAct();
+            }
+            else if (TargetDistance <= Skill_Think_Range && isAttacking == false)
+            {
+                Reaper_Short_nextAct();
+            }
         }
+        else if (reaperAwakeState == Reaper_Awake.AWAKENING) // 어둠의 쇠락 각성 후---------------------------------------
+        {
+            // 현재 상태 변경
+            reaperState = ReaperState.Dark_Decline;
+            // 공격 가능
+            isAttacking = true;
+            // 이동 멈춤
+            isMove = false;
+            Reaper_animator.SetBool("isMove", isMove);
+            // 애니메이션 실행_1
+            Reaper_animator.SetTrigger("Dark_Decline");
 
-        // 거리에 따른 다음 공격
-        if (TargetDistance > Skill_Think_Range && isAttacking == false)
-        {
-            Reaper_Long_nextAct();
-        }
-        else if (TargetDistance <= Skill_Think_Range && isAttacking == false)
-        {
-            Reaper_Short_nextAct();
+            yield return new WaitForSeconds(Decline_LockTime);
+            isLock = true;
+            // 오브젝트 풀에서 이펙트 위치 조정시켜 생성
+            GameObject DarkDeclineEff_1 = reaper_ObjPoolRef.GetDarkDecline2FromPool();
+            DarkDeclineEff_1.transform.position = Skill_Pos.transform.position + Skill_Pos.transform.forward * DarkDecline_Dis;
+
+            Vector3 d1 = DarkDeclineEff_1.transform.position - Skill_Look.transform.position;
+            d1.y = 0.0f;
+            Quaternion q1 = Quaternion.LookRotation(d1);
+            DarkDeclineEff_1.transform.rotation = q1 * Quaternion.Euler(0f, 90f, 0f);
+
+            yield return new WaitForSeconds(Decline_UnLockTime);
+            isLock = false;
+
+            // 오브젝트 풀로 비활성화
+            //DarkDeclineEff_1.SetActive(false);
+
+            // Dark_Decline_Delay 후 실행
+            yield return new WaitForSeconds(Dark_Decline_Delay - (Decline_LockTime + Decline_UnLockTime));
+            // 애니메이션 실행_2
+            Reaper_animator.SetTrigger("Dark_Decline");
+
+            yield return new WaitForSeconds(Decline_LockTime);
+            isLock = true;
+            // 오브젝트 풀에서 이펙트 위치 조정시켜 생성
+            GameObject DarkDeclineEff_2 = reaper_ObjPoolRef.GetDarkDecline2FromPool();
+            // DarkDeclineEff_2.transform.forward = Vector3.right;
+            DarkDeclineEff_2.transform.position = Skill_Pos.transform.position + Skill_Pos.transform.forward * DarkDecline_Dis;
+
+            Vector3 d2 = DarkDeclineEff_2.transform.position - Skill_Look.transform.position;
+            d2.y = 0.0f;
+            Quaternion q2 = Quaternion.LookRotation(d2);
+            DarkDeclineEff_2.transform.rotation = q2 * Quaternion.Euler(0f, 90f, 0f);
+
+            yield return new WaitForSeconds(Decline_UnLockTime);
+            isLock = false;
+
+
+            // Dark_Decline_Delay 후 실행
+            yield return new WaitForSeconds(Dark_Decline_Delay - (Decline_LockTime + Decline_UnLockTime));
+
+            // 애니메이션 실행_3
+            Reaper_animator.SetTrigger("Dark_Decline");
+
+            yield return new WaitForSeconds(Decline_LockTime);
+            isLock = true;
+            // 오브젝트 풀에서 이펙트 위치 조정시켜 생성
+            GameObject DarkDeclineEff_3 = reaper_ObjPoolRef.GetDarkDecline2FromPool();
+            //DarkDeclineEff_3.transform.forward = Vector3.right;
+            DarkDeclineEff_3.transform.position = Skill_Pos.transform.position + Skill_Pos.transform.forward * DarkDecline_Dis;
+            Vector3 d3 = DarkDeclineEff_3.transform.position - Skill_Look.transform.position;
+            d3.y = 0.0f;
+            Quaternion q3 = Quaternion.LookRotation(d3);
+            DarkDeclineEff_3.transform.rotation = q3 * Quaternion.Euler(0f, 90f, 0f);
+
+            yield return new WaitForSeconds(Decline_UnLockTime);
+            isLock = false;
+
+            // Dark_Decline_Delay 후 실행
+            yield return new WaitForSeconds(Dark_Decline_Delay - (Decline_LockTime + Decline_UnLockTime));
+
+            // 4초 후 실행
+            yield return new WaitForSeconds(nextActTime);
+            DarkDeclineEff_1.SetActive(false);
+            DarkDeclineEff_2.SetActive(false);
+            DarkDeclineEff_3.SetActive(false);
+
+            // 공격 가능
+            isAttacking = false;
+
+            // 거리에 따른 다음 공격
+            if (TargetDistance > Skill_Think_Range && isAttacking == false)
+            {
+                Reaper_Long_nextAct();
+            }
+            else if (TargetDistance <= Skill_Think_Range && isAttacking == false)
+            {
+                Reaper_Short_nextAct();
+            }
         }
     }
     // 슬래쉬 이펙트 생성
@@ -773,11 +871,12 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
         Reaper_animator.SetBool("isMove", isMove);
         // 애니메이션 실행_1
         Reaper_animator.SetTrigger("Dark_Soul");
+        Slow_RotSpeed = 6.0f;
 
         yield return new WaitForSeconds(DarkSoul_Running_Time);
-
         // 공격 가능
         isAttacking = false;
+        Slow_RotSpeed = 0.0f;
 
         // 거리에 따른 다음 공격
         if (TargetDistance > Skill_Think_Range && isAttacking == false)
@@ -799,10 +898,12 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
     {
         Reaper_animator.SetFloat("DarkSoulSpeed", 0.2f);
         DarkSoul_Skill_Eff.SetActive(true);
+        
 
         yield return new WaitForSeconds(DarkSoul_Running_Time - 4.0f);
         Reaper_animator.SetFloat("DarkSoulSpeed", 1.0f);
 
+        
         yield return new WaitForSeconds(2.0f);
         DarkSoul_Skill_Eff.SetActive(false);
     }
