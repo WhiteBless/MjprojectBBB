@@ -5,6 +5,11 @@ using UnityEngine;
 public class Assassin_Controller : Character_BehaviorCtrl_Base
 {
     [SerializeField]
+    Assassin_ObjPool assassin_ObjPoolRef;
+    public Transform firePoint; // 발사 지점
+    public float projectileSpeed = 10f; // 발사체 속도
+    public GameObject skill_Look;
+    [SerializeField]
     LayerMask groundLayer; // 지면의 레이어
     public GameObject mouseMoveEffect; // 이동시 마우스 클릭 이펙트
     public Camera mainCam;
@@ -13,6 +18,7 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
     public float moveSpeed;
 
     private bool isMove;
+    private bool isSkill1;
 
     void Awake()
     {
@@ -21,12 +27,14 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
     }
     void Start()
     {
-        
+        assassin_ObjPoolRef = GetComponent<Assassin_ObjPool>();
     }
 
     // Update is called once per frame
     public void Update()
     {
+        firePoint.transform.localRotation = Quaternion.identity;
+
         if (Input.GetMouseButtonDown(0)) //|| skill1 || skill2 || skill3 || skill4
         {
             Ray ray = mainCam.ScreenPointToRay(Input.mousePosition);
@@ -38,7 +46,7 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
                 transform.LookAt(transform.position + nextVec); // 캐릭터가 계산된 방향 벡터를 바라보도록 회전합니다.
             }
         }
-       
+
         if (Input.GetMouseButtonDown(1))
         {
             RaycastHit hit;
@@ -65,7 +73,14 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
                 SetDestination(hit.point);
             }
         }
+
         Move();
+        if(Input.GetKeyDown(KeyCode.Q))
+        {
+            Skill_1();
+        }
+            
+        
     }
 
     private void SetDestination(Vector3 dest)
@@ -90,5 +105,59 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
             animator.SetBool("isMove", false);
         }
     }
+
+    public override void Skill_1()
+    {
+        if (!isSkill1)
+        {
+            animator.SetBool("isMove", false);
+
+            isMove = false;
+            isSkill1 = true;
+
+            animator.SetTrigger("doSkill1");
+
+            //attack_Collider.Q_Use();
+
+            Invoke("SkillOut", 2f);
+        }
+    }
+
+    public void SkillOut()
+    {
+        isSkill1 = false;
+        
+    }
+
+    public void Skill01_Event01()
+    {
+        StartCoroutine("ShurikenShot");
+    }
+
+    public void Skill01_Event02()
+    {
+        StartCoroutine("ShurikenShot");
+    }
+
+    public void Skill01_Event03()
+    {
+        StartCoroutine("ShurikenShot");
+    }
+    IEnumerator ShurikenShot()
+    {
+        GameObject shuriken = assassin_ObjPoolRef.ShurikenFromPool();
+        shuriken.transform.position = firePoint.transform.position; // 발사 위치 설정
+        shuriken.transform.Rotate(0, 0, 90);
+        shuriken.SetActive(true); // 발사체 활성화
+
+
+        Vector3 d2 = shuriken.transform.position - skill_Look.transform.position;
+        d2.y = 0.0f;
+        Quaternion q2 = Quaternion.LookRotation(d2);
+        shuriken.transform.rotation = q2 * Quaternion.Euler(90f, 180f, 0f);
+        Debug.Log("3");
+        yield return new WaitForSeconds(0f);
+    }
+
 }
  
