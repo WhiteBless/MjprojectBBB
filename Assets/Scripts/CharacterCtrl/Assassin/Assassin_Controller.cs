@@ -19,7 +19,10 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
 
     private bool isMove;
     private bool isSkill1;
-
+    private bool isSkill2;
+    private bool isSkill3;
+    private bool isSkill4;
+    
     void Awake()
     {
         mainCam = Camera.main;
@@ -75,12 +78,27 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
         }
 
         Move();
+
         if(Input.GetKeyDown(KeyCode.Q))
         {
             Skill_1();
         }
-            
-        
+
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            Skill_2();
+        }
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            Skill_3();
+        }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            Skill_4();
+        }
+
     }
 
     private void SetDestination(Vector3 dest)
@@ -123,12 +141,6 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
         }
     }
 
-    public void SkillOut()
-    {
-        isSkill1 = false;
-        
-    }
-
     public void Skill01_Event01()
     {
         StartCoroutine("ShurikenShot");
@@ -158,6 +170,93 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
         Debug.Log("3");
         yield return new WaitForSeconds(0f);
     }
+
+    public override void Skill_2()
+    {
+        animator.SetBool("isMove", false);
+
+        isMove = false;
+        isSkill2 = true;
+
+        animator.SetTrigger("doSkill2");
+
+        Invoke("SkillOut", 2.3f);
+    }
+
+    public override void Skill_3()
+    {
+        animator.SetBool("isMove", false);
+
+        isMove = false;
+        isSkill3 = true;
+
+        Ray ray = mainCam.ScreenPointToRay(Input.mousePosition);
+        RaycastHit rayHit;
+
+        if (Physics.Raycast(ray, out rayHit, 100))
+        {
+            Vector3 dodgeDirection = rayHit.point - transform.position;
+            dodgeDirection.y = 0;
+            dodgeDirection.Normalize(); // 벡터를 정규화합니다.
+            transform.LookAt(transform.position + dodgeDirection);
+
+            Vector3 dodgeStartPosition = transform.position;
+            Vector3 dodgeEndPosition = transform.position + dodgeDirection * 25f;
+
+            StartCoroutine(MoveDuring(dodgeStartPosition, dodgeEndPosition, 0.6f));
+            Invoke("SkillOut", 0.7f);
+            animator.SetTrigger("doSkill3");
+        }
+    }
+
+    public override void Skill_4()
+    {
+        animator.SetBool("isMove", false);
+
+        isMove = false;
+        isSkill4 = true;
+
+        Ray ray = mainCam.ScreenPointToRay(Input.mousePosition);
+        RaycastHit rayHit;
+
+        if (Physics.Raycast(ray, out rayHit, 100))
+        {
+            Vector3 dodgeDirection = rayHit.point - transform.position;
+            dodgeDirection.y = 0;
+            dodgeDirection.Normalize(); // 벡터를 정규화합니다.
+            transform.LookAt(transform.position + dodgeDirection);
+
+            Vector3 dodgeStartPosition = transform.position;
+            Vector3 dodgeEndPosition = transform.position + dodgeDirection * 25f;
+
+            StartCoroutine(MoveDuring(dodgeStartPosition, dodgeEndPosition, 0.1f));
+            animator.SetTrigger("doSkill4");
+            Invoke("SkillOut", 1f);
+        }
+    }
+
+    IEnumerator MoveDuring(Vector3 startPosition, Vector3 endPosition, float duration)
+    {
+        float startTime = Time.time;
+
+        while (Time.time - startTime < duration)
+        {
+            // Dodge 동작 중에 플레이어를 움직입니다.
+            float t = (Time.time - startTime) / duration; // 시간 계산
+            transform.position = Vector3.Lerp(startPosition, endPosition, t); // 시작 지점에서 도착 지점까지 t만큼 시간 소요
+            yield return null;
+        }
+
+        transform.position = endPosition;
+    }
+
+    public void SkillOut()
+    {
+        isSkill1 = false;
+        
+    }
+
+    
 
 }
  
