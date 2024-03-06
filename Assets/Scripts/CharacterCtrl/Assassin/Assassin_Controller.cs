@@ -7,7 +7,6 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
     [SerializeField]
     Assassin_ObjPool assassin_ObjPoolRef;
     public Transform firePoint; // 발사 지점
-    public float projectileSpeed = 10f; // 발사체 속도
     public GameObject skill_Look;
     [SerializeField]
     LayerMask groundLayer; // 지면의 레이어
@@ -18,7 +17,7 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
     public float moveSpeed;
 
     private bool isMove;
-    private bool isSkill1;
+    public bool isSkill1;
     private bool isSkill2;
     private bool isSkill3;
     private bool isSkill4;
@@ -38,7 +37,8 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
     {
         firePoint.transform.localRotation = Quaternion.identity;
 
-        if (Input.GetMouseButtonDown(0)) //|| skill1 || skill2 || skill3 || skill4
+        if (Input.GetMouseButtonDown(0) || Input.GetKey(KeySetting.Keys[KeyAction.Skill1]) || Input.GetKey(KeySetting.Keys[KeyAction.Skill2])
+            || Input.GetKey(KeySetting.Keys[KeyAction.Skill3]) || Input.GetKey(KeySetting.Keys[KeyAction.Skill4])) //|| skill1 || skill2 || skill3 || skill4|| 
         {
             Ray ray = mainCam.ScreenPointToRay(Input.mousePosition);
             RaycastHit rayHit;
@@ -79,22 +79,22 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
 
         Move();
 
-        if(Input.GetKeyDown(KeyCode.Q))
+        if(Input.GetKey(KeySetting.Keys[KeyAction.Skill1]))
         {
             Skill_1();
         }
 
-        if (Input.GetKeyDown(KeyCode.W))
+        if(Input.GetKey(KeySetting.Keys[KeyAction.Skill2]))
         {
             Skill_2();
         }
 
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKey(KeySetting.Keys[KeyAction.Skill3]))
         {
             Skill_3();
         }
 
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKey(KeySetting.Keys[KeyAction.Skill4]))
         {
             Skill_4();
         }
@@ -110,17 +110,20 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
 
     public override void Move()
     {
-        if(isMove)
+        if (!isSkill1 && !isSkill2 && !isSkill3 && !isSkill4)
         {
-            Vector3 dir = destination - transform.position;
-            transform.forward = dir;
-            transform.position += dir.normalized * Time.deltaTime * moveSpeed;
-        }
+            if (isMove)
+            {
+                Vector3 dir = destination - transform.position;
+                transform.forward = dir;
+                transform.position += dir.normalized * Time.deltaTime * moveSpeed;
+            }
 
-        if(Vector3.Distance(transform.position, destination) <= 0.1f)
-        {
-            isMove = false;
-            animator.SetBool("isMove", false);
+            if (Vector3.Distance(transform.position, destination) <= 0.1f)
+            {
+                isMove = false;
+                animator.SetBool("isMove", false);
+            }
         }
     }
 
