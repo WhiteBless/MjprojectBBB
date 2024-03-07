@@ -7,7 +7,6 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
     [SerializeField]
     Assassin_ObjPool assassin_ObjPoolRef;
     public Transform firePoint; // 발사 지점
-    public float projectileSpeed = 10f; // 발사체 속도
     public GameObject skill_Look;
     [SerializeField]
     LayerMask groundLayer; // 지면의 레이어
@@ -16,9 +15,12 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
     private Animator animator;
     private Vector3 destination;
     public float moveSpeed;
+    public float DodgeDistance;
 
     private bool isMove;
-    private bool isSkill1;
+    private bool isDodge;
+    private bool isAttack;
+    public bool isSkill1;
     private bool isSkill2;
     private bool isSkill3;
     private bool isSkill4;
@@ -38,7 +40,8 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
     {
         firePoint.transform.localRotation = Quaternion.identity;
 
-        if (Input.GetMouseButtonDown(0)) //|| skill1 || skill2 || skill3 || skill4
+        if (Input.GetMouseButtonDown(0) || Input.GetKey(KeySetting.Keys[KeyAction.Skill1]) || Input.GetKey(KeySetting.Keys[KeyAction.Skill2])
+            || Input.GetKey(KeySetting.Keys[KeyAction.Skill3]) || Input.GetKey(KeySetting.Keys[KeyAction.Skill4])) //|| skill1 || skill2 || skill3 || skill4|| 
         {
             Ray ray = mainCam.ScreenPointToRay(Input.mousePosition);
             RaycastHit rayHit;
@@ -78,27 +81,103 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
         }
 
         Move();
+        Attack();
 
-        if(Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKey(KeySetting.Keys[KeyAction.Skill1]))
         {
             Skill_1();
         }
 
-        if (Input.GetKeyDown(KeyCode.W))
+        if(Input.GetKey(KeySetting.Keys[KeyAction.Skill2]))
         {
             Skill_2();
         }
 
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKey(KeySetting.Keys[KeyAction.Skill3]))
         {
             Skill_3();
         }
 
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKey(KeySetting.Keys[KeyAction.Skill4]))
         {
             Skill_4();
         }
 
+        if (Input.GetKey(KeySetting.Keys[KeyAction.Dodge]))
+        {
+            Dodge();
+        }
+
+    }
+
+    public override void Attack()
+    {
+
+        if (Input.GetMouseButtonDown(0) && !isSkill1 && !isSkill2 && !isSkill3 && !isSkill4)
+        {
+            animator.SetBool("isMove", false);
+
+            isMove = false;
+            isAttack = true;
+
+            animator.SetTrigger("Attack");
+
+            Invoke("AttackOut", 0.8f);
+        }
+
+    }
+
+    public void AttackOut()
+    {
+        isAttack = false;
+    }
+
+    public override void Dodge()
+    {
+        animator.SetBool("isMove", false);
+        animator.SetTrigger("doDodge");
+        isDodge = true;
+
+        SkillOut();
+
+        Ray ray = mainCam.ScreenPointToRay(Input.mousePosition);
+        RaycastHit rayHit;
+
+        if (Physics.Raycast(ray, out rayHit, 100))
+        {
+            Vector3 dodgeDirection = rayHit.point - transform.position;
+            dodgeDirection.y = 0;
+            dodgeDirection.Normalize(); // 벡터를 정규화합니다.
+            transform.LookAt(transform.position + dodgeDirection);
+
+            Vector3 dodgeStartPosition = transform.position;
+            Vector3 dodgeEndPosition = transform.position + dodgeDirection * DodgeDistance;
+
+            StartCoroutine(MoveDuring(dodgeStartPosition, dodgeEndPosition, 0.7f));
+            Invoke("DodgeOut", 0.7f);
+        }
+        
+        
+    }
+
+    public override void DodgeOut()
+    {
+        isDodge = false;
+    }
+
+    IEnumerator MoveDuring(Vector3 startPosition, Vector3 endPosition, float duration)
+    {
+        float startTime = Time.time;
+
+        while (Time.time - startTime < duration)
+        {
+            // Dodge 동작 중에 플레이어를 움직입니다.
+            float t = (Time.time - startTime) / duration; // 시간 계산
+            transform.position = Vector3.Lerp(startPosition, endPosition, t); // 시작 지점에서 도착 지점까지 t만큼 시간 소요
+            yield return null;
+        }
+
+        transform.position = endPosition;
     }
 
     private void SetDestination(Vector3 dest)
@@ -110,17 +189,20 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
 
     public override void Move()
     {
-        if(isMove)
+        if (!isSkill1 && !isSkill2 && !isSkill3 && !isSkill4 && !isAttack)
         {
-            Vector3 dir = destination - transform.position;
-            transform.forward = dir;
-            transform.position += dir.normalized * Time.deltaTime * moveSpeed;
-        }
+            if (isMove)
+            {
+                Vector3 dir = destination - transform.position;
+                transform.forward = dir;
+                transform.position += dir.normalized * Time.deltaTime * moveSpeed;
+            }
 
-        if(Vector3.Distance(transform.position, destination) <= 0.1f)
-        {
-            isMove = false;
-            animator.SetBool("isMove", false);
+            if (Vector3.Distance(transform.position, destination) <= 0.1f)
+            {
+                isMove = false;
+                animator.SetBool("isMove", false);
+            }
         }
     }
 
@@ -233,21 +315,6 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
             animator.SetTrigger("doSkill4");
             Invoke("SkillOut", 1f);
         }
-    }
-
-    IEnumerator MoveDuring(Vector3 startPosition, Vector3 endPosition, float duration)
-    {
-        float startTime = Time.time;
-
-        while (Time.time - startTime < duration)
-        {
-            // Dodge 동작 중에 플레이어를 움직입니다.
-            float t = (Time.time - startTime) / duration; // 시간 계산
-            transform.position = Vector3.Lerp(startPosition, endPosition, t); // 시작 지점에서 도착 지점까지 t만큼 시간 소요
-            yield return null;
-        }
-
-        transform.position = endPosition;
     }
 
     public void SkillOut()

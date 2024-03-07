@@ -6,6 +6,12 @@ public abstract class Character_BehaviorCtrl_Base : MonoBehaviour
 {
     public abstract void Move();
 
+    public abstract void Dodge();
+
+    public abstract void DodgeOut();
+
+    public abstract void Attack();
+
     public abstract void Skill_1();
 
     public abstract void Skill_2();
