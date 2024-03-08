@@ -39,5 +39,10 @@ public class Boss_HP_Controller : MonoBehaviour
                 Boss_HP_Canvas.GetComponent<BossHP_UI_Ctrl>().Refresh_BossHP();
             }
         }
+        else if (other.gameObject.name == "DarkBallCounter_Eff")
+        {
+            // 어둠의 구체 반격
+            other.gameObject.SetActive(false);
+        }
     }
 }
