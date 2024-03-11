@@ -16,6 +16,7 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
     private Vector3 destination;
     public float moveSpeed;
     public float DodgeDistance;
+    public float EskillDistance;
 
     private bool isMove;
     private bool isDodge;
@@ -24,7 +25,9 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
     private bool isSkill2;
     private bool isSkill3;
     private bool isSkill4;
-    
+
+    RaycastHit eSkillRayHit;
+
     void Awake()
     {
         mainCam = Camera.main;
@@ -41,7 +44,7 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
         firePoint.transform.localRotation = Quaternion.identity;
 
         if (Input.GetMouseButtonDown(0) || Input.GetKey(KeySetting.Keys[KeyAction.Skill1]) || Input.GetKey(KeySetting.Keys[KeyAction.Skill2])
-            || Input.GetKey(KeySetting.Keys[KeyAction.Skill3]) || Input.GetKey(KeySetting.Keys[KeyAction.Skill4])) //|| skill1 || skill2 || skill3 || skill4|| 
+             || Input.GetKey(KeySetting.Keys[KeyAction.Skill3]) || Input.GetKey(KeySetting.Keys[KeyAction.Skill4])) //|| skill1 || skill2 || skill3 || skill4|| 
         {
             Ray ray = mainCam.ScreenPointToRay(Input.mousePosition);
             RaycastHit rayHit;
@@ -249,7 +252,7 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
         d2.y = 0.0f;
         Quaternion q2 = Quaternion.LookRotation(d2);
         shuriken.transform.rotation = q2 * Quaternion.Euler(90f, 180f, 0f);
-        Debug.Log("3");
+        
         yield return new WaitForSeconds(0f);
     }
 
@@ -271,24 +274,32 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
 
         isMove = false;
         isSkill3 = true;
+        animator.SetTrigger("doSkill3");
 
         Ray ray = mainCam.ScreenPointToRay(Input.mousePosition);
         RaycastHit rayHit;
 
         if (Physics.Raycast(ray, out rayHit, 100))
         {
-            Vector3 dodgeDirection = rayHit.point - transform.position;
-            dodgeDirection.y = 0;
-            dodgeDirection.Normalize(); // 벡터를 정규화합니다.
-            transform.LookAt(transform.position + dodgeDirection);
-
-            Vector3 dodgeStartPosition = transform.position;
-            Vector3 dodgeEndPosition = transform.position + dodgeDirection * 25f;
-
-            StartCoroutine(MoveDuring(dodgeStartPosition, dodgeEndPosition, 0.6f));
-            Invoke("SkillOut", 0.7f);
-            animator.SetTrigger("doSkill3");
+            this.eSkillRayHit = rayHit;
+            Invoke("Skill03_Event01", 0.3f);
         }
+    }
+
+    public void Skill03_Event01()
+    {
+        Vector3 dodgeDirection = eSkillRayHit.point - transform.position;
+        dodgeDirection.y = 0;
+        dodgeDirection.Normalize(); // 벡터를 정규화합니다.
+        transform.LookAt(transform.position + dodgeDirection);
+
+        Vector3 dodgeStartPosition = transform.position;
+        dodgeStartPosition.y = 0;
+        Vector3 dodgeEndPosition = transform.position + dodgeDirection * EskillDistance;
+
+        StartCoroutine(MoveDuring(dodgeStartPosition, dodgeEndPosition, 0.2f));
+
+        Invoke("SkillOut", 0.2f);
     }
 
     public override void Skill_4()
@@ -320,7 +331,10 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
     public void SkillOut()
     {
         isSkill1 = false;
-        
+        isSkill2 = false;
+        isSkill3 = false;
+        isSkill4 = false;
+
     }
 
     
