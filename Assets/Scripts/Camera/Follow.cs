@@ -29,9 +29,8 @@ public class CaneraController : MonoBehaviour
     {
         if (!(SceneManager.GetActiveScene().name == "Main"))
         {
-            Vector3 newPosition = new Vector3(_player.transform.position.x + _delta.x, _delta.y, _player.transform.position.z + _delta.z);
-            transform.position = newPosition;
-            transform.LookAt(_player.transform.position);
+            transform.position = _player.transform.position + _delta;
+            transform.LookAt(_player.transform);
         }
 
         //if (_mode == Define.CameraMode.QarterView && _player != null)
