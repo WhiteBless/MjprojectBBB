@@ -28,6 +28,9 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
 
     RaycastHit eSkillRayHit;
 
+    public GameObject BaseAtk_1_Eff;
+    public GameObject BaseAtk_2_Eff;
+
     void Awake()
     {
         mainCam = Camera.main;
@@ -46,13 +49,16 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
         if (Input.GetMouseButtonDown(0) || Input.GetKey(KeySetting.Keys[KeyAction.Skill1]) || Input.GetKey(KeySetting.Keys[KeyAction.Skill2])
              || Input.GetKey(KeySetting.Keys[KeyAction.Skill3]) || Input.GetKey(KeySetting.Keys[KeyAction.Skill4])) //|| skill1 || skill2 || skill3 || skill4|| 
         {
-            Ray ray = mainCam.ScreenPointToRay(Input.mousePosition);
-            RaycastHit rayHit;
-            if (Physics.Raycast(ray, out rayHit, 100)) // ray가 100의 길이까지 쏘았을때 충돌이 있으면 rayHit에 저장
+            if (!isAttack && !isDodge && !isSkill1 && !isSkill2 && !isSkill3 && !isSkill4)
             {
-                Vector3 nextVec = rayHit.point - transform.position; // rayHit.point : ray가 충돌한 지점, transform.position : 캐릭터의 현재 위치
-                nextVec.y = 0;                                       // y값을 0으로 하여 수평선에서 바라볼 수 있도록 함
-                transform.LookAt(transform.position + nextVec); // 캐릭터가 계산된 방향 벡터를 바라보도록 회전합니다.
+                Ray ray = mainCam.ScreenPointToRay(Input.mousePosition);
+                RaycastHit rayHit;
+                if (Physics.Raycast(ray, out rayHit, 100)) // ray가 100의 길이까지 쏘았을때 충돌이 있으면 rayHit에 저장
+                {
+                    Vector3 nextVec = rayHit.point - transform.position; // rayHit.point : ray가 충돌한 지점, transform.position : 캐릭터의 현재 위치
+                    nextVec.y = 0;                                       // y값을 0으로 하여 수평선에서 바라볼 수 있도록 함
+                    transform.LookAt(transform.position + nextVec); // 캐릭터가 계산된 방향 벡터를 바라보도록 회전합니다.
+                }
             }
         }
 
@@ -118,16 +124,18 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
 
         if (Input.GetMouseButtonDown(0) && !isSkill1 && !isSkill2 && !isSkill3 && !isSkill4)
         {
-            animator.SetBool("isMove", false);
+            if (!isAttack)
+            {
+                animator.SetBool("isMove", false);
 
-            isMove = false;
-            isAttack = true;
+                isMove = false;
+                isAttack = true;
 
-            animator.SetTrigger("Attack");
+                animator.SetTrigger("Attack");
 
-            Invoke("AttackOut", 0.8f);
+                Invoke("AttackOut", 0.2f);
+            }
         }
-
     }
 
     public void AttackOut()
@@ -135,32 +143,62 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
         isAttack = false;
     }
 
+    public void BaseAtk1_Eff()
+    {
+        StartCoroutine(Play_BaseAtk1_Eff());
+    }
+
+    IEnumerator Play_BaseAtk1_Eff()
+    {
+        BaseAtk_1_Eff.SetActive(true);
+
+        yield return new WaitForSeconds(0.5f);
+
+        BaseAtk_1_Eff.SetActive(false);
+    }
+
+    public void BaseAtk2_Eff()
+    {
+        StartCoroutine(Play_BaseAtk2_Eff());
+    }
+
+    IEnumerator Play_BaseAtk2_Eff()
+    {
+        BaseAtk_2_Eff.SetActive(true);
+
+        yield return new WaitForSeconds(0.5f);
+
+        BaseAtk_2_Eff.SetActive(false);
+    }
+
     public override void Dodge()
     {
-        animator.SetBool("isMove", false);
-        animator.SetTrigger("doDodge");
-        isDodge = true;
-
-        SkillOut();
-
-        Ray ray = mainCam.ScreenPointToRay(Input.mousePosition);
-        RaycastHit rayHit;
-
-        if (Physics.Raycast(ray, out rayHit, 100))
+        if (!isDodge)
         {
-            Vector3 dodgeDirection = rayHit.point - transform.position;
-            dodgeDirection.y = 0;
-            dodgeDirection.Normalize(); // 벡터를 정규화합니다.
-            transform.LookAt(transform.position + dodgeDirection);
+            animator.SetBool("isMove", false);
+            animator.SetTrigger("doDodge");
+            isDodge = true;
+            isMove = false;
 
-            Vector3 dodgeStartPosition = transform.position;
-            Vector3 dodgeEndPosition = transform.position + dodgeDirection * DodgeDistance;
+            SkillOut();
 
-            StartCoroutine(MoveDuring(dodgeStartPosition, dodgeEndPosition, 0.7f));
-            Invoke("DodgeOut", 0.7f);
+            Ray ray = mainCam.ScreenPointToRay(Input.mousePosition);
+            RaycastHit rayHit;
+
+            if (Physics.Raycast(ray, out rayHit, 100))
+            {
+                Vector3 dodgeDirection = rayHit.point - transform.position;
+                dodgeDirection.y = 0;
+                dodgeDirection.Normalize(); // 벡터를 정규화합니다.
+                transform.LookAt(transform.position + dodgeDirection);
+
+                Vector3 dodgeStartPosition = transform.position;
+                Vector3 dodgeEndPosition = transform.position + dodgeDirection * DodgeDistance;
+
+                StartCoroutine(MoveDuring(dodgeStartPosition, dodgeEndPosition, 0.7f));
+                Invoke("DodgeOut", 0.7f);
+            }
         }
-
-
     }
 
     public override void DodgeOut()
@@ -192,7 +230,7 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
 
     public override void Move()
     {
-        if (!isSkill1 && !isSkill2 && !isSkill3 && !isSkill4 && !isAttack)
+        if (!isSkill1 && !isSkill2 && !isSkill3 && !isSkill4 && !isAttack && !isDodge)
         {
             if (isMove)
             {
@@ -258,31 +296,37 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
 
     public override void Skill_2()
     {
-        animator.SetBool("isMove", false);
+        if (!isSkill2)
+        {
+            animator.SetBool("isMove", false);
 
-        isMove = false;
-        isSkill2 = true;
+            isMove = false;
+            isSkill2 = true;
 
-        animator.SetTrigger("doSkill2");
+            animator.SetTrigger("doSkill2");
 
-        Invoke("SkillOut", 2.3f);
+            Invoke("SkillOut", 2.3f);
+        }
     }
 
     public override void Skill_3()
     {
-        animator.SetBool("isMove", false);
-
-        isMove = false;
-        isSkill3 = true;
-        animator.SetTrigger("doSkill3");
-
-        Ray ray = mainCam.ScreenPointToRay(Input.mousePosition);
-        RaycastHit rayHit;
-
-        if (Physics.Raycast(ray, out rayHit, 100))
+        if (!isSkill3)
         {
-            this.eSkillRayHit = rayHit;
-            Invoke("Skill03_Event01", 0.3f);
+            animator.SetBool("isMove", false);
+
+            isMove = false;
+            isSkill3 = true;
+            animator.SetTrigger("doSkill3");
+
+            Ray ray = mainCam.ScreenPointToRay(Input.mousePosition);
+            RaycastHit rayHit;
+
+            if (Physics.Raycast(ray, out rayHit, 100))
+            {
+                this.eSkillRayHit = rayHit;
+                Invoke("Skill03_Event01", 0.3f);
+            }
         }
     }
 
@@ -304,27 +348,30 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
 
     public override void Skill_4()
     {
-        animator.SetBool("isMove", false);
-
-        isMove = false;
-        isSkill4 = true;
-
-        Ray ray = mainCam.ScreenPointToRay(Input.mousePosition);
-        RaycastHit rayHit;
-
-        if (Physics.Raycast(ray, out rayHit, 100))
+        if (!isSkill4)
         {
-            Vector3 dodgeDirection = rayHit.point - transform.position;
-            dodgeDirection.y = 0;
-            dodgeDirection.Normalize(); // 벡터를 정규화합니다.
-            transform.LookAt(transform.position + dodgeDirection);
+            animator.SetBool("isMove", false);
 
-            Vector3 dodgeStartPosition = transform.position;
-            Vector3 dodgeEndPosition = transform.position + dodgeDirection * 25f;
+            isMove = false;
+            isSkill4 = true;
 
-            StartCoroutine(MoveDuring(dodgeStartPosition, dodgeEndPosition, 0.1f));
-            animator.SetTrigger("doSkill4");
-            Invoke("SkillOut", 1f);
+            Ray ray = mainCam.ScreenPointToRay(Input.mousePosition);
+            RaycastHit rayHit;
+
+            if (Physics.Raycast(ray, out rayHit, 100))
+            {
+                Vector3 dodgeDirection = rayHit.point - transform.position;
+                dodgeDirection.y = 0;
+                dodgeDirection.Normalize(); // 벡터를 정규화합니다.
+                transform.LookAt(transform.position + dodgeDirection);
+
+                Vector3 dodgeStartPosition = transform.position;
+                Vector3 dodgeEndPosition = transform.position + dodgeDirection * 25f;
+
+                StartCoroutine(MoveDuring(dodgeStartPosition, dodgeEndPosition, 0.1f));
+                animator.SetTrigger("doSkill4");
+                Invoke("SkillOut", 1f);
+            }
         }
     }
 
@@ -334,9 +381,5 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
         isSkill2 = false;
         isSkill3 = false;
         isSkill4 = false;
-
     }
-
-
-
 }
