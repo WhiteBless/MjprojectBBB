@@ -37,6 +37,11 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
     public GameObject Skill2Atk_2_Eff;
     public GameObject Skill2Atk_3_Eff;
 
+    public GameObject Skill3Atk_1_Eff;
+    public GameObject Skill3Atk_2_Eff;
+    public Transform Skill3Atk_2_Point;
+    public GameObject Skill3Atk_3_Eff;
+
     public GameObject Skill4Atk_1_Eff;
     public GameObject Skill4Atk_2_Eff;
     public GameObject Skill4Atk_3_Eff;
@@ -49,6 +54,7 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
     void Start()
     {
         assassin_ObjPoolRef = GetComponent<Assassin_ObjPool>();
+        
     }
 
     // Update is called once per frame
@@ -384,24 +390,7 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
         Skill2Atk_3_Eff.SetActive(false);
     }
 
-    public void Skill4Atk1_Eff()
-    {
-        StartCoroutine(Play_Skill4Atk_1_Eff());
-    }
-
-
-    IEnumerator Play_Skill4Atk_1_Eff()
-    {
-        Skill4Atk_1_Eff.SetActive(true);
-        Skill4Atk_2_Eff.SetActive(true);
-        Skill4Atk_3_Eff.SetActive(true);
-
-        yield return new WaitForSeconds(0.3f);
-
-        Skill4Atk_1_Eff.SetActive(false);
-        Skill4Atk_2_Eff.SetActive(false);
-        Skill4Atk_3_Eff.SetActive(false);
-    }
+    
 
     public override void Skill_3()
     {
@@ -440,6 +429,19 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
         Invoke("SkillOut", 0.7f);
     }
 
+    public void Skill3Atk2_Eff()
+    {
+        StartCoroutine(Play_Skill3Atk_2_Eff());
+    }
+
+
+    IEnumerator Play_Skill3Atk_2_Eff()
+    {
+        Skill3Atk_3_Eff.SetActive(true);
+        yield return new WaitForSeconds(1f);
+        Skill3Atk_3_Eff.SetActive(false);
+    }
+
     public override void Skill_4()
     {
         if (!isSkill4)
@@ -467,6 +469,25 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
                 Invoke("SkillOut", 1f);
             }
         }
+    }
+
+    public void Skill4Atk1_Eff()
+    {
+        StartCoroutine(Play_Skill4Atk_1_Eff());
+    }
+
+
+    IEnumerator Play_Skill4Atk_1_Eff()
+    {
+        Skill4Atk_1_Eff.SetActive(true);
+        Skill4Atk_2_Eff.SetActive(true);
+        Skill4Atk_3_Eff.SetActive(true);
+
+        yield return new WaitForSeconds(0.3f);
+
+        Skill4Atk_1_Eff.SetActive(false);
+        Skill4Atk_2_Eff.SetActive(false);
+        Skill4Atk_3_Eff.SetActive(false);
     }
 
     public void SkillOut()
