@@ -12719,7 +12719,7 @@ MonoBehaviour:
       outWeight: 0.33333334
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 0
+    m_RotationOrder: 4
   GraphTimeMultiplier: 2.1
   IsLoop: 0
 --- !u!1 &1113951290748108
@@ -14906,7 +14906,7 @@ MonoBehaviour:
       outWeight: 0.33333334
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 0
+    m_RotationOrder: 4
   GraphTimeMultiplier: 1
   IsLoop: 0
 --- !u!1 &1262629754953478
@@ -24749,6 +24749,7 @@ MonoBehaviour:
   - {fileID: 1520491680923526}
   - {fileID: 1135512664567430}
   - {fileID: 1320518256823182}
+  mesh: {fileID: 0}
 --- !u!114 &114754367993015426
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24763,6 +24764,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Force: 2
   ForceMode: 1
+  fallSpeed: 0
 --- !u!114 &114469342690597858
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24775,6 +24777,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e8686cad5439e84383ba590d814d1e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Target: {fileID: 0}
 --- !u!1 &1635796736741406
 GameObject:
   m_ObjectHideFlags: 0
@@ -38267,6 +38270,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e8686cad5439e84383ba590d814d1e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Target: {fileID: 0}
 --- !u!1 &1903030858560352
 GameObject:
   m_ObjectHideFlags: 0
@@ -38489,6 +38493,7 @@ MonoBehaviour:
   - {fileID: 1010138814366116}
   - {fileID: 1655257056790386}
   - {fileID: 1593299302785332}
+  mesh: {fileID: 0}
 --- !u!114 &114475462030575800
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -38503,6 +38508,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Force: 2
   ForceMode: 1
+  fallSpeed: 0
 --- !u!114 &114662555395171156
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -38515,6 +38521,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e8686cad5439e84383ba590d814d1e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Target: {fileID: 0}
 --- !u!1 &1905695953492976
 GameObject:
   m_ObjectHideFlags: 0
