@@ -140,6 +140,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SK_ThrowKnife
       objectReference: {fileID: 0}
+    - target: {fileID: 4847801805487409400, guid: e0990c7521b272740b0a363160bfe878, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5191817637254091330, guid: e0990c7521b272740b0a363160bfe878, type: 3}
       propertyPath: m_LocalScale.x
       value: 20
@@ -511,6 +515,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Slash_fx_07
       objectReference: {fileID: 0}
+    - target: {fileID: 2125711832678808523, guid: af4a3bb3fd67605468d0c2e26b2d043a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4999698920159369012, guid: af4a3bb3fd67605468d0c2e26b2d043a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -694,6 +702,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Effect25
       objectReference: {fileID: 0}
+    - target: {fileID: 190162, guid: c6342acfccda5a94bae465531baf3640, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 460076, guid: c6342acfccda5a94bae465531baf3640, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -767,6 +779,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SK_RavensS1_Style (1) Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 5111505084308484729, guid: 868fb12ac4526c043a4299b1e0f33f1d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5594709226640320707, guid: 868fb12ac4526c043a4299b1e0f33f1d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -807,7 +823,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5345455115139621354, guid: 868fb12ac4526c043a4299b1e0f33f1d, type: 3}
+    - {fileID: 5345455115139621355, guid: 868fb12ac4526c043a4299b1e0f33f1d, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -1064,7 +1082,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6507792856613568699, guid: 2ec2905fef3cdf44ca120d567a410c3f, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6507792857636665824, guid: 2ec2905fef3cdf44ca120d567a410c3f, type: 3}
       propertyPath: m_Controller

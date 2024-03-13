@@ -396,7 +396,7 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
         Skill4Atk_2_Eff.SetActive(true);
         Skill4Atk_3_Eff.SetActive(true);
 
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.3f);
 
         Skill4Atk_1_Eff.SetActive(false);
         Skill4Atk_2_Eff.SetActive(false);
