@@ -30,6 +30,16 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
 
     public GameObject BaseAtk_1_Eff;
     public GameObject BaseAtk_2_Eff;
+    public GameObject BaseAtk_3_Eff;
+    public GameObject BaseAtk_4_Eff;
+
+    public GameObject Skill2Atk_1_Eff;
+    public GameObject Skill2Atk_2_Eff;
+    public GameObject Skill2Atk_3_Eff;
+
+    public GameObject Skill4Atk_1_Eff;
+    public GameObject Skill4Atk_2_Eff;
+    public GameObject Skill4Atk_3_Eff;
 
     void Awake()
     {
@@ -171,6 +181,34 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
         BaseAtk_2_Eff.SetActive(false);
     }
 
+    public void BaseAtk3_Eff()
+    {
+        StartCoroutine(Play_BaseAtk3_Eff());
+    }
+
+    IEnumerator Play_BaseAtk3_Eff()
+    {
+        BaseAtk_3_Eff.SetActive(true);
+
+        yield return new WaitForSeconds(0.5f);
+
+        BaseAtk_3_Eff.SetActive(false);
+    }
+
+    public void BaseAtk4_Eff()
+    {
+        StartCoroutine(Play_BaseAtk4_Eff());
+    }
+
+    IEnumerator Play_BaseAtk4_Eff()
+    {
+        BaseAtk_4_Eff.SetActive(true);
+
+        yield return new WaitForSeconds(0.5f);
+
+        BaseAtk_4_Eff.SetActive(false);
+    }
+
     public override void Dodge()
     {
         if (!isDodge)
@@ -269,15 +307,7 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
         StartCoroutine("ShurikenShot");
     }
 
-    public void Skill01_Event02()
-    {
-        StartCoroutine("ShurikenShot");
-    }
-
-    public void Skill01_Event03()
-    {
-        StartCoroutine("ShurikenShot");
-    }
+    
     IEnumerator ShurikenShot()
     {
         GameObject shuriken = assassin_ObjPoolRef.ShurikenFromPool();
@@ -307,6 +337,70 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
 
             Invoke("SkillOut", 2.3f);
         }
+    }
+
+    public void Skill2Atk1_Eff()
+    {
+        StartCoroutine(Play_Skill2Atk_1_Eff());
+    }
+
+
+    IEnumerator Play_Skill2Atk_1_Eff()
+    {
+        Skill2Atk_1_Eff.SetActive(true);
+
+        yield return new WaitForSeconds(0.2f);
+
+        Skill2Atk_1_Eff.SetActive(false);
+    }
+
+    public void Skill2Atk2_Eff()
+    {
+        StartCoroutine(Play_Skill2Atk_2_Eff());
+    }
+
+
+    IEnumerator Play_Skill2Atk_2_Eff()
+    {
+        Skill2Atk_2_Eff.SetActive(true);
+
+        yield return new WaitForSeconds(0.3f);
+
+        Skill2Atk_2_Eff.SetActive(false);
+    }
+
+    public void Skill2Atk3_Eff()
+    {
+        StartCoroutine(Play_Skill2Atk_3_Eff());
+    }
+
+
+    IEnumerator Play_Skill2Atk_3_Eff()
+    {
+        Skill2Atk_3_Eff.SetActive(true);
+
+        yield return new WaitForSeconds(0.3f);
+
+        Skill2Atk_3_Eff.SetActive(false);
+    }
+
+    public void Skill4Atk1_Eff()
+    {
+        StartCoroutine(Play_Skill4Atk_1_Eff());
+    }
+
+
+    IEnumerator Play_Skill4Atk_1_Eff()
+    {
+        Skill4Atk_1_Eff.SetActive(true);
+        Skill4Atk_2_Eff.SetActive(true);
+        Skill4Atk_3_Eff.SetActive(true);
+
+        yield return new WaitForSeconds(0.1f);
+
+        Skill4Atk_1_Eff.SetActive(false);
+        Skill4Atk_2_Eff.SetActive(false);
+        Skill4Atk_3_Eff.SetActive(false);
     }
 
     public override void Skill_3()
