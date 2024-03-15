@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using static Define;
 public enum ReaperState
 {
     RaidStart,      // 0
@@ -114,13 +114,26 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
     [SerializeField]
     Transform DarkBall_Pos;
     [SerializeField]
-    GameObject Pattern_Pillar;
+    GameObject Pattern_Pillar_Normal;
+    [SerializeField]
+    GameObject Pattern_Pillar_Awakening;
     [SerializeField]
     float DarkBall_Delay;
     [SerializeField]
     float Finish_DarkBall;
     [SerializeField]
     GameObject[] DarkBall_Pilar;
+    [SerializeField]
+    GameObject[] DarkBall_Pilar_Awakening;
+    [SerializeField]
+    GameObject[] DarkBall_Awakening;
+    [SerializeField]
+    GameObject DarkBall_Soul_Eff;
+    [SerializeField]
+    int Awakening_Ball_Index;
+    [SerializeField]
+    float DarkBall_Razer_Time;
+
 
     #region Reaper_Rotate
     public override void LookAtPlayer()
@@ -303,9 +316,7 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
                 switch (NextSkillNum)
                 {
                     case 0:
-                        // 이동
-                        isMove = true;
-                        reaperState = ReaperState.Move;
+                        StartCoroutine(BossMove());
                         break;
                     case 1:
                          StartCoroutine(Teleport());
@@ -336,9 +347,7 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
                 switch (NextSkillNum)
                 {
                     case 0:
-                        // 이동
-                        isMove = true;
-                        reaperState = ReaperState.Move;
+                        StartCoroutine(BossMove());
                         break;
                     case 1:
                         StartCoroutine(Teleport());
@@ -404,7 +413,9 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
     {
         reaperState = ReaperState.Teleport;
         Reaper_animator.SetTrigger("Teleport");
-
+        // 이동 멈춤
+        isMove = false;
+        Reaper_animator.SetBool("isMove", isMove);
         // 플레이어 주위에서 랜덤한 각도와 거리로 텔레포트
         float randomAngle = Random.Range(0f, 360f);
 
@@ -433,6 +444,30 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
 
     #endregion
 
+    #region Boss_Move
+    IEnumerator BossMove()
+    {
+        yield return new WaitForSeconds(1.4f);
+        // 이동
+        isMove = true;
+        reaperState = ReaperState.Move;
+    }
+    #endregion
+
+    #region Boss_Awake
+    void AwakeBoss()
+    {
+        // 각성 상태
+        reaperAwakeState = Reaper_Awake.AWAKENING;
+        Reaper_animator.SetTrigger("Awakening");
+        nextActTime = 1.0f;
+        // 각성 기둥 활성화
+        Pattern_Pillar_Awakening.SetActive(true);
+        // 일반 기둥 비활성화
+        Pattern_Pillar_Normal.SetActive(false);
+    }
+    #endregion
+
     #region Boss_Atk_0
     // TODO ## Reaper_BaseAtk_0
     IEnumerator BaseAtk_0()
@@ -451,8 +486,7 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
         isLock = true;
 
         yield return new WaitForSeconds(Reaper_animator.GetCurrentAnimatorStateInfo(0).length - BaseAtk_0_LockTime);
-        // Debug.Log(Reaper_animator.GetCurrentAnimatorStateInfo(0).length);
-        isLock = false;
+
 
         // 4초 후 공격 가능
         yield return new WaitForSeconds(nextActTime);
@@ -461,11 +495,7 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
         // 각성
         if (boss_hp_ctrl.isAwakening == true && reaperAwakeState == Reaper_Awake.NORMAL)
         {
-            // 각성 상태
-            reaperAwakeState = Reaper_Awake.AWAKENING;
-            Reaper_animator.SetTrigger("Awakening");
-            nextActTime = 1.0f;
-            // 다음행동 시간 + 1
+            AwakeBoss();
             yield return new WaitForSeconds(nextActTime + 1.0f);
         }
 
@@ -491,7 +521,7 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
         BaseAtk_0_Eff.SetActive(true);
 
         yield return new WaitForSeconds(2.0f);
-
+        isLock = false;
         BaseAtk_0_Eff.SetActive(false);
     }
 
@@ -515,23 +545,15 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
         isLock = true;
 
         yield return new WaitForSeconds(Reaper_animator.GetCurrentAnimatorStateInfo(0).length - BaseAtk_1_LockTime);
-        Debug.Log(Reaper_animator.GetCurrentAnimatorStateInfo(0).length);
-        isLock = false;
 
         // 4초 후 실행
         yield return new WaitForSeconds(nextActTime);
-
         // 공격 가능
         isAttacking = false;
-
         // 각성
         if (boss_hp_ctrl.isAwakening == true && reaperAwakeState == Reaper_Awake.NORMAL)
         {
-            // 각성 상태
-            reaperAwakeState = Reaper_Awake.AWAKENING;
-            Reaper_animator.SetTrigger("Awakening");
-            nextActTime = 1.0f;
-           
+            AwakeBoss();
             // 다음행동 시간 + 1
             yield return new WaitForSeconds(nextActTime + 1.0f);
         }
@@ -559,7 +581,7 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
         BaseAtk_1_Eff.SetActive(true);
 
         yield return new WaitForSeconds(2.0f);
-
+        isLock = false;
         BaseAtk_1_Eff.SetActive(false);
     }
     #endregion
@@ -654,10 +676,7 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
             // 각성
             if (boss_hp_ctrl.isAwakening == true && reaperAwakeState == Reaper_Awake.NORMAL)
             {
-                // 각성 상태
-                reaperAwakeState = Reaper_Awake.AWAKENING;
-                Reaper_animator.SetTrigger("Awakening");
-                nextActTime = 1.0f;
+                AwakeBoss();
                 // 다음행동 시간 + 1
                 yield return new WaitForSeconds(nextActTime + 1.0f);
             }
@@ -799,8 +818,7 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
         Reaper_animator.SetBool("isMove", isMove);
 
         // 애니메이션이 끝나고 난 뒤
-        yield return new WaitForSeconds(Reaper_animator.GetCurrentAnimatorStateInfo(0).length);
-        // Debug.Log(Reaper_animator.GetCurrentAnimatorStateInfo(0).length);
+        yield return new WaitForSeconds(3.0f);
 
         // 2초 후
         yield return new WaitForSeconds(2.0f);
@@ -811,14 +829,11 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
         // 각성
         if (boss_hp_ctrl.isAwakening == true && reaperAwakeState == Reaper_Awake.NORMAL)
         {
-            // 각성 상태
-            reaperAwakeState = Reaper_Awake.AWAKENING;
-            Reaper_animator.SetTrigger("Awakening");
-            nextActTime = 1.0f;
+            AwakeBoss();
             // 다음행동 시간 + 1
             yield return new WaitForSeconds(nextActTime + 1.0f);
         }
-
+        
         // 거리에 따른 다음 공격
         if (TargetDistance > Skill_Think_Range && isAttacking == false)
         {
@@ -826,7 +841,7 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
         }
         else if (TargetDistance <= Skill_Think_Range && isAttacking == false)
         {
-            Reaper_Short_nextAct(2);
+            Reaper_Short_nextAct(10);
         }
     }
 
@@ -984,16 +999,32 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
 
     IEnumerator Play_DarkSoul_Eff()
     {
-        Reaper_animator.SetFloat("DarkSoulSpeed", 0.2f);
-        DarkSoul_Skill_Eff.SetActive(true);
-        
+        if (reaperState == ReaperState.Dark_Soul) // 각성 전 
+        {
+            Reaper_animator.SetFloat("DarkSoulSpeed", 0.2f);
+            DarkSoul_Skill_Eff.SetActive(true);
 
-        yield return new WaitForSeconds(DarkSoul_Running_Time - 4.0f);
-        Reaper_animator.SetFloat("DarkSoulSpeed", 1.0f);
 
-        
-        yield return new WaitForSeconds(2.0f);
-        DarkSoul_Skill_Eff.SetActive(false);
+            yield return new WaitForSeconds(DarkSoul_Running_Time - 4.0f);
+            Reaper_animator.SetFloat("DarkSoulSpeed", 1.0f);
+
+
+            yield return new WaitForSeconds(2.0f);
+            DarkSoul_Skill_Eff.SetActive(false);
+        }
+        else if (reaperState == ReaperState.Dark_Ball)// 각성 후
+        {
+            Reaper_animator.SetFloat("DarkSoulSpeed", 0.1f);
+            DarkBall_Soul_Eff.SetActive(true);
+
+
+            yield return new WaitForSeconds(DarkBall_Razer_Time);
+            Reaper_animator.SetFloat("DarkSoulSpeed", 1.0f);
+
+
+            yield return new WaitForSeconds(2.0f);
+            DarkBall_Soul_Eff.SetActive(false);
+        }
     }
 
     #endregion
@@ -1010,6 +1041,7 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
                 DarkBall_Pilar[i].GetComponent<BoxCollider>().enabled = true;
                 DarkBall_Pilar[i].GetComponent<DarkBall_Pilar_Ctrl>().Mat.SetColor("_EmissionColor",
                     new Color(83, 34, 191) * 0.01f);
+                DarkBall_Pilar[i].GetComponent<DarkBall_Pilar_Ctrl>().isEnter = false;
             }
 
             // 상태 변경
@@ -1061,17 +1093,111 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
         // 각성 후 어둠의 구체
         else if (reaperAwakeState == Reaper_Awake.AWAKENING)
         {
+            for (int i = 0; i < DarkBall_Pilar_Awakening.Length; i++)
+            {
+                DarkBall_Pilar_Awakening[i].GetComponent<BoxCollider>().enabled = true;
+                
+                // 색 초기화
+                if (i == 0) // 1시 파랑
+                {
+                    DarkBall_Pilar_Awakening[i].GetComponent<DarkBall_Pilar_Ctrl>().Mat.SetColor("_EmissionColor",
+                     new Color(0, 9, 191) * 0.01f);
+
+                    DarkBall_Pilar_Awakening[i].GetComponent<DarkBall_Pilar_Ctrl>().pilarColor = Reaper_Pattern_Color.BLUE;
+                }
+                else if (i == 1) // 5시 노랑
+                {
+                    DarkBall_Pilar_Awakening[i].GetComponent<DarkBall_Pilar_Ctrl>().Mat.SetColor("_EmissionColor",
+                    new Color(191, 157, 34) * 0.01f);
+
+                    DarkBall_Pilar_Awakening[i].GetComponent<DarkBall_Pilar_Ctrl>().pilarColor = Reaper_Pattern_Color.YELLOW;
+                }
+                else if (i == 2) // 7시 초록
+                {
+                    DarkBall_Pilar_Awakening[i].GetComponent<DarkBall_Pilar_Ctrl>().Mat.SetColor("_EmissionColor",
+                    new Color(3, 191, 0) * 0.01f);
+
+                    DarkBall_Pilar_Awakening[i].GetComponent<DarkBall_Pilar_Ctrl>().pilarColor = Reaper_Pattern_Color.GREEN;
+                }
+                else // i = 3 11시 빨강
+                {
+                    DarkBall_Pilar_Awakening[i].GetComponent<DarkBall_Pilar_Ctrl>().Mat.SetColor("_EmissionColor",
+                    new Color(191, 0, 1) * 0.01f);
+
+                    DarkBall_Pilar_Awakening[i].GetComponent<DarkBall_Pilar_Ctrl>().pilarColor = Reaper_Pattern_Color.RED;
+                }
+
+                DarkBall_Pilar_Awakening[i].GetComponent<DarkBall_Pilar_Ctrl>().isEnter = false;
+            }
             // 상태 변경
             reaperState = ReaperState.Dark_Ball;
             // 애니메이션 작동
             Reaper_animator.SetTrigger("Teleport");
+            // 중앙으로 이동
+            this.transform.position = Center_Tr.position;
             isAttacking = true;
             // 이동 멈춤
             isMove = false;
             Reaper_animator.SetBool("isMove", isMove);
-        }
+            Slow_RotSpeed = 6.5f;
 
-        yield return new WaitForSeconds(DarkSoul_Running_Time - 4.0f);
+            yield return new WaitForSeconds(DarkBall_Delay);
+            // 애니메이션 실행_1
+            Reaper_animator.SetTrigger("Dark_Soul");
+
+            // 빨강 구체 생성
+            yield return new WaitForSeconds(DarkBall_Delay);
+            // 어둠의 구체 활성화
+            DarkBall_Awakening[Awakening_Ball_Index].gameObject.SetActive(true);
+            // 어둠의 구체 생성 위치 초기화
+            DarkBall_Awakening[Awakening_Ball_Index].transform.position = DarkBall_Pos.position;
+            // 인덱스 증가
+            Awakening_Ball_Index++;
+
+            // 파랑 구체 생성
+            yield return new WaitForSeconds(DarkBall_Delay);
+            // 어둠의 구체 활성화
+            DarkBall_Awakening[Awakening_Ball_Index].gameObject.SetActive(true);
+            // 어둠의 구체 생성 위치 초기화
+            DarkBall_Awakening[Awakening_Ball_Index].transform.position = DarkBall_Pos.position;
+            // 인덱스 증가
+            Awakening_Ball_Index++;
+
+            // 노랑 구체 생성
+            yield return new WaitForSeconds(DarkBall_Delay);
+            // 어둠의 구체 활성화
+            DarkBall_Awakening[Awakening_Ball_Index].gameObject.SetActive(true);
+            // 어둠의 구체 생성 위치 초기화
+            DarkBall_Awakening[Awakening_Ball_Index].transform.position = DarkBall_Pos.position;
+            // 인덱스 증가
+            Awakening_Ball_Index++;
+
+            // 초록 구체 생성
+            yield return new WaitForSeconds(DarkBall_Delay);
+            // 어둠의 구체 활성화
+            DarkBall_Awakening[Awakening_Ball_Index].gameObject.SetActive(true);
+            // 어둠의 구체 생성 위치 초기화
+            DarkBall_Awakening[Awakening_Ball_Index].transform.position = DarkBall_Pos.position;
+            // 인덱스 증가
+            Awakening_Ball_Index = 0;
+
+
+            yield return new WaitForSeconds(DarkBall_Razer_Time - (4 * DarkBall_Delay));
+
+            // 공격 중
+            isAttacking = false;
+            Slow_RotSpeed = 0.0f;
+
+            // 거리에 따른 다음 공격
+            if (TargetDistance > Skill_Think_Range && isAttacking == false)
+            {
+                Reaper_Long_nextAct(4);
+            }
+            else if (TargetDistance <= Skill_Think_Range && isAttacking == false)
+            {
+                Reaper_Short_nextAct(10);
+            }
+        }
     }
 
     public void DarkBall_Eff()
@@ -1082,9 +1208,18 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
     IEnumerator Play_DarkBall_Eff()
     {
         yield return new WaitForSeconds(0);
-        // 어둠의 구체 가져오기
-        GameObject DarkBall = reaper_ObjPoolRef.GetDarkBallFromPool();
-        DarkBall.transform.position = DarkBall_Pos.position;
+
+        // 각성 전 
+        if (reaperAwakeState == Reaper_Awake.NORMAL)
+        {
+            // 어둠의 구체 가져오기
+            GameObject DarkBall = reaper_ObjPoolRef.GetDarkBallFromPool();
+            DarkBall.transform.position = DarkBall_Pos.position;
+        }
+        else // 각성 후
+        {
+
+        }
     }
     #endregion
 }
