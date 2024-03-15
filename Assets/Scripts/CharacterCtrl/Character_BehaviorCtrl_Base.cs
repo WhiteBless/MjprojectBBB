@@ -19,4 +19,6 @@ public abstract class Character_BehaviorCtrl_Base : MonoBehaviour
     public abstract void Skill_3();
 
     public abstract void Skill_4();
+
+    public abstract void GetInput();
 }
