@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Define;
 
 public class Reaper_ObjPool : MonoBehaviour
 {
@@ -74,7 +75,10 @@ public class Reaper_ObjPool : MonoBehaviour
 
             // 어둠의 구체 오브젝트 풀 생성
             GameObject obj_5 = Instantiate(DarkBall_objectPrefab);
-            obj_5.GetComponent<DarkBall_Ctrl>().Target = GameObject.FindWithTag("Player");
+            // 구체의 타켓 설정
+            // obj_5.GetComponent<DarkBall_Ctrl>().Target = GameObject.FindWithTag("Player");
+            // 구체 속성
+            obj_5.GetComponent<DarkBall_Ctrl>().ballColor = Reaper_Pattern_Color.NORMAL;
             obj_5.transform.Rotate(Vector3.zero);
             obj_5.SetActive(false);
             obj_5.transform.parent = DarkBall_Parent;
@@ -197,7 +201,8 @@ public class Reaper_ObjPool : MonoBehaviour
         // 모든 오브젝트가 사용 중일 경우 새로운 오브젝트 생성 후 반환
         GameObject newObj = Instantiate(DarkBall_objectPrefab);
         newObj.SetActive(true);
-        newObj.GetComponent<DarkBall_Ctrl>().Target = GameObject.FindWithTag("Player");
+        // newObj.GetComponent<DarkBall_Ctrl>().Target = GameObject.FindWithTag("Player");
+        newObj.GetComponent<DarkBall_Ctrl>().ballColor = Reaper_Pattern_Color.NORMAL;
         DarkBall_objectPool.Add(newObj);
         newObj.transform.parent = DarkBall_Parent;
         return newObj;

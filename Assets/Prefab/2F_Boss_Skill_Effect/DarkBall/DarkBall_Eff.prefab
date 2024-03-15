@@ -440,7 +440,7 @@ MonoBehaviour:
       outWeight: 0.33333334
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 0
+    m_RotationOrder: 4
   GraphTimeMultiplier: 2
   IsLoop: 0
 --- !u!82 &82015083716301718
@@ -10019,9 +10019,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b99de9c9919a2b245b18aca40623ad2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ballColor: 0
   Target: {fileID: 0}
   DarkBall_RotSpeed: 5
-  DarkBall_Speed: 17
+  DarkBall_Speed: 16
+  ExplosionTime: 10
 --- !u!135 &8679146775841096243
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -10041,5 +10043,5 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.1
+  m_Radius: 1
   m_Center: {x: 0, y: 0, z: 0}

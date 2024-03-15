@@ -28,4 +28,13 @@ public class Define
         Floor_4,
         Floor_5,
     }
+
+    public enum Reaper_Pattern_Color
+    {
+        NORMAL,
+        RED,
+        YELLOW,
+        GREEN,
+        BLUE,
+    }
 }
