@@ -22,9 +22,21 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
     private bool isDodge;
     private bool isAttack;
     public bool isSkill1;
-    private bool isSkill2;
-    private bool isSkill3;
-    private bool isSkill4;
+    public bool isSkill2;
+    public bool isSkill3;
+    public bool isSkill4;
+
+    public bool skill1;
+    public bool skill2;
+    public bool skill3;
+    public bool skill4;
+    public bool spaceDown;
+
+    public Skill_Test skillManager1;
+    public Skill_Test skillManager2;
+    public Skill_Test skillManager3;
+    public Skill_Test skillManager4;
+    public Skill_Test skillManager5;
 
     RaycastHit eSkillRayHit;
 
@@ -39,7 +51,7 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
 
     public GameObject Skill3Atk_1_Eff;
     public GameObject Skill3Atk_2_Eff;
-    public Transform Skill3Atk_2_Point;
+    public Transform Skill3Atk_3_Point;
     public GameObject Skill3Atk_3_Eff;
 
     public GameObject Skill4Atk_1_Eff;
@@ -104,35 +116,43 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
                 SetDestination(hit.point);
             }
         }
-
         Move();
         Attack();
-
-        if (Input.GetKey(KeySetting.Keys[KeyAction.Skill1]))
+        GetInput();
+        if (skill1)
         {
             Skill_1();
         }
 
-        if (Input.GetKey(KeySetting.Keys[KeyAction.Skill2]))
+        if (skill2)
         {
             Skill_2();
         }
 
-        if (Input.GetKey(KeySetting.Keys[KeyAction.Skill3]))
+        if (skill3)
         {
             Skill_3();
         }
 
-        if (Input.GetKey(KeySetting.Keys[KeyAction.Skill4]))
+        if (skill4)
         {
             Skill_4();
         }
 
-        if (Input.GetKey(KeySetting.Keys[KeyAction.Dodge]))
+        if (spaceDown)
         {
             Dodge();
         }
+    }
 
+    public override void GetInput()
+    {
+        spaceDown = Input.GetKey(KeySetting.Keys[KeyAction.Dodge]);
+
+        skill1 = Input.GetKey(KeySetting.Keys[KeyAction.Skill1]);
+        skill2 = Input.GetKey(KeySetting.Keys[KeyAction.Skill2]);
+        skill3 = Input.GetKey(KeySetting.Keys[KeyAction.Skill3]);
+        skill4 = Input.GetKey(KeySetting.Keys[KeyAction.Skill4]);
     }
 
     public override void Attack()
@@ -217,7 +237,7 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
 
     public override void Dodge()
     {
-        if (!isDodge)
+        if (!isDodge && !skillManager5.isDodgeCT)
         {
             animator.SetBool("isMove", false);
             animator.SetTrigger("doDodge");
@@ -293,7 +313,7 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
 
     public override void Skill_1()
     {
-        if (!isSkill1)
+        if (!isSkill1 && !isSkill2 && !isSkill3 && !isSkill4 && !isAttack && !isDodge && !skillManager1.isSkill1CT) 
         {
             animator.SetBool("isMove", false);
 
@@ -302,9 +322,20 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
 
             animator.SetTrigger("doSkill1");
 
-            //attack_Collider.Q_Use();
+            Ray ray = mainCam.ScreenPointToRay(Input.mousePosition);
+            RaycastHit rayHit;
 
-            Invoke("SkillOut", 2f);
+            if (Physics.Raycast(ray, out rayHit, 100))
+            {
+                Vector3 dodgeDirection = rayHit.point - transform.position;
+                dodgeDirection.y = 0;
+                dodgeDirection.Normalize(); // 벡터를 정규화합니다.
+                transform.LookAt(transform.position + dodgeDirection);
+            }
+
+
+
+            //attack_Collider.Q_Use();
         }
     }
 
@@ -332,7 +363,7 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
 
     public override void Skill_2()
     {
-        if (!isSkill2)
+        if (!isSkill1 && !isSkill2 && !isSkill3 && !isSkill4 && !isAttack && !isDodge && !skillManager2.isSkill2CT)
         {
             animator.SetBool("isMove", false);
 
@@ -341,7 +372,16 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
 
             animator.SetTrigger("doSkill2");
 
-            Invoke("SkillOut", 2.3f);
+            Ray ray = mainCam.ScreenPointToRay(Input.mousePosition);
+            RaycastHit rayHit;
+
+            if (Physics.Raycast(ray, out rayHit, 100))
+            {
+                Vector3 dodgeDirection = rayHit.point - transform.position;
+                dodgeDirection.y = 0;
+                dodgeDirection.Normalize(); // 벡터를 정규화합니다.
+                transform.LookAt(transform.position + dodgeDirection);
+            }
         }
     }
 
@@ -394,7 +434,7 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
 
     public override void Skill_3()
     {
-        if (!isSkill3)
+        if (!isSkill1 && !isSkill2 && !isSkill3 && !isSkill4 && !isAttack && !isDodge && !skillManager3.isSkill3CT)
         {
             animator.SetBool("isMove", false);
 
@@ -425,8 +465,19 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
         Vector3 dodgeEndPosition = transform.position + dodgeDirection * EskillDistance;
 
         StartCoroutine(MoveDuring(dodgeStartPosition, dodgeEndPosition, 0.2f));
+    }
 
-        Invoke("SkillOut", 0.7f);
+    public void Skill3Atk1_Eff()
+    {
+        StartCoroutine(Play_Skill3Atk_1_Eff());
+    }
+
+
+    IEnumerator Play_Skill3Atk_1_Eff()
+    {
+        Skill3Atk_1_Eff.SetActive(true);
+        yield return new WaitForSeconds(2f);
+        Skill3Atk_1_Eff.SetActive(false);
     }
 
     public void Skill3Atk2_Eff()
@@ -437,14 +488,16 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
 
     IEnumerator Play_Skill3Atk_2_Eff()
     {
+        Vector3 skillEff_Position = transform.position;
+        Skill3Atk_3_Point.transform.position = skillEff_Position;
         Skill3Atk_3_Eff.SetActive(true);
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
         Skill3Atk_3_Eff.SetActive(false);
     }
 
     public override void Skill_4()
     {
-        if (!isSkill4)
+        if (!isSkill1 && !isSkill2 && !isSkill3 && !isSkill4 && !isAttack && !isDodge && !skillManager4.isSkill4CT)
         {
             animator.SetBool("isMove", false);
 
@@ -466,7 +519,6 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
 
                 StartCoroutine(MoveDuring(dodgeStartPosition, dodgeEndPosition, 0.1f));
                 animator.SetTrigger("doSkill4");
-                Invoke("SkillOut", 1f);
             }
         }
     }
