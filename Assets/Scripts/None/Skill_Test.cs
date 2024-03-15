@@ -22,8 +22,16 @@ public class Skill_Test : MonoBehaviour
     public float skillTimes = 30;
     public float getSkillTimes = 0;
 
+    public bool isSkill1CT;
+    public bool isSkill2CT;
+    public bool isSkill3CT;
+    public bool isSkill4CT;
+    public bool isDodgeCT;
+
     public Ninja_CharacterController ninja_CharacterController;
     public InGameSetting inGameSetting;
+
+    public Assassin_Controller assassin_Controller;
     void Start()
     {
         hideSkillTimeTexts = textPros.GetComponent<TextMeshProUGUI>();
@@ -44,61 +52,66 @@ public class Skill_Test : MonoBehaviour
             switch (skillType)
             {
                 case SkillType.Q:
-                    if (getSkillTimes <= 0 && !ninja_CharacterController.isSkill2 && !ninja_CharacterController.isSkill3 && !ninja_CharacterController.isSkill4)
+                    if (!isSkill1CT && !assassin_Controller.isSkill2 && !assassin_Controller.isSkill3 && !assassin_Controller.isSkill4)
                     {
-                        if (skillTimes > 0 && ninja_CharacterController.skill1)
+                        if (skillTimes > 0f && assassin_Controller.skill1)
                         {
                             hideSkillButtons.SetActive(true);
                             getSkillTimes = skillTimes;
                             isHideSkills = true;
+                            isSkill1CT = true;
                         }
                     }
                     break;
 
                 case SkillType.W:
-                    if (getSkillTimes <= 0 && !ninja_CharacterController.isSkill1 && !ninja_CharacterController.isSkill3 && !ninja_CharacterController.isSkill4)
+                    if (!isSkill2CT && !assassin_Controller.isSkill1 && !assassin_Controller.isSkill3 && !assassin_Controller.isSkill4)
                     {
-                        if (skillTimes > 0 && ninja_CharacterController.skill2)
+                        if (skillTimes > 0f && assassin_Controller.skill2)
                         {
                             hideSkillButtons.SetActive(true);
                             getSkillTimes = skillTimes;
                             isHideSkills = true;
+                            isSkill2CT = true;
                         }
                     }
                     break;
 
                 case SkillType.E:
-                    if (getSkillTimes <= 0 && !ninja_CharacterController.isSkill1 && !ninja_CharacterController.isSkill2 && !ninja_CharacterController.isSkill4)
+                    if (!isSkill3CT && !assassin_Controller.isSkill1 && !assassin_Controller.isSkill2 && !assassin_Controller.isSkill4)
                     {
-                        if (skillTimes > 0 && ninja_CharacterController.skill3)
+                        if (skillTimes > 0f && assassin_Controller.skill3)
                         {
                             hideSkillButtons.SetActive(true);
                             getSkillTimes = skillTimes;
                             isHideSkills = true;
+                            isSkill3CT = true;
                         }
                     }
                     break;
 
                 case SkillType.R:
-                    if (getSkillTimes <= 0 && !ninja_CharacterController.isSkill1 && !ninja_CharacterController.isSkill2 && !ninja_CharacterController.isSkill3)
+                    if (!isSkill4CT && !assassin_Controller.isSkill1 && !assassin_Controller.isSkill2 && !assassin_Controller.isSkill3)
                     {
-                        if (skillTimes > 0 && ninja_CharacterController.skill4)
+                        if (skillTimes > 0f && assassin_Controller.skill4)
                         {
                             hideSkillButtons.SetActive(true);
                             getSkillTimes = skillTimes;
                             isHideSkills = true;
+                            isSkill4CT = true;
                         }
                     }
                     break;
 
                 case SkillType.D:
-                    if (getSkillTimes <= 0)
+                    if (getSkillTimes <= 0f)
                     {
-                        if (skillTimes > 0 && ninja_CharacterController.spaceDown)
+                        if (!isDodgeCT && assassin_Controller.spaceDown)
                         {
                             hideSkillButtons.SetActive(true);
                             getSkillTimes = skillTimes;
                             isHideSkills = true;
+                            isDodgeCT = true;
                         }
                     }
                     break;
@@ -118,7 +131,7 @@ public class Skill_Test : MonoBehaviour
     {
         yield return null;
 
-        if (getSkillTimes > 0)
+        if (getSkillTimes > 0f)
         {
             getSkillTimes -= Time.deltaTime;
 
@@ -132,6 +145,16 @@ public class Skill_Test : MonoBehaviour
         {
             isHideSkills = false;
             hideSkillButtons.SetActive(false);
+            ResetCT();
         }
+    }
+
+    private void ResetCT()
+    {
+        isDodgeCT = false;
+        isSkill1CT = false;
+        isSkill2CT = false;
+        isSkill3CT = false;
+        isSkill4CT = false;
     }
 }
