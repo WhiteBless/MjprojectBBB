@@ -9,14 +9,14 @@ public class RFX4_ParticleTrail : MonoBehaviour
 {
     public GameObject Target;
     public Vector2 DefaultSizeMultiplayer = Vector2.one;
-    public float VertexLifeTime;
-    public float TrailLifeTime;
+    public float VertexLifeTime = 2;
+    public float TrailLifeTime = 2;
     public bool UseShaderMaterial;
     public Material TrailMaterial;
     public bool UseColorOverLifeTime = false;
     public Gradient ColorOverLifeTime = new Gradient();
     public RFX4_ShaderProperties colorShaderProperty = RFX4_ShaderProperties._TintColor;
-    public float ColorLifeTime;
+    public float ColorLifeTime = 1;
 
     public bool UseUvAnimation = false;
     public int TilesX = 4;

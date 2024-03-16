@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class ShurikenController : MonoBehaviour
 {
-    public float moveSpeed; // 이동 속도
-    public float maxDistance; // 최대 이동 거리
+    public float moveSpeed = 10f; // 이동 속도
+    public float maxDistance = 30f; // 최대 이동 거리
 
     void Start()
     {
