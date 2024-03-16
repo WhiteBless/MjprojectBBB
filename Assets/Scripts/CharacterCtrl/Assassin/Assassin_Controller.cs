@@ -332,10 +332,6 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
                 dodgeDirection.Normalize(); // 벡터를 정규화합니다.
                 transform.LookAt(transform.position + dodgeDirection);
             }
-
-
-
-            //attack_Collider.Q_Use();
         }
     }
 
@@ -347,7 +343,7 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
     
     IEnumerator ShurikenShot()
     {
-        GameObject shuriken = assassin_ObjPoolRef.ShurikenFromPool();
+        GameObject shuriken = assassin_ObjPoolRef.ShurikenFromPool_Q();
         shuriken.transform.position = firePoint.transform.position; // 발사 위치 설정
         shuriken.transform.Rotate(0, 0, 90);
         shuriken.SetActive(true); // 발사체 활성화
@@ -430,7 +426,40 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
         Skill2Atk_3_Eff.SetActive(false);
     }
 
-    
+    public void Skill02_Event01()
+    {
+        StartCoroutine("ShurikenShot2");
+    }
+
+
+    IEnumerator ShurikenShot2()
+    {
+        GameObject shuriken = assassin_ObjPoolRef.ShurikenFromPool_W();
+        shuriken.transform.position = firePoint.transform.position; // 발사 위치 설정
+        shuriken.transform.Rotate(0, 0, 90);
+        shuriken.SetActive(true); // 발사체 활성화
+
+        Vector3 d2 = shuriken.transform.position - skill_Look.transform.position;
+        d2.y = 0.0f;
+        Quaternion q2 = Quaternion.LookRotation(d2);
+        shuriken.transform.rotation = q2 * Quaternion.Euler(90f, 180f, 0f);
+
+
+        Transform[] children = new Transform[shuriken.transform.childCount];
+        for (int i = 0; i < shuriken.transform.childCount; i++)
+        {
+            children[i] = shuriken.transform.GetChild(i);
+        }
+
+        // 각 자식 오브젝트를 순차적으로 활성화합니다.
+        foreach (Transform child in children)
+        {
+            child.gameObject.SetActive(true);
+            yield return new WaitForSeconds(0.04f);
+        }
+    }
+
+
 
     public override void Skill_3()
     {
