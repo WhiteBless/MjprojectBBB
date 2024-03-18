@@ -6,13 +6,16 @@ using System.Collections.Generic;
 
 public class BossSkillP : MonoBehaviour
 {
+    public Boss_HP_Controller boss_hp_ctrl;
+
     [SerializeField]
     IronGuard_ObjPool objPool;
     public BossAnimator bossAnimator;
     public GameObject gameClearCanvas;
     public RectTransform gameClearCanvasRect; // 게임 클리어 캔버스의 RectTransform
 
-    public HPtest hp;
+    // public HPtest hp;
+    public int IronGuard_MaxHP;
 
     public GameObject SpiritEffect;
     public GameObject JumpEffect;
@@ -79,12 +82,16 @@ public class BossSkillP : MonoBehaviour
 
     void Start()
     {
+        boss_hp_ctrl = GetComponent<Boss_HP_Controller>();
+        // 최대 체력 전달 현재 체력 
+        boss_hp_ctrl.BossCurHP = IronGuard_MaxHP;
+
         StartCoroutine(Think());
     }
 
     void Update()
     {
-        if (hp.isDead) // HPtest 스크립트의 isDead를 사용합니다.
+        if (boss_hp_ctrl.isDead) // HPtest 스크립트의 isDead를 사용합니다.
         {
             StopAllCoroutines();
             return;
@@ -132,7 +139,7 @@ public class BossSkillP : MonoBehaviour
             //    break;
         }
     }
-    // TODO ## IronGuard_Skill1
+    // TODO ## IronGuard_Skill1 검기발사
     #region IronGuard_Skill1
     IEnumerator BossSkill1()
     {
@@ -182,7 +189,7 @@ public class BossSkillP : MonoBehaviour
     }
     #endregion
 
-    // TODO ## IronGuard_Skill2
+    // TODO ## IronGuard_Skill2 점프 어택
     #region IronGuard_Skill2
     IEnumerator BossSkill2()
     {
@@ -535,7 +542,7 @@ public class BossSkillP : MonoBehaviour
 
     #endregion
 
-    // TODO ## IronGuard_Skill3
+    // TODO ## IronGuard_Skill3 9번 찍기
     #region IronGuard_Skill3
     IEnumerator BossSkill3()
     {  
@@ -636,7 +643,7 @@ public class BossSkillP : MonoBehaviour
     }
     #endregion
 
-    // TODO ## IronGuard_Skill4
+    // TODO ## IronGuard_Skill4 랜덤 레이저 
     #region IronGuard_Skill4
     IEnumerator BossSkill4()
     {
@@ -744,7 +751,7 @@ public class BossSkillP : MonoBehaviour
     }
     #endregion
 
-    // TODO ## IronGuard_Skill5
+    // TODO ## IronGuard_Skill5 레이저 전
     #region IronGuard_Skill5
     //IEnumerator BossSkill5()
     //{
