@@ -142,7 +142,7 @@ public class BossSkillP : MonoBehaviour
 
         // Vector3 targetDirection = Target.transform.position - SpiritPos.position;
 
-        Vector3 targetTrDirection = TargetTr.transform.position - SpiritPos.position;
+        Vector3 targetTrDirection = Target.transform.GetChild(0).transform.position - SpiritPos.position;
         // GameObject SpiritEffectPrf = Instantiate(SpiritEffect);
 
         GameObject SpiritEffectPrf = objPool.Get_SpiritSword_ObjectFromPool();
@@ -542,7 +542,7 @@ public class BossSkillP : MonoBehaviour
         Vector3 jumpStartPosition = transform.position;
         Vector3 targetDirection = Target.transform.position - transform.position;
 
-        Vector3 jumpEndAttackVec = Target.transform.position - targetDirection.normalized * 5.0f;
+        Vector3 jumpEndAttackVec = Target.transform.GetChild(0).transform.position - targetDirection.normalized * 5.0f;
 
         // 가이드 라인 표시
 

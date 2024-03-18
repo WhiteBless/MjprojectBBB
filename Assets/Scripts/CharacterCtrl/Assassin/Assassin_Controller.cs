@@ -19,7 +19,7 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
     public float EskillDistance;
 
     private bool isMove;
-    private bool isDodge;
+    public bool isDodge;
     private bool isAttack;
     public bool isSkill1;
     public bool isSkill2;
@@ -74,8 +74,8 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
     {
         firePoint.transform.localRotation = Quaternion.identity;
 
-        if (Input.GetMouseButtonDown(0) || Input.GetKey(KeySetting.Keys[KeyAction.Skill1]) || Input.GetKey(KeySetting.Keys[KeyAction.Skill2])
-             || Input.GetKey(KeySetting.Keys[KeyAction.Skill3]) || Input.GetKey(KeySetting.Keys[KeyAction.Skill4])) //|| skill1 || skill2 || skill3 || skill4|| 
+        if (Input.GetMouseButtonDown(0) || (Input.GetKey(KeySetting.Keys[KeyAction.Skill1]) && !skillManager1.isSkill1CT) || (Input.GetKey(KeySetting.Keys[KeyAction.Skill2]) && !skillManager2.isSkill2CT)
+            || (Input.GetKey(KeySetting.Keys[KeyAction.Skill3]) && !skillManager3.isSkill3CT) || (Input.GetKey(KeySetting.Keys[KeyAction.Skill4]) && !skillManager4.isSkill4CT))//|| skill1 || skill2 || skill3 || skill4|| 
         {
             if (!isAttack && !isDodge && !isSkill1 && !isSkill2 && !isSkill3 && !isSkill4)
             {
@@ -148,7 +148,6 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
     public override void GetInput()
     {
         spaceDown = Input.GetKey(KeySetting.Keys[KeyAction.Dodge]);
-
         skill1 = Input.GetKey(KeySetting.Keys[KeyAction.Skill1]);
         skill2 = Input.GetKey(KeySetting.Keys[KeyAction.Skill2]);
         skill3 = Input.GetKey(KeySetting.Keys[KeyAction.Skill3]);
