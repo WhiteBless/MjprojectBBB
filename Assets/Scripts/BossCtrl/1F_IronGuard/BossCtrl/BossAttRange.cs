@@ -6,6 +6,8 @@ public class BossAttRange : MonoBehaviour
 {
     public GameObject bossHPCanvas;
     public GameObject IronGuard_obj;
+    [SerializeField]
+    BossSkillP BossSkill;
 
     BossAnimator bossAnimator; // BossAnimator 스크립트를 참조하는 변수
 
@@ -13,6 +15,24 @@ public class BossAttRange : MonoBehaviour
     void Start()
     {
         bossAnimator = FindObjectOfType<BossAnimator>(); // 부모 오브젝트의 BossAnimator 컴포넌트를 찾아서 bossAnimator 변수에 할당
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        // 1층 보스 hp ui연결
+        if (other.gameObject.CompareTag("P"))
+        {
+            bossHPCanvas.transform.localScale = Vector3.one;
+
+            BossSkill.Target = other.gameObject.transform.parent.gameObject;
+            BossSkill.boss_hp_ctrl.BossMaxHP = BossSkill.IronGuard_MaxHP;
+            BossSkill.boss_hp_ctrl.BossCurHP = BossSkill.IronGuard_MaxHP;
+
+            bossHPCanvas.GetComponent<BossHP_UI_Ctrl>().BossMax_HP = BossSkill.IronGuard_MaxHP;
+            bossHPCanvas.GetComponent<BossHP_UI_Ctrl>().BossCur_HP = BossSkill.IronGuard_MaxHP;
+
+            bossHPCanvas.GetComponent<BossHP_UI_Ctrl>().Refresh_BossHP();
+        }
     }
 
     // 플레이어가 공격 범위 안에 들어왔을 때

@@ -22,6 +22,12 @@ public class BossLookAt : MonoBehaviour
     public Vector3 direction;
     public bool isCheck = false;
 
+
+    private void Awake()
+    {
+        // bossHPCanvas = GameObject.FindGameObjectWithTag("BossHPC");
+    }
+
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player"); // Player 태그를 가진 오브젝트를 찾아서 player 변수에 할당
@@ -31,12 +37,11 @@ public class BossLookAt : MonoBehaviour
         bossSkillP = GetComponent<BossSkillP>(); // BossSkillP 컴포넌트를 찾아서 bossSkillP 변수에 할당
         bossSkillP.enabled = false; // BossSkillP 스크립트를 처음에는 비활성화
 
-        bossHPCanvas = GameObject.FindGameObjectWithTag("BossHPC");
-        bossHPCanvas.SetActive(false); // 처음에는 비활성화
+        bossHPCanvas.transform.localScale = Vector3.zero; // 처음에는 비활성화
 
         // TODO ## 1층보스 HP 시작 시 넘겨주는 부분
-        bossHPCanvas.GetComponent<BossHP_UI_Ctrl>().BossMax_HP = this.GetComponent<HPtest>().maxHealth;
-        bossHPCanvas.GetComponent<BossHP_UI_Ctrl>().BossCur_HP = this.GetComponent<HPtest>().maxHealth;
+        //bossHPCanvas.GetComponent<BossHP_UI_Ctrl>().BossMax_HP = this.GetComponent<HPtest>().maxHealth;
+        //bossHPCanvas.GetComponent<BossHP_UI_Ctrl>().BossCur_HP = this.GetComponent<HPtest>().maxHealth;
 
     }
 
