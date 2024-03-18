@@ -11,6 +11,8 @@ public class Boss_HP_Controller : MonoBehaviour
     public bool isAwakening;
     public bool isDead;
 
+    public bool isWSkillChek;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,10 +32,13 @@ public class Boss_HP_Controller : MonoBehaviour
                     isAwakening = true;
                 }
 
-                Attack weapon = other.GetComponent<Attack>();
-                Debug.Log("Damage: " + weapon.damage);
+                if (!isWSkillChek)
+                {
+                    Attack weapon = other.GetComponent<Attack>();
+                    Debug.Log("Damage: " + weapon.damage);
 
-                BossCurHP -= weapon.damage;
+                    BossCurHP -= weapon.damage;
+                }
 
                 Boss_HP_Canvas.GetComponent<BossHP_UI_Ctrl>().BossCur_HP = BossCurHP;
                 // this.GetComponent<Reaper_Controller>().CurHP = BossCurHP;

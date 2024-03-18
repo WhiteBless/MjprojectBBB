@@ -41,13 +41,20 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
     RaycastHit eSkillRayHit;
 
     public GameObject BaseAtk_1_Eff;
+    public Transform BaseAtk_1_Point;
     public GameObject BaseAtk_2_Eff;
+    public Transform BaseAtk_2_Point;
     public GameObject BaseAtk_3_Eff;
+    public Transform BaseAtk_3_Point;
     public GameObject BaseAtk_4_Eff;
+    public Transform BaseAtk_4_Point;
 
     public GameObject Skill2Atk_1_Eff;
+    public Transform Skill2Atk_1_Point;
     public GameObject Skill2Atk_2_Eff;
+    public Transform Skill2Atk_2_Point;
     public GameObject Skill2Atk_3_Eff;
+    public Transform Skill2Atk_3_Point;
 
     public GameObject Skill3Atk_1_Eff;
     public GameObject Skill3Atk_2_Eff;
@@ -55,8 +62,11 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
     public GameObject Skill3Atk_3_Eff;
 
     public GameObject Skill4Atk_1_Eff;
+    public Transform Skill4Atk_1_Point;
     public GameObject Skill4Atk_2_Eff;
+    public Transform Skill4Atk_2_Point;
     public GameObject Skill4Atk_3_Eff;
+    public Transform Skill4Atk_3_Point;
 
     void Awake()
     {
@@ -185,6 +195,13 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
 
     IEnumerator Play_BaseAtk1_Eff()
     {
+        BaseAtk_1_Eff.transform.position = BaseAtk_1_Point.transform.position;
+
+        Vector3 d2 = BaseAtk_1_Eff.transform.position - skill_Look.transform.position;
+        d2.y = 0.0f;
+        Quaternion q2 = Quaternion.LookRotation(d2);
+        BaseAtk_1_Eff.transform.rotation = q2 * Quaternion.Euler(0f, 0f, 0f);
+
         BaseAtk_1_Eff.SetActive(true);
 
         yield return new WaitForSeconds(0.5f);
@@ -199,6 +216,13 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
 
     IEnumerator Play_BaseAtk2_Eff()
     {
+        BaseAtk_2_Eff.transform.position = BaseAtk_2_Point.transform.position;
+
+        Vector3 d2 = BaseAtk_2_Eff.transform.position - skill_Look.transform.position;
+        d2.y = 0.0f;
+        Quaternion q2 = Quaternion.LookRotation(d2);
+        BaseAtk_2_Eff.transform.rotation = q2 * Quaternion.Euler(75f, 0f, 90f);
+
         BaseAtk_2_Eff.SetActive(true);
 
         yield return new WaitForSeconds(0.5f);
@@ -213,6 +237,13 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
 
     IEnumerator Play_BaseAtk3_Eff()
     {
+        BaseAtk_3_Eff.transform.position = BaseAtk_3_Point.transform.position;
+
+        Vector3 d2 = BaseAtk_3_Eff.transform.position - skill_Look.transform.position;
+        d2.y = 0.0f;
+        Quaternion q2 = Quaternion.LookRotation(d2);
+        BaseAtk_3_Eff.transform.rotation = q2 * Quaternion.Euler(0f, 0f, 0f);
+
         BaseAtk_3_Eff.SetActive(true);
 
         yield return new WaitForSeconds(0.5f);
@@ -227,6 +258,13 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
 
     IEnumerator Play_BaseAtk4_Eff()
     {
+        BaseAtk_4_Eff.transform.position = BaseAtk_4_Point.transform.position;
+
+        Vector3 d2 = BaseAtk_4_Eff.transform.position - skill_Look.transform.position;
+        d2.y = 0.0f;
+        Quaternion q2 = Quaternion.LookRotation(d2);
+        BaseAtk_4_Eff.transform.rotation = q2 * Quaternion.Euler(180f, 180f, 0f);
+
         BaseAtk_4_Eff.SetActive(true);
 
         yield return new WaitForSeconds(0.5f);
@@ -388,6 +426,13 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
 
     IEnumerator Play_Skill2Atk_1_Eff()
     {
+        Skill2Atk_1_Eff.transform.position = Skill2Atk_1_Point.transform.position;
+
+        Vector3 d2 = Skill2Atk_1_Eff.transform.position - skill_Look.transform.position;
+        d2.y = 0.0f;
+        Quaternion q2 = Quaternion.LookRotation(d2);
+        Skill2Atk_1_Eff.transform.rotation = q2 * Quaternion.Euler(0f, 0f, -35f);
+
         Skill2Atk_1_Eff.SetActive(true);
 
         yield return new WaitForSeconds(0.2f);
@@ -403,6 +448,13 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
 
     IEnumerator Play_Skill2Atk_2_Eff()
     {
+        Skill2Atk_2_Eff.transform.position = Skill2Atk_2_Point.transform.position;
+
+        Vector3 d2 = Skill2Atk_2_Eff.transform.position - skill_Look.transform.position;
+        d2.y = 0.0f;
+        Quaternion q2 = Quaternion.LookRotation(d2);
+        Skill2Atk_2_Eff.transform.rotation = q2 * Quaternion.Euler(0f, 0f, 0f);
+
         Skill2Atk_2_Eff.SetActive(true);
 
         yield return new WaitForSeconds(0.3f);
@@ -418,6 +470,13 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
 
     IEnumerator Play_Skill2Atk_3_Eff()
     {
+        Skill2Atk_3_Eff.transform.position = Skill2Atk_3_Point.transform.position;
+
+        Vector3 d2 = Skill2Atk_3_Eff.transform.position - skill_Look.transform.position;
+        d2.y = 0.0f;
+        Quaternion q2 = Quaternion.LookRotation(d2);
+        Skill2Atk_3_Eff.transform.rotation = q2 * Quaternion.Euler(75f, 0f, 90f);
+
         Skill2Atk_3_Eff.SetActive(true);
 
         yield return new WaitForSeconds(0.3f);
@@ -516,8 +575,8 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
 
     IEnumerator Play_Skill3Atk_2_Eff()
     {
-        Vector3 skillEff_Position = transform.position;
-        Skill3Atk_3_Point.transform.position = skillEff_Position;
+        //Vector3 skillEff_Position = transform.position;
+        Skill3Atk_3_Point.transform.position = transform.position;
         Skill3Atk_3_Eff.SetActive(true);
         yield return new WaitForSeconds(2f);
         Skill3Atk_3_Eff.SetActive(false);
@@ -559,6 +618,18 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
 
     IEnumerator Play_Skill4Atk_1_Eff()
     {
+        Skill4Atk_1_Eff.transform.position = Skill4Atk_1_Point.transform.position;
+        Skill4Atk_2_Eff.transform.position = Skill4Atk_2_Point.transform.position;
+        Skill4Atk_3_Eff.transform.position = Skill4Atk_3_Point.transform.position;
+
+        Vector3 d2 = Skill4Atk_1_Eff.transform.position - skill_Look.transform.position;
+        d2.y = 0.0f;
+        Quaternion q2 = Quaternion.LookRotation(d2);
+        Skill4Atk_1_Eff.transform.rotation = q2 * Quaternion.Euler(0f, 0f, 0f);
+        Skill4Atk_2_Eff.transform.rotation = q2 * Quaternion.Euler(0f, 0f, 0f);
+        Skill4Atk_3_Eff.transform.rotation = q2 * Quaternion.Euler(0f, 0f, 0f);
+
+
         Skill4Atk_1_Eff.SetActive(true);
         Skill4Atk_2_Eff.SetActive(true);
         Skill4Atk_3_Eff.SetActive(true);
