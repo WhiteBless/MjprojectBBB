@@ -27,6 +27,7 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
     public bool isSkill4;
 
     public bool isHit;
+    public bool isDie;
 
     public PlaySceneManager playscenemanager;
 
@@ -171,7 +172,7 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
     public override void Attack()
     {
 
-        if (Input.GetMouseButton(0) && !isSkill1 && !isSkill2 && !isSkill3 && !isSkill4)
+        if (Input.GetMouseButton(0) && !isSkill1 && !isSkill2 && !isSkill3 && !isSkill4 && !isDie)
         {
             if (!isAttack)
             {
@@ -289,7 +290,7 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
 
     public override void Dodge()
     {
-        if (!isDodge && !skillManager5.isDodgeCT)
+        if (!isDodge && !skillManager5.isDodgeCT && !isDie)
         {
             animator.SetBool("isMove", false);
             animator.SetTrigger("doDodge");
@@ -346,7 +347,7 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
 
     public override void Move()
     {
-        if (!isSkill1 && !isSkill2 && !isSkill3 && !isSkill4 && !isAttack && !isDodge)
+        if (!isSkill1 && !isSkill2 && !isSkill3 && !isSkill4 && !isAttack && !isDodge && !isDie)
         {
             if (isMove)
             {
@@ -365,7 +366,7 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
 
     public override void Skill_1()
     {
-        if (!isSkill1 && !isSkill2 && !isSkill3 && !isSkill4 && !isAttack && !isDodge && !skillManager1.isSkill1CT) 
+        if (!isSkill1 && !isSkill2 && !isSkill3 && !isSkill4 && !isAttack && !isDodge && !skillManager1.isSkill1CT && !isDie) 
         {
             animator.SetBool("isMove", false);
 
@@ -411,7 +412,7 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
 
     public override void Skill_2()
     {
-        if (!isSkill1 && !isSkill2 && !isSkill3 && !isSkill4 && !isAttack && !isDodge && !skillManager2.isSkill2CT)
+        if (!isSkill1 && !isSkill2 && !isSkill3 && !isSkill4 && !isAttack && !isDodge && !skillManager2.isSkill2CT && !isDie)
         {
             animator.SetBool("isMove", false);
 
@@ -536,7 +537,7 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
 
     public override void Skill_3()
     {
-        if (!isSkill1 && !isSkill2 && !isSkill3 && !isSkill4 && !isAttack && !isDodge && !skillManager3.isSkill3CT)
+        if (!isSkill1 && !isSkill2 && !isSkill3 && !isSkill4 && !isAttack && !isDodge && !skillManager3.isSkill3CT && !isDie)
         {
             animator.SetBool("isMove", false);
 
@@ -599,7 +600,7 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
 
     public override void Skill_4()
     {
-        if (!isSkill1 && !isSkill2 && !isSkill3 && !isSkill4 && !isAttack && !isDodge && !skillManager4.isSkill4CT)
+        if (!isSkill1 && !isSkill2 && !isSkill3 && !isSkill4 && !isAttack && !isDodge && !skillManager4.isSkill4CT && !isDie)
         {
             animator.SetBool("isMove", false);
 
@@ -668,19 +669,29 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
     {
         if (other.tag == "EnemyAttack" && !isHit)
         {
-            if (playscenemanager.health > 0)
+            if (playscenemanager.health > 1)
             {
                 playscenemanager.HealthDown();
                 Debug.Log(other.gameObject.name);
 
                 isHit = true;
 
-                Invoke("HitOut", 1f);
+                Invoke("HitOut", 3f);
             }
-            //else
-            //{
-            //    Invoke("DieOut", 3f);
-            //}
+            else
+            {
+                Debug.Log("1");
+                playscenemanager.HealthDown();
+                
+                SkillOut();
+                isMove = false;
+                isAttack = false;
+                isDodge = false;
+
+                animator.SetBool("isDie", true);
+                isDie = true;
+            }
+            
         }
     }
 
