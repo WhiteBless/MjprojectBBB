@@ -111,14 +111,15 @@ public class PlaySceneManager : MonoBehaviour
 
     public void HealthDown()
     {
-        if (health > 1)
+        if (health > 0)
         {
+            Debug.Log("2");
             health--;
 
             UIhealth[health].color = new Color(1, 0, 0, 0.01f);
 
             // 피격음 재생
-            GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.HitSound);
+            //GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.HitSound);
             // hitAudioSource.PlayOneShot(hitSound, 1.0f); // 피격음 재생 (볼륨은 1.0)
         }
     }
