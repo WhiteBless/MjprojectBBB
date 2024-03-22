@@ -10,9 +10,6 @@ public class ShurikenController : MonoBehaviour
     public bool wSkill;
     public bool wSkillDis;
 
-    [SerializeField]
-    Assassin_ObjPool assassin_ObjPoolRef;
-
     public Vector3 startPos;
 
     void Start()

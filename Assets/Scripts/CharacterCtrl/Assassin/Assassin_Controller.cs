@@ -26,6 +26,10 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
     public bool isSkill3;
     public bool isSkill4;
 
+    public bool isHit;
+
+    public PlaySceneManager playscenemanager;
+
     public bool skill1;
     public bool skill2;
     public bool skill3;
@@ -658,5 +662,30 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
         isSkill2 = false;
         isSkill3 = false;
         isSkill4 = false;
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "EnemyAttack" && !isHit)
+        {
+            if (playscenemanager.health > 0)
+            {
+                playscenemanager.HealthDown();
+                Debug.Log(other.gameObject.name);
+
+                isHit = true;
+
+                Invoke("HitOut", 1f);
+            }
+            //else
+            //{
+            //    Invoke("DieOut", 3f);
+            //}
+        }
+    }
+
+    public void HitOut()
+    {
+        isHit = false;
     }
 }
