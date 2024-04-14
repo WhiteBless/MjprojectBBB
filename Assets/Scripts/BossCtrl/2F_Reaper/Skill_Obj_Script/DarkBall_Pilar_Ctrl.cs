@@ -13,7 +13,9 @@ public class DarkBall_Pilar_Ctrl : MonoBehaviour
     public Material Mat;
     public float LightValue;
     public bool isEnter;
-
+    
+    public GameObject Pilar_Explosion;
+    public GameObject Awakening_Pilar_Explosion;
     void Start()
     {
         Mat = Message.GetComponent<Renderer>().material;
@@ -54,6 +56,13 @@ public class DarkBall_Pilar_Ctrl : MonoBehaviour
                 this.GetComponent<BoxCollider>().enabled = false;
                 isEnter = true;
             }
+            else // 잘못 넣었을 경우
+            {
+                // 구체 소멸
+                other.gameObject.SetActive(false);
+                this.GetComponent<BoxCollider>().enabled = false;
+                Awakening_Pilar_Explosion.SetActive(true);
+            }
         }
         else if (this.gameObject.name == "Awakening_Pattern_Obj_5" && isEnter == false)
         {
@@ -71,6 +80,13 @@ public class DarkBall_Pilar_Ctrl : MonoBehaviour
                 other.gameObject.SetActive(false);
                 this.GetComponent<BoxCollider>().enabled = false;
                 isEnter = true;
+            }
+            else // 잘못 넣었을 경우
+            {
+                // 구체 소멸
+                other.gameObject.SetActive(false);
+                this.GetComponent<BoxCollider>().enabled = false;
+                Awakening_Pilar_Explosion.SetActive(true);
             }
         }
         else if (this.gameObject.name == "Awakening_Pattern_Obj_7" && isEnter == false)
@@ -90,6 +106,13 @@ public class DarkBall_Pilar_Ctrl : MonoBehaviour
                 this.GetComponent<BoxCollider>().enabled = false;
                 isEnter = true;
             }
+            else // 잘못 넣었을 경우
+            {
+                // 구체 소멸
+                other.gameObject.SetActive(false);
+                this.GetComponent<BoxCollider>().enabled = false;
+                Awakening_Pilar_Explosion.SetActive(true);
+            }
         }
         else if (this.gameObject.name == "Awakening_Pattern_Obj_1" && isEnter == false)
         {
@@ -107,6 +130,13 @@ public class DarkBall_Pilar_Ctrl : MonoBehaviour
                 other.gameObject.SetActive(false);
                 this.GetComponent<BoxCollider>().enabled = false;
                 isEnter = true;
+            }
+            else // 잘못 넣었을 경우
+            {
+                // 구체 소멸
+                other.gameObject.SetActive(false);
+                this.GetComponent<BoxCollider>().enabled = false;
+                Awakening_Pilar_Explosion.SetActive(true);
             }
         }
     }

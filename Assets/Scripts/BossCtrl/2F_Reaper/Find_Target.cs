@@ -23,7 +23,7 @@ public class Find_Target : MonoBehaviour
             ReaperCtrl.reaperState = ReaperState.RaidStart;
 
             // HP바 활성화
-            ReaperCtrl.boss_hp_ctrl.Boss_HP_Canvas.SetActive(true);
+            HP_Canvas.transform.localScale = Vector3.one;
 
             // HP바 UI 컨트롤러에 현재 보스의 HP를 준다
             HP_Canvas.GetComponent<BossHP_UI_Ctrl>().BossMax_HP = boss_hp_ctrl.BossMaxHP;
