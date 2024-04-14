@@ -15,5 +15,18 @@ public class Attack : MonoBehaviour
     public float rate; //공격속도
     public bool isAttackable;
 
-    
+    public bool wSkillHit;
+
+    //private void Update()
+    //{
+    //    if(wSkillHit)
+    //    {
+    //        for(int i = 0; i < transform.childCount; i++)
+    //        {
+    //            transform.GetChild(i).GetComponent<Collider>().enabled = false;
+    //        }
+    //    }
+    //}
+
+
 }

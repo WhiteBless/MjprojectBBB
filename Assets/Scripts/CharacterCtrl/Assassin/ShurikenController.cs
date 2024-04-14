@@ -10,11 +10,12 @@ public class ShurikenController : MonoBehaviour
     public bool wSkill;
     public bool wSkillDis;
 
+    Attack attack;
     public Vector3 startPos;
 
     void Start()
     {
-        
+        attack = transform.parent.GetComponent<Attack>();
     }
 
     
@@ -63,4 +64,16 @@ public class ShurikenController : MonoBehaviour
             }
         }
     }
+
+    //void OnTriggerEnter(Collider other)
+    //{
+    //    if( other.tag == "Enemy")
+    //    {
+    //        attack.wSkillHit = true;
+    //    }
+    //}
+    //private void OnEnable()
+    //{
+    //    transform.GetComponent<CapsuleCollider>().enabled = true;
+    //}
 }
