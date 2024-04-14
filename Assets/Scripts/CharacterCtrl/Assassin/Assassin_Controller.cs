@@ -92,7 +92,7 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
         if (Input.GetMouseButton(0) || (Input.GetKey(KeySetting.Keys[KeyAction.Skill1]) && !skillManager1.isSkill1CT) || (Input.GetKey(KeySetting.Keys[KeyAction.Skill2]) && !skillManager2.isSkill2CT)
             || (Input.GetKey(KeySetting.Keys[KeyAction.Skill3]) && !skillManager3.isSkill3CT) || (Input.GetKey(KeySetting.Keys[KeyAction.Skill4]) && !skillManager4.isSkill4CT))//|| skill1 || skill2 || skill3 || skill4|| 
         {
-            if (!isAttack && !isDodge && !isSkill1 && !isSkill2 && !isSkill3 && !isSkill4)
+            if (!isAttack && !isDodge && !isSkill1 && !isSkill2 && !isSkill3 && !isSkill4 && !isDie)
             {
                 Ray ray = mainCam.ScreenPointToRay(Input.mousePosition);
                 RaycastHit rayHit;

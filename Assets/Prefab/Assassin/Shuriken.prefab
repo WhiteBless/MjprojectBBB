@@ -52,7 +52,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4847801805487409400, guid: e0990c7521b272740b0a363160bfe878, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4847801805487409400, guid: e0990c7521b272740b0a363160bfe878, type: 3}
       propertyPath: m_TagString
@@ -60,15 +60,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5191817637254091330, guid: e0990c7521b272740b0a363160bfe878, type: 3}
       propertyPath: m_LocalScale.x
-      value: 20
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5191817637254091330, guid: e0990c7521b272740b0a363160bfe878, type: 3}
       propertyPath: m_LocalScale.y
-      value: 40
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 5191817637254091330, guid: e0990c7521b272740b0a363160bfe878, type: 3}
       propertyPath: m_LocalScale.z
-      value: 30
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 5191817637254091330, guid: e0990c7521b272740b0a363160bfe878, type: 3}
       propertyPath: m_LocalPosition.x
@@ -149,7 +149,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bbeb39a7391a5644a8b3cb9f3195433, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 50
+  moveSpeed: 10
   maxDistance: 100
   wSkill: 1
   wSkillDis: 0
@@ -193,6 +193,7 @@ MonoBehaviour:
   damage: 10
   rate: 0
   isAttackable: 0
+  wSkillHit: 0
 --- !u!1001 &2027351552833535369
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -305,7 +306,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4847801805487409400, guid: e0990c7521b272740b0a363160bfe878, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4847801805487409400, guid: e0990c7521b272740b0a363160bfe878, type: 3}
       propertyPath: m_TagString
@@ -313,15 +314,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5191817637254091330, guid: e0990c7521b272740b0a363160bfe878, type: 3}
       propertyPath: m_LocalScale.x
-      value: 20
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5191817637254091330, guid: e0990c7521b272740b0a363160bfe878, type: 3}
       propertyPath: m_LocalScale.y
-      value: 40
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 5191817637254091330, guid: e0990c7521b272740b0a363160bfe878, type: 3}
       propertyPath: m_LocalScale.z
-      value: 30
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 5191817637254091330, guid: e0990c7521b272740b0a363160bfe878, type: 3}
       propertyPath: m_LocalPosition.x
@@ -397,7 +398,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bbeb39a7391a5644a8b3cb9f3195433, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 50
+  moveSpeed: 10
   maxDistance: 100
   wSkill: 1
   wSkillDis: 1
@@ -441,6 +442,7 @@ MonoBehaviour:
   damage: 10
   rate: 0
   isAttackable: 0
+  wSkillHit: 0
 --- !u!4 &7611205426798482498 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5191817637254091330, guid: e0990c7521b272740b0a363160bfe878, type: 3}
@@ -754,7 +756,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4847801805487409400, guid: e0990c7521b272740b0a363160bfe878, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4847801805487409400, guid: e0990c7521b272740b0a363160bfe878, type: 3}
       propertyPath: m_TagString
@@ -762,15 +764,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5191817637254091330, guid: e0990c7521b272740b0a363160bfe878, type: 3}
       propertyPath: m_LocalScale.x
-      value: 20
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5191817637254091330, guid: e0990c7521b272740b0a363160bfe878, type: 3}
       propertyPath: m_LocalScale.y
-      value: 40
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 5191817637254091330, guid: e0990c7521b272740b0a363160bfe878, type: 3}
       propertyPath: m_LocalScale.z
-      value: 30
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 5191817637254091330, guid: e0990c7521b272740b0a363160bfe878, type: 3}
       propertyPath: m_LocalPosition.x
@@ -846,7 +848,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bbeb39a7391a5644a8b3cb9f3195433, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 50
+  moveSpeed: 10
   maxDistance: 100
   wSkill: 1
   wSkillDis: 0
@@ -890,6 +892,7 @@ MonoBehaviour:
   damage: 10
   rate: 0
   isAttackable: 0
+  wSkillHit: 0
 --- !u!4 &1059187269155706297 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5191817637254091330, guid: e0990c7521b272740b0a363160bfe878, type: 3}
@@ -909,7 +912,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4847801805487409400, guid: e0990c7521b272740b0a363160bfe878, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4847801805487409400, guid: e0990c7521b272740b0a363160bfe878, type: 3}
       propertyPath: m_TagString
@@ -917,15 +920,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5191817637254091330, guid: e0990c7521b272740b0a363160bfe878, type: 3}
       propertyPath: m_LocalScale.x
-      value: 20
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5191817637254091330, guid: e0990c7521b272740b0a363160bfe878, type: 3}
       propertyPath: m_LocalScale.y
-      value: 40
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 5191817637254091330, guid: e0990c7521b272740b0a363160bfe878, type: 3}
       propertyPath: m_LocalScale.z
-      value: 30
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 5191817637254091330, guid: e0990c7521b272740b0a363160bfe878, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1001,7 +1004,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bbeb39a7391a5644a8b3cb9f3195433, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 50
+  moveSpeed: 10
   maxDistance: 100
   wSkill: 1
   wSkillDis: 0
@@ -1045,6 +1048,7 @@ MonoBehaviour:
   damage: 10
   rate: 0
   isAttackable: 0
+  wSkillHit: 0
 --- !u!4 &1143597158067536760 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5191817637254091330, guid: e0990c7521b272740b0a363160bfe878, type: 3}
@@ -1064,7 +1068,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4847801805487409400, guid: e0990c7521b272740b0a363160bfe878, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4847801805487409400, guid: e0990c7521b272740b0a363160bfe878, type: 3}
       propertyPath: m_TagString
@@ -1072,15 +1076,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5191817637254091330, guid: e0990c7521b272740b0a363160bfe878, type: 3}
       propertyPath: m_LocalScale.x
-      value: 20
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5191817637254091330, guid: e0990c7521b272740b0a363160bfe878, type: 3}
       propertyPath: m_LocalScale.y
-      value: 40
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 5191817637254091330, guid: e0990c7521b272740b0a363160bfe878, type: 3}
       propertyPath: m_LocalScale.z
-      value: 30
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 5191817637254091330, guid: e0990c7521b272740b0a363160bfe878, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1161,7 +1165,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bbeb39a7391a5644a8b3cb9f3195433, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 50
+  moveSpeed: 10
   maxDistance: 100
   wSkill: 1
   wSkillDis: 0
@@ -1205,6 +1209,7 @@ MonoBehaviour:
   damage: 10
   rate: 0
   isAttackable: 0
+  wSkillHit: 0
 --- !u!1001 &5381000004881016593
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1219,7 +1224,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4847801805487409400, guid: e0990c7521b272740b0a363160bfe878, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4847801805487409400, guid: e0990c7521b272740b0a363160bfe878, type: 3}
       propertyPath: m_TagString
@@ -1227,15 +1232,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5191817637254091330, guid: e0990c7521b272740b0a363160bfe878, type: 3}
       propertyPath: m_LocalScale.x
-      value: 20
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5191817637254091330, guid: e0990c7521b272740b0a363160bfe878, type: 3}
       propertyPath: m_LocalScale.y
-      value: 40
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 5191817637254091330, guid: e0990c7521b272740b0a363160bfe878, type: 3}
       propertyPath: m_LocalScale.z
-      value: 30
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 5191817637254091330, guid: e0990c7521b272740b0a363160bfe878, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1316,7 +1321,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bbeb39a7391a5644a8b3cb9f3195433, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 50
+  moveSpeed: 10
   maxDistance: 100
   wSkill: 1
   wSkillDis: 0
@@ -1360,6 +1365,7 @@ MonoBehaviour:
   damage: 10
   rate: 0
   isAttackable: 0
+  wSkillHit: 0
 --- !u!1001 &5946198112644546277
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1564,13 +1570,29 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4286016069339547369}
     m_Modifications:
+    - target: {fileID: 2059111052423039558, guid: e0990c7521b272740b0a363160bfe878, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2059111052423039558, guid: e0990c7521b272740b0a363160bfe878, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2059111052423039558, guid: e0990c7521b272740b0a363160bfe878, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2059111052423039558, guid: e0990c7521b272740b0a363160bfe878, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4847801805487409400, guid: e0990c7521b272740b0a363160bfe878, type: 3}
       propertyPath: m_Name
       value: SK_ThrowKnife (1)
       objectReference: {fileID: 0}
     - target: {fileID: 4847801805487409400, guid: e0990c7521b272740b0a363160bfe878, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4847801805487409400, guid: e0990c7521b272740b0a363160bfe878, type: 3}
       propertyPath: m_TagString
@@ -1578,15 +1600,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5191817637254091330, guid: e0990c7521b272740b0a363160bfe878, type: 3}
       propertyPath: m_LocalScale.x
-      value: 20
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5191817637254091330, guid: e0990c7521b272740b0a363160bfe878, type: 3}
       propertyPath: m_LocalScale.y
-      value: 40
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 5191817637254091330, guid: e0990c7521b272740b0a363160bfe878, type: 3}
       propertyPath: m_LocalScale.z
-      value: 30
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 5191817637254091330, guid: e0990c7521b272740b0a363160bfe878, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1672,7 +1694,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bbeb39a7391a5644a8b3cb9f3195433, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 50
+  moveSpeed: 10
   maxDistance: 100
   wSkill: 1
   wSkillDis: 0
@@ -1716,6 +1738,7 @@ MonoBehaviour:
   damage: 10
   rate: 0
   isAttackable: 0
+  wSkillHit: 0
 --- !u!1001 &7567198275139917723
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1779,6 +1802,14 @@ PrefabInstance:
     - target: {fileID: 462424, guid: c3edb0faa3c16944f8c57d827b8d1a2e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11421140, guid: c3edb0faa3c16944f8c57d827b8d1a2e, type: 3}
+      propertyPath: AudioCurve.m_RotationOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 11422270, guid: c3edb0faa3c16944f8c57d827b8d1a2e, type: 3}
+      propertyPath: AudioCurve.m_RotationOrder
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 11426186, guid: c3edb0faa3c16944f8c57d827b8d1a2e, type: 3}
       propertyPath: TrailMaterial
