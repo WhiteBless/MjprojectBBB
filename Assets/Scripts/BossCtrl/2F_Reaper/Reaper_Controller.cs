@@ -1078,6 +1078,26 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
 
             yield return new WaitForSeconds(Finish_DarkBall);
 
+            // 기둥 폭발
+            for (int i = 0; i < DarkBall_Pilar.Length; i++)
+            {
+                // 만약 들어가지 않았다면
+                if (DarkBall_Pilar[i].GetComponent<DarkBall_Pilar_Ctrl>().isEnter == false)
+                {
+                    // 들어가지않은 기둥 폭발
+                    DarkBall_Pilar[i].GetComponent<DarkBall_Pilar_Ctrl>().Pilar_Explosion.SetActive(true);
+                }
+            }
+
+            yield return new WaitForSeconds(2.0f);
+
+            // 기둥 폭발
+            for (int i = 0; i < DarkBall_Pilar.Length; i++)
+            {
+                // 폭발 비활성화
+                DarkBall_Pilar[i].GetComponent<DarkBall_Pilar_Ctrl>().Pilar_Explosion.SetActive(false);
+            }
+
             // 공격 중
             isAttacking = false;
             // 거리에 따른 다음 공격
@@ -1178,11 +1198,30 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
             DarkBall_Awakening[Awakening_Ball_Index].gameObject.SetActive(true);
             // 어둠의 구체 생성 위치 초기화
             DarkBall_Awakening[Awakening_Ball_Index].transform.position = DarkBall_Pos.position;
-            // 인덱스 증가
+            // 인덱스 초기화
             Awakening_Ball_Index = 0;
 
-
             yield return new WaitForSeconds(DarkBall_Razer_Time - (4 * DarkBall_Delay));
+
+            // 기둥 폭발
+            for (int i = 0; i < DarkBall_Pilar.Length; i++)
+            {
+                // 만약 들어가지 않았다면
+                if (DarkBall_Pilar_Awakening[i].GetComponent<DarkBall_Pilar_Ctrl>().isEnter == false)
+                {
+                    // 들어가지않은 기둥 폭발
+                    DarkBall_Pilar_Awakening[i].GetComponent<DarkBall_Pilar_Ctrl>().Awakening_Pilar_Explosion.SetActive(true);
+                }
+            }
+
+            yield return new WaitForSeconds(2.0f);
+
+            // 기둥 폭발
+            for (int i = 0; i < DarkBall_Pilar.Length; i++)
+            {
+                // 폭발 비활성화
+                DarkBall_Pilar_Awakening[i].GetComponent<DarkBall_Pilar_Ctrl>().Awakening_Pilar_Explosion.SetActive(false);
+            }
 
             // 공격 중
             isAttacking = false;
