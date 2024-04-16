@@ -1033,6 +1033,10 @@ PrefabInstance:
       propertyPath: TrailMaterial
       value: 
       objectReference: {fileID: 2100000, guid: f80d30a9ee8e71544bd4c177d85cd14b, type: 2}
+    - target: {fileID: 11426186, guid: c3edb0faa3c16944f8c57d827b8d1a2e, type: 3}
+      propertyPath: VertexLifeTime
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 19807986, guid: c3edb0faa3c16944f8c57d827b8d1a2e, type: 3}
       propertyPath: InitialModule.size3D
       value: 1
@@ -1119,6 +1123,10 @@ PrefabInstance:
       propertyPath: TrailMaterial
       value: 
       objectReference: {fileID: 2100000, guid: f80d30a9ee8e71544bd4c177d85cd14b, type: 2}
+    - target: {fileID: 11426186, guid: c3edb0faa3c16944f8c57d827b8d1a2e, type: 3}
+      propertyPath: VertexLifeTime
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 19807986, guid: c3edb0faa3c16944f8c57d827b8d1a2e, type: 3}
       propertyPath: InitialModule.size3D
       value: 1
@@ -1202,12 +1210,32 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 11426186, guid: c3edb0faa3c16944f8c57d827b8d1a2e, type: 3}
+      propertyPath: IsLoop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11426186, guid: c3edb0faa3c16944f8c57d827b8d1a2e, type: 3}
+      propertyPath: TrailLifeTime
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 11426186, guid: c3edb0faa3c16944f8c57d827b8d1a2e, type: 3}
       propertyPath: TrailMaterial
       value: 
       objectReference: {fileID: 2100000, guid: f80d30a9ee8e71544bd4c177d85cd14b, type: 2}
+    - target: {fileID: 11426186, guid: c3edb0faa3c16944f8c57d827b8d1a2e, type: 3}
+      propertyPath: VertexLifeTime
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11426186, guid: c3edb0faa3c16944f8c57d827b8d1a2e, type: 3}
+      propertyPath: UseColorOverLifeTime
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 19807986, guid: c3edb0faa3c16944f8c57d827b8d1a2e, type: 3}
       propertyPath: InitialModule.size3D
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 19807986, guid: c3edb0faa3c16944f8c57d827b8d1a2e, type: 3}
+      propertyPath: InitialModule.maxNumParticles
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 19807986, guid: c3edb0faa3c16944f8c57d827b8d1a2e, type: 3}
       propertyPath: InitialModule.startSize.scalar
