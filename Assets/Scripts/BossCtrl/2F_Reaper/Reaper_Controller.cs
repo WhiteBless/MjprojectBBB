@@ -76,6 +76,10 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
     float BaseAtk_0_LockTime; // 기본 공격_0 회전 제어
     [SerializeField]
     GameObject BaseAtk_0_Eff;
+    [SerializeField]
+    GameObject BaseAtk_Collider;
+    [SerializeField]
+    GameObject BaseAtk_GuideLine;
 
     [Header("-----Skill_ BaseAtk_1-----")]
     [SerializeField]
@@ -95,10 +99,20 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
     float Decline_LockTime; // 회전 제한 시간
     [SerializeField]
     float Decline_UnLockTime; // 회전 제한 해제 시간
+    [SerializeField]
+    GameObject Dark_Decline_Box_Collider; // 박스 콜라이더
+    [SerializeField]
+    GameObject Dark_Decline_Circle_Collider; // 써클 콜라이더
+    [SerializeField]
+    GameObject Dark_Decline_GuideLine;
 
     [Header("-----Skill_Dark_Hand-----")]
     [SerializeField]
     GameObject CastingEff;
+    [SerializeField]
+    GameObject DarkHand_GuideLine;
+    [SerializeField]
+    GameObject DarkHand2_GuideLine;
 
     [Header("-----Skill_Dark_Soul-----")]
     [SerializeField]
@@ -107,6 +121,10 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
     float Slow_RotSpeed;
     [SerializeField]
     float DarkSoul_Running_Time;
+    [SerializeField]
+    GameObject DarkSoul_Collider;
+    [SerializeField]
+    GameObject DarkSoul_GuideLine;
 
     [Header("-----Skill_Dark_Ball-----")]
     [SerializeField]
@@ -374,6 +392,7 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
         if (TargetDistance < Skill_Think_Range)
         {
             isMove = false;
+            StopAllCoroutines();
             Reaper_Short_nextAct(Random.Range(0, 3));
         }
     }
@@ -472,6 +491,12 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
     // TODO ## Reaper_BaseAtk_0
     IEnumerator BaseAtk_0()
     {
+        BaseAtk_GuideLine.SetActive(true);
+
+        yield return new WaitForSeconds(0.5f);
+
+        BaseAtk_GuideLine.SetActive(false);
+
         // 현재 상태 변경
         reaperState = ReaperState.BaseAtk_0;
         // 애니메이션 실행
@@ -518,9 +543,16 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
 
     IEnumerator Play_BaseAtk0_Eff()
     {
+        // 이펙트 피격범위 생성
         BaseAtk_0_Eff.SetActive(true);
+        BaseAtk_Collider.SetActive(true);
 
-        yield return new WaitForSeconds(2.0f);
+        // 피격범위 끄기
+        yield return new WaitForSeconds(0.1f);
+        BaseAtk_Collider.SetActive(false);
+
+        // 회전 제한
+        yield return new WaitForSeconds(1.9f);
         isLock = false;
         BaseAtk_0_Eff.SetActive(false);
     }
@@ -531,6 +563,12 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
     // TODO ## Reaper_BaseAtk_1
     IEnumerator BaseAtk_1()
     {
+        BaseAtk_GuideLine.SetActive(true);
+
+        yield return new WaitForSeconds(0.5f);
+
+        BaseAtk_GuideLine.SetActive(false);
+
         // 현재 상태 변경
         reaperState = ReaperState.BaseAtk_1;
         // 애니메이션 실행
@@ -578,11 +616,19 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
 
     IEnumerator Play_BaseAtk1_Eff()
     {
+        // 이펙트 피격범위 생성
         BaseAtk_1_Eff.SetActive(true);
+        BaseAtk_Collider.SetActive(true);
 
-        yield return new WaitForSeconds(2.0f);
+        // 피격범위 끄기
+        yield return new WaitForSeconds(0.1f);
+        BaseAtk_Collider.SetActive(false);
+
+        // 회전 제한
+        yield return new WaitForSeconds(1.9f);
         isLock = false;
         BaseAtk_1_Eff.SetActive(false);
+       
     }
     #endregion
 
@@ -595,13 +641,20 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
         {
             // 현재 상태 변경
             reaperState = ReaperState.Dark_Decline;
+
+           
+            // yield return new WaitForSeconds(0.2f);
+
             // 공격 가능
             isAttacking = true;
             // 이동 멈춤
             isMove = false;
             Reaper_animator.SetBool("isMove", isMove);
+
             // 애니메이션 실행_1
             Reaper_animator.SetTrigger("Dark_Decline");
+            // 가이드라인 활성화
+            Dark_Decline_GuideLine.SetActive(true);
 
             yield return new WaitForSeconds(Decline_LockTime);
             isLock = true;
@@ -617,13 +670,15 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
             yield return new WaitForSeconds(Decline_UnLockTime);
             isLock = false;
 
-            // 오브젝트 풀로 비활성화
-            //DarkDeclineEff_1.SetActive(false);
+            //yield return new WaitForSeconds(0.2f);
 
             // Dark_Decline_Delay 후 실행
             yield return new WaitForSeconds(Dark_Decline_Delay - (Decline_LockTime + Decline_UnLockTime));
+
             // 애니메이션 실행_2
             Reaper_animator.SetTrigger("Dark_Decline");
+            // 가이드라인 활성화
+            Dark_Decline_GuideLine.SetActive(true);
 
             yield return new WaitForSeconds(Decline_LockTime);
             isLock = true;
@@ -640,12 +695,17 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
             yield return new WaitForSeconds(Decline_UnLockTime);
             isLock = false;
 
+            // 가이드라인 활성화
+            //Dark_Decline_GuideLine.SetActive(true);
+            //yield return new WaitForSeconds(0.2f);
 
             // Dark_Decline_Delay 후 실행
             yield return new WaitForSeconds(Dark_Decline_Delay - (Decline_LockTime + Decline_UnLockTime));
 
             // 애니메이션 실행_3
             Reaper_animator.SetTrigger("Dark_Decline");
+            // 가이드라인 활성화
+            Dark_Decline_GuideLine.SetActive(true);
 
             yield return new WaitForSeconds(Decline_LockTime);
             isLock = true;
@@ -695,6 +755,11 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
         {
             // 현재 상태 변경
             reaperState = ReaperState.Dark_Decline;
+
+            // 가이드라인 활성화
+            // Dark_Decline_GuideLine.SetActive(true);
+            // yield return new WaitForSeconds(0.2f);
+
             // 공격 가능
             isAttacking = true;
             // 이동 멈춤
@@ -702,6 +767,8 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
             Reaper_animator.SetBool("isMove", isMove);
             // 애니메이션 실행_1
             Reaper_animator.SetTrigger("Dark_Decline");
+            // 가이드라인 활성화
+            Dark_Decline_GuideLine.SetActive(true);
 
             yield return new WaitForSeconds(Decline_LockTime);
             isLock = true;
@@ -717,13 +784,17 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
             yield return new WaitForSeconds(Decline_UnLockTime);
             isLock = false;
 
-            // 오브젝트 풀로 비활성화
-            //DarkDeclineEff_1.SetActive(false);
+            // 가이드라인 활성화
+            //Dark_Decline_GuideLine.SetActive(true);
+            //yield return new WaitForSeconds(0.2f);
 
             // Dark_Decline_Delay 후 실행
             yield return new WaitForSeconds(Dark_Decline_Delay - (Decline_LockTime + Decline_UnLockTime));
             // 애니메이션 실행_2
             Reaper_animator.SetTrigger("Dark_Decline");
+
+            // 가이드라인 활성화
+            Dark_Decline_GuideLine.SetActive(true);
 
             yield return new WaitForSeconds(Decline_LockTime);
             isLock = true;
@@ -740,12 +811,18 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
             yield return new WaitForSeconds(Decline_UnLockTime);
             isLock = false;
 
+            // 가이드라인 활성화
+            //Dark_Decline_GuideLine.SetActive(true);
+            //yield return new WaitForSeconds(0.2f);
 
             // Dark_Decline_Delay 후 실행
             yield return new WaitForSeconds(Dark_Decline_Delay - (Decline_LockTime + Decline_UnLockTime));
 
             // 애니메이션 실행_3
             Reaper_animator.SetTrigger("Dark_Decline");
+
+            // 가이드라인 활성화
+            Dark_Decline_GuideLine.SetActive(true);
 
             yield return new WaitForSeconds(Decline_LockTime);
             isLock = true;
@@ -793,8 +870,22 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
     IEnumerator Play_Dark_Decline_Eff()
     {
         Dark_Decline_Slash.SetActive(true);
+        // 가이드라인 비활성화
+        Dark_Decline_GuideLine.SetActive(false);
 
-        yield return new WaitForSeconds(2.0f);
+        // 어둠의 쇠락 구체 범위 활성화
+        yield return new WaitForSeconds(0.2f);
+        Dark_Decline_Circle_Collider.SetActive(true);
+
+        // 어둠의 쇠락 구체 범위 비활성화, 박스범위 활성화
+        yield return new WaitForSeconds(1.4f);
+        Dark_Decline_Circle_Collider.SetActive(false);
+        Dark_Decline_Box_Collider.SetActive(true);
+
+        yield return new WaitForSeconds(0.2f);
+        Dark_Decline_Box_Collider.SetActive(false);
+        // 이펙트 삭제
+        yield return new WaitForSeconds(0.1f);
 
         Dark_Decline_Slash.SetActive(false);
     }
@@ -820,7 +911,7 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
         // 애니메이션이 끝나고 난 뒤
         yield return new WaitForSeconds(3.0f);
 
-        // 2초 후
+        //  애니메이션이 끝나고 난 뒤 2초 후
         yield return new WaitForSeconds(2.0f);
         // 공격 가능
         isAttacking = false;
@@ -855,13 +946,31 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
     {
         Vector3 Pos = Target.transform.position;
 
+        //가이드라인 활성화, 위치 조정
+        DarkHand_GuideLine.SetActive(true);
+        DarkHand_GuideLine.transform.position = Pos;
+
         yield return new WaitForSeconds(1.5f);
+
+        // 가이드라인 비활성화
+        DarkHand_GuideLine.SetActive(false);
 
         // 오브젝트 풀에서 이펙트 위치 조정시켜 생성
         GameObject DarkHnad_Explosion = reaper_ObjPoolRef.GetDarkHandFromPool();
+
+        // 만약 콜라이더가 꺼져 있다면
+        if (DarkHnad_Explosion.GetComponent<CapsuleCollider>().enabled == false)
+        {
+            DarkHnad_Explosion.GetComponent<CapsuleCollider>().enabled = true;
+        }
+
         DarkHnad_Explosion.transform.position = Pos;
 
-        yield return new WaitForSeconds(5.0f);
+
+        yield return new WaitForSeconds(0.5f);
+        DarkHnad_Explosion.GetComponent<CapsuleCollider>().enabled = false;
+
+        yield return new WaitForSeconds(3.0f);
         DarkHnad_Explosion.SetActive(false);
     }
     #endregion
@@ -944,15 +1053,26 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
     {
         Vector3 Pos = Target.transform.position;
 
+        // 가이드라인 활성화 및 위치 조정
+        DarkHand2_GuideLine.SetActive(true);
+        DarkHand2_GuideLine.transform.position = Pos;
+
         yield return new WaitForSeconds(0.5f);
+
+        DarkHand2_GuideLine.SetActive(false);
 
         // 오브젝트 풀에서 이펙트 위치 조정시켜 생성
         GameObject DarkHnad2_Explosion = reaper_ObjPoolRef.GetDarkHand2FromPool();
         DarkHnad2_Explosion.transform.GetChild(2).gameObject.SetActive(true);
+        DarkHnad2_Explosion.transform.GetChild(1).GetChild(8).GetComponent<CapsuleCollider>().enabled = true;
+
 
         DarkHnad2_Explosion.transform.position = Pos;
 
-        yield return new WaitForSeconds(10.0f);
+        yield return new WaitForSeconds(1.0f);
+        DarkHnad2_Explosion.transform.GetChild(1).GetChild(8).gameObject.SetActive(false);
+
+        yield return new WaitForSeconds(8.0f);
         // 원 위치
         DarkHnad2_Explosion.transform.GetChild(2).GetChild(0).transform.localPosition = Vector3.zero;
         DarkHnad2_Explosion.transform.GetChild(2).GetChild(1).transform.localPosition = Vector3.zero;
@@ -967,6 +1087,12 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
     {
         // 현재 상태 변경
         reaperState = ReaperState.Dark_Soul;
+        // 가이드라인 활성화
+        DarkSoul_GuideLine.SetActive(true);
+
+        // 가이드라인 비활성후 시작
+        // yield return new WaitForSeconds(1.0f);
+
         // 공격 가능
         isAttacking = true;
         // 이동 멈춤
@@ -976,7 +1102,17 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
         Reaper_animator.SetTrigger("Dark_Soul");
         Slow_RotSpeed = 6.0f;
 
-        yield return new WaitForSeconds(DarkSoul_Running_Time);
+        yield return new WaitForSeconds(1.5f);
+        // 가이드라인 비활성화
+        DarkSoul_GuideLine.SetActive(false);
+
+        yield return new WaitForSeconds(0.5f);
+        DarkSoul_Collider.SetActive(true);
+
+        yield return new WaitForSeconds(DarkSoul_Running_Time - 4.0f);
+        DarkSoul_Collider.SetActive(false);
+
+        yield return new WaitForSeconds(1.0f);
         // 공격 가능
         isAttacking = false;
         Slow_RotSpeed = 0.0f;
@@ -1014,13 +1150,17 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
         }
         else if (reaperState == ReaperState.Dark_Ball)// 각성 후
         {
+       
+
             Reaper_animator.SetFloat("DarkSoulSpeed", 0.1f);
             DarkBall_Soul_Eff.SetActive(true);
 
 
             yield return new WaitForSeconds(DarkBall_Razer_Time);
             Reaper_animator.SetFloat("DarkSoulSpeed", 1.0f);
-
+            Debug.Log(1);
+            // 영혼 콜라이더 이펙트 끄기
+            DarkSoul_Collider.SetActive(false);
 
             yield return new WaitForSeconds(2.0f);
             DarkBall_Soul_Eff.SetActive(false);
@@ -1155,18 +1295,29 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
             Reaper_animator.SetTrigger("Teleport");
             // 중앙으로 이동
             this.transform.position = Center_Tr.position;
+
             isAttacking = true;
             // 이동 멈춤
             isMove = false;
             Reaper_animator.SetBool("isMove", isMove);
             Slow_RotSpeed = 6.5f;
 
-            yield return new WaitForSeconds(DarkBall_Delay);
+          
+
+            yield return new WaitForSeconds(DarkBall_Delay - 1.0f);
             // 애니메이션 실행_1
             Reaper_animator.SetTrigger("Dark_Soul");
 
+            yield return new WaitForSeconds(1.0f);
+            // 가이드라인 활성화
+            DarkSoul_GuideLine.SetActive(true);
+
+            yield return new WaitForSeconds(DarkBall_Delay - 2.0f);
+            DarkSoul_GuideLine.SetActive(false);
+            DarkSoul_Collider.SetActive(true);
+
             // 빨강 구체 생성
-            yield return new WaitForSeconds(DarkBall_Delay);
+            yield return new WaitForSeconds(2.0f);
             // 어둠의 구체 활성화
             DarkBall_Awakening[Awakening_Ball_Index].gameObject.SetActive(true);
             // 어둠의 구체 생성 위치 초기화
@@ -1201,7 +1352,7 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
             // 인덱스 초기화
             Awakening_Ball_Index = 0;
 
-            yield return new WaitForSeconds(DarkBall_Razer_Time - (4 * DarkBall_Delay));
+            yield return new WaitForSeconds((DarkBall_Razer_Time - (4 * DarkBall_Delay)));
 
             // 기둥 폭발
             for (int i = 0; i < DarkBall_Pilar.Length; i++)

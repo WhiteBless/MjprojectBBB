@@ -53,6 +53,12 @@ public class Boss_HP_Controller : MonoBehaviour
         {
             // 어둠의 구체 반격
             other.gameObject.SetActive(false);
+
+            BossCurHP -= 1000;
+
+            Boss_HP_Canvas.GetComponent<BossHP_UI_Ctrl>().BossCur_HP = BossCurHP;
+            // this.GetComponent<Reaper_Controller>().CurHP = BossCurHP;
+            Boss_HP_Canvas.GetComponent<BossHP_UI_Ctrl>().Refresh_BossHP();
         }
     }
 }

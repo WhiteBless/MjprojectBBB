@@ -11,13 +11,14 @@ public class RFX4_ReplaceModelOnCollision : MonoBehaviour
 
     public MeshRenderer mesh;
 
+    public bool isSmeshGround;
+
     private void OnTriggerEnter(Collider other)
     {
         if (!isCollided)
         {
             if (other.CompareTag("Ground"))
             {
-                
                 isCollided = true;
                 foreach (var physicsObj in PhysicsObjects)
                 {    
@@ -28,6 +29,7 @@ public class RFX4_ReplaceModelOnCollision : MonoBehaviour
 
                 if (mesh != null)
                     mesh.enabled = true;
+
 
                 this.transform.parent.gameObject.SetActive(false);
                 // this.gameObject.SetActive(false);
@@ -41,6 +43,7 @@ public class RFX4_ReplaceModelOnCollision : MonoBehaviour
     void OnEnable()
     {
         isCollided = false;
+
         foreach (var physicsObj in PhysicsObjects)
         {
             physicsObj.SetActive(false);
@@ -52,4 +55,5 @@ public class RFX4_ReplaceModelOnCollision : MonoBehaviour
         //rb.isKinematic = false;
         //rb.detectCollisions = true;
     }
+
 }

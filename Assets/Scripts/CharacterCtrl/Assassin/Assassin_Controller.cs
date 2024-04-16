@@ -680,7 +680,7 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
             }
             else
             {
-                Debug.Log("1");
+                // Debug.Log("1");
                 playscenemanager.HealthDown();
                 
                 SkillOut();
@@ -695,6 +695,8 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
         }
     }
 
+
+    // 3초간 무적
     public void HitOut()
     {
         isHit = false;

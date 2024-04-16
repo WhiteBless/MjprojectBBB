@@ -113,7 +113,6 @@ public class PlaySceneManager : MonoBehaviour
     {
         if (health > 0)
         {
-            Debug.Log("2");
             health--;
 
             UIhealth[health].color = new Color(1, 0, 0, 0.01f);

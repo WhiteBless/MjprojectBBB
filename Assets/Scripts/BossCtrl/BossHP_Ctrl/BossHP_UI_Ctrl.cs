@@ -26,6 +26,9 @@ public class BossHP_UI_Ctrl : MonoBehaviour
     [SerializeField]
     int remain_BossHP_Line;
 
+    [SerializeField]
+    bool isCheck_HP_Down;
+
     [Tooltip("Hp Colors")]
     public List<Color> HP_Colors;
     public Text HP_Text;
@@ -39,8 +42,12 @@ public class BossHP_UI_Ctrl : MonoBehaviour
 
         // 현재 체력 색 조정
         CurBoss_HP_Img.color = GetColorByLayer(BossCur_HP);
-        StartCoroutine(TakeDamageBar_Refresh());
 
+        // 체력이 깎이는 중이 아니라면
+        if (isCheck_HP_Down == false)
+        {
+            StartCoroutine(TakeDamageBar_Refresh());
+        }
         // 다음 체력바 색으로 표시, 0이하로 떨어질 시 검정색으로 표시
         NextBoss_HP_Img.color = GetColorByLayer(BossCur_HP - Boss_SingleBarHP);
 
@@ -59,12 +66,19 @@ public class BossHP_UI_Ctrl : MonoBehaviour
 
     IEnumerator TakeDamageBar_Refresh()
     {
+        isCheck_HP_Down = true;
+
         yield return new WaitForSeconds(1.0f);
 
-        // 사이즈 비율 조정
-        TakeDamage_Img.rectTransform.sizeDelta =
-            new Vector2(NextBoss_HP_Img.rectTransform.sizeDelta.x * GetHPRatioSingleBar(BossCur_HP),
-            NextBoss_HP_Img.rectTransform.sizeDelta.y);
+        if (isCheck_HP_Down)
+        {
+            // 사이즈 비율 조정
+            TakeDamage_Img.rectTransform.sizeDelta =
+                new Vector2(NextBoss_HP_Img.rectTransform.sizeDelta.x * GetHPRatioSingleBar(BossCur_HP),
+                NextBoss_HP_Img.rectTransform.sizeDelta.y);
+
+            isCheck_HP_Down = false;
+        }
     }
 
     float GetHPRatioSingleBar(int _targetHP)

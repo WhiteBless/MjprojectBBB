@@ -12788,9 +12788,10 @@ GameObject:
   - component: {fileID: 23614300698583060}
   - component: {fileID: 114592252783442006}
   - component: {fileID: 114243006896573928}
+  - component: {fileID: 8563371049975032194}
   m_Layer: 0
   m_Name: Decal
-  m_TagString: Untagged
+  m_TagString: EnemyAttack
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12931,6 +12932,29 @@ MonoBehaviour:
   GraphTimeMultiplier: 8
   GraphIntensityMultiplier: 1
   IsLoop: 0
+--- !u!136 &8563371049975032194
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1135512664567430}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.45
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1136652820578514
 GameObject:
   m_ObjectHideFlags: 0
@@ -24721,6 +24745,7 @@ MonoBehaviour:
   - {fileID: 1135512664567430}
   - {fileID: 1320518256823182}
   mesh: {fileID: 23026775081312440}
+  isSmeshGround: 0
 --- !u!114 &114754367993015426
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -38406,6 +38431,7 @@ MonoBehaviour:
   - {fileID: 1135512664567430}
   - {fileID: 1320518256823182}
   mesh: {fileID: 0}
+  isSmeshGround: 0
 --- !u!114 &114475462030575800
 MonoBehaviour:
   m_ObjectHideFlags: 0
