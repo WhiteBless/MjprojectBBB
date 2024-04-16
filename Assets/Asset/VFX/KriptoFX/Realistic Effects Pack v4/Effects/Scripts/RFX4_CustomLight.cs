@@ -32,9 +32,10 @@ public class RFX4_CustomLight : MonoBehaviour
         allLights = SortPointLightsByDistance(allLights);
         lightCount += FillPointLights(allLights, lightPositions, lightColors);
 
-        Shader.SetGlobalInt("RFX4_LightCount", Mathf.Min(MaxLightsCount,  lightCount));
-        Shader.SetGlobalVectorArray("RFX4_LightPositions", ListToArrayWithMaxCount(lightPositions, MaxLightsCount));
-        Shader.SetGlobalVectorArray("RFX4_LightColors", ListToArrayWithMaxCount(lightColors, MaxLightsCount));
+        // TODO ## ½¦ÀÌ´õ Warning Debug ¶ß´ø°÷
+        // Shader.SetGlobalInt("RFX4_LightCount", Mathf.Min(MaxLightsCount,  lightCount));
+        // Shader.SetGlobalVectorArray("RFX4_LightPositions", ListToArrayWithMaxCount(lightPositions, MaxLightsCount));
+        // Shader.SetGlobalVectorArray("RFX4_LightColors", ListToArrayWithMaxCount(lightColors, MaxLightsCount));
 
         var ambientColor = SampleLightProbesUp(transform.position, 0.5f);
         Shader.SetGlobalColor("RFX4_AmbientColor", ambientColor);

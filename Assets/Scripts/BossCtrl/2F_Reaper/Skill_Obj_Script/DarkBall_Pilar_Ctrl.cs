@@ -24,6 +24,11 @@ public class DarkBall_Pilar_Ctrl : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
+        if (!other.CompareTag("DarkBall"))
+        {
+            return;
+        }
+
         if (other.gameObject.name == "DarkBall_Eff(Clone)" && isEnter == false)
         {
             // 머티리얼 빛나게 변경
