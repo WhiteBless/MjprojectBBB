@@ -58,22 +58,10 @@ public class ShurikenController : MonoBehaviour
                 if (Vector3.Distance(transform.position, transform.parent.parent.parent.parent.GetChild(0).position) > maxDistance)
                 {
                     transform.localPosition = startPos;
-                    transform.parent.gameObject.SetActive(false);
                     gameObject.SetActive(false);
+                    transform.parent.gameObject.SetActive(false);
                 }
             }
         }
     }
-
-    //void OnTriggerEnter(Collider other)
-    //{
-    //    if( other.tag == "Enemy")
-    //    {
-    //        attack.wSkillHit = true;
-    //    }
-    //}
-    //private void OnEnable()
-    //{
-    //    transform.GetComponent<CapsuleCollider>().enabled = true;
-    //}
 }
