@@ -143,7 +143,7 @@ public class RFX4_PhysicsMotion : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!isInitializedForce) InitializeForce();
+        // if (!isInitializedForce) InitializeForce();
         if (rigid != null && AddRealtimeForce.magnitude > 0.001f) rigid.AddForce(AddRealtimeForce);
         if (rigid != null && MinSpeed > 0.001f) rigid.AddForce(transform.forward * MinSpeed);
         if (rigid != null && effectSettings.MaxDistnace > 0 && transform.localPosition.magnitude > effectSettings.MaxDistnace) RemoveRigidbody();
