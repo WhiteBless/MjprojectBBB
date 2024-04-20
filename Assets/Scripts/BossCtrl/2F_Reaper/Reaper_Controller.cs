@@ -16,6 +16,8 @@ public enum ReaperState
     Dark_Decline,   // 7
     Dark_Soul,      // 8
     Dark_Ball,      // 9
+
+    Dark_Token,
 }
 
 public enum Reaper_Awake
@@ -128,29 +130,37 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
 
     [Header("-----Skill_Dark_Ball-----")]
     [SerializeField]
-    Transform Center_Tr;
+    Transform Center_Tr;                    // 보스 위치 시킬 센터값
     [SerializeField]
-    Transform DarkBall_Pos;
+    Transform DarkBall_Pos;                 // 구체 생설 시킬 위치
     [SerializeField]
-    GameObject Pattern_Pillar_Normal;
+    GameObject Pattern_Pillar_Normal;       // 노말 패턴 기둥
+    [SerializeField]    
+    GameObject Pattern_Pillar_Awakening;    // 각성 후 패턴 기둥
     [SerializeField]
-    GameObject Pattern_Pillar_Awakening;
+    float DarkBall_Delay;                   // 공 나오는 딜레이 시간
     [SerializeField]
-    float DarkBall_Delay;
+    float Finish_DarkBall;                  // 마지막 공 나오는 시간
     [SerializeField]
-    float Finish_DarkBall;
+    GameObject[] DarkBall_Pilar;            // 어둠의 구체 배열
     [SerializeField]
-    GameObject[] DarkBall_Pilar;
+    GameObject[] DarkBall_Pilar_Awakening;  // 어둠의 구체 각성 후 기둥 배열
     [SerializeField]
-    GameObject[] DarkBall_Pilar_Awakening;
+    GameObject[] DarkBall_Awakening;        // 어둠의 구체 각성후 배열(색 있는 구체)
     [SerializeField]
-    GameObject[] DarkBall_Awakening;
+    GameObject DarkBall_Soul_Eff;           // 각성 후 구체와 같이 나오는 어둠의 영혼(보라) 
     [SerializeField]
-    GameObject DarkBall_Soul_Eff;
+    int Awakening_Ball_Index;               // 각성 후 구체의 인덱스 값
     [SerializeField]
-    int Awakening_Ball_Index;
+    float DarkBall_Razer_Time;              // 어둠의 구체 중 영혼 시간
+
+    [Header("-----Skill_Dark_Token-----")]
     [SerializeField]
-    float DarkBall_Razer_Time;
+    bool[] DarkToken_END;
+    [SerializeField]
+    int Use_SpAtk_Count;
+    [SerializeField]
+    GameObject Flooring_Effect;
 
 
     #region Reaper_Rotate
@@ -383,6 +393,24 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
             }
         }
     }
+
+    public void Reaper_Special_nextAct()
+    {
+        // 현재 공격중이라면 return
+        if (isAttacking == true)
+        {
+            return;
+        }
+
+        // 어둠의 증표 시작
+        StartCoroutine(Dark_Token());
+
+        // Use_SpAtk_Count 횟수 째 사용 true 
+        DarkToken_END[Use_SpAtk_Count] = true;
+        // 사용 횟수 카운트
+        Use_SpAtk_Count++;
+        // Debug.Log(Use_SpAtk_Count);
+    }
     #endregion
 
     #region Reaper_PlayerCheck
@@ -525,6 +553,23 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
         }
 
 
+        // 광역 공격 가능 여부 체크
+        if (boss_hp_ctrl.isReaper_SP_ATK_1 == true && !DarkToken_END[0])
+        {
+            Reaper_Special_nextAct();
+            yield break;
+        }
+        else if (boss_hp_ctrl.isReaper_SP_ATK_2 == true && !DarkToken_END[1])
+        {
+            Reaper_Special_nextAct();
+            yield break;
+        }
+        else if (boss_hp_ctrl.isReaper_SP_ATK_3 == true && !DarkToken_END[2])
+        {
+            Reaper_Special_nextAct();
+            yield break;
+        }
+
         // 거리에 따른 다음 공격
         if (TargetDistance > Skill_Think_Range && isAttacking == false)
         {
@@ -594,6 +639,23 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
             AwakeBoss();
             // 다음행동 시간 + 1
             yield return new WaitForSeconds(nextActTime + 1.0f);
+        }
+
+        // 광역 공격 가능 여부 체크
+        if (boss_hp_ctrl.isReaper_SP_ATK_1 == true && !DarkToken_END[0])
+        {
+            Reaper_Special_nextAct();
+            yield break;
+        }
+        else if (boss_hp_ctrl.isReaper_SP_ATK_2 == true && !DarkToken_END[1])
+        {
+            Reaper_Special_nextAct();
+            yield break;
+        }
+        else if (boss_hp_ctrl.isReaper_SP_ATK_3 == true && !DarkToken_END[2])
+        {
+            Reaper_Special_nextAct();
+            yield break;
         }
 
 
@@ -741,6 +803,24 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
                 yield return new WaitForSeconds(nextActTime + 1.0f);
             }
 
+            // 광역 공격 가능 여부 체크
+            if (boss_hp_ctrl.isReaper_SP_ATK_1 == true && !DarkToken_END[0])
+            {
+                Reaper_Special_nextAct();
+                yield break;
+            }
+            else if (boss_hp_ctrl.isReaper_SP_ATK_2 == true && !DarkToken_END[1])
+            {
+                Reaper_Special_nextAct();
+                yield break;
+            }
+            else if (boss_hp_ctrl.isReaper_SP_ATK_3 == true && !DarkToken_END[2])
+            {
+                Reaper_Special_nextAct();
+                yield break;
+            }
+
+
             // 거리에 따른 다음 공격
             if (TargetDistance > Skill_Think_Range && isAttacking == false)
             {
@@ -850,6 +930,12 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
             // 공격 가능
             isAttacking = false;
 
+            if (boss_hp_ctrl.isReaper_SP_ATK_3 == true && !DarkToken_END[2])
+            {
+                Reaper_Special_nextAct();
+                yield break;
+            }
+
             // 거리에 따른 다음 공격
             if (TargetDistance > Skill_Think_Range && isAttacking == false)
             {
@@ -924,7 +1010,24 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
             // 다음행동 시간 + 1
             yield return new WaitForSeconds(nextActTime + 1.0f);
         }
-        
+
+        // 광역 공격 가능 여부 체크
+        if (boss_hp_ctrl.isReaper_SP_ATK_1 == true && !DarkToken_END[0])
+        {
+            Reaper_Special_nextAct();
+            yield break;
+        }
+        else if (boss_hp_ctrl.isReaper_SP_ATK_2 == true && !DarkToken_END[1])
+        {
+            Reaper_Special_nextAct();
+            yield break;
+        }
+        else if (boss_hp_ctrl.isReaper_SP_ATK_3 == true && !DarkToken_END[2])
+        {
+            Reaper_Special_nextAct();
+            yield break;
+        }
+
         // 거리에 따른 다음 공격
         if (TargetDistance > Skill_Think_Range && isAttacking == false)
         {
@@ -1016,6 +1119,12 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
         isLock = false;
         // 공격 가능
         isAttacking = false;
+
+        if (boss_hp_ctrl.isReaper_SP_ATK_3 == true && !DarkToken_END[2])
+        {
+            Reaper_Special_nextAct();
+            yield break;
+        }
 
         // 거리에 따른 다음 공격
         if (TargetDistance > Skill_Think_Range && isAttacking == false)
@@ -1117,6 +1226,12 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
         isAttacking = false;
         Slow_RotSpeed = 0.0f;
 
+        if (boss_hp_ctrl.isReaper_SP_ATK_3 == true && !DarkToken_END[2])
+        {
+            Reaper_Special_nextAct();
+            yield break;
+        }
+
         // 거리에 따른 다음 공격
         if (TargetDistance > Skill_Think_Range && isAttacking == false)
         {
@@ -1170,7 +1285,7 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
     #endregion
 
     #region Atk_6_Dark_Ball
-    // TODO ## Reaper_DarkSoul
+    // TODO ## Reaper_DarkBall
     IEnumerator Dark_Ball()
     {
         // 각성 전 어둠의 구체
@@ -1240,6 +1355,26 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
 
             // 공격 중
             isAttacking = false;
+
+
+            // 광역 공격 가능 여부 체크
+            if (boss_hp_ctrl.isReaper_SP_ATK_1 == true && !DarkToken_END[0])
+            {
+                Reaper_Special_nextAct();
+                yield break;
+            }
+            else if (boss_hp_ctrl.isReaper_SP_ATK_2 == true && !DarkToken_END[1])
+            {
+                Reaper_Special_nextAct();
+                yield break;
+            }
+            else if (boss_hp_ctrl.isReaper_SP_ATK_3 == true && !DarkToken_END[2])
+            {
+                Reaper_Special_nextAct();
+                yield break;
+            }
+
+
             // 거리에 따른 다음 공격
             if (TargetDistance > Skill_Think_Range && isAttacking == false)
             {
@@ -1378,6 +1513,12 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
             isAttacking = false;
             Slow_RotSpeed = 0.0f;
 
+            if (boss_hp_ctrl.isReaper_SP_ATK_3 == true && !DarkToken_END[2])
+            {
+                Reaper_Special_nextAct();
+                yield break;
+            }
+
             // 거리에 따른 다음 공격
             if (TargetDistance > Skill_Think_Range && isAttacking == false)
             {
@@ -1408,7 +1549,49 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
         }
         else // 각성 후
         {
+            // 따로 색깔 별 구체 관리하기 때문에 사용 
+        }
+    }
+    #endregion
 
+    #region Dark_Token
+    // TODO ## Reaper_Token
+    IEnumerator Dark_Token()
+    {
+        // 상태 변경
+        reaperState = ReaperState.Dark_Token;
+        // 애니메이션 작동
+        Reaper_animator.SetTrigger("Teleport");
+        // 중앙으로 이동
+        this.transform.position = Center_Tr.position;
+        // 공격 중
+        isAttacking = true;
+        //회전 멈춤
+        isLock = true;
+        // 이동 멈춤
+        isMove = false;
+        Reaper_animator.SetBool("isMove", isMove);
+
+
+        if (reaperAwakeState == Reaper_Awake.NORMAL)
+        {
+
+        }
+        else if (reaperAwakeState == Reaper_Awake.AWAKENING)
+        {
+
+        }
+
+        yield return new WaitForSeconds(2.0f);
+
+        // 거리에 따른 다음 공격
+        if (TargetDistance > Skill_Think_Range && isAttacking == false)
+        {
+            Reaper_Long_nextAct(10);
+        }
+        else if (TargetDistance <= Skill_Think_Range && isAttacking == false)
+        {
+            Reaper_Short_nextAct(10);
         }
     }
     #endregion
