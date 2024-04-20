@@ -7,11 +7,22 @@ public class Boss_HP_Controller : MonoBehaviour
     public GameObject Boss_HP_Canvas;
     public int BossMaxHP;
     public int BossCurHP;
-
     public bool isAwakening;
     public bool isDead;
-
     public bool isWSkillChek;
+
+    [Header("-----Reaper-----")] // 리퍼의 경우 
+    [SerializeField]
+    int Reaper_SP_1_HP; // 첫번째 광역기 체력
+    [SerializeField]
+    int Reaper_SP_2_HP;
+    [SerializeField]
+    int Reaper_SP_3_HP;
+    public bool isReaper_SP_ATK_1;
+    public bool isReaper_SP_ATK_2;
+    public bool isReaper_SP_ATK_3;
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -26,6 +37,28 @@ public class Boss_HP_Controller : MonoBehaviour
             // HP가 0이상일 시 작동
             if (BossCurHP > 0)
             {
+                #region Reaper 
+                if (this.gameObject.name == "Reaper")
+                {
+                    // 보스 체력이 50퍼 보다 작아지면
+                    if (BossCurHP <= (BossMaxHP / 100) * Reaper_SP_1_HP && isReaper_SP_ATK_1 == false)
+                    {
+                        isReaper_SP_ATK_1 = true;
+                    }
+                    // 보스 체력이 50퍼 보다 작아지면
+                    else if (BossCurHP <= (BossMaxHP / 100) * Reaper_SP_2_HP && isReaper_SP_ATK_2 == false)
+                    {
+                        isReaper_SP_ATK_2 = true;
+                    }
+                    // 보스 체력이 50퍼 보다 작아지면
+                    else if (BossCurHP <= (BossMaxHP / 100) * Reaper_SP_3_HP && isReaper_SP_ATK_3 == false)
+                    {
+                        isReaper_SP_ATK_3 = true;
+                    }
+                }
+
+                #endregion // 리퍼의 hp에 따른 변수 조정
+
                 // 보스 체력이 50퍼 보다 작아지면
                 if (BossCurHP <= (BossMaxHP / 100) * 50 && isAwakening == false)
                 {
