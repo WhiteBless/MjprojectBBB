@@ -80,6 +80,16 @@ public class Boss_HP_Controller : MonoBehaviour
             else
             {
                 isDead = true;
+                this.GetComponent<CapsuleCollider>().enabled = false;
+
+                #region ReaperDeath
+                if (this.gameObject.name == "Reaper")
+                {
+                    Animator reaperanimator = GetComponent<Animator>();                  
+                    reaperanimator.SetTrigger("isDeath");
+                }
+
+                #endregion          
             }
         }
         else if (other.gameObject.name == "DarkBallCounter_Eff")
