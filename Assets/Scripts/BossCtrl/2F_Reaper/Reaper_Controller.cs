@@ -161,6 +161,12 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
     int Use_SpAtk_Count;
     [SerializeField]
     GameObject Flooring_Effect;
+    [SerializeField]
+    GameObject[] Token_obj;
+    [SerializeField]
+    GameObject[] Token_GuideLine;
+    [SerializeField]
+    float Token_Delay;
 
 
     #region Reaper_Rotate
@@ -455,6 +461,14 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
     }
     #endregion
 
+    #region ReaperDeath
+    public void Death()
+    {
+        StopAllCoroutines();
+        isLock = true;
+    }
+    #endregion
+
     #region Boss_Reaper_Teleport
     IEnumerator Teleport()
     {
@@ -468,7 +482,7 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
 
         // 플레이어의 위치에서 오일러 각 만큼 위치에서 * (Skill_Think_Range - 3.0f)만큼 거리에 위치
         Vector3 randomDirection = Quaternion.Euler(0f, randomAngle, 0f) * Vector3.forward;
-        Vector3 randomPosition = Target.transform.position + randomDirection * (Skill_Think_Range - 5.0f);
+        Vector3 randomPosition = Target.transform.position + randomDirection * (Skill_Think_Range - 7.0f);
 
         // Y 좌표는 0으로 고정
         randomPosition.y = 1.5f;
@@ -519,6 +533,11 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
     // TODO ## Reaper_BaseAtk_0
     IEnumerator BaseAtk_0()
     {
+        if (boss_hp_ctrl.isDead == true)
+        {
+            yield break;
+        }
+
         BaseAtk_GuideLine.SetActive(true);
 
         yield return new WaitForSeconds(0.5f);
@@ -608,6 +627,11 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
     // TODO ## Reaper_BaseAtk_1
     IEnumerator BaseAtk_1()
     {
+        if (boss_hp_ctrl.isDead == true)
+        {
+            yield break;
+        }
+
         BaseAtk_GuideLine.SetActive(true);
 
         yield return new WaitForSeconds(0.5f);
@@ -698,6 +722,11 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
     // TODO ## Reaper_DarkDecline
     IEnumerator Dark_Decline()
     {
+        if (boss_hp_ctrl.isDead == true)
+        {
+            yield break;
+        }
+
         // 각성 전 어둠의 쇠락
         if (reaperAwakeState == Reaper_Awake.NORMAL)
         {
@@ -981,6 +1010,11 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
     // TODO ## Reaper_DarkHand / Reaper_DarkHand2
     IEnumerator Dark_Hand()
     {
+        if (boss_hp_ctrl.isDead == true)
+        {
+            yield break;
+        }
+
         // 상태 변경
         reaperState = ReaperState.Dark_Hand;
         // 애니메이션 작동
@@ -1081,6 +1115,11 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
     #region Reaper_Atk_4_DarkHand2
     IEnumerator Dark_Hand2()
     {
+        if (boss_hp_ctrl.isDead == true)
+        {
+            yield break;
+        }
+
         // 상태 변경
         reaperState = ReaperState.Dark_Hand;
         // 애니메이션 작동
@@ -1194,6 +1233,11 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
     // TODO ## Reaper_DarkSoul
     IEnumerator Dark_Soul()
     {
+        if (boss_hp_ctrl.isDead == true)
+        {
+            yield break;
+        }
+
         // 현재 상태 변경
         reaperState = ReaperState.Dark_Soul;
         // 가이드라인 활성화
@@ -1288,8 +1332,13 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
     // TODO ## Reaper_DarkBall
     IEnumerator Dark_Ball()
     {
+        if (boss_hp_ctrl.isDead == true)
+        {
+            yield break;
+        }
+
         // 각성 전 어둠의 구체
-        if(reaperAwakeState == Reaper_Awake.NORMAL)
+        if (reaperAwakeState == Reaper_Awake.NORMAL)
         {
             for (int i = 0; i < DarkBall_Pilar.Length; i++)
             {
@@ -1558,31 +1607,92 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
     // TODO ## Reaper_Token
     IEnumerator Dark_Token()
     {
+        if (boss_hp_ctrl.isDead == true)
+        {
+            yield break;
+        }
+
         // 상태 변경
-        reaperState = ReaperState.Dark_Token;
+            reaperState = ReaperState.Dark_Token;
         // 애니메이션 작동
         Reaper_animator.SetTrigger("Teleport");
         // 중앙으로 이동
         this.transform.position = Center_Tr.position;
         // 공격 중
         isAttacking = true;
+        this.transform.rotation = Quaternion.Euler(0.0f, -90.0f, 0.0f);
         //회전 멈춤
         isLock = true;
         // 이동 멈춤
         isMove = false;
         Reaper_animator.SetBool("isMove", isMove);
 
+        // 첫번째
+        yield return new WaitForSeconds(Token_Delay);
+        // 장판 활성화
+        Flooring_Effect.SetActive(true);
 
-        if (reaperAwakeState == Reaper_Awake.NORMAL)
-        {
+        // 첫번째
+        yield return new WaitForSeconds(Token_Delay);
+        Token_obj[0].SetActive(true);
+        Token_GuideLine[0].SetActive(true);
 
-        }
-        else if (reaperAwakeState == Reaper_Awake.AWAKENING)
-        {
+        // 두번째
+        yield return new WaitForSeconds(Token_Delay);
+        Token_obj[1].SetActive(true);
+        Token_GuideLine[0].SetActive(false);
+        Token_GuideLine[1].SetActive(true);
 
-        }
+        // 세번째
+        yield return new WaitForSeconds(Token_Delay);
+        Token_obj[2].SetActive(true);
+        Token_GuideLine[1].SetActive(false);
+        Token_GuideLine[2].SetActive(true);
 
-        yield return new WaitForSeconds(2.0f);
+        // 네번째
+        yield return new WaitForSeconds(Token_Delay);
+        Token_obj[3].SetActive(true);
+        Token_GuideLine[2].SetActive(false);
+        Token_GuideLine[3].SetActive(true);
+
+        // 다섯번째
+        yield return new WaitForSeconds(Token_Delay);
+        Token_obj[4].SetActive(true);
+        Token_GuideLine[3].SetActive(false);
+        Token_GuideLine[4].SetActive(true);
+
+        // 여섯번째
+        yield return new WaitForSeconds(Token_Delay);
+        Token_obj[5].SetActive(true);
+        Token_GuideLine[4].SetActive(false);
+        Token_GuideLine[5].SetActive(true);
+
+        // 일곱번째
+        yield return new WaitForSeconds(Token_Delay);
+        Token_obj[6].SetActive(true);
+        Token_GuideLine[5].SetActive(false);
+        Token_GuideLine[6].SetActive(true);
+
+
+        // 여덟번째
+        yield return new WaitForSeconds(Token_Delay);
+        Token_obj[7].SetActive(true);
+        Token_GuideLine[6].SetActive(false);
+        Token_GuideLine[7].SetActive(true);
+
+
+        yield return new WaitForSeconds(Token_Delay);
+        Token_GuideLine[7].SetActive(false);
+
+        yield return new WaitForSeconds(2);
+
+        // 장판 이펙트 비활성화
+        Flooring_Effect.SetActive(false);
+
+        // 공격 중
+        isAttacking = false;
+        //회전 멈춤
+        isLock = false;
 
         // 거리에 따른 다음 공격
         if (TargetDistance > Skill_Think_Range && isAttacking == false)
