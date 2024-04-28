@@ -55,7 +55,7 @@
     <UnityVersion>2022.3.17f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
+    <Analyzer Include="C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\2022.3.17f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.SourceGenerators.dll" />
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\2022.3.17f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
@@ -358,6 +358,7 @@
     <Compile Include="Assets\Asset\Lighting\GSpawn - Level Designer\Scripts\Prefabs\ObjectGroupsFromPrefabLibsCreationSettingsWindow.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\CameraController.cs" />
     <Compile Include="Assets\Scripts\None\Skill.cs" />
+    <Compile Include="Assets\Scripts\None\Portal.cs" />
     <Compile Include="Assets\Asset\Lighting\GSpawn - Level Designer\Scripts\Core\ProfileDb.cs" />
     <Compile Include="Assets\Asset\Lighting\GSpawn - Level Designer\Scripts\Core\Extensions\IntegerFieldEx.cs" />
     <Compile Include="Assets\#NVJOB Dynamic Sky\Example Scenes\Environment\Standard Assets\Effects\ImageEffects\Scripts\Bloom.cs" />
@@ -640,6 +641,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_UiFrameRateCounter.cs" />
     <Compile Include="Assets\Asset\VFX\SkillsEffectsPack\Scripts\DestroyObject.cs" />
     <Compile Include="Assets\#NVJOB Dynamic Sky\Example Scenes\Environment\Standard Assets\Effects\ImageEffects\Scripts\EdgeDetection.cs" />
+    <Compile Include="Assets\Scripts\Manager\PortManamger.cs" />
     <Compile Include="Assets\Asset\Lighting\GSpawn - Level Designer\Scripts\Objects\Projection\ObjectProjectionPivots.cs" />
     <Compile Include="Assets\Asset\Lighting\GSpawn - Level Designer\Scripts\Level Design\Object Spawn\TileRuleFlexiBoxBrush.cs" />
     <Compile Include="Assets\TheReaper\Scrips\Deleteable\ThirdPersonUserControl.cs" />
@@ -802,7 +804,6 @@
     <Compile Include="Assets\Asset\Lighting\GSpawn - Level Designer\Scripts\Level Design\Object Spawn\ObjectSpawn.cs" />
     <Compile Include="Assets\#NVJOB Dynamic Sky\Example Scenes\Environment\Standard Assets\Effects\ImageEffects\Scripts\ScreenSpaceAmbientOcclusion.cs" />
     <Compile Include="Assets\Asset\Lighting\GSpawn - Level Designer\Scripts\Level Design\Object Spawn\TileRuleProfileDb.cs" />
-    <Compile Include="Assets\Scripts\None\potal.cs" />
     <Compile Include="Assets\Asset\Lighting\GSpawn - Level Designer\Scripts\Level Design\Int Pattern\IntPatternDb.cs" />
     <Compile Include="Assets\Asset\Lighting\GSpawn - Level Designer\Scripts\Level Design\Int Pattern\IntPatternDbWindow.cs" />
     <Compile Include="Assets\Asset\Lighting\GSpawn - Level Designer\Scripts\Prefabs\PrefabFactory.cs" />
@@ -1430,18 +1431,6 @@
     </Reference>
     <Reference Include="Unity.VisualScripting.Antlr3.Runtime">
       <HintPath>Library\PackageCache\com.unity.visualscripting@1.9.1\Runtime\VisualScripting.Flow\Dependencies\NCalc\Unity.VisualScripting.Antlr3.Runtime.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.Android.Types">
-      <HintPath>C:\Program Files\Unity\Hub\Editor\2022.3.17f1\Editor\Data\PlaybackEngines\AndroidPlayer\Unity.Android.Types.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.Android.Gradle">
-      <HintPath>C:\Program Files\Unity\Hub\Editor\2022.3.17f1\Editor\Data\PlaybackEngines\AndroidPlayer\Unity.Android.Gradle.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.Android.GradleProject">
-      <HintPath>C:\Program Files\Unity\Hub\Editor\2022.3.17f1\Editor\Data\PlaybackEngines\AndroidPlayer\Unity.Android.GradleProject.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="netstandard">
