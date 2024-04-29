@@ -17,7 +17,6 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
     public float moveSpeed;
     public float DodgeDistance;
     public float EskillDistance;
-    public bool isWarping;
 
     private bool isMove;
     public bool isDodge;
