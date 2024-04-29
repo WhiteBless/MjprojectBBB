@@ -632,13 +632,14 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
         StartCoroutine(Play_Skill4Atk_1_Eff());
     }
 
-
     IEnumerator Play_Skill4Atk_1_Eff()
     {
+        // 이펙트 초기 위치 설정
         Skill4Atk_1_Eff.transform.position = Skill4Atk_1_Point.transform.position;
         Skill4Atk_2_Eff.transform.position = Skill4Atk_2_Point.transform.position;
         Skill4Atk_3_Eff.transform.position = Skill4Atk_3_Point.transform.position;
 
+        // 이펙트 초기 회전 설정
         Vector3 d2 = Skill4Atk_1_Eff.transform.position - skill_Look.transform.position;
         d2.y = 0.0f;
         Quaternion q2 = Quaternion.LookRotation(d2);
@@ -646,17 +647,86 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
         Skill4Atk_2_Eff.transform.rotation = q2 * Quaternion.Euler(0f, 0f, 0f);
         Skill4Atk_3_Eff.transform.rotation = q2 * Quaternion.Euler(0f, 0f, 0f);
 
-
+        // 이펙트 활성화
         Skill4Atk_1_Eff.SetActive(true);
         Skill4Atk_2_Eff.SetActive(true);
         Skill4Atk_3_Eff.SetActive(true);
 
-        yield return new WaitForSeconds(0.3f);
+        // 부모 오브젝트의 스케일 저장
+        Vector3 parentScale = Skill4Atk_1_Eff.transform.localScale;
 
+        // 자식 오브젝트의 스케일 변화 애니메이션 - 1에서 2로
+        float elapsedTime = 0f;
+        while (elapsedTime < 0.3f)
+        {
+            float scale = Mathf.Lerp(1f, 2f, elapsedTime / 0.3f);
+            SetScaleRecursive(Skill4Atk_1_Eff.transform, scale, parentScale);
+            SetScaleRecursive(Skill4Atk_2_Eff.transform, scale, parentScale);
+            SetScaleRecursive(Skill4Atk_3_Eff.transform, scale, parentScale);
+
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+
+        // 자식 오브젝트의 스케일 변화 애니메이션 - 2에서 1로
+        elapsedTime = 0f;
+        while (elapsedTime < 0.1f)
+        {
+            float scale = Mathf.Lerp(2f, 1f, elapsedTime / 0.1f);
+            SetScaleRecursive(Skill4Atk_1_Eff.transform, scale, parentScale);
+            SetScaleRecursive(Skill4Atk_2_Eff.transform, scale, parentScale);
+            SetScaleRecursive(Skill4Atk_3_Eff.transform, scale, parentScale);
+
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        // 이펙트 비활성화
+        yield return new WaitForSeconds(0.1f);
+
+        // 이펙트 비활성화
         Skill4Atk_1_Eff.SetActive(false);
         Skill4Atk_2_Eff.SetActive(false);
         Skill4Atk_3_Eff.SetActive(false);
     }
+
+    void SetScaleRecursive(Transform parent, float scale, Vector3 parentScale)
+    {
+        // 부모 오브젝트의 스케일과 역 스케일을 곱하여 자식 오브젝트의 스케일을 설정
+        Vector3 childScale = new Vector3(scale / parentScale.x, scale / parentScale.y, scale / parentScale.z);
+        parent.localScale = childScale;
+        foreach (Transform child in parent)
+        {
+            SetScaleRecursive(child, scale, parentScale);
+        }
+    }
+
+
+
+    //IEnumerator Play_Skill4Atk_1_Eff()
+    //{
+    //    Skill4Atk_1_Eff.transform.position = Skill4Atk_1_Point.transform.position;
+    //    Skill4Atk_2_Eff.transform.position = Skill4Atk_2_Point.transform.position;
+    //    Skill4Atk_3_Eff.transform.position = Skill4Atk_3_Point.transform.position;
+
+    //    Vector3 d2 = Skill4Atk_1_Eff.transform.position - skill_Look.transform.position;
+    //    d2.y = 0.0f;
+    //    Quaternion q2 = Quaternion.LookRotation(d2);
+    //    Skill4Atk_1_Eff.transform.rotation = q2 * Quaternion.Euler(0f, 0f, 0f);
+    //    Skill4Atk_2_Eff.transform.rotation = q2 * Quaternion.Euler(0f, 0f, 0f);
+    //    Skill4Atk_3_Eff.transform.rotation = q2 * Quaternion.Euler(0f, 0f, 0f);
+
+    //    Skill4Atk_1_Eff.SetActive(true);
+    //    Skill4Atk_2_Eff.SetActive(true);
+    //    Skill4Atk_3_Eff.SetActive(true);
+
+    //    yield return new WaitForSeconds(0.3f);
+
+    //    Skill4Atk_1_Eff.SetActive(false);
+    //    Skill4Atk_2_Eff.SetActive(false);
+    //    Skill4Atk_3_Eff.SetActive(false);
+    //}
 
     public void SkillOut()
     {
