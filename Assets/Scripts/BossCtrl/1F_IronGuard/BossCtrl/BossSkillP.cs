@@ -98,7 +98,11 @@ public class BossSkillP : MonoBehaviour
         }
     }
 
-
+    public void Death()
+    {
+        StopAllCoroutines();
+        this.GetComponent<BossLookAt>().isLook = false;
+    }
 
     public void BossThink()
     {

@@ -79,17 +79,29 @@ public class Boss_HP_Controller : MonoBehaviour
             }
             else
             {
-                isDead = true;
-                this.GetComponent<CapsuleCollider>().enabled = false;
-
-                #region ReaperDeath
+                #region Reaper_Death
                 if (this.gameObject.name == "Reaper")
                 {
+                    BossCurHP = 0;
+                    isDead = true;
+                    this.GetComponent<CapsuleCollider>().enabled = false;
+
                     Animator reaperanimator = GetComponent<Animator>();                  
                     reaperanimator.SetTrigger("isDeath");
                 }
+                #endregion
 
-                #endregion          
+                #region IronGuard2_n_Death
+                if (this.gameObject.name == "IronGuard2_n")
+                {
+                    BossCurHP = 0;
+                    isDead = true;
+                    this.GetComponent<BoxCollider>().enabled = false;
+
+                    Animator reaperanimator = GetComponent<Animator>();
+                    reaperanimator.SetTrigger("doDie2");
+                }
+                #endregion    
             }
         }
         else if (other.gameObject.name == "DarkBallCounter_Eff")
