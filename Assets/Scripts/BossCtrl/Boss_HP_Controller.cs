@@ -57,7 +57,7 @@ public class Boss_HP_Controller : MonoBehaviour
                     }
                 }
 
-                #endregion // 리퍼의 hp에 따른 변수 조정
+                #endregion // 리퍼의 hp에 따른 변수 조정 
 
                 // 보스 체력이 50퍼 보다 작아지면
                 if (BossCurHP <= (BossMaxHP / 100) * 50 && isAwakening == false)
