@@ -34,6 +34,8 @@ public class SoundManager : MonoBehaviour
     {
         HitSound,
         DeadSong,
+        DoorOpening,
+        DoorClosing,
 
     }
 
