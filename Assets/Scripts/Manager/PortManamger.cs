@@ -9,7 +9,6 @@ public class PortManager : MonoBehaviour
     {
         public GameObject boss;
         public GameObject portal;
-        public Transform warpPoint; // 포탈 사용시 이동할 위치
     }
 
     public List<BossPortalPair> bossPortalPairs;
@@ -27,7 +26,7 @@ public class PortManager : MonoBehaviour
     {
         foreach (var pair in bossPortalPairs)
         {
-            if (pair.boss == null || pair.portal == null || pair.warpPoint == null)
+            if (pair.boss == null || pair.portal == null)
             {
                 Debug.LogError("PortManager: BossPortalPair에 null 객체가 있습니다.");
                 continue;
@@ -44,17 +43,6 @@ public class PortManager : MonoBehaviour
             {
                 // 해당 보스가 죽었고, 포탈이 아직 활성화되지 않았다면 포탈 활성화
                 pair.portal.SetActive(true);
-
-                // 포탈 오브젝트에 Portal 스크립트가 있다면, 플레이어를 워프 포인트로 이동시키는 위치를 설정
-                Portal portalScript = pair.portal.GetComponent<Portal>();
-                if (portalScript != null)
-                {
-                    portalScript.toObj = pair.warpPoint.gameObject;
-                }
-                else
-                {
-                    Debug.LogError("PortManager: Portal 컴포넌트를 찾을 수 없습니다.");
-                }
             }
         }
     }
