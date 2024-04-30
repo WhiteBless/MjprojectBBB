@@ -52,7 +52,7 @@ public class Skill_Test : MonoBehaviour
             switch (skillType)
             {
                 case SkillType.Q:
-                    if (!isSkill1CT && !assassin_Controller.isSkill2 && !assassin_Controller.isSkill3 && !assassin_Controller.isSkill4 && !assassin_Controller.isDodge)
+                    if (!isSkill1CT && !assassin_Controller.isSkill2 && !assassin_Controller.isSkill3 && !assassin_Controller.isSkill4 && !assassin_Controller.isDodge && !assassin_Controller.isAttack)
                     {
                         if (skillTimes > 0f && assassin_Controller.skill1)
                         {
@@ -65,7 +65,7 @@ public class Skill_Test : MonoBehaviour
                     break;
 
                 case SkillType.W:
-                    if (!isSkill2CT && !assassin_Controller.isSkill1 && !assassin_Controller.isSkill3 && !assassin_Controller.isSkill4 && !assassin_Controller.isDodge)
+                    if (!isSkill2CT && !assassin_Controller.isSkill1 && !assassin_Controller.isSkill3 && !assassin_Controller.isSkill4 && !assassin_Controller.isDodge && !assassin_Controller.isAttack)
                     {
                         if (skillTimes > 0f && assassin_Controller.skill2)
                         {
@@ -78,7 +78,7 @@ public class Skill_Test : MonoBehaviour
                     break;
 
                 case SkillType.E:
-                    if (!isSkill3CT && !assassin_Controller.isSkill1 && !assassin_Controller.isSkill2 && !assassin_Controller.isSkill4 && !assassin_Controller.isDodge)
+                    if (!isSkill3CT && !assassin_Controller.isSkill1 && !assassin_Controller.isSkill2 && !assassin_Controller.isSkill4 && !assassin_Controller.isDodge && !assassin_Controller.isAttack)
                     {
                         if (skillTimes > 0f && assassin_Controller.skill3)
                         {
@@ -91,7 +91,7 @@ public class Skill_Test : MonoBehaviour
                     break;
 
                 case SkillType.R:
-                    if (!isSkill4CT && !assassin_Controller.isSkill1 && !assassin_Controller.isSkill2 && !assassin_Controller.isSkill3 && !assassin_Controller.isDodge)
+                    if (!isSkill4CT && !assassin_Controller.isSkill1 && !assassin_Controller.isSkill2 && !assassin_Controller.isSkill3 && !assassin_Controller.isDodge && !assassin_Controller.isAttack)
                     {
                         if (skillTimes > 0f && assassin_Controller.skill4)
                         {

@@ -20,7 +20,7 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
 
     private bool isMove;
     public bool isDodge;
-    private bool isAttack;
+    public bool isAttack;
     public bool isSkill1;
     public bool isSkill2;
     public bool isSkill3;
@@ -295,6 +295,7 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
             animator.SetBool("isMove", false);
             animator.SetTrigger("doDodge");
             isDodge = true;
+            isHit = true;
             isMove = false;
 
             SkillOut();
@@ -321,6 +322,7 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
     public override void DodgeOut()
     {
         isDodge = false;
+        isHit = false;
     }
 
     IEnumerator MoveDuring(Vector3 startPosition, Vector3 endPosition, float duration)
@@ -340,9 +342,12 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
 
     private void SetDestination(Vector3 dest)
     {
-        destination = dest;
-        isMove = true;
-        animator.SetBool("isMove", true);
+        if (!isAttack)
+        {
+            destination = dest;
+            isMove = true;
+            animator.SetBool("isMove", true);
+        }
     }
 
     public override void Move()
@@ -752,14 +757,16 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
             {
                 // Debug.Log("1");
                 playscenemanager.HealthDown();
-                
+                animator.SetBool("isMove", false);
+                animator.SetTrigger("doDie");
                 SkillOut();
                 isMove = false;
                 isAttack = false;
                 isDodge = false;
-
-                animator.SetBool("isDie", true);
                 isDie = true;
+                transform.GetComponent<CapsuleCollider>().enabled = false;
+                
+                
             }
             
         }
