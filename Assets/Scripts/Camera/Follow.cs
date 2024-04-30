@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class CaneraController : MonoBehaviour
+public class Follow : MonoBehaviour
 {
 
     [SerializeField]
@@ -27,11 +27,13 @@ public class CaneraController : MonoBehaviour
     // 매 프레임마다 갱신 
     void LateUpdate()
     {
-        if (!(SceneManager.GetActiveScene().name == "Main"))
+
+        if (!(SceneManager.GetActiveScene().name == "Main Camera"))
         {
             transform.position = _player.transform.position + _delta;
             transform.LookAt(_player.transform);
         }
+
 
         //if (_mode == Define.CameraMode.QarterView && _player != null)
         //{

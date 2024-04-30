@@ -4,11 +4,9 @@ using UnityEngine;
 
 public class DoorOpen : MonoBehaviour
 {
-    public AudioSource doorOpenSound; // 문 열림 사운드
-    public AudioSource doorCloseSound; // 문 닫힘 사운드
     public float openSpeed = 5f; // 문 열림 속도
     public float closeSpeed = 5f; // 문 닫힘 속도
-    public float openHeight = 3f; // 문이 열릴 때 이동할 높이
+    public float openHeight = 100f; // 문이 열릴 때 이동할 높이
 
     private bool isOpening = false; // 문이 열리고 있는지 확인
     private bool isClosing = false; // 문이 닫히고 있는지 확인
