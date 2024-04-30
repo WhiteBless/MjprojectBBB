@@ -25,15 +25,16 @@ public class Follow : MonoBehaviour
     }
 
     // 매 프레임마다 갱신 
-    void LateUpdate()
+    void Update()
     {
 
-        if (!(SceneManager.GetActiveScene().name == "Main Camera"))
-        {
-            transform.position = _player.transform.position + _delta;
-            transform.LookAt(_player.transform);
-        }
+        //if (!(SceneManager.GetActiveScene().name == ""))
+        //{
+           
+        //}
 
+        transform.position = _player.transform.position + _delta;
+        transform.LookAt(_player.transform);
 
         //if (_mode == Define.CameraMode.QarterView && _player != null)
         //{
