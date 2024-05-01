@@ -747,7 +747,7 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
             if (playscenemanager.health > 1)
             {
                 playscenemanager.HealthDown();
-                Debug.Log(other.gameObject.name);
+                // Debug.Log(other.gameObject.name);
 
                 isHit = true;
 

@@ -94,6 +94,8 @@ public class Boss_HP_Controller : MonoBehaviour
                 #region IronGuard2_n_Death
                 if (this.gameObject.name == "IronGuard2_n")
                 {
+                    Boss_HP_Canvas.GetComponent<BossHP_UI_Ctrl>().BossCur_HP = 0;
+
                     BossCurHP = 0;
                     isDead = true;
                     this.GetComponent<BoxCollider>().enabled = false;
@@ -101,7 +103,9 @@ public class Boss_HP_Controller : MonoBehaviour
                     Animator reaperanimator = GetComponent<Animator>();
                     reaperanimator.SetTrigger("doDie2");
                 }
-                #endregion    
+                #endregion
+
+                Boss_HP_Canvas.transform.localScale = Vector3.zero;
             }
         }
         else if (other.gameObject.name == "DarkBallCounter_Eff")
