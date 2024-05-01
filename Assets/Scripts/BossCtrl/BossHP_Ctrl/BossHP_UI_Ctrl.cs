@@ -35,6 +35,11 @@ public class BossHP_UI_Ctrl : MonoBehaviour
 
     public void Refresh_BossHP()
     {
+        if (BossCur_HP <= 0)
+        {
+            BossCur_HP = 0;
+        }
+
         // 사이즈 비율 조정
         CurBoss_HP_Img.rectTransform.sizeDelta =
             new Vector2(NextBoss_HP_Img.rectTransform.sizeDelta.x * GetHPRatioSingleBar(BossCur_HP),
