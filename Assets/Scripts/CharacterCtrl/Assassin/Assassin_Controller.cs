@@ -765,11 +765,16 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
                 isDodge = false;
                 isDie = true;
                 transform.GetComponent<CapsuleCollider>().enabled = false;
-                
-                
+
+                Invoke("CharacterDie", 3f);
             }
             
         }
+    }
+
+    void CharacterDie()
+    {
+        playscenemanager.CharacterDie();
     }
 
 
