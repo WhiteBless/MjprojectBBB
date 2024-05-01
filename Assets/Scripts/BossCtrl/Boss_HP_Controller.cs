@@ -68,7 +68,7 @@ public class Boss_HP_Controller : MonoBehaviour
                 if (!isWSkillChek)
                 {
                     Attack weapon = other.GetComponent<Attack>();
-                    Debug.Log("Damage: " + weapon.damage);
+                    // Debug.Log("Damage: " + weapon.damage);
 
                     BossCurHP -= weapon.damage;
                 }
