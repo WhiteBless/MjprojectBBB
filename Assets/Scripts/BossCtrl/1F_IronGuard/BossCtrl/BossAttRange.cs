@@ -30,6 +30,8 @@ public class BossAttRange : MonoBehaviour
         {
             PD.Play(TimeAssets[0]);
 
+            GameManager.GMInstance.SoundManagerRef.PlayBGM(SoundManager.BGM.BOSS_1FLOOR);
+
             bossHPCanvas.transform.localScale = Vector3.one;
 
             bossAnimator.AttRadyState = true; // AttRadyState를 true로 설정
