@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Timeline;
+using UnityEngine.Playables;
 
 public class BossAttRange : MonoBehaviour
 {
@@ -11,10 +13,14 @@ public class BossAttRange : MonoBehaviour
 
     BossAnimator bossAnimator; // BossAnimator 스크립트를 참조하는 변수
 
+    PlayableDirector PD;
+    public TimelineAsset[] TimeAssets;
+
     // Start is called before the first frame update
     void Start()
     {
         bossAnimator = FindObjectOfType<BossAnimator>(); // 부모 오브젝트의 BossAnimator 컴포넌트를 찾아서 bossAnimator 변수에 할당
+        PD = GetComponent<PlayableDirector>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -22,7 +28,8 @@ public class BossAttRange : MonoBehaviour
         // 1층 보스 hp ui연결
         if (other.gameObject.CompareTag("P"))
         {
-            Debug.Log(1);
+            PD.Play(TimeAssets[0]);
+
             bossHPCanvas.transform.localScale = Vector3.one;
 
             bossAnimator.AttRadyState = true; // AttRadyState를 true로 설정

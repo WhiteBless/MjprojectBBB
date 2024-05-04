@@ -227,6 +227,7 @@
     <Compile Include="Assets\Asset\Lighting\GSpawn - Level Designer\Scripts\Prefabs\RandomPrefabProfileDb.cs" />
     <Compile Include="Assets\Asset\Lighting\GSpawn - Level Designer\Scripts\Level Design\Object Spawn\ObjectSpawnGuide.cs" />
     <Compile Include="Assets\Asset\VFX\KriptoFX\Magic Effects Pack v1\Scripts\RFX1_RotationFreeze.cs" />
+    <Compile Include="Assets\Scripts\Camera\CameraPos.cs" />
     <Compile Include="Assets\Asset\Lighting\GSpawn - Level Designer\Scripts\Mesh\Creation\LineMesh.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_DigitValidator.cs" />
     <Compile Include="Assets\Asset\Lighting\GSpawn - Level Designer\Scripts\Grid\PluginGrid.cs" />
@@ -254,6 +255,7 @@
     <Compile Include="Assets\Asset\Beautify\URP\Demo\DemoSources\Scripts\CameraAnimator.cs" />
     <Compile Include="Assets\Asset\Lighting\GSpawn - Level Designer\Scripts\Level Design\Int Pattern\IntPatternDbUI.cs" />
     <Compile Include="Assets\Asset\Lighting\GSpawn - Level Designer\Scripts\Level Design\Object Spawn\ModularWallsObjectSpawn.cs" />
+    <Compile Include="Assets\Scripts\Camera\CameraRotationRestrictor.cs" />
     <Compile Include="Assets\Asset\Lighting\GSpawn - Level Designer\Scripts\UI\UIHeader.cs" />
     <Compile Include="Assets\Asset\Lighting\GSpawn - Level Designer\Scripts\UI\PluginInspectorUI.cs" />
     <Compile Include="Assets\Asset\Lighting\GSpawn - Level Designer\Scripts\Core\StringMatch.cs" />
@@ -1938,6 +1940,10 @@
       <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.Core.Runtime.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="com.unity.cinemachine.editor">
+      <HintPath>Library\ScriptAssemblies\com.unity.cinemachine.editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Unity.Postprocessing.Runtime">
       <HintPath>Library\ScriptAssemblies\Unity.Postprocessing.Runtime.dll</HintPath>
       <Private>False</Private>
@@ -2132,6 +2138,10 @@
     </Reference>
     <Reference Include="Unity.VisualScripting.State">
       <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.State.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Cinemachine">
+      <HintPath>Library\ScriptAssemblies\Cinemachine.dll</HintPath>
       <Private>False</Private>
     </Reference>
   </ItemGroup>

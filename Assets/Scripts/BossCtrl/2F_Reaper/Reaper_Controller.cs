@@ -477,6 +477,7 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
     public void Death()
     {
         StopAllCoroutines();
+        moveSpeed = 0.0f;
         isLock = true;
     }
     #endregion
