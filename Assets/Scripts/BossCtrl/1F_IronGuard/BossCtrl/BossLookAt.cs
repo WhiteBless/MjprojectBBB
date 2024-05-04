@@ -10,8 +10,8 @@ public class BossLookAt : MonoBehaviour
 
     public GameObject player; // Player 객체를 참조하는 변수
     public BossAnimator bossAnimator; // BossAnimator 스크립트를 참조하는 변수
-    public AudioSource audioSource; // 배경 음악을 재생하기 위한 오디오 소스
-    public AudioClip bgmClip; // 배경 음악 클립
+    // public AudioSource audioSource; // 배경 음악을 재생하기 위한 오디오 소스
+    // public AudioClip bgmClip; // 배경 음악 클립
 
     public BossSkillP bossSkillP; // BossSkillP 스크립트를 참조하는 변수
 
@@ -32,7 +32,7 @@ public class BossLookAt : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player"); // Player 태그를 가진 오브젝트를 찾아서 player 변수에 할당
         bossAnimator = GetComponent<BossAnimator>(); // BossAnimator 컴포넌트를 찾아서 bossAnimator 변수에 할당
-        audioSource = GetComponent<AudioSource>(); // AudioSource 컴포넌트를 찾아서 audioSource 변수에 할당
+        //audioSource = GetComponent<AudioSource>(); // AudioSource 컴포넌트를 찾아서 audioSource 변수에 할당
 
         bossSkillP = GetComponent<BossSkillP>(); // BossSkillP 컴포넌트를 찾아서 bossSkillP 변수에 할당
         bossSkillP.enabled = false; // BossSkillP 스크립트를 처음에는 비활성화
@@ -61,11 +61,12 @@ public class BossLookAt : MonoBehaviour
 
                 bossHPCanvas.GetComponent<BossHP_UI_Ctrl>().Refresh_BossHP();
             }
-            if (!audioSource.isPlaying)
-            {
-                audioSource.clip = bgmClip;
-                audioSource.Play();
-            }
+
+            //if (!audioSource.isPlaying)
+            //{
+            //    audioSource.clip = bgmClip;
+            //    audioSource.Play();
+            //}
 
             // 스킬 사용 가능 여부에 따라 스킬 스크립트를 활성화 또는 비활성화
             if (canUseSkills)
@@ -77,14 +78,14 @@ public class BossLookAt : MonoBehaviour
                 bossSkillP.enabled = false; // 스킬 사용 불가능할 때 BossSkillP 스크립트 비활성화
             }
         }
-        else if (canUseSkills)
-        {
-            if (!audioSource.isPlaying)
-            {
-                audioSource.clip = bgmClip;
-                audioSource.Play();
-            }
-        }
+        //else if (canUseSkills)
+        //{
+        //    if (!audioSource.isPlaying)
+        //    {
+        //        audioSource.clip = bgmClip;
+        //        audioSource.Play();
+        //    }
+        //}
     }
 
     void OnTriggerEnter(Collider other)

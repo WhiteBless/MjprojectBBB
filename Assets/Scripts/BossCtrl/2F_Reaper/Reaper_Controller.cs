@@ -8,7 +8,7 @@ public enum ReaperState
     Idle,           // 1
     Move,           // 2
     Teleport,       // 3
-    
+
     BaseAtk_0,      // 4
     BaseAtk_1,      // 5
 
@@ -61,7 +61,22 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
     [SerializeField]
     GameObject Skill_Look; // 스킬이 바라보는 방향
     Vector3 dir; // 각도
-    // Rigidbody rigid;
+
+    [Tooltip("NORMAL_SHORT_SKILL_PERCENT")]
+    [SerializeField]
+    float[] Normal_Short_Skill_Percent;
+
+    [Tooltip("NORMAL_LONG_SKILL_PERCENT")]
+    [SerializeField]
+    float[] Normal_Long_Skill_Percent;
+
+    [Tooltip("AWAKENING_SHORT_SKILL_PERCENT")]
+    [SerializeField]
+    float[] Awakening_Short_Skill_Percent;
+
+    [Tooltip("AWAKENING_LONG_SKILL_PERCENT")]
+    [SerializeField]
+    float[] Awakening_Long_Skill_Percent;
 
     [Header("-----Animation Var-----")]
     public Animator Reaper_animator;   // 애니메이터
@@ -135,7 +150,7 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
     Transform DarkBall_Pos;                 // 구체 생설 시킬 위치
     [SerializeField]
     GameObject Pattern_Pillar_Normal;       // 노말 패턴 기둥
-    [SerializeField]    
+    [SerializeField]
     GameObject Pattern_Pillar_Awakening;    // 각성 후 패턴 기둥
     [SerializeField]
     float DarkBall_Delay;                   // 공 나오는 딜레이 시간
@@ -258,19 +273,8 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
         {
             if (reaperAwakeState == Reaper_Awake.NORMAL)
             {
-                // 사용했던 스킬 연속 사용 금지
-                while(true)
-                {
-                    // 랜덤 근접 공격
-                    int randomIndex = Random.Range(0, 3);
-
-                    if (randomIndex != _skillnum)
-                    {
-                        NextSkillNum = randomIndex;
-                        break;
-                    }
-                }
-                
+                int randomIndex = GetRandomSkillIndex(Normal_Short_Skill_Percent, _skillnum);
+                NextSkillNum = randomIndex;
 
                 switch (NextSkillNum)
                 {
@@ -288,18 +292,8 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
             }
             else if (reaperAwakeState == Reaper_Awake.AWAKENING)
             {
-
-                while (true)
-                {
-                    // 랜덤 근접 공격
-                    int randomIndex = Random.Range(0, 4);
-
-                    if (randomIndex != _skillnum)
-                    {
-                        NextSkillNum = randomIndex;
-                        break;
-                    }
-                }
+                int randomIndex = GetRandomSkillIndex(Awakening_Short_Skill_Percent, _skillnum);
+                NextSkillNum = randomIndex;
 
                 switch (NextSkillNum)
                 {
@@ -316,7 +310,7 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
                         StartCoroutine(Dark_Soul());
                         break;
                 }
-            }       
+            }
         }
     }
 
@@ -334,18 +328,8 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
 
             if (reaperAwakeState == Reaper_Awake.NORMAL)
             {
-                // 사용했던 스킬 연속 사용 금지
-                while (true)
-                {
-                    // 랜덤 근접 공격
-                    int randomIndex = Random.Range(0, 4);
-
-                    if (randomIndex != _skillnum)
-                    {
-                        NextSkillNum = randomIndex;
-                        break;
-                    }
-                }
+                int randomIndex = GetRandomSkillIndex(Normal_Long_Skill_Percent, _skillnum);
+                NextSkillNum = randomIndex;
 
                 switch (NextSkillNum)
                 {
@@ -353,7 +337,7 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
                         StartCoroutine(BossMove());
                         break;
                     case 1:
-                         StartCoroutine(Teleport());
+                        StartCoroutine(Teleport());
                         break;
                     case 2:
                         StartCoroutine(Dark_Hand());
@@ -365,18 +349,8 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
             }
             else if (reaperAwakeState == Reaper_Awake.AWAKENING)
             {
-                // 사용했던 스킬 연속 사용 금지
-                while (true)
-                {
-                    // 랜덤 근접 공격
-                    int randomIndex = Random.Range(0, 5);
-
-                    if (randomIndex != _skillnum)
-                    {
-                        NextSkillNum = randomIndex;
-                        break;
-                    }
-                }
+                int randomIndex = GetRandomSkillIndex(Awakening_Long_Skill_Percent, _skillnum);
+                NextSkillNum = randomIndex;
 
                 switch (NextSkillNum)
                 {
@@ -416,6 +390,44 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
         // 사용 횟수 카운트
         Use_SpAtk_Count++;
         // Debug.Log(Use_SpAtk_Count);
+    }
+
+    // 주어진 확률에 따라 랜덤으로 스킬 인덱스를 선택하는 함수
+    int GetRandomSkillIndex(float[] probabilities, int excludedIndex)
+    {
+        float total = 0;
+
+        // 제외된 인덱스의 확률을 제외하고 전체 확률 합 계산
+        for (int i = 0; i < probabilities.Length; i++)
+        {
+            if (i != excludedIndex)
+            {
+                total += probabilities[i];
+            }
+        }
+
+        // 0과 1 사이의 랜덤 값 생성
+        float randomPoint = Random.value * total;
+
+        // 누적 확률과 비교하여 선택된 스킬 인덱스 결정
+        for (int i = 0; i < probabilities.Length; i++)
+        {
+            if (i != excludedIndex)
+            {
+                if (randomPoint < probabilities[i])
+                {
+                    return i;
+                }
+                else
+                {
+                    randomPoint -= probabilities[i];
+                }
+            }
+        }
+
+        // 여기까지 왔다면 오류
+        Debug.LogError("오류.");
+        return -1;
     }
     #endregion
 
@@ -499,7 +511,7 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
         }
         else if (TargetDistance <= Skill_Think_Range && isAttacking == false)
         {
-            Reaper_Short_nextAct(10);
+            Reaper_Short_nextAct(0);
         }
     }
 
@@ -714,7 +726,7 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
         yield return new WaitForSeconds(1.9f);
         isLock = false;
         BaseAtk_1_Eff.SetActive(false);
-       
+
     }
     #endregion
 
@@ -733,7 +745,7 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
             // 현재 상태 변경
             reaperState = ReaperState.Dark_Decline;
 
-           
+
             // yield return new WaitForSeconds(0.2f);
 
             // 공격 가능
@@ -968,7 +980,7 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
             // 거리에 따른 다음 공격
             if (TargetDistance > Skill_Think_Range && isAttacking == false)
             {
-                Reaper_Long_nextAct(10);
+                Reaper_Long_nextAct(0);
             }
             else if (TargetDistance <= Skill_Think_Range && isAttacking == false)
             {
@@ -1069,7 +1081,7 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
         }
         else if (TargetDistance <= Skill_Think_Range && isAttacking == false)
         {
-            Reaper_Short_nextAct(10);
+            Reaper_Short_nextAct(0);
         }
     }
 
@@ -1172,7 +1184,7 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
         }
         else if (TargetDistance <= Skill_Think_Range && isAttacking == false)
         {
-            Reaper_Short_nextAct(10);
+            Reaper_Short_nextAct(0);
         }
     }
 
@@ -1279,7 +1291,7 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
         // 거리에 따른 다음 공격
         if (TargetDistance > Skill_Think_Range && isAttacking == false)
         {
-            Reaper_Long_nextAct(10);
+            Reaper_Long_nextAct(0);
         }
         else if (TargetDistance <= Skill_Think_Range && isAttacking == false)
         {
@@ -1309,7 +1321,7 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
         }
         else if (reaperState == ReaperState.Dark_Ball)// 각성 후
         {
-       
+
 
             Reaper_animator.SetFloat("DarkSoulSpeed", 0.1f);
             DarkBall_Soul_Eff.SetActive(true);
@@ -1431,7 +1443,7 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
             }
             else if (TargetDistance <= Skill_Think_Range && isAttacking == false)
             {
-                Reaper_Short_nextAct(10);
+                Reaper_Short_nextAct(0);
             }
         }
         // 각성 후 어둠의 구체
@@ -1440,7 +1452,7 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
             for (int i = 0; i < DarkBall_Pilar_Awakening.Length; i++)
             {
                 DarkBall_Pilar_Awakening[i].GetComponent<BoxCollider>().enabled = true;
-                
+
                 // 색 초기화
                 if (i == 0) // 1시 파랑
                 {
@@ -1486,7 +1498,7 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
             Reaper_animator.SetBool("isMove", isMove);
             Slow_RotSpeed = 6.5f;
 
-          
+
 
             yield return new WaitForSeconds(DarkBall_Delay - 1.0f);
             // 애니메이션 실행_1
@@ -1575,7 +1587,7 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
             }
             else if (TargetDistance <= Skill_Think_Range && isAttacking == false)
             {
-                Reaper_Short_nextAct(10);
+                Reaper_Short_nextAct(0);
             }
         }
     }
@@ -1613,7 +1625,7 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
         }
 
         // 상태 변경
-            reaperState = ReaperState.Dark_Token;
+        reaperState = ReaperState.Dark_Token;
         // 애니메이션 작동
         Reaper_animator.SetTrigger("Teleport");
         // 중앙으로 이동
@@ -1697,11 +1709,11 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
         // 거리에 따른 다음 공격
         if (TargetDistance > Skill_Think_Range && isAttacking == false)
         {
-            Reaper_Long_nextAct(10);
+            Reaper_Long_nextAct(0);
         }
         else if (TargetDistance <= Skill_Think_Range && isAttacking == false)
         {
-            Reaper_Short_nextAct(10);
+            Reaper_Short_nextAct(0);
         }
     }
     #endregion

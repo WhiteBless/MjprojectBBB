@@ -84,7 +84,7 @@ public class BossSkillP : MonoBehaviour
     {
         boss_hp_ctrl = GetComponent<Boss_HP_Controller>();
         // 최대 체력 전달 현재 체력 
-        boss_hp_ctrl.BossCurHP = IronGuard_MaxHP;
+        // boss_hp_ctrl.BossCurHP = IronGuard_MaxHP;
 
         StartCoroutine(Think());
     }
