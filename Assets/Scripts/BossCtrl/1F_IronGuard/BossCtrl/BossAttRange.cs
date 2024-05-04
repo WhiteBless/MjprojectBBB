@@ -22,6 +22,7 @@ public class BossAttRange : MonoBehaviour
         // 1층 보스 hp ui연결
         if (other.gameObject.CompareTag("P"))
         {
+            Debug.Log(1);
             bossHPCanvas.transform.localScale = Vector3.one;
 
             bossAnimator.AttRadyState = true; // AttRadyState를 true로 설정
@@ -34,8 +35,7 @@ public class BossAttRange : MonoBehaviour
             bossHPCanvas.GetComponent<BossHP_UI_Ctrl>().BossCur_HP = BossSkill.IronGuard_MaxHP;
 
             bossHPCanvas.GetComponent<BossHP_UI_Ctrl>().Refresh_BossHP();
-
-            this.gameObject.GetComponent<BoxCollider>().enabled = false;
+            this.gameObject.GetComponent<SphereCollider>().enabled = false;
 
         }
     }

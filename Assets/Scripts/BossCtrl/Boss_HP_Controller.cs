@@ -30,6 +30,40 @@ public class Boss_HP_Controller : MonoBehaviour
         Boss_HP_Canvas.transform.localScale = Vector3.zero;
     }
 
+    void Update()
+    {
+        #region IronGuard2_n_Death
+        if (this.gameObject.name == "IronGuard2_n" && BossCurHP <= 0 && !isDead)
+        {
+            BossCurHP = 0;
+            isDead = true;
+
+            // 보스 스킬 비활성화
+            this.gameObject.transform.parent.GetChild(1).gameObject.SetActive(false);
+
+            // 콜라이더 비활성화
+            this.GetComponent<BoxCollider>().enabled = false;
+            // 죽는 모션 재생
+            Animator reaperanimator = GetComponent<Animator>();
+            reaperanimator.SetTrigger("doDie2");
+            Boss_HP_Canvas.transform.localScale = Vector3.zero;
+        }
+        #endregion
+
+        #region Reaper_Death
+        if (this.gameObject.name == "Reaper" && BossCurHP <= 0 && !isDead)
+        {
+            BossCurHP = 0;
+            isDead = true;
+            this.GetComponent<CapsuleCollider>().enabled = false;
+
+            Animator reaperanimator = GetComponent<Animator>();
+            reaperanimator.SetTrigger("isDeath");
+            Boss_HP_Canvas.transform.localScale = Vector3.zero;
+        }
+        #endregion
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Weapon"))
@@ -55,15 +89,15 @@ public class Boss_HP_Controller : MonoBehaviour
                     {
                         isReaper_SP_ATK_3 = true;
                     }
+
+                    // 보스 체력이 50퍼 보다 작아지면
+                    if (BossCurHP <= (BossMaxHP / 100) * 50 && isAwakening == false)
+                    {
+                        isAwakening = true;
+                    }
                 }
 
                 #endregion // 리퍼의 hp에 따른 변수 조정
-
-                // 보스 체력이 50퍼 보다 작아지면
-                if (BossCurHP <= (BossMaxHP / 100) * 50 && isAwakening == false)
-                {
-                    isAwakening = true;
-                }
 
                 if (!isWSkillChek)
                 {
@@ -74,38 +108,7 @@ public class Boss_HP_Controller : MonoBehaviour
                 }
 
                 Boss_HP_Canvas.GetComponent<BossHP_UI_Ctrl>().BossCur_HP = BossCurHP;
-                // this.GetComponent<Reaper_Controller>().CurHP = BossCurHP;
                 Boss_HP_Canvas.GetComponent<BossHP_UI_Ctrl>().Refresh_BossHP();
-            }
-            else
-            {
-                #region Reaper_Death
-                if (this.gameObject.name == "Reaper")
-                {
-                    BossCurHP = 0;
-                    isDead = true;
-                    this.GetComponent<CapsuleCollider>().enabled = false;
-
-                    Animator reaperanimator = GetComponent<Animator>();                  
-                    reaperanimator.SetTrigger("isDeath");
-                }
-                #endregion
-
-                #region IronGuard2_n_Death
-                if (this.gameObject.name == "IronGuard2_n")
-                {
-                    Boss_HP_Canvas.GetComponent<BossHP_UI_Ctrl>().BossCur_HP = 0;
-
-                    BossCurHP = 0;
-                    isDead = true;
-                    this.GetComponent<BoxCollider>().enabled = false;
-
-                    Animator reaperanimator = GetComponent<Animator>();
-                    reaperanimator.SetTrigger("doDie2");
-                }
-                #endregion
-
-                Boss_HP_Canvas.transform.localScale = Vector3.zero;
             }
         }
         else if (other.gameObject.name == "DarkBallCounter_Eff")
