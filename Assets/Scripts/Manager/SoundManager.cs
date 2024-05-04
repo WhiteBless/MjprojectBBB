@@ -28,6 +28,7 @@ public class SoundManager : MonoBehaviour
     {
         Lobby,
         Floor_1,
+        BOSS_1FLOOR,
     }
 
     public enum SFX
