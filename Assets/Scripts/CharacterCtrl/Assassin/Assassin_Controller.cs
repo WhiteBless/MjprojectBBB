@@ -53,6 +53,8 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
     public Transform BaseAtk_3_Point;
     public GameObject BaseAtk_4_Eff;
     public Transform BaseAtk_4_Point;
+    public GameObject BaseAtk_5_Eff;
+    public Transform BaseAtk_5_Point;
 
     public GameObject Skill2Atk_1_Eff;
     public Transform Skill2Atk_1_Point;
@@ -216,7 +218,8 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
         Vector3 d2 = BaseAtk_1_Eff.transform.position - skill_Look.transform.position;
         d2.y = 0.0f;
         Quaternion q2 = Quaternion.LookRotation(d2);
-        BaseAtk_1_Eff.transform.rotation = q2 * Quaternion.Euler(0f, 0f, 0f);
+        //BaseAtk_1_Eff.transform.rotation = q2 * Quaternion.Euler(0f, 0f, 0f);
+        BaseAtk_1_Eff.transform.rotation = q2 * Quaternion.Euler(0f, 180f, 0f);
 
         BaseAtk_1_Eff.SetActive(true);
 
@@ -237,7 +240,8 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
         Vector3 d2 = BaseAtk_2_Eff.transform.position - skill_Look.transform.position;
         d2.y = 0.0f;
         Quaternion q2 = Quaternion.LookRotation(d2);
-        BaseAtk_2_Eff.transform.rotation = q2 * Quaternion.Euler(75f, 0f, 90f);
+        //BaseAtk_2_Eff.transform.rotation = q2 * Quaternion.Euler(75f, 0f, 90f);
+        BaseAtk_2_Eff.transform.rotation = q2 * Quaternion.Euler(0f, 180f, 270f);
 
         BaseAtk_2_Eff.SetActive(true);
 
@@ -258,7 +262,8 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
         Vector3 d2 = BaseAtk_3_Eff.transform.position - skill_Look.transform.position;
         d2.y = 0.0f;
         Quaternion q2 = Quaternion.LookRotation(d2);
-        BaseAtk_3_Eff.transform.rotation = q2 * Quaternion.Euler(0f, 0f, 0f);
+        //BaseAtk_3_Eff.transform.rotation = q2 * Quaternion.Euler(0f, 0f, 0f);
+        BaseAtk_3_Eff.transform.rotation = q2 * Quaternion.Euler(0f, 180f, 0f);
 
         BaseAtk_3_Eff.SetActive(true);
 
@@ -279,13 +284,35 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
         Vector3 d2 = BaseAtk_4_Eff.transform.position - skill_Look.transform.position;
         d2.y = 0.0f;
         Quaternion q2 = Quaternion.LookRotation(d2);
-        BaseAtk_4_Eff.transform.rotation = q2 * Quaternion.Euler(180f, 180f, 0f);
+        //BaseAtk_4_Eff.transform.rotation = q2 * Quaternion.Euler(180f, 180f, 0f);
+        BaseAtk_4_Eff.transform.rotation = q2 * Quaternion.Euler(180f, 0f, 0f);
 
         BaseAtk_4_Eff.SetActive(true);
 
         yield return new WaitForSeconds(0.5f);
 
         BaseAtk_4_Eff.SetActive(false);
+    }
+
+    public void BaseAtk5_Eff()
+    {
+        StartCoroutine(Play_BaseAtk5_Eff());
+    }
+
+    IEnumerator Play_BaseAtk5_Eff()
+    {
+        BaseAtk_5_Eff.transform.position = BaseAtk_5_Point.transform.position;
+
+        Vector3 d2 = BaseAtk_5_Eff.transform.position - skill_Look.transform.position;
+        d2.y = 0.0f;
+        Quaternion q2 = Quaternion.LookRotation(d2);
+        BaseAtk_5_Eff.transform.rotation = q2 * Quaternion.Euler(0f, 180f, 0f);
+
+        BaseAtk_5_Eff.SetActive(true);
+
+        yield return new WaitForSeconds(0.5f);
+
+        BaseAtk_5_Eff.SetActive(false);
     }
 
     public override void Dodge()
