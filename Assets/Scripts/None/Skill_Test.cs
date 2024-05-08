@@ -28,7 +28,6 @@ public class Skill_Test : MonoBehaviour
     public bool isSkill4CT;
     public bool isDodgeCT;
 
-    public Ninja_CharacterController ninja_CharacterController;
     public InGameSetting inGameSetting;
 
     public Assassin_Controller assassin_Controller;
