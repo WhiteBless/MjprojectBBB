@@ -91,7 +91,7 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
     {
         firePoint.transform.localRotation = Quaternion.identity;
 
-        if (Input.GetMouseButton(0) || (Input.GetKey(KeySetting.Keys[KeyAction.Skill1]) && !skillManager1.isSkill1CT) || (Input.GetKey(KeySetting.Keys[KeyAction.Skill2]) && !skillManager2.isSkill2CT)
+        if ((Input.GetKey(KeySetting.Keys[KeyAction.Skill1]) && !skillManager1.isSkill1CT) || (Input.GetKey(KeySetting.Keys[KeyAction.Skill2]) && !skillManager2.isSkill2CT)
             || (Input.GetKey(KeySetting.Keys[KeyAction.Skill3]) && !skillManager3.isSkill3CT) || (Input.GetKey(KeySetting.Keys[KeyAction.Skill4]) && !skillManager4.isSkill4CT))//|| skill1 || skill2 || skill3 || skill4|| 
         {
             if (!isAttack && !isDodge && !isSkill1 && !isSkill2 && !isSkill3 && !isSkill4 && !isDie)
@@ -173,34 +173,30 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
 
     public override void Attack()
     {
-
-        if (Input.GetMouseButton(0) && !isSkill1 && !isSkill2 && !isSkill3 && !isSkill4 && !isDie)
+        if (Input.GetMouseButtonDown(0) && !isSkill1 && !isSkill2 && !isSkill3 && !isSkill4 && !isDie)
         {
-            if (!isAttack)
+            animator.SetBool("isMove", false);
+            animator.SetTrigger("Attack");
+            isMove = false;
+            isAttack = true;
+
+            Ray ray = mainCam.ScreenPointToRay(Input.mousePosition);
+            RaycastHit rayHit;
+
+            if (Physics.Raycast(ray, out rayHit, 100))
             {
-                animator.SetBool("isMove", false);
-
-                isMove = false;
-                isAttack = true;
-
-                animator.SetTrigger("Attack");
-
-                Ray ray = mainCam.ScreenPointToRay(Input.mousePosition);
-                RaycastHit rayHit;
-
-                if (Physics.Raycast(ray, out rayHit, 100))
-                {
-                    Vector3 dodgeDirection = rayHit.point - transform.position;
-                    dodgeDirection.y = 0;
-                    dodgeDirection.Normalize(); // 벡터를 정규화합니다.
-                    transform.LookAt(transform.position + dodgeDirection);
-                }
-
-                    Invoke("AttackOut", 0.3f);
+                Vector3 dodgeDirection = rayHit.point - transform.position;
+                dodgeDirection.y = 0;
+                dodgeDirection.Normalize(); // 벡터를 정규화합니다.
+                transform.LookAt(transform.position + dodgeDirection);
             }
         }
+        
     }
-
+    public void AttackTrue()
+    {
+        isAttack = true;
+    }
     public void AttackOut()
     {
         isAttack = false;
