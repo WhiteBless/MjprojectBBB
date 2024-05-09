@@ -503,7 +503,7 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
         // 텔레포트
         transform.position = randomPosition;
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.0f);
 
         // 거리에 따른 다음 공격
         if (TargetDistance > Skill_Think_Range && isAttacking == false)
@@ -569,13 +569,13 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
 
         yield return new WaitForSeconds(BaseAtk_0_LockTime);
         isLock = true;
+        isAttacking = false;
 
         yield return new WaitForSeconds(Reaper_animator.GetCurrentAnimatorStateInfo(0).length - BaseAtk_0_LockTime);
 
 
         // 4초 후 공격 가능
         yield return new WaitForSeconds(nextActTime);
-        isAttacking = false;
 
         // 각성
         if (boss_hp_ctrl.isAwakening == true && reaperAwakeState == Reaper_Awake.NORMAL)

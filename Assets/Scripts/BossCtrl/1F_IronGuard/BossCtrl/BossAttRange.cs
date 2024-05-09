@@ -14,7 +14,7 @@ public class BossAttRange : MonoBehaviour
     BossAnimator bossAnimator; // BossAnimator 스크립트를 참조하는 변수
 
     PlayableDirector PD;
-    public TimelineAsset[] TimeAssets;
+    //public TimelineAsset[] TimeAssets;
 
     // Start is called before the first frame update
     void Start()
@@ -28,7 +28,7 @@ public class BossAttRange : MonoBehaviour
         // 1층 보스 hp ui연결
         if (other.gameObject.CompareTag("P"))
         {
-            PD.Play(TimeAssets[0]);
+            PD.Play();
 
             GameManager.GMInstance.SoundManagerRef.PlayBGM(SoundManager.BGM.BOSS_1FLOOR);
 

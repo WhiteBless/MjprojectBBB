@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Timeline;
+using UnityEngine.Playables;
 
 public class Find_Target : MonoBehaviour
 {
@@ -12,18 +14,23 @@ public class Find_Target : MonoBehaviour
     [SerializeField]
     Boss_HP_Controller boss_hp_ctrl;
 
+    [SerializeField]
+    PlayableDirector PD;
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
             this.GetComponent<SphereCollider>().enabled = false;
 
+            PD.Play();
+
             // 범위 안에 들었을 때 타켓을 지정한다
             ReaperCtrl.Target = other.gameObject;
             ReaperCtrl.reaperState = ReaperState.RaidStart;
 
             // HP바 활성화
-            HP_Canvas.transform.localScale = Vector3.one;
+            HP_Canvas.transform.localScale = new Vector3(0.0f, 1.0f, 0.0f);
 
             // HP바 UI 컨트롤러에 현재 보스의 HP를 준다
             HP_Canvas.GetComponent<BossHP_UI_Ctrl>().BossMax_HP = boss_hp_ctrl.BossMaxHP;
@@ -37,11 +44,16 @@ public class Find_Target : MonoBehaviour
         }
     }
 
+
     IEnumerator SeePlayer()
     {
         ReaperCtrl.Reaper_animator.SetTrigger("IsFindPlayer");
 
-        yield return new WaitForSeconds(ReaperCtrl.Reaper_animator.GetCurrentAnimatorStateInfo(0).length + 3.0f);
+        ReaperCtrl.Reaper_animator.SetFloat("FirstSeeAniSpeed", 0.4f);
+
+        yield return new WaitForSeconds(9.0f);
+
+        ReaperCtrl.Reaper_animator.SetFloat("FirstSeeAniSpeed", 1.0f);
 
         // 거리에 따라 원거리 공격 근거리 공격
         if (ReaperCtrl.TargetDistance > ReaperCtrl.Skill_Think_Range)
