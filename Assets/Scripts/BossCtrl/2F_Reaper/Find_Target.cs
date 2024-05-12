@@ -6,8 +6,15 @@ using UnityEngine.Playables;
 
 public class Find_Target : MonoBehaviour
 {
+    #region Reaper
     [SerializeField]
     Reaper_Controller ReaperCtrl;
+    #endregion
+
+    #region
+    [SerializeField]
+    Treant_Controller TreantCtrl;
+    #endregion Treant
 
     [SerializeField]
     GameObject HP_Canvas;
@@ -23,11 +30,27 @@ public class Find_Target : MonoBehaviour
         {
             this.GetComponent<SphereCollider>().enabled = false;
 
-            PD.Play();
+            #region Reaper
+            // TODO ## 리퍼 타켓 초기화
+            if (this.gameObject.name == "2F_Raid_Start_Collision")
+            {
+                PD.Play();
 
-            // 범위 안에 들었을 때 타켓을 지정한다
-            ReaperCtrl.Target = other.gameObject;
-            ReaperCtrl.reaperState = ReaperState.RaidStart;
+                // 범위 안에 들었을 때 타켓을 지정한다
+                ReaperCtrl.Target = other.gameObject;
+                ReaperCtrl.reaperState = ReaperState.RaidStart;
+
+                StartCoroutine(SeePlayer());
+            }
+            #endregion
+
+            // TODO ## 나무정령 타켓 초기화
+            if (this.gameObject.name == "3F_Raid_Start_Collision")
+            {
+                // 범위 안에 들었을 때 타켓을 지정한다
+                TreantCtrl.Target = other.gameObject;
+                TreantCtrl.Move();
+            }
 
             // HP바 활성화
             HP_Canvas.transform.localScale = new Vector3(0.0f, 1.0f, 0.0f);
@@ -38,9 +61,7 @@ public class Find_Target : MonoBehaviour
             HP_Canvas.GetComponent<BossHP_UI_Ctrl>().Refresh_BossHP();
 
             // 레이드 시작 시 현재 체력 최대 체력으로 설정
-            boss_hp_ctrl.BossCurHP = boss_hp_ctrl.BossMaxHP;
-            
-            StartCoroutine(SeePlayer());
+            boss_hp_ctrl.BossCurHP = boss_hp_ctrl.BossMaxHP; 
         }
     }
 
