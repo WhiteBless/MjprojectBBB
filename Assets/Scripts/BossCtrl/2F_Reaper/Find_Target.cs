@@ -49,7 +49,7 @@ public class Find_Target : MonoBehaviour
             {
                 // 범위 안에 들었을 때 타켓을 지정한다
                 TreantCtrl.Target = other.gameObject;
-                TreantCtrl.Move();
+                StartCoroutine(SeePlayer());
             }
 
             // HP바 활성화
@@ -68,22 +68,34 @@ public class Find_Target : MonoBehaviour
 
     IEnumerator SeePlayer()
     {
-        ReaperCtrl.Reaper_animator.SetTrigger("IsFindPlayer");
-
-        ReaperCtrl.Reaper_animator.SetFloat("FirstSeeAniSpeed", 0.4f);
-
-        yield return new WaitForSeconds(9.0f);
-
-        ReaperCtrl.Reaper_animator.SetFloat("FirstSeeAniSpeed", 1.0f);
-
-        // 거리에 따라 원거리 공격 근거리 공격
-        if (ReaperCtrl.TargetDistance > ReaperCtrl.Skill_Think_Range)
+        #region Reaper
+        if (this.gameObject.name == "2F_Raid_Start_Collision")
         {
-            ReaperCtrl.Reaper_Long_nextAct(0);
+            ReaperCtrl.Reaper_animator.SetTrigger("IsFindPlayer");
+
+            ReaperCtrl.Reaper_animator.SetFloat("FirstSeeAniSpeed", 0.4f);
+
+            yield return new WaitForSeconds(9.0f);
+
+            ReaperCtrl.Reaper_animator.SetFloat("FirstSeeAniSpeed", 1.0f);
+
+            // 거리에 따라 원거리 공격 근거리 공격
+            if (ReaperCtrl.TargetDistance > ReaperCtrl.Skill_Think_Range)
+            {
+                ReaperCtrl.Reaper_Long_nextAct(0);
+            }
+            else if (ReaperCtrl.TargetDistance <= ReaperCtrl.Skill_Think_Range)
+            {
+                ReaperCtrl.Reaper_Short_nextAct(0);
+            }
         }
-        else if (ReaperCtrl.TargetDistance <= ReaperCtrl.Skill_Think_Range)
+        #endregion
+
+        #region Treant
+        if (this.gameObject.name == "3F_Raid_Start_Collision")
         {
-            ReaperCtrl.Reaper_Short_nextAct(0);
+            yield return new WaitForSeconds(9.0f); 
         }
+        #endregion
     }
 }
