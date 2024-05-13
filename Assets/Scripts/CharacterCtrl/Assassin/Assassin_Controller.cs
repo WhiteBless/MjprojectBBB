@@ -593,7 +593,16 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
 
         Vector3 dodgeStartPosition = transform.position;
         dodgeStartPosition.y = 0;
-        Vector3 dodgeEndPosition = transform.position + dodgeDirection * EskillDistance;
+        //Vector3 dodgeEndPosition = transform.position + dodgeDirection * EskillDistance;
+        Vector3 dodgeEndPosition;
+        if (Vector3.Distance(transform.position, eSkillRayHit.point) < EskillDistance)
+        {
+            dodgeEndPosition = eSkillRayHit.point;
+        }
+        else
+        {
+            dodgeEndPosition = transform.position + dodgeDirection * EskillDistance;
+        }
 
         StartCoroutine(MoveDuring(dodgeStartPosition, dodgeEndPosition, 0.2f));
     }
@@ -646,7 +655,16 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
                 transform.LookAt(transform.position + dodgeDirection);
 
                 Vector3 dodgeStartPosition = transform.position;
-                Vector3 dodgeEndPosition = transform.position + dodgeDirection * 25f;
+                //Vector3 dodgeEndPosition = transform.position + dodgeDirection * 25f;
+                Vector3 dodgeEndPosition;
+                if (Vector3.Distance(transform.position, rayHit.point) < 25f)
+                {
+                    dodgeEndPosition = rayHit.point;
+                }
+                else
+                {
+                    dodgeEndPosition = transform.position + dodgeDirection * 25f;
+                }
 
                 StartCoroutine(MoveDuring(dodgeStartPosition, dodgeEndPosition, 0.1f));
                 animator.SetTrigger("doSkill4");
