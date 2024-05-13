@@ -175,10 +175,12 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
     {
         if (Input.GetMouseButtonDown(0) && !isSkill1 && !isSkill2 && !isSkill3 && !isSkill4 && !isDie)
         {
-            animator.SetBool("isMove", false);
-            animator.SetTrigger("Attack");
+            CancelInvoke("AttackOut");
             isMove = false;
             isAttack = true;
+            animator.SetBool("isMove", false);
+            animator.SetTrigger("Attack");
+
 
             Ray ray = mainCam.ScreenPointToRay(Input.mousePosition);
             RaycastHit rayHit;
@@ -190,12 +192,9 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
                 dodgeDirection.Normalize(); // 벡터를 정규화합니다.
                 transform.LookAt(transform.position + dodgeDirection);
             }
-        }
-        
-    }
-    public void AttackTrue()
-    {
-        isAttack = true;
+
+            Invoke("AttackOut", 0.8f);
+        } 
     }
     public void AttackOut()
     {
