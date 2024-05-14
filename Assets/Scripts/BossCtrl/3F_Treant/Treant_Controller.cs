@@ -10,11 +10,37 @@ public enum TreantType
     POWER,
 }
 
-public enum TreantState
+public enum Treant_Normal_State
 {
-    NONE = -1,
+    NONE = -1, 
+  
     IDLE,
     MOVE,
+    NORMALATTACK,
+    BARRIER,
+    END,
+}
+
+public enum Treant_Speed_State
+{
+    NONE = -1,
+   
+    IDLE,
+    MOVE,
+    NORMALATTACK,
+    BARRIER,
+    END,
+}
+
+public enum Treant_Power_State
+{
+    NONE = -1,
+   
+    IDLE,
+    MOVE,
+    NORMALATTACK,
+    BARRIER,
+    END,
 }
 
 public class Treant_Controller : Boss_BehaviorCtrl_Base
@@ -42,6 +68,9 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
     float TargetDistance;
     [SerializeField]
     float ChaseDistance;
+    [SerializeField]
+    GameObject TreantAtkRange;
+    public bool isStartRaid;
 
     [Header("----Treant_State_Variable---")]
     [SerializeField]
@@ -49,20 +78,25 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
     [SerializeField]
     TreantType Treant_Type;       // 3층보스 형태
     [SerializeField]
-    TreantState Treant_State;     // 3층 보스 현재 상태
+    Treant_Normal_State TreantNormalState;     // 3층 보스 노말폼 현재 상태
     [SerializeField]
-    bool isMove;                  // 움직임 체크 변수
+    Treant_Speed_State TreantSpeedState;
     [SerializeField]
-    bool isAttacking;             // 공격 체크 변수
+    Treant_Power_State TreantPowerState;
     [SerializeField]
-    bool isLock;                  // 회전 가능여부 체크 변수
+    bool isMove;                        // 움직임 체크 변수
     [SerializeField]
-    float Treant_MoveSpeed;       // 이동속도
+    public bool isAttacking;            // 공격 체크 변수
+    [SerializeField]
+    bool isLock;                        // 회전 가능여부 체크 변수
+    [SerializeField]
+    float Treant_MoveSpeed;             // 이동속도
     [SerializeField]
     float Treant_RotSpeed;
     [SerializeField]
     float Treant_Skill_Delay;
-
+    [SerializeField]
+    bool isThink;
 
     Vector3 dir;                  // Treant 각도
 
@@ -93,8 +127,10 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
 
         if (isMove && isAttacking == false)
         {
+
             transform.Translate(Vector3.forward * Treant_MoveSpeed * Time.deltaTime);
-            animator.SetFloat("Locomotion", 1.0f);
+            //animator.SetFloat("Locomotion", 1.0f);
+            animator.SetBool("isMove", true);
         }
     }
 
@@ -107,9 +143,29 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
 
         if (!isMove && isAttacking == false)
         {
-            Treant_State = TreantState.IDLE;
+            // 노말 상태로 멈출 시 
+            if (Treant_Type == TreantType.NORMAL)
+            {
+                TreantNormalState = Treant_Normal_State.IDLE;
+                TreantPowerState = Treant_Power_State.NONE;
+                TreantSpeedState = Treant_Speed_State.NONE;
+            }
+            else if (Treant_Type == TreantType.POWER) // 파워폼으로 멈출 시
+            {
+                TreantNormalState = Treant_Normal_State.NONE;
+                TreantPowerState = Treant_Power_State.IDLE;
+                TreantSpeedState = Treant_Speed_State.NONE;
+            }
+            else // 스피드 폼으로 멈출 시
+            {
+                TreantNormalState = Treant_Normal_State.NONE;
+                TreantPowerState = Treant_Power_State.NONE;
+                TreantSpeedState = Treant_Speed_State.IDLE;
+            }
+
             transform.Translate(Vector3.forward * 0.0f * Time.deltaTime);
-            animator.SetFloat("Locomotion", 0.5f);
+            //animator.SetFloat("Locomotion", 0.5f);
+            animator.SetBool("isMove", false);
         }
     }
     #endregion
@@ -158,11 +214,14 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
         animator = GetComponent<Animator>();
         boss_hp_ctrl = GetComponent<Boss_HP_Controller>();
 
+        Target = GameObject.FindGameObjectWithTag("Player");
         // 최대 체력 전달 현재 체력 
         boss_hp_ctrl.BossMaxHP = MaxHP;
         // 현재 폼 초기화
         Treant_Type = TreantType.NORMAL;
-        Treant_State = TreantState.IDLE;
+        TreantNormalState = Treant_Normal_State.IDLE;
+        TreantPowerState = Treant_Power_State.NONE;
+        TreantSpeedState = Treant_Speed_State.NONE;
     }
     #endregion
 
@@ -198,41 +257,79 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
 
     public void Treant_NextAct()
     {
-        // 타깃이 없다면 return;
-        if (Target == null)
+        // 타깃이 없거나 공격중이면 return;
+        if (Target == null || isAttacking || isThink)
             return;
 
-        StartCoroutine(Next_Act());
+        //StartCoroutine(Next_Act());
+
+        Next_Act();
     }
 
-    IEnumerator Next_Act()
+    // IEnumerator Next_Act()
+    public void Next_Act()
     {
-        // 기본 상태면 바로 상태 변경
-        if (Treant_State == TreantState.IDLE)
+        isThink = true;
+
+        // 다음 행동 변경
+        if (Treant_Type == TreantType.NORMAL)
         {
-            yield return new WaitForSeconds(0.0f);
+            // 랜덤으로 다음 상태 변경
+            Treant_Normal_State randomNormalState = (Treant_Normal_State)Random.Range(2, (int)Treant_Normal_State.END);
+            TreantNormalState = randomNormalState;
+            
+            Debug.Log(randomNormalState);
         }
-        else
+        else if (Treant_Type == TreantType.POWER)
         {
-            // 기본 상태가 아닐 시 2초간의 딜레이를 준다
-            yield return new WaitForSeconds(Treant_Skill_Delay);
+            // 랜덤으로 다음 상태 변경
+            Treant_Power_State randomPowerState = (Treant_Power_State)Random.Range(2, (int)Treant_Power_State.END);
+            TreantPowerState = randomPowerState;
+        }
+        else if (Treant_Type == TreantType.SPEED)
+        {
+            // 랜덤으로 다음 상태 변경
+            Treant_Speed_State randomSpeedState = (Treant_Speed_State)Random.Range(2, (int)Treant_Speed_State.END);
+            TreantSpeedState = randomSpeedState;
         }
 
-        // 랜덤으로 다음 상태 변경
-        TreantState randomState = (TreantState)Random.Range(0, (int)TreantState.MOVE + 1);
-        Treant_State = randomState;
+        // 기본 상태가 아닐 시 2초간의 딜레이를 준다
+        //yield return new WaitForSeconds(0.0f);
+
+        // 대상이 사정 거리보다 멀면 이동 선택
+        if (TargetDistance >= ChaseDistance)
+        {
+            if (Treant_Type == TreantType.NORMAL)
+            {
+                TreantNormalState = Treant_Normal_State.MOVE;
+            }
+            else if (Treant_Type == TreantType.POWER)
+            {
+                TreantPowerState = Treant_Power_State.MOVE;
+            }
+            else
+            {
+                TreantSpeedState = Treant_Speed_State.MOVE;
+            }
+        }
 
         switch (Treant_Type)
         {
             // 노말 폼일 때 스킬
             case TreantType.NORMAL:
-                switch (Treant_State)
+                switch (TreantNormalState)
                 {
-                    case TreantState.IDLE:
+                    case Treant_Normal_State.IDLE:
                         Treant_Idle();
                         break;
-                    case TreantState.MOVE:
+                    case Treant_Normal_State.MOVE:
                         Treant_Move();
+                        break;
+                    case Treant_Normal_State.NORMALATTACK:
+                        Normal_Attack();
+                        break;
+                    case Treant_Normal_State.BARRIER:
+                        Treant_Barrier();
                         break;
                     default:
                         break;
@@ -240,13 +337,19 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
                 break;
 
             case TreantType.SPEED:
-                switch (Treant_State)
+                switch (TreantSpeedState)
                 {
-                    case TreantState.IDLE:
+                    case Treant_Speed_State.IDLE:
                         Treant_Idle();
                         break;
-                    case TreantState.MOVE:
+                    case Treant_Speed_State.MOVE:
                         Treant_Move();
+                        break;
+                    case Treant_Speed_State.NORMALATTACK:
+                        Normal_Attack();
+                        break;
+                    case Treant_Speed_State.BARRIER:
+                        Treant_Barrier();
                         break;
                     default:
                         break;
@@ -254,13 +357,19 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
                 break;
 
             case TreantType.POWER:
-                switch (Treant_State)
+                switch (TreantPowerState)
                 {
-                    case TreantState.IDLE:
+                    case Treant_Power_State.IDLE:
                         Treant_Idle();
                         break;
-                    case TreantState.MOVE:
+                    case Treant_Power_State.MOVE:
                         Treant_Move();
+                        break;
+                    case Treant_Power_State.NORMALATTACK:
+                        Normal_Attack();
+                        break;
+                    case Treant_Power_State.BARRIER:
+                        Treant_Barrier();
                         break;
                     default:
                         break;
@@ -278,6 +387,16 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
     {
         isMove = false;
         animator.SetFloat("Locomotion", 0.5f);
+        //다시 활성화
+        TreantAtkRange.GetComponent<SphereCollider>().enabled = false;
+    }
+
+    public void Treant_Idle_NextAct()
+    {
+        if (!isThink && isStartRaid)
+        {
+            Treant_NextAct();
+        }
     }
     #endregion
 
@@ -285,6 +404,64 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
     public void Treant_Move()
     {
         isMove = true;
+        isThink = false;
+        //다시 활성화
+        // TreantAtkRange.GetComponent<SphereCollider>().enabled = false;
     }
+    #endregion
+
+    #region Treant_NormalAttack
+    public void Normal_Attack()
+    {
+        isAttacking = true;
+        isLock = true;
+        animator.SetTrigger("PunchBig");
+    }
+
+    public void Normal_Attack_Next()
+    {
+        // 다음 공격 실행
+        StartCoroutine(Normal_Attack_Next_Motion());
+    }
+
+    IEnumerator Normal_Attack_Next_Motion()
+    {
+        isLock = false;
+
+        yield return new WaitForSeconds(1.0f);
+        isLock = true;
+        animator.SetTrigger("PunchSmall");
+    }
+
+    public void Normal_Attack_End()
+    {
+        isAttacking = false;
+        isLock = false;
+        isThink = false;
+    }
+    #endregion
+
+    #region Treant_Barrier
+    public void Treant_Barrier()
+    {
+        isAttacking = true;
+        animator.SetBool("isBlock", true);
+
+        StartCoroutine(Treant_Barrier_End());
+    }
+
+    IEnumerator Treant_Barrier_End()
+    {
+        yield return new WaitForSeconds(5.0f);
+        isAttacking = false;
+        animator.SetTrigger("BlockStop");
+
+        yield return new WaitForSeconds(Treant_Skill_Delay);
+    }
+
+    public void Treant_Barrier_End_Event()
+    {
+        isThink = false;
+    } 
     #endregion
 }
