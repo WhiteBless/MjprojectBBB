@@ -48,7 +48,7 @@ public class Find_Target : MonoBehaviour
             if (this.gameObject.name == "3F_Raid_Start_Collision")
             {
                 // 범위 안에 들었을 때 타켓을 지정한다
-                TreantCtrl.Target = other.gameObject;
+                TreantCtrl.isStartRaid = true;
                 StartCoroutine(SeePlayer());
             }
 
@@ -94,7 +94,8 @@ public class Find_Target : MonoBehaviour
         #region Treant
         if (this.gameObject.name == "3F_Raid_Start_Collision")
         {
-            yield return new WaitForSeconds(9.0f); 
+            TreantCtrl.Treant_NextAct();
+            //yield return new WaitForSeconds(9.0f); 
         }
         #endregion
     }
