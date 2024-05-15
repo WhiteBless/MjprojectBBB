@@ -16,8 +16,13 @@ public enum Treant_Normal_State
   
     IDLE,
     MOVE,
+    LEAFMISSALE,
+    LEAFBREATH,
     NORMALATTACK,
     BARRIER,
+    LEAFTURN,
+    LEAFPLACE,
+
     END,
 }
 
@@ -94,6 +99,8 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
     [SerializeField]
     float Treant_RotSpeed;
     [SerializeField]
+    float Treant_Slow_RotSpeed;
+    [SerializeField]
     float Treant_Skill_Delay;
     [SerializeField]
     bool isThink;
@@ -115,7 +122,8 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
         dir.y = 0.0f;
 
         Quaternion rotation = Quaternion.LookRotation(dir, Vector3.up);
-        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * Treant_RotSpeed);
+        // 회전 계산 스킬에 따라 회전방향 느려질수 있음
+        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * (Treant_RotSpeed - Treant_Slow_RotSpeed));
     }
     #endregion
 
@@ -277,7 +285,7 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
             // 랜덤으로 다음 상태 변경
             Treant_Normal_State randomNormalState = (Treant_Normal_State)Random.Range(2, (int)Treant_Normal_State.END);
             TreantNormalState = randomNormalState;
-            
+
             Debug.Log(randomNormalState);
         }
         else if (Treant_Type == TreantType.POWER)
@@ -285,12 +293,17 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
             // 랜덤으로 다음 상태 변경
             Treant_Power_State randomPowerState = (Treant_Power_State)Random.Range(2, (int)Treant_Power_State.END);
             TreantPowerState = randomPowerState;
+
+            Debug.Log(randomPowerState);
+
         }
         else if (Treant_Type == TreantType.SPEED)
         {
             // 랜덤으로 다음 상태 변경
             Treant_Speed_State randomSpeedState = (Treant_Speed_State)Random.Range(2, (int)Treant_Speed_State.END);
             TreantSpeedState = randomSpeedState;
+
+            Debug.Log(randomSpeedState);
         }
 
         // 기본 상태가 아닐 시 2초간의 딜레이를 준다
@@ -319,9 +332,9 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
             case TreantType.NORMAL:
                 switch (TreantNormalState)
                 {
-                    case Treant_Normal_State.IDLE:
-                        Treant_Idle();
-                        break;
+                    //case Treant_Normal_State.IDLE:
+                    //    Treant_Idle();
+                    //    break;
                     case Treant_Normal_State.MOVE:
                         Treant_Move();
                         break;
@@ -331,11 +344,23 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
                     case Treant_Normal_State.BARRIER:
                         Treant_Barrier();
                         break;
+                    case Treant_Normal_State.LEAFTURN:
+                        Treant_LeafTurn();
+                        break;
+                    case Treant_Normal_State.LEAFBREATH:
+                        Treant_LeafBreath();
+                        break;
+                    case Treant_Normal_State.LEAFPLACE:
+                        Treant_LeafPlace();
+                        break;
+                    case Treant_Normal_State.LEAFMISSALE:
+                        Treant_LeafMissale();
+                        break;
                     default:
                         break;
                 }
                 break;
-
+                // 스피드 폼일때
             case TreantType.SPEED:
                 switch (TreantSpeedState)
                 {
@@ -355,7 +380,7 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
                         break;
                 }
                 break;
-
+                // 파워 폼일때
             case TreantType.POWER:
                 switch (TreantPowerState)
                 {
@@ -393,24 +418,32 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
 
     public void Treant_Idle_NextAct()
     {
+        // 생각중이면
+        if (isThink)
+        {
+            isThink = false;
+            return;
+        }
+
         if (!isThink && isStartRaid)
         {
             Treant_NextAct();
         }
+  
     }
     #endregion
 
     #region Treant_Move
+    // TODO ## Treant_Move
     public void Treant_Move()
     {
         isMove = true;
         isThink = false;
-        //다시 활성화
-        // TreantAtkRange.GetComponent<SphereCollider>().enabled = false;
     }
     #endregion
 
     #region Treant_NormalAttack
+    // TODO ## Treant_NormalAttack
     public void Normal_Attack()
     {
         isAttacking = true;
@@ -442,26 +475,111 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
     #endregion
 
     #region Treant_Barrier
+    // TODO ## Treant_Barrier
     public void Treant_Barrier()
     {
         isAttacking = true;
         animator.SetBool("isBlock", true);
 
-        StartCoroutine(Treant_Barrier_End());
+       
     }
 
-    IEnumerator Treant_Barrier_End()
+    public void Treant_Barrier_End()
+    {
+        StartCoroutine(Treant_Barrier_Start_Event());
+    }
+
+    IEnumerator Treant_Barrier_Start_Event()
     {
         yield return new WaitForSeconds(5.0f);
         isAttacking = false;
         animator.SetTrigger("BlockStop");
-
-        yield return new WaitForSeconds(Treant_Skill_Delay);
     }
 
     public void Treant_Barrier_End_Event()
     {
+        animator.SetBool("isBlock", false);
         isThink = false;
-    } 
+    }
     #endregion
+
+    // Normal Form
+    #region Treant_LeafTurn
+    // TODO ## Treant_LeafTurn
+    public void Treant_LeafTurn()
+    {
+        isAttacking = true;
+        isLock = true;
+        animator.SetTrigger("LeafTurn");
+    }
+
+    public void Treant_LeafTurn_End()
+    {
+        isAttacking = false;
+        isThink = false;
+        isLock = false;
+    }
+    #endregion
+
+    #region Treant_LeafBreath
+    // TODO ## Treant_LeafBreath
+    public void Treant_LeafBreath()
+    {
+        isAttacking = true;
+        animator.SetTrigger("LeafBreath");
+    }
+
+    public void Treant_LeafBreath_Start()
+    {
+        Treant_Slow_RotSpeed = 4.0f;
+    }
+
+    public void Treant_LeafBreath_End()
+    {
+        Treant_Slow_RotSpeed = 0.0f;
+        isAttacking = false;
+        isThink = false;
+    }
+    #endregion
+
+    #region Treant_LeafPlace
+    // TODO ## Treant_LeafPlace
+    public void Treant_LeafPlace()
+    {
+        isAttacking = true;
+        animator.SetTrigger("LeafPlace");
+    }
+
+    public void Treant_LeafPlace_Start()
+    {
+        
+    }
+
+    public void Treant_LeafPlace_End()
+    {
+        isAttacking = false;
+        isThink = false;
+    }
+    #endregion
+
+    #region Treant_LeafMissale
+    // TODO ## Treant_LeafMissale
+    public void Treant_LeafMissale()
+    {
+        isAttacking = true;
+        animator.SetTrigger("LeafMissale");
+    }
+
+    public void Treant_LeafMissale_Start()
+    {
+
+    }
+
+    public void Treant_LeafMissale_End()
+    {
+        isAttacking = false;
+        isThink = false;
+    }
+    #endregion
+
 }
