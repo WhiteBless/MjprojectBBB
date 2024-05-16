@@ -20,7 +20,7 @@ namespace InfinityPBR
         [HideInInspector] public bool showFullInspector = false;
         [HideInInspector] public bool showSetup = true;
         [HideInInspector] public bool lerp = true;
-        [HideInInspector] public float lerpSeconds = 8.0f;
+        [HideInInspector] public float lerpSeconds = 10.0f;
 
         private float _lerpValue;
         private float _lerpTime;

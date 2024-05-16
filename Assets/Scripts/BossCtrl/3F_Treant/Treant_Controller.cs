@@ -22,7 +22,7 @@ public enum Treant_Normal_State
     BARRIER,
     LEAFTURN,
     LEAFPLACE,
-
+    FORMCHANGE,
     END,
 }
 
@@ -32,8 +32,13 @@ public enum Treant_Speed_State
    
     IDLE,
     MOVE,
+    TRUNWHEEL,
+    DASH,
     NORMALATTACK,
     BARRIER,
+    CHOP,
+    CLAP,
+    FORMCHANGE,
     END,
 }
 
@@ -45,6 +50,11 @@ public enum Treant_Power_State
     MOVE,
     NORMALATTACK,
     BARRIER,
+    GOLEM_RECALL,
+    THROW_STONE,
+    HULK_BURST_1,
+    HULK_BURST_2,
+    FORMCHANGE,
     END,
 }
 
@@ -97,6 +107,12 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
     [SerializeField]
     float Treant_MoveSpeed;             // 이동속도
     [SerializeField]
+    float Treant_Normal_MoveSpeed;
+    [SerializeField]
+    float Treant_Speed_MoveSpeed;
+    [SerializeField]
+    float Treant_Power_MoveSpeed;
+    [SerializeField]
     float Treant_RotSpeed;
     [SerializeField]
     float Treant_Slow_RotSpeed;
@@ -104,8 +120,30 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
     float Treant_Skill_Delay;
     [SerializeField]
     bool isThink;
+    [SerializeField]
+    bool isCurIdle;
 
     Vector3 dir;                  // Treant 각도
+
+    [Header("----Treant_Speed_Dash_Variable---")]
+    [SerializeField]
+    int DashCount;
+    [SerializeField]
+    float DashTime;
+    [SerializeField]
+    float DashSpeed;
+    [SerializeField]
+    int ReDash_Percent;
+    [SerializeField]
+    bool isReDash;
+    [SerializeField]
+    bool isEnterCoroutine;
+
+    [Header("----Treant_Speed_TurnWheel_Variable---")]
+    [SerializeField]
+    float TurnWheel_Time;
+    [SerializeField]
+    float TurnWheel_Speed;
 
     #region Rotation
     public override void LookAtPlayer()
@@ -208,7 +246,7 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
         {
             Move();
         }
-        else if (TargetDistance < ChaseDistance && !isAttacking) // 공격중이 아니고 사정거리안에 들어 왔을 시
+        else if (TargetDistance < ChaseDistance + 0.5f && !isAttacking) // 공격중이 아니고 사정거리안에 들어 왔을 시
         {
             NotMove();
         }
@@ -238,26 +276,96 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
     {
         // TODO ## 3층 보스 노말 폼 체인지
         Treant_Type = TreantType.NORMAL;
+
+        TreantSpeedState = Treant_Speed_State.NONE;
+        TreantPowerState = Treant_Power_State.NONE;
+
+        // 이동속도 변경
+        Treant_MoveSpeed = Treant_Normal_MoveSpeed;
         // 형태 변환
         Treant_Type_Shape.StartTransitionToPreset("Reset");
-        animator.SetTrigger("MagicAttack2");
+        animator.SetTrigger("FormChange");
+        animator.SetFloat("AnimSpeed", 1.0f);
     }
 
     public void Change_Speed_Form()
     {
         // TODO ## 3층 보스 스피드 폼 체인지
         Treant_Type = TreantType.SPEED;
+
+        TreantNormalState = Treant_Normal_State.NONE;
+        TreantPowerState = Treant_Power_State.NONE;
+
+
+        // 이동속도 변경
+        Treant_MoveSpeed = Treant_Speed_MoveSpeed;
         // 형태 변환
         Treant_Type_Shape.StartTransitionToPreset("Skinny");
-        animator.SetTrigger("MagicAttack2");
+        animator.SetTrigger("FormChange");
+        animator.SetFloat("AnimSpeed", 1.5f);
     }
     public void Change_Power_Form()
     {
         // TODO ## 3층 보스 파워 폼 체인지
         Treant_Type = TreantType.POWER;
+
+        TreantNormalState = Treant_Normal_State.NONE;
+        TreantSpeedState = Treant_Speed_State.NONE;
+
+        // 이동속도 변경
+        Treant_MoveSpeed = Treant_Power_MoveSpeed;
         // 형태 변환
         Treant_Type_Shape.StartTransitionToPreset("Fat");
-        animator.SetTrigger("MagicAttack2");
+        animator.SetTrigger("FormChange");
+        animator.SetFloat("AnimSpeed", 1.0f);
+    }
+
+    // 노말 폼일 떄 변신
+    public void CurrentType_Normal_Form_Change()
+    {
+        int changePercent = Random.Range(0, 10);
+
+        // 50 / 50 확률로 변신
+        if (changePercent < 5)
+        {
+            Change_Speed_Form();
+        }
+        else
+        {
+            Change_Power_Form();
+        }
+    }
+
+    // 스피드 폼일 떄 변신
+    public void CurrentType_Speed_Form_Change()
+    {
+        int changePercent = Random.Range(0, 10);
+
+        // 30 / 70 확률로 변신
+        if (changePercent < 3)
+        {
+            Change_Normal_Form();
+        }
+        else
+        {
+            Change_Power_Form();
+        }
+    }
+
+    // 파워 폼일 떄 변신
+    public void CurrentType_Power_Form_Change()
+    {
+        int changePercent = Random.Range(0, 10);
+
+        // 30 / 70 확률로 변신
+        if (changePercent < 3)
+        {
+            Change_Normal_Form();
+        }
+        else
+        {
+            Change_Speed_Form();
+        }
     }
     #endregion
 
@@ -301,6 +409,7 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
         {
             // 랜덤으로 다음 상태 변경
             Treant_Speed_State randomSpeedState = (Treant_Speed_State)Random.Range(2, (int)Treant_Speed_State.END);
+            //Treant_Speed_State randomSpeedState = (Treant_Speed_State)7;
             TreantSpeedState = randomSpeedState;
 
             Debug.Log(randomSpeedState);
@@ -310,7 +419,7 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
         //yield return new WaitForSeconds(0.0f);
 
         // 대상이 사정 거리보다 멀면 이동 선택
-        if (TargetDistance >= ChaseDistance)
+        if (TargetDistance >= ChaseDistance + 1.0f)
         {
             if (Treant_Type == TreantType.NORMAL)
             {
@@ -325,6 +434,8 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
                 TreantSpeedState = Treant_Speed_State.MOVE;
             }
         }
+
+        
 
         switch (Treant_Type)
         {
@@ -356,6 +467,9 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
                     case Treant_Normal_State.LEAFMISSALE:
                         Treant_LeafMissale();
                         break;
+                    case Treant_Normal_State.FORMCHANGE:
+                        CurrentType_Normal_Form_Change();
+                        break;
                     default:
                         break;
                 }
@@ -364,9 +478,9 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
             case TreantType.SPEED:
                 switch (TreantSpeedState)
                 {
-                    case Treant_Speed_State.IDLE:
-                        Treant_Idle();
-                        break;
+                    //case Treant_Speed_State.IDLE:
+                    //    Treant_Idle();
+                    //    break;
                     case Treant_Speed_State.MOVE:
                         Treant_Move();
                         break;
@@ -375,6 +489,21 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
                         break;
                     case Treant_Speed_State.BARRIER:
                         Treant_Barrier();
+                        break;
+                    case Treant_Speed_State.DASH:
+                        Treant_Dash();
+                        break;
+                    case Treant_Speed_State.TRUNWHEEL:
+                        Treant_TurnWheel();
+                        break;
+                    case Treant_Speed_State.CHOP:
+                        Treant_Chop();
+                        break;
+                    case Treant_Speed_State.CLAP:
+                        Treant_Clap();
+                        break;
+                    case Treant_Speed_State.FORMCHANGE:
+                        CurrentType_Speed_Form_Change();
                         break;
                     default:
                         break;
@@ -395,6 +524,21 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
                         break;
                     case Treant_Power_State.BARRIER:
                         Treant_Barrier();
+                        break;
+                    case Treant_Power_State.GOLEM_RECALL:
+                        Treant_Golem_Recall();
+                        break;
+                    case Treant_Power_State.THROW_STONE:
+                        Treant_Throw_Stone();
+                        break;
+                    case Treant_Power_State.HULK_BURST_1:
+                        Treant_Hulk_Burst_1();
+                        break;
+                    case Treant_Power_State.HULK_BURST_2:
+                        Treant_Hulk_Burst_2();
+                        break;
+                    case Treant_Power_State.FORMCHANGE:
+                        CurrentType_Power_Form_Change();
                         break;
                     default:
                         break;
@@ -429,7 +573,6 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
         {
             Treant_NextAct();
         }
-  
     }
     #endregion
 
@@ -582,4 +725,243 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
     }
     #endregion
 
+    // Speed Form
+    #region Treant_Dash
+    // TODO ## Treant_Dash
+    public void Treant_Dash()
+    {
+        DashCount++; // 대쉬 카운트 증가
+        animator.SetTrigger("Dash");
+    }
+
+    public void Treant_Dash_Start()
+    {
+        // 코루틴 실행
+        StartCoroutine(Treant_Dash_Start_Event());
+        // 코루틴 재실행 방지
+        isEnterCoroutine = true;
+    }
+
+    IEnumerator Treant_Dash_Start_Event()
+    {
+        if (isEnterCoroutine == true)
+            yield break;
+
+        isAttacking = true;
+        isLock = true;
+        float time = 0.0f;
+
+        while (time < DashTime)
+        {
+            time += Time.deltaTime;
+            transform.Translate(Vector3.forward * DashSpeed * Time.deltaTime);
+            yield return null;
+        }
+
+        // 첫번째랑 두번째 돌진 때 계산
+        if (DashCount != 0 && DashCount < 3)
+        {
+            // 확률
+            int re_Dash = Random.Range(0, 10);
+
+            // 재사용 확률
+            if (re_Dash < ReDash_Percent)
+            {
+                // 재사용 한다면 true
+                isReDash = true;
+                // 애니메이션 재생
+                animator.SetTrigger("KeepDash");
+            }
+            else
+            {
+                isReDash = false;  
+            }
+        }
+
+        // 대쉬카운트가 3이거나 연속동작이 없다면 빠져나가기
+        if (DashCount == 3 || !isReDash)
+        {
+            animator.SetTrigger("OutDash");
+        }
+
+        isEnterCoroutine = false;
+    }
+
+    public void Treant_Keep_Dash_End()
+    {
+        isLock = false;
+        Treant_Dash();
+    }
+
+    public void Treant_Out_Dash_End()
+    {
+        isLock = false;
+        isAttacking = false;
+        DashCount = 0;
+        isThink = false;
+    }
+    #endregion
+
+    #region Treant_TurnWheel
+    // TODO ## Treant_TurnWheel
+    public void Treant_TurnWheel()
+    {
+        isAttacking = true;
+        animator.SetTrigger("TurnWheel");
+    }
+
+    public void Treant_TurnWheel_Start()
+    {
+        // 코루틴 실행
+        StartCoroutine(Treant_TurnWheel_Start_Event());
+        // 코루틴 재실행 방지
+        isEnterCoroutine = true;
+    }
+
+    IEnumerator Treant_TurnWheel_Start_Event()
+    {
+        if (isEnterCoroutine == true)
+            yield break;
+
+        float time = 0.0f;
+        Treant_Slow_RotSpeed = 4.0f;
+
+        while (time < TurnWheel_Time)
+        {
+            time += Time.deltaTime;
+            transform.Translate(Vector3.forward * TurnWheel_Speed * Time.deltaTime);
+            yield return null;
+        }
+
+        animator.SetTrigger("OutTurnWheel");
+    }
+
+    public void Treant_TurnWheel_End()
+    {
+        Treant_Slow_RotSpeed = 0.0f;
+        isAttacking = false;
+        isThink = false;
+        isEnterCoroutine = false;
+    }
+    #endregion
+
+    #region Treant_Chop
+    // TODO ## Treant_Chop
+    public void Treant_Chop()
+    {
+        isAttacking = true;
+        animator.SetTrigger("Chop");
+    }
+
+    public void Treant_Chop_Start()
+    {
+        isLock = true;
+    }
+
+    public void Treant_Chop_End()
+    {
+        isAttacking = false;
+        isLock = false;
+        isThink = false;
+    }
+    #endregion
+
+    #region Treant_Clap
+    // TODO ## Treant_Clap
+    public void Treant_Clap()
+    {
+        isAttacking = true;
+        animator.SetTrigger("Clap");
+    }
+
+    public void Treant_Clap_Start()
+    {
+        isLock = true;
+    }
+
+    public void Treant_Clap_End()
+    {
+        isAttacking = false;
+        isLock = false;
+        isThink = false;
+    }
+    #endregion
+
+    // Power Form
+    #region Treant_Golem_Recall
+    // TODO ## Treant_Golem_Recall
+    public void Treant_Golem_Recall()
+    {
+        // isAttacking = true;
+        //isLock = true;
+        // animator.SetTrigger("LeafTurn");
+    }
+
+    public void Treant_Golem_Recall_End()
+    {
+        isAttacking = false;
+        isThink = false;
+        isLock = false;
+    }
+    #endregion
+
+    #region Treant_Throw_Stone
+    // TODO ## Treant_Throw_Stone
+    public void Treant_Throw_Stone()
+    {
+        // isAttacking = true;
+        // animator.SetTrigger("LeafBreath");
+    }
+
+    public void Treant_Throw_Stone_Start()
+    {
+
+    }
+
+    public void Treant_Throw_Stone_End()
+    {
+        isAttacking = false;
+        isThink = false;
+    }
+    #endregion
+
+    #region Treant_Hulk_Burst_1
+    // TODO ## Treant_Hulk_Burst_1
+    public void Treant_Hulk_Burst_1()
+    {
+        //isAttacking = true;
+        //animator.SetTrigger("LeafPlace");
+    }
+
+    public void Treant_Hulk_Burst_1_Start()
+    {
+
+    }
+
+    public void Treant_Hulk_Burst_1_End()
+    {
+        isAttacking = false;
+        isThink = false;
+    }
+    #endregion
+
+    #region  Treant_Hulk_Burst_2
+    // TODO ## Treant_Hulk_Burst_2
+    public void Treant_Hulk_Burst_2()
+    {
+        //isAttacking = true;
+        //animator.SetTrigger("LeafMissale");
+    }
+
+    public void Treant_Hulk_Burst_2_Start()
+    {
+
+    }
+
+    public void Treant_Hulk_Burst_2_End()
+    {
+        isAttacking = false;
+        isThink = false;
+    }
+    #endregion
 }
