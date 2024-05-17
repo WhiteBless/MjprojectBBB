@@ -892,9 +892,9 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
     // TODO ## Treant_Golem_Recall
     public void Treant_Golem_Recall()
     {
-        // isAttacking = true;
+        isAttacking = true;
         //isLock = true;
-        // animator.SetTrigger("LeafTurn");
+        animator.SetTrigger("Golem_Recall");
     }
 
     public void Treant_Golem_Recall_End()
@@ -909,13 +909,18 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
     // TODO ## Treant_Throw_Stone
     public void Treant_Throw_Stone()
     {
-        // isAttacking = true;
-        // animator.SetTrigger("LeafBreath");
+        isAttacking = true;
+        animator.SetTrigger("Throw_Stone");
     }
 
     public void Treant_Throw_Stone_Start()
     {
+        isLock = true;
+    }
 
+    public void Treant_Throw_Stone_Lock()
+    {
+        isLock = false;
     }
 
     public void Treant_Throw_Stone_End()
@@ -929,8 +934,9 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
     // TODO ## Treant_Hulk_Burst_1
     public void Treant_Hulk_Burst_1()
     {
-        //isAttacking = true;
-        //animator.SetTrigger("LeafPlace");
+        isAttacking = true;
+        isLock = true;
+        animator.SetTrigger("Hulk_Burst_1");
     }
 
     public void Treant_Hulk_Burst_1_Start()
@@ -941,6 +947,7 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
     public void Treant_Hulk_Burst_1_End()
     {
         isAttacking = false;
+        isLock = false;
         isThink = false;
     }
     #endregion
@@ -949,19 +956,27 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
     // TODO ## Treant_Hulk_Burst_2
     public void Treant_Hulk_Burst_2()
     {
-        //isAttacking = true;
-        //animator.SetTrigger("LeafMissale");
+        isAttacking = true;
+        animator.SetTrigger("Hulk_Burst_2");
     }
 
+    // 회전 제한
     public void Treant_Hulk_Burst_2_Start()
     {
+        isLock = true;
+    }
 
+    // 회전 제한 해제
+    public void Treant_Hulk_Burst_2_Lock()
+    {
+        isLock = false;
     }
 
     public void Treant_Hulk_Burst_2_End()
     {
         isAttacking = false;
         isThink = false;
+        isLock = false;
     }
     #endregion
 }
