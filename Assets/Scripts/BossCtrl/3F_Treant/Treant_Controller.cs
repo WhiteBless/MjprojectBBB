@@ -695,12 +695,13 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
 
     public void Treant_LeafPlace_Start()
     {
-        
+        isLock = true;
     }
 
     public void Treant_LeafPlace_End()
     {
         isAttacking = false;
+        isLock = false;
         isThink = false;
     }
     #endregion
