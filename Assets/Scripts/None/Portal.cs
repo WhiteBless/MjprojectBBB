@@ -7,6 +7,8 @@ public class Portal : MonoBehaviour
 {
     public GameObject toObj; // 워프 포인트를 나타내는 오브젝트
 
+    public PlaySceneManager playSceneManager; // UI 매니저 참조
+
     private void OnTriggerEnter(Collider other)
     {
         // 이 코드는 글로벌 좌표를 사용하여 오브젝트의 위치와 회전을 설정합니다.
@@ -24,6 +26,13 @@ public class Portal : MonoBehaviour
             GameManager.GMInstance.Get_PlaySceneManager().Stages[0].SetActive(false);
             // 2층 오브젝트 활성화
             GameManager.GMInstance.Get_PlaySceneManager().Stages[1].SetActive(true);
+        }
+
+        if (other.CompareTag("Player"))
+        {
+            playSceneManager.ActivateNextImage();
+            playSceneManager.health = 3;
+            playSceneManager.HealthDownActivateAll();
         }
 
     }
