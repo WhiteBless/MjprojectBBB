@@ -29,6 +29,10 @@ public class PlaySceneManager : MonoBehaviour
     public GameObject keySettingImage;
     public GameObject keySettingFailImage;
 
+    public Image[] floorLevelIMG; // 이미지 배열, 순서대로 활성화할 이미지들
+
+    private int floorLevelIndex = 0;
+
     [Header("----Stage----")]
     public GameObject[] Stages;
 
@@ -63,6 +67,27 @@ public class PlaySceneManager : MonoBehaviour
         for (int i = 0; i < keyCodeName.Length; i++)
         {
             keyCodeName[i].text = KeySetting.Keys[(KeyAction)i].ToString();
+        }
+
+        // 모든 이미지를 비활성화하고 첫 번째 이미지를 활성화
+        foreach (Image img in floorLevelIMG)
+        {
+            img.gameObject.SetActive(false);
+        }
+
+        if (floorLevelIMG.Length > 0)
+        {
+            floorLevelIMG[0].gameObject.SetActive(true);
+        }
+    }
+
+    public void ActivateNextImage()
+    {
+        if (floorLevelIndex < floorLevelIMG.Length - 1)
+        {
+            floorLevelIMG[floorLevelIndex].gameObject.SetActive(false);
+            floorLevelIndex++;
+            floorLevelIMG[floorLevelIndex].gameObject.SetActive(true);
         }
     }
 
@@ -119,11 +144,22 @@ public class PlaySceneManager : MonoBehaviour
         {
             health--;
 
-            UIhealth[health].color = new Color(1, 0, 0, 0.01f);
+            UIhealth[health].gameObject.SetActive(false);
 
             // 피격음 재생
             //GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.HitSound);
             // hitAudioSource.PlayOneShot(hitSound, 1.0f); // 피격음 재생 (볼륨은 1.0)
+        }
+    }
+
+    public void HealthActivateAll()
+    {
+        foreach (Image img in UIhealth)
+        {
+            if (img != null)
+            {
+                img.gameObject.SetActive(true);
+            }
         }
     }
     public void CharacterDie()
