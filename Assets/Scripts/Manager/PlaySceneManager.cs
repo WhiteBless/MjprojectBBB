@@ -157,6 +157,7 @@ public class PlaySceneManager : MonoBehaviour
         foreach (Image img in UIhealth)
         {
             if (img != null)
+
             {
                 img.gameObject.SetActive(true);
             }
