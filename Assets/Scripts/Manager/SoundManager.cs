@@ -86,7 +86,7 @@ public class SoundManager : MonoBehaviour
             SFXPlayers[i].volume = 0.5f;
         }
 
-        PlayBGM(BGM.Lobby);
+        // PlayBGM(BGM.Lobby);
 
     }
 
