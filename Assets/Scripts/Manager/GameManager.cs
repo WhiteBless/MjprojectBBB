@@ -26,13 +26,11 @@ public class GameManager : MonoBehaviour
     {
         if (GMInstance == null)
         {
-            Debug.Log(1);
             GMInstance = this;
             DontDestroyOnLoad(gameObject);
         }
         else
         {
-            Debug.Log(2);
             Destroy(this);
         }
     }

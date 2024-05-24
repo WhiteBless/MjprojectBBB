@@ -92,7 +92,7 @@ public class SoundManager : MonoBehaviour
 
     void Start()
     {
-        // GameManager.GMInstance.SoundManagerRef = this;
+        GameManager.GMInstance.SoundManagerRef = this;
     }
 
     /** TODO ## SoundManager.cs 효과음 재생 관련 함수 */
