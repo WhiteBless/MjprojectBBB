@@ -30,6 +30,7 @@ public class PlaySceneManager : MonoBehaviour
     public GameObject keySettingFailImage;
 
     public Image[] floorLevelIMG; // 이미지 배열, 순서대로 활성화할 이미지들
+    public TextMeshProUGUI floorLevelTxt;
 
     private int floorLevelIndex = 0;
 
@@ -88,6 +89,7 @@ public class PlaySceneManager : MonoBehaviour
             floorLevelIMG[floorLevelIndex].gameObject.SetActive(false);
             floorLevelIndex++;
             floorLevelIMG[floorLevelIndex].gameObject.SetActive(true);
+            floorLevelTxt.text = (floorLevelIndex + 1).ToString() + " " + "Floor";
         }
     }
 
