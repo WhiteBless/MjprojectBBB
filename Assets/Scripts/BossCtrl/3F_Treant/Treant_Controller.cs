@@ -32,12 +32,12 @@ public enum Treant_Speed_State
    
     IDLE,
     MOVE,
-    TRUNWHEEL,
-    DASH,
-    NORMALATTACK,
-    BARRIER,
-    CHOP,
-    CLAP,
+    TRUNWHEEL, // 2
+    DASH,      // 3
+    NORMALATTACK, // 4
+    BARRIER,  //5
+    EXPLOSION, // 6
+    CLAP, // 7
     FORMCHANGE,
     END,
 }
@@ -164,7 +164,14 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
     float TurnWheel_Time;
     [SerializeField]
     float TurnWheel_Speed;
+    [SerializeField]
+    GameObject TurnWheel_VFX;
 
+    [Header("----Treant_Speed_Explosion_Variable---")]
+    [SerializeField]
+    GameObject Energy_VFX;
+    [SerializeField]
+    GameObject Shooting_VFX;
 
     #region Rotation
     public override void LookAtPlayer()
@@ -412,7 +419,7 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
         if (Treant_Type == TreantType.NORMAL)
         {
             // 랜덤으로 다음 상태 변경
-            Treant_Normal_State randomNormalState = (Treant_Normal_State)Random.Range(2, (int)Treant_Normal_State.END);
+            Treant_Normal_State randomNormalState = (Treant_Normal_State)Random.Range(2, (int)Treant_Normal_State.END - 1);
             // randomNormalState = (Treant_Normal_State)2;
             TreantNormalState = randomNormalState;
 
@@ -431,8 +438,8 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
         else if (Treant_Type == TreantType.SPEED)
         {
             // 랜덤으로 다음 상태 변경
-            Treant_Speed_State randomSpeedState = (Treant_Speed_State)Random.Range(2, (int)Treant_Speed_State.END);
-            //Treant_Speed_State randomSpeedState = (Treant_Speed_State)7;
+            //Treant_Speed_State randomSpeedState = (Treant_Speed_State)Random.Range(2, (int)Treant_Speed_State.END);
+            Treant_Speed_State randomSpeedState = (Treant_Speed_State)2;
             TreantSpeedState = randomSpeedState;
 
             Debug.Log(randomSpeedState);
@@ -519,8 +526,8 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
                     case Treant_Speed_State.TRUNWHEEL:
                         Treant_TurnWheel();
                         break;
-                    case Treant_Speed_State.CHOP:
-                        Treant_Chop();
+                    case Treant_Speed_State.EXPLOSION:
+                        Treant_Explosion();
                         break;
                     case Treant_Speed_State.CLAP:
                         Treant_Clap();
@@ -899,6 +906,8 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
     {
         // 코루틴 실행
         StartCoroutine(Treant_TurnWheel_Start_Event());
+        // 이펙트 활성화
+        TurnWheel_VFX.SetActive(true);
         // 코루틴 재실행 방지
         isEnterCoroutine = true;
     }
@@ -918,36 +927,71 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
             yield return null;
         }
 
+        TurnWheel_VFX.SetActive(false);
         animator.SetTrigger("OutTurnWheel");
+    }
+
+    public void TurnWheel_VFX_Off()
+    {
+        // 이펙트 비활성화
+        TurnWheel_VFX.SetActive(false);
     }
 
     public void Treant_TurnWheel_End()
     {
+        // 회전값 원위치
         Treant_Slow_RotSpeed = 0.0f;
+        // 공격 중 아님
         isAttacking = false;
+        // 생각 할 수 있음
         isThink = false;
+        // 코루틴 다끝남
         isEnterCoroutine = false;
     }
     #endregion
 
-    #region Treant_Chop
-    // TODO ## Treant_Chop
-    public void Treant_Chop()
+    #region Treant_Explosion
+    // TODO ## Treant_Explosion
+    public void Treant_Explosion()
     {
         isAttacking = true;
-        animator.SetTrigger("Chop");
+        animator.SetTrigger("Explosion");
     }
 
-    public void Treant_Chop_Start()
+    public void Treant_Explosion_Start()
     {
         isLock = true;
     }
 
-    public void Treant_Chop_End()
+    public void Treant_Explosion_Energy()
+    {
+        // 에너지 활성화
+        Energy_VFX.SetActive(true);
+    }
+
+    public void Treant_Explosion_Shoot()
+    {
+        // 에너지 이펙트 비활성화
+        Energy_VFX.SetActive(false);
+        // 폭발 이펙트 활성화
+        Shooting_VFX.SetActive(true);
+        StartCoroutine(On_Shoot_Collision());
+    }
+
+    IEnumerator On_Shoot_Collision()
+    {
+        yield return new WaitForSeconds(0.3f);
+        // 0.3초후 피격 범위 발생
+        Shooting_VFX.GetComponent<SphereCollider>().enabled = true;
+    }
+
+    public void Treant_Explosion_End()
     {
         isAttacking = false;
         isLock = false;
         isThink = false;
+        Shooting_VFX.GetComponent<SphereCollider>().enabled = false;
+        Shooting_VFX.SetActive(false);
     }
     #endregion
 
