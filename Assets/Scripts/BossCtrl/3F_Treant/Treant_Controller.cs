@@ -16,12 +16,12 @@ public enum Treant_Normal_State
   
     IDLE,
     MOVE,
-    LEAFMISSALE,
-    LEAFBREATH,
+    LEAFMISSALE, // 2
+    LEAFBREATH, // 3
     NORMALATTACK,
     BARRIER,
-    LEAFTURN,
-    LEAFPLACE,
+    LEAFTURN, // 6
+    LEAFPLACE, // 7
     FORMCHANGE,
     END,
 }
@@ -60,6 +60,10 @@ public enum Treant_Power_State
 
 public class Treant_Controller : Boss_BehaviorCtrl_Base
 {
+    [Header("----Treant_Ref_Variable---")]
+    [SerializeField]
+    Treant_ObjPool Skill_Obj_Pool;
+
     [Header("----Treant_Animation_Variable---")]
     [SerializeField]
     Animator animator;
@@ -125,6 +129,22 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
 
     Vector3 dir;                  // Treant 각도
 
+    [Header("----Treant_Normal_LeafMissale_Variable---")]
+    [SerializeField]
+    float LeafMissale_Time;
+    [SerializeField]
+    float LeafMissale_Speed;
+    [SerializeField]
+    GameObject LeafMissale_VFX;
+
+    [Header("----Treant_Normal_LeafTurn_Variable---")]
+    [SerializeField]
+    GameObject LeafTurn_VFX;
+
+    [Header("----Treant_Normal_LeafBreath_Variable---")]
+    [SerializeField]
+    GameObject LeafBreath_VFX;
+
     [Header("----Treant_Speed_Dash_Variable---")]
     [SerializeField]
     int DashCount;
@@ -144,6 +164,7 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
     float TurnWheel_Time;
     [SerializeField]
     float TurnWheel_Speed;
+
 
     #region Rotation
     public override void LookAtPlayer()
@@ -392,6 +413,7 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
         {
             // 랜덤으로 다음 상태 변경
             Treant_Normal_State randomNormalState = (Treant_Normal_State)Random.Range(2, (int)Treant_Normal_State.END);
+            // randomNormalState = (Treant_Normal_State)2;
             TreantNormalState = randomNormalState;
 
             Debug.Log(randomNormalState);
@@ -400,6 +422,7 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
         {
             // 랜덤으로 다음 상태 변경
             Treant_Power_State randomPowerState = (Treant_Power_State)Random.Range(2, (int)Treant_Power_State.END);
+            //Treant_Speed_State randomSpeedState = (Treant_Speed_State)7;
             TreantPowerState = randomPowerState;
 
             Debug.Log(randomPowerState);
@@ -656,8 +679,14 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
         animator.SetTrigger("LeafTurn");
     }
 
+    public void Treant_LeafTurn_Start()
+    {
+        LeafTurn_VFX.SetActive(true);
+    }
+
     public void Treant_LeafTurn_End()
     {
+        LeafTurn_VFX.SetActive(false);
         isAttacking = false;
         isThink = false;
         isLock = false;
@@ -677,8 +706,14 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
         Treant_Slow_RotSpeed = 4.0f;
     }
 
+    public void Treant_LeafBreath_VFX_Start()
+    {
+        LeafBreath_VFX.SetActive(true);
+    }
+
     public void Treant_LeafBreath_End()
     {
+        LeafBreath_VFX.SetActive(false);
         Treant_Slow_RotSpeed = 0.0f;
         isAttacking = false;
         isThink = false;
@@ -698,6 +733,28 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
         isLock = true;
     }
 
+    public void Treant_LeafPlace_VFX()
+    {
+        // 오브젝트 풀에서 가이드라인 오브젝트 들고 온다
+        GameObject LeafPlace_GuideLine = Skill_Obj_Pool.GetLeafPlace_Guide_FromPool();
+        // 가이드라인 위치 조정
+        LeafPlace_GuideLine.transform.position = new Vector3 (Target.transform.position.x, 1.0f, Target.transform.position.z);
+
+        // 이펙트 발생 코루틴 실행
+        StartCoroutine(LeafPlace_VFX(LeafPlace_GuideLine.transform.position, LeafPlace_GuideLine));
+    }
+
+    IEnumerator LeafPlace_VFX(Vector3 _position, GameObject _guideline)
+    {
+        yield return new WaitForSeconds(1.0f);
+        // 매개변수로 받은 가이드라인 꺼주기
+        _guideline.SetActive(false);
+
+        // 이펙트 위치
+        GameObject leafPlace = Skill_Obj_Pool.GetLeafPlaceFromPool();
+        leafPlace.transform.position = _position;
+    }
+
     public void Treant_LeafPlace_End()
     {
         isAttacking = false;
@@ -711,17 +768,44 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
     public void Treant_LeafMissale()
     {
         isAttacking = true;
+        isLock = true;
         animator.SetTrigger("LeafMissale");
     }
 
     public void Treant_LeafMissale_Start()
     {
+        // 코루틴 실행
+        StartCoroutine(Treant_LeafMissale_Start_Event());
+        // 코루틴 재실행 방지
+        isEnterCoroutine = true;
+    }
 
+    IEnumerator Treant_LeafMissale_Start_Event()
+    {
+        if (isEnterCoroutine == true)
+            yield break;
+
+        LeafMissale_VFX.SetActive(true);
+
+        float time = 0.0f;
+
+        while (time < LeafMissale_Time)
+        {
+            time += Time.deltaTime;
+            transform.Translate(Vector3.back * LeafMissale_Speed * Time.deltaTime);
+            yield return null;
+        }
+
+        LeafMissale_VFX.SetActive(false);
+        animator.SetTrigger("LeafMissale_Out");
+      
     }
 
     public void Treant_LeafMissale_End()
     {
+        isEnterCoroutine = false;
         isAttacking = false;
+        isLock = false;
         isThink = false;
     }
     #endregion

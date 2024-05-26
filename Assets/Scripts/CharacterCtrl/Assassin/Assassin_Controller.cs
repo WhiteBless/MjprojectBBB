@@ -812,6 +812,23 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
         }
     }
 
+    void OnParticleCollision(GameObject other)
+    {
+        // 파티클에 닿을 시 데미지 
+        if(other.gameObject.CompareTag("Particle_EnemyAtk") && !isHit)
+        {
+            if (playscenemanager.health > 1)
+            {
+                playscenemanager.HealthDown();
+                // Debug.Log(other.gameObject.name);
+
+                isHit = true;
+
+                Invoke("HitOut", 3f);
+            }
+        }
+    }
+
     void CharacterDie()
     {
         playscenemanager.CharacterDie();
