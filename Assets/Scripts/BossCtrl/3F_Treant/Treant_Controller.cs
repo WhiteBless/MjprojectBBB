@@ -48,13 +48,13 @@ public enum Treant_Power_State
    
     IDLE,
     MOVE,
-    NORMALATTACK,
-    BARRIER,
-    GOLEM_RECALL,
-    THROW_STONE,
-    HULK_BURST_1,
-    HULK_BURST_2,
-    FORMCHANGE,
+    NORMALATTACK, // 2
+    BARRIER,        // 3
+    GOLEM_RECALL,   // 4
+    THROW_STONE,    // 5
+    HULK_BURST_1,   // 6
+    HULK_BURST_2,   // 7
+    FORMCHANGE,     
     END,
 }
 
@@ -66,7 +66,7 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
 
     [Header("----Treant_Animation_Variable---")]
     [SerializeField]
-    Animator animator;
+    public Animator animator;
     [SerializeField]
     float startVal;
     [SerializeField]
@@ -90,6 +90,8 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
     [SerializeField]
     GameObject TreantAtkRange;
     public bool isStartRaid;
+    [SerializeField]
+    Transform Skill_StartPos;
 
     [Header("----Treant_State_Variable---")]
     [SerializeField]
@@ -172,6 +174,27 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
     GameObject Energy_VFX;
     [SerializeField]
     GameObject Shooting_VFX;
+
+    [Header("----Treant_Speed_Clap_Variable---")]
+    [SerializeField]
+    GameObject Clap_VFX;
+    [SerializeField]
+    GameObject Clap_After_VFX;
+
+    [Header("----Treant_Power_Golem_Variable---")]
+    [SerializeField]
+    float Golem_Active_Time;
+
+    [Header("----Treant_Power_HulkBurst2_Variable---")]
+    [SerializeField]
+    GameObject[] Combo_Atk_VFX;
+    [SerializeField]
+    int Combo_Index;
+    [SerializeField]
+    float HulkBurst2_Active_Time;
+    [SerializeField]
+    float Crack_Forward;
+
 
     #region Rotation
     public override void LookAtPlayer()
@@ -284,6 +307,7 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
     #region Init
     void Treant_Init()
     {
+        isLock = true;
         Treant_Type_Shape = GetComponent<BlendShapesPresetManager>();
         animator = GetComponent<Animator>();
         boss_hp_ctrl = GetComponent<Boss_HP_Controller>();
@@ -419,8 +443,8 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
         if (Treant_Type == TreantType.NORMAL)
         {
             // 랜덤으로 다음 상태 변경
-            Treant_Normal_State randomNormalState = (Treant_Normal_State)Random.Range(2, (int)Treant_Normal_State.END - 1);
-            // randomNormalState = (Treant_Normal_State)2;
+            //Treant_Normal_State randomNormalState = (Treant_Normal_State)Random.Range(2, (int)Treant_Normal_State.END - 1);
+            Treant_Normal_State randomNormalState = (Treant_Normal_State)3;
             TreantNormalState = randomNormalState;
 
             Debug.Log(randomNormalState);
@@ -428,8 +452,8 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
         else if (Treant_Type == TreantType.POWER)
         {
             // 랜덤으로 다음 상태 변경
-            Treant_Power_State randomPowerState = (Treant_Power_State)Random.Range(2, (int)Treant_Power_State.END);
-            //Treant_Speed_State randomSpeedState = (Treant_Speed_State)7;
+            //Treant_Power_State randomPowerState = (Treant_Power_State)Random.Range(2, (int)Treant_Power_State.END);
+            Treant_Power_State randomPowerState = (Treant_Power_State)7;
             TreantPowerState = randomPowerState;
 
             Debug.Log(randomPowerState);
@@ -438,8 +462,8 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
         else if (Treant_Type == TreantType.SPEED)
         {
             // 랜덤으로 다음 상태 변경
-            //Treant_Speed_State randomSpeedState = (Treant_Speed_State)Random.Range(2, (int)Treant_Speed_State.END);
-            Treant_Speed_State randomSpeedState = (Treant_Speed_State)2;
+            // Treant_Speed_State randomSpeedState = (Treant_Speed_State)Random.Range(2, (int)Treant_Speed_State.END - 1);
+            Treant_Speed_State randomSpeedState = (Treant_Speed_State)6;
             TreantSpeedState = randomSpeedState;
 
             Debug.Log(randomSpeedState);
@@ -603,6 +627,14 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
         {
             Treant_NextAct();
         }
+    }
+    #endregion
+
+    #region Treant_FirstSee
+    public void RaidStart_On()
+    {
+        isStartRaid = true;
+        isLock = false;
     }
     #endregion
 
@@ -1008,10 +1040,28 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
         isLock = true;
     }
 
+    public void Treant_Clap_VFX_On()
+    {
+        // 이펙트 활성화
+        Clap_VFX.SetActive(true);
+        Clap_After_VFX.SetActive(true);
+
+        StartCoroutine(Treant_Clap_VFX_Off());
+    }
+
+    IEnumerator Treant_Clap_VFX_Off()
+    {
+        yield return new WaitForSeconds(0.2f);
+        Clap_VFX.SetActive(false);
+
+        yield return new WaitForSeconds(1.7f);
+        Clap_After_VFX.SetActive(false);
+        isLock = false;
+    }
+
     public void Treant_Clap_End()
     {
         isAttacking = false;
-        isLock = false;
         isThink = false;
     }
     #endregion
@@ -1025,7 +1075,20 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
         //isLock = true;
         animator.SetTrigger("Golem_Recall");
     }
+    public void Treant_Golem_VFX_On()
+    {
+        // 골렘 이펙트 활성화
+        GameObject golem = Skill_Obj_Pool.GetGolem_FromPool();
+        golem.transform.position = Skill_StartPos.position;
+        golem.transform.rotation = Skill_StartPos.rotation;
+        StartCoroutine(Treant_Golem_VFX_Off(golem));
+    }
 
+    IEnumerator Treant_Golem_VFX_Off(GameObject _golem)
+    {
+        yield return new WaitForSeconds(Golem_Active_Time);
+        _golem.SetActive(false);
+    }
     public void Treant_Golem_Recall_End()
     {
         isAttacking = false;
@@ -1081,7 +1144,7 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
     }
     #endregion
 
-    #region  Treant_Hulk_Burst_2
+    #region  Treant_Hulk_Burst_2 3Combo
     // TODO ## Treant_Hulk_Burst_2
     public void Treant_Hulk_Burst_2()
     {
@@ -1101,11 +1164,55 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
         isLock = false;
     }
 
+    public void Treant_Hulk_Burst2_VFX_On()
+    {
+        if (Combo_Index == 0)
+        {
+            // 콤보 1 실행
+            Combo_Atk_VFX[0].SetActive(true);
+            Combo_Atk_VFX[0].transform.position = Skill_StartPos.position + Skill_StartPos.forward * Crack_Forward;
+            Combo_Atk_VFX[0].transform.rotation = Skill_StartPos.rotation;
+            Combo_Index++;
+
+            // 비활성화
+            StartCoroutine(Treant_Hulk_Burst2_VFX_Off(Combo_Atk_VFX[0]));
+        }
+        else if (Combo_Index == 1)
+        {
+
+            // 콤보 2실행
+            Combo_Atk_VFX[1].SetActive(true);
+            Combo_Atk_VFX[1].transform.position = Skill_StartPos.position + Skill_StartPos.forward * Crack_Forward;
+            Combo_Atk_VFX[1].transform.rotation = Skill_StartPos.rotation;
+            Combo_Index++;
+
+            // 비활성화
+            StartCoroutine(Treant_Hulk_Burst2_VFX_Off(Combo_Atk_VFX[1]));
+        }
+        else if (Combo_Index == 2)
+        {
+            // 콤보 3실행
+            Combo_Atk_VFX[2].SetActive(true);
+            Combo_Atk_VFX[2].transform.position = Skill_StartPos.position + Skill_StartPos.forward * Crack_Forward;
+            Combo_Atk_VFX[2].transform.rotation = Skill_StartPos.rotation;
+            Combo_Index = 0;
+
+            // 비활성화
+            StartCoroutine(Treant_Hulk_Burst2_VFX_Off(Combo_Atk_VFX[2]));
+        }
+    }
+
+    IEnumerator Treant_Hulk_Burst2_VFX_Off(GameObject _obj)
+    {
+        yield return new WaitForSeconds(HulkBurst2_Active_Time);
+        _obj.SetActive(false);
+    }
+
     public void Treant_Hulk_Burst_2_End()
     {
         isAttacking = false;
         isThink = false;
         isLock = false;
     }
-    #endregion
+    #endregion 
 }

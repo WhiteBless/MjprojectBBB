@@ -36,7 +36,8 @@ ModelImporter:
       animation that will be discarded.\n\t'TreantRForearm' has scale animation that
       will be discarded.\n\t'TreantRPalm' has scale animation that will be discarded.\n\t'TreantRDigit11'
       has scale animation that will be discarded.\n\t'TreantHead' has scale animation
-      that will be discarded.\n"
+      that will be discarded.\nEvent Treant_Clap_End has a time (1.266667) outside
+      the clip's valid range (0.000000..1.266666). It will never be fired"
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
@@ -74,15 +75,22 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.84415585
-        functionName: Treant_Clap_End
+      - time: 0
+        functionName: Treant_Clap_Start
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0
-        functionName: Treant_Clap_Start
+      - time: 0.32424206
+        functionName: Treant_Clap_VFX_On
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.922179
+        functionName: Treant_Clap_End
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0

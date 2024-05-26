@@ -5,21 +5,29 @@ using UnityEngine;
 public class Treant_ObjPool : MonoBehaviour
 {
     public GameObject LeafPlace_objectPrefab; // LeafPlace
-    public GameObject LeafPlace_Guide_objectPrefab; 
+    public GameObject LeafPlace_Guide_objectPrefab;
+
+    public GameObject Golem_objectPrefab;
 
     public int poolSize; // 풀 크기
     [SerializeField]
     private List<GameObject> LeafPlace_objectPool; // 오브젝트 풀
     [SerializeField]
     private List<GameObject> LeafPlace_Guide_objectPool; // 오브젝트 풀
+    [SerializeField]
+    private List<GameObject> Golem_objectPool; // 오브젝트 풀
+
 
     [SerializeField]
     Transform LeafPlace_Parent;
     [SerializeField]
     Transform LeafPlace_Guide_Parent;
+    [SerializeField]
+    Transform Golem_Parent;
     // Start is called before the first frame update
     void Start()
     {
+        Golem_objectPool = new List<GameObject>();
         LeafPlace_objectPool = new List<GameObject>();
         LeafPlace_Guide_objectPool = new List<GameObject>();
 
@@ -39,6 +47,13 @@ public class Treant_ObjPool : MonoBehaviour
             obj_2.SetActive(false);
             obj_2.transform.parent = LeafPlace_Guide_Parent;
             LeafPlace_Guide_objectPool.Add(obj_2);
+
+            // Golem 오브젝트 풀 생성
+            GameObject obj_3 = Instantiate(Golem_objectPrefab);
+            obj_3.transform.Rotate(Vector3.zero);
+            obj_3.SetActive(false);
+            obj_3.transform.parent = Golem_Parent;
+            Golem_objectPool.Add(obj_3); 
         }
     }
 
@@ -79,6 +94,26 @@ public class Treant_ObjPool : MonoBehaviour
         newObj.SetActive(true);
         LeafPlace_Guide_objectPool.Add(newObj);
         newObj.transform.parent = LeafPlace_Guide_Parent;
+        return newObj;
+    }
+
+    public GameObject GetGolem_FromPool()
+    {
+        // 비활성화된 오브젝트를 찾아 반환
+        for (int i = 0; i < Golem_objectPool.Count; i++)
+        {
+            if (!Golem_objectPool[i].activeInHierarchy)
+            {
+                Golem_objectPool[i].SetActive(true);
+                return Golem_objectPool[i];
+            }
+        }
+
+        // 모든 오브젝트가 사용 중일 경우 새로운 오브젝트 생성 후 반환
+        GameObject newObj = Instantiate(Golem_objectPrefab);
+        newObj.SetActive(true);
+        Golem_objectPool.Add(newObj);
+        newObj.transform.parent = Golem_Parent;
         return newObj;
     }
 }

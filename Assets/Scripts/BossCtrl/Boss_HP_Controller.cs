@@ -99,13 +99,16 @@ public class Boss_HP_Controller : MonoBehaviour
 
                 #endregion // 리퍼의 hp에 따른 변수 조정
 
-                if (!isWSkillChek)
-                {
-                    Attack weapon = other.GetComponent<Attack>();
-                    // Debug.Log("Damage: " + weapon.damage);
+                //if (!isWSkillChek)
+                //{
+                //    Attack weapon = other.GetComponent<Attack>();
+                //    // Debug.Log("Damage: " + weapon.damage);
 
-                    BossCurHP -= weapon.damage;
-                }
+                //    BossCurHP -= weapon.damage;
+                //}
+
+                Attack weapon = other.GetComponent<Attack>();
+                BossCurHP -= weapon.damage;
 
                 Boss_HP_Canvas.GetComponent<BossHP_UI_Ctrl>().BossCur_HP = BossCurHP;
                 Boss_HP_Canvas.GetComponent<BossHP_UI_Ctrl>().Refresh_BossHP();
