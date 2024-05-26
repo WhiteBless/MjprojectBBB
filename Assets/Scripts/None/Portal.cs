@@ -27,6 +27,13 @@ public class Portal : MonoBehaviour
             // 2층 오브젝트 활성화
             GameManager.GMInstance.Get_PlaySceneManager().Stages[1].SetActive(true);
         }
+        else if (this.gameObject.name == "2F_Portal")
+        {
+            // 1층 오브젝트 비활성화
+            GameManager.GMInstance.Get_PlaySceneManager().Stages[1].SetActive(false);
+            // 2층 오브젝트 활성화
+            GameManager.GMInstance.Get_PlaySceneManager().Stages[2].SetActive(true);
+        }
 
         if (other.CompareTag("Player"))
         {
