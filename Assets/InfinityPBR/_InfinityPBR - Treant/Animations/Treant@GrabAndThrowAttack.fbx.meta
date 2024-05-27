@@ -65,15 +65,22 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0
-        functionName: Treant_Throw_Stone_Start
+      - time: 0.13311677
+        functionName: Treant_Throw_Stone_Seize
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.31162792
+      - time: 0.5028246
         functionName: Treant_Throw_Stone_Lock
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.7191558
+        functionName: Stone_Throw
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
@@ -81,13 +88,6 @@ ModelImporter:
         messageOptions: 0
       - time: 0.9224378
         functionName: Treant_Throw_Stone_End
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 0.13311677
-        functionName: Treant_Throw_Stone_Seize
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0

@@ -5,8 +5,6 @@ using UnityEngine;
 public class Stone_Ctrl : MonoBehaviour
 {
     [SerializeField]
-    Transform StartPos;
-    [SerializeField]
     Transform StoneStart_Parent;
     [SerializeField]
     float UpSpeed;
@@ -17,10 +15,13 @@ public class Stone_Ctrl : MonoBehaviour
     public bool isSeize;
     public bool isThrow;
 
+    public float Forward_Size;
+
+    [SerializeField]
+    Transform Explosion_Obj;
 
     void OnEnable()
     {
-
         Quaternion rotation = Quaternion.identity;
         this.transform.rotation = rotation;
         // 처음은 던지지 않으니
@@ -31,9 +32,6 @@ public class Stone_Ctrl : MonoBehaviour
         isActiveT = true;
         // 시작 부모 오브젝트 초기화
         this.transform.parent = StoneStart_Parent;
-        // 위치 초기화
-        Vector3 Pos = StartPos.position + StartPos.forward * 15.0f;
-        this.transform.position = new Vector3(Pos.x, -4.0f, Pos.z);
     }
 
     // Update is called once per frame
@@ -54,7 +52,11 @@ public class Stone_Ctrl : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Ground") && isThrow)
-        {
+        { 
+            // 폭발 이펙트 생성
+            Explosion_Obj.GetChild(0).gameObject.SetActive(true);
+            Explosion_Obj.GetChild(0).gameObject.transform.position = this.transform.position;
+
             this.gameObject.SetActive(false);
         }
     }
