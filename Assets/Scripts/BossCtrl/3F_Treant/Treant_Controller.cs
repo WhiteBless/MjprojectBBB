@@ -60,6 +60,7 @@ public enum Treant_Power_State
 
 public class Treant_Controller : Boss_BehaviorCtrl_Base
 {
+    #region Variable
     [Header("----Treant_Ref_Variable---")]
     [SerializeField]
     Treant_ObjPool Skill_Obj_Pool;
@@ -94,12 +95,20 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
     Transform Skill_StartPos;
 
     [Header("----Treant_State_Variable---")]
+    public bool isBarrier;                          // 방어 상태 체크
+    public bool isStartFormChange;                  // 지금부터 형태 변환가능
+    [SerializeField]
+    bool CanFormChange;                             // 형태 변환 가능
+    [SerializeField]
+    int ChangeForm_Skill_Max_Count;                 // 몇번 쓰고 변신 할건지 변수
+    [SerializeField]
+    int FormChange_Count;                           // 스킬을 몇 번 썼는지 카운트
     [SerializeField]
     BlendShapesPresetManager Treant_Type_Shape;     // 모형 변경 관련 스크립
     [SerializeField]
-    TreantType Treant_Type;       // 3층보스 형태
+    TreantType Treant_Type;                         // 3층보스 형태
     [SerializeField]
-    Treant_Normal_State TreantNormalState;     // 3층 보스 노말폼 현재 상태
+    Treant_Normal_State TreantNormalState;          // 3층 보스 노말폼 현재 상태
     [SerializeField]
     Treant_Speed_State TreantSpeedState;
     [SerializeField]
@@ -219,6 +228,7 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
     [SerializeField]
     float Crack_Forward;
 
+#endregion
 
     #region Rotation
     public override void LookAtPlayer()
@@ -331,6 +341,8 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
     #region Init
     void Treant_Init()
     {
+        // 시작할 때 80퍼 이하가 되면 바로 작동할 수 있도록 값을 초기화 해준다.
+        FormChange_Count = ChangeForm_Skill_Max_Count;
         isLock = true;
         Treant_Type_Shape = GetComponent<BlendShapesPresetManager>();
         animator = GetComponent<Animator>();
@@ -399,6 +411,10 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
     // 노말 폼일 떄 변신
     public void CurrentType_Normal_Form_Change()
     {
+        isLock = true;
+        // 폼 변경 불가능
+        CanFormChange = false;
+
         int changePercent = Random.Range(0, 10);
 
         FormChange_VFX.SetActive(true);
@@ -418,6 +434,10 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
     // 스피드 폼일 떄 변신
     public void CurrentType_Speed_Form_Change()
     {
+        isLock = true;
+        // 폼 변경 불가능
+        CanFormChange = false;
+
         int changePercent = Random.Range(0, 10);
 
         FormChange_VFX.SetActive(true);
@@ -437,6 +457,10 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
     // 파워 폼일 떄 변신
     public void CurrentType_Power_Form_Change()
     {
+        isLock = true;
+        // 폼 변경 불가능
+        CanFormChange = false;
+
         int changePercent = Random.Range(0, 10);
 
         FormChange_VFX.SetActive(true);
@@ -453,9 +477,14 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
         }
     }
 
+    public void UnLock()
+    {
+        isLock = false;
+    }
+
     IEnumerator FormChange_VFX_Off()
     {
-        yield return new WaitForSeconds(2.0f);
+        yield return new WaitForSeconds(10.0f);
         FormChange_VFX.SetActive(false);
     }
     #endregion
@@ -483,19 +512,19 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
         {
             // 랜덤으로 다음 상태 변경
             // Treant_Normal_State randomNormalState = (Treant_Normal_State)Random.Range(2, (int)Treant_Normal_State.END - 1);
-            Treant_Normal_State randomNormalState = (Treant_Normal_State)5;
+            Treant_Normal_State randomNormalState = (Treant_Normal_State)6;
             TreantNormalState = randomNormalState;
 
-            Debug.Log(randomNormalState);
+            //Debug.Log(randomNormalState);
         }
         else if (Treant_Type == TreantType.POWER)
         {
             // 랜덤으로 다음 상태 변경
-            //Treant_Power_State randomPowerState = (Treant_Power_State)Random.Range(2, (int)Treant_Power_State.END);
-            Treant_Power_State randomPowerState = (Treant_Power_State)5;
+            Treant_Power_State randomPowerState = (Treant_Power_State)Random.Range(2, (int)Treant_Power_State.END - 1);
+            //Treant_Power_State randomPowerState = (Treant_Power_State)6;
             TreantPowerState = randomPowerState;
 
-            Debug.Log(randomPowerState);
+            //Debug.Log(randomPowerState);
 
         }
         else if (Treant_Type == TreantType.SPEED)
@@ -505,7 +534,7 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
             // Treant_Speed_State randomSpeedState = (Treant_Speed_State)6;
             TreantSpeedState = randomSpeedState;
 
-            Debug.Log(randomSpeedState);
+            //Debug.Log(randomSpeedState);
         }
 
         // 기본 상태가 아닐 시 2초간의 딜레이를 준다
@@ -528,7 +557,25 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
             }
         }
 
-        
+        // 폼 체인지 가능할때
+        if (isStartFormChange && FormChange_Count == ChangeForm_Skill_Max_Count)
+        {
+            if (Treant_Type == TreantType.NORMAL)
+            {
+                TreantNormalState = Treant_Normal_State.FORMCHANGE;
+            }
+            else if (Treant_Type == TreantType.POWER)
+            {
+                TreantPowerState = Treant_Power_State.FORMCHANGE;
+            }
+            else
+            {
+                TreantSpeedState = Treant_Speed_State.FORMCHANGE;
+            }
+
+            // 변신 했으니 0으로 초기화
+            FormChange_Count = 0;
+        }
 
         switch (Treant_Type)
         {
@@ -544,21 +591,27 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
                         break;
                     case Treant_Normal_State.NORMALATTACK:
                         Normal_Attack();
+                        Skill_Count_Up();
                         break;
                     case Treant_Normal_State.BARRIER:
                         Treant_Barrier();
+                        Skill_Count_Up();
                         break;
                     case Treant_Normal_State.LEAFTURN:
                         Treant_LeafTurn();
+                        Skill_Count_Up();
                         break;
                     case Treant_Normal_State.LEAFBREATH:
                         Treant_LeafBreath();
+                        Skill_Count_Up();
                         break;
                     case Treant_Normal_State.LEAFPLACE:
                         Treant_LeafPlace();
+                        Skill_Count_Up();
                         break;
                     case Treant_Normal_State.LEAFMISSALE:
                         Treant_LeafMissale();
+                        Skill_Count_Up();
                         break;
                     case Treant_Normal_State.FORMCHANGE:
                         CurrentType_Normal_Form_Change();
@@ -571,29 +624,32 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
             case TreantType.SPEED:
                 switch (TreantSpeedState)
                 {
-                    //case Treant_Speed_State.IDLE:
-                    //    Treant_Idle();
-                    //    break;
                     case Treant_Speed_State.MOVE:
                         Treant_Move();
                         break;
                     case Treant_Speed_State.NORMALATTACK:
                         Normal_Attack();
+                        Skill_Count_Up();
                         break;
                     case Treant_Speed_State.BARRIER:
                         Treant_Barrier();
+                        Skill_Count_Up();
                         break;
                     case Treant_Speed_State.DASH:
                         Treant_Dash();
+                        Skill_Count_Up();
                         break;
                     case Treant_Speed_State.TRUNWHEEL:
                         Treant_TurnWheel();
+                        Skill_Count_Up();
                         break;
                     case Treant_Speed_State.EXPLOSION:
                         Treant_Explosion();
+                        Skill_Count_Up();
                         break;
                     case Treant_Speed_State.CLAP:
                         Treant_Clap();
+                        Skill_Count_Up();
                         break;
                     case Treant_Speed_State.FORMCHANGE:
                         CurrentType_Speed_Form_Change();
@@ -606,29 +662,32 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
             case TreantType.POWER:
                 switch (TreantPowerState)
                 {
-                    case Treant_Power_State.IDLE:
-                        Treant_Idle();
-                        break;
                     case Treant_Power_State.MOVE:
                         Treant_Move();
                         break;
                     case Treant_Power_State.NORMALATTACK:
                         Normal_Attack();
+                        Skill_Count_Up();
                         break;
                     case Treant_Power_State.BARRIER:
                         Treant_Barrier();
+                        Skill_Count_Up();
                         break;
                     case Treant_Power_State.GOLEM_RECALL:
                         Treant_Golem_Recall();
+                        Skill_Count_Up();
                         break;
                     case Treant_Power_State.THROW_STONE:
                         Treant_Throw_Stone();
+                        Skill_Count_Up();
                         break;
                     case Treant_Power_State.HULK_BURST_1:
                         Treant_Hulk_Burst_1();
+                        Skill_Count_Up();
                         break;
                     case Treant_Power_State.HULK_BURST_2:
                         Treant_Hulk_Burst_2();
+                        Skill_Count_Up();
                         break;
                     case Treant_Power_State.FORMCHANGE:
                         CurrentType_Power_Form_Change();
@@ -640,6 +699,15 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
 
             default:
                 break;
+        }
+    }
+
+    public void Skill_Count_Up()
+    {
+        // 형태 변경 시작 가능 시점부터 적용
+        if (isStartFormChange)
+        {
+            FormChange_Count++;
         }
     }
     #endregion
@@ -742,7 +810,7 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
     {
         isAttacking = true;
         animator.SetBool("isBlock", true);
-
+        isBarrier = true;
         Shield_VFX.SetActive(true);
     }
 
@@ -756,6 +824,7 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
         yield return new WaitForSeconds(5.0f);
         isAttacking = false;
         Shield_VFX.SetActive(false);
+        isBarrier = false;
         animator.SetTrigger("BlockStop");
     }
 
@@ -1168,7 +1237,6 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
     {
         Stone.SetActive(true);
         // 위치 초기화
-        Debug.Log(1);
         Vector3 Pos = Skill_StartPos.position + Skill_StartPos.forward * 5.0f;
         Stone.transform.position = new Vector3(Pos.x, -4.0f, Pos.z);
     }

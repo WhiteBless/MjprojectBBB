@@ -15,6 +15,7 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
     private Animator animator;
     private Vector3 destination;
     public float moveSpeed;
+    public float moveSpeed_Discount;
     public float DodgeDistance;
     public float EskillDistance;
 
@@ -75,6 +76,11 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
     //public GameObject Skill4Atk_3_Eff;
     //public Transform Skill4Atk_3_Point;
 
+    [SerializeField]
+    float CamShake_Time;
+    [SerializeField]
+    float CamShake_Intensity;
+
     void Awake()
     {
         mainCam = Camera.main;
@@ -83,7 +89,6 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
     void Start()
     {
         assassin_ObjPoolRef = GetComponent<Assassin_ObjPool>();
-        
     }
 
     // Update is called once per frame
@@ -380,7 +385,7 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
             {
                 Vector3 dir = destination - transform.position;
                 transform.forward = dir;
-                transform.position += dir.normalized * Time.deltaTime * moveSpeed;
+                transform.position += dir.normalized * Time.deltaTime * (moveSpeed - moveSpeed_Discount);
             }
 
             if (Vector3.Distance(transform.position, destination) <= 0.3f)
@@ -786,15 +791,17 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
         {
             if (playscenemanager.health > 1)
             {
-                playscenemanager.HealthDown();
+                GameManager.GMInstance.CamShakeRef.ShakeCam(CamShake_Intensity, CamShake_Time);
+                // playscenemanager.HealthDown();
                 // Debug.Log(other.gameObject.name);
-
+                animator.SetTrigger("Hit");
                 isHit = true;
 
                 Invoke("HitOut", 3f);
             }
             else
             {
+                GameManager.GMInstance.CamShakeRef.ShakeCam(CamShake_Intensity, CamShake_Time);
                 // Debug.Log("1");
                 playscenemanager.HealthDown();
                 animator.SetBool("isMove", false);
@@ -819,12 +826,14 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
         {
             if (playscenemanager.health > 1)
             {
-                playscenemanager.HealthDown();
+                GameManager.GMInstance.CamShakeRef.ShakeCam(CamShake_Intensity, CamShake_Time);
+                animator.SetTrigger("Hit");
+                // playscenemanager.HealthDown();
                 // Debug.Log(other.gameObject.name);
 
                 isHit = true;
 
-                Invoke("HitOut", 3f);
+                Invoke("HitOut", 1.5f);
             }
         }
     }
@@ -839,5 +848,17 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
     public void HitOut()
     {
         isHit = false;
+    }
+
+    public void CantMove()
+    {
+        isMove = false;
+        moveSpeed_Discount = moveSpeed;
+    }
+
+    public void CanMove()
+    {
+        isMove = true;
+        moveSpeed_Discount = 0;
     }
 }

@@ -11,6 +11,10 @@ public class Boss_HP_Controller : MonoBehaviour
     public bool isDead;
     public bool isWSkillChek;
 
+    [Header("-----Treant-----")] // 3층 보스의 경우 
+    [SerializeField]
+    int Treant_Possible_FormChange_HP; //폼 체인지 체력
+
     [Header("-----Reaper-----")] // 리퍼의 경우 
     [SerializeField]
     int Reaper_SP_1_HP; // 첫번째 광역기 체력
@@ -99,6 +103,23 @@ public class Boss_HP_Controller : MonoBehaviour
 
                 #endregion // 리퍼의 hp에 따른 변수 조정
 
+                #region Treant
+                // 3층 보스일 경우
+                if (this.gameObject.name == "Treant")
+                {
+                    // 설정한 체력 보다 작아질 경우
+                    if (BossCurHP <= (BossMaxHP / 100) * Treant_Possible_FormChange_HP)
+                    {
+                        this.GetComponent<Treant_Controller>().isStartFormChange = true;
+                    }
+
+                    // 방어 상태면 return
+                    if (this.GetComponent<Treant_Controller>().isBarrier)
+                    {
+                        return;
+                    }
+                }
+                #endregion
                 //if (!isWSkillChek)
                 //{
                 //    Attack weapon = other.GetComponent<Attack>();
