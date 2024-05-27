@@ -492,7 +492,7 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
         {
             // 랜덤으로 다음 상태 변경
             //Treant_Power_State randomPowerState = (Treant_Power_State)Random.Range(2, (int)Treant_Power_State.END);
-            Treant_Power_State randomPowerState = (Treant_Power_State)6;
+            Treant_Power_State randomPowerState = (Treant_Power_State)5;
             TreantPowerState = randomPowerState;
 
             Debug.Log(randomPowerState);
@@ -1159,6 +1159,7 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
     // TODO ## Treant_Throw_Stone
     public void Treant_Throw_Stone()
     {
+        isLock = true;
         isAttacking = true;
         animator.SetTrigger("Throw_Stone");
     }
@@ -1166,8 +1167,14 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
     public void Treant_Throw_Stone_Spawn()
     {
         Stone.SetActive(true);
+        // 위치 초기화
+        Debug.Log(1);
+        Vector3 Pos = Skill_StartPos.position + Skill_StartPos.forward * 5.0f;
+        Stone.transform.position = new Vector3(Pos.x, -4.0f, Pos.z);
     }
 
+
+    //  패턴 4번이랑 동시 사용
     public void Treant_Throw_Stone_Seize()
     {
         // 돌의 부모오브젝트 바꿔줌
@@ -1178,31 +1185,8 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
         Stone.transform.localPosition = Vector3.zero;
     }
 
-    public void Stone_Crash_R_VFX_On()
-    {
-        // 이펙트 생성
-        GameObject obj = Skill_Obj_Pool.GetStone_Crash_FromPool();
-        obj.transform.position = R_VFX_Pos.position;
 
-        StartCoroutine(Stone_Crash_VFX_Off(obj));
-    }
-
-    public void Stone_Crash_L_VFX_On()
-    {
-        // 이펙트 생성
-        GameObject obj = Skill_Obj_Pool.GetStone_Crash_FromPool();
-        obj.transform.position = L_VFX_Pos.position;
-
-        StartCoroutine(Stone_Crash_VFX_Off(obj));
-    }
-
-    IEnumerator Stone_Crash_VFX_Off(GameObject _obj)
-    {
-        yield return new WaitForSeconds(1.0f);
-
-        _obj.SetActive(false);
-    }
-
+    // 패턴 4번이랑 동시 사용
     public void Stone_Throw()
     {
         Stone.transform.parent = Stone_Throw_Parent;
@@ -1214,11 +1198,8 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
         Stone.GetComponent<Stone_Ctrl>().isThrow = true;
     }
 
-    public void Treant_Throw_Stone_Start()
-    {
-        isLock = true;
-    }
 
+    //  패턴 4번이랑 동시 사용
     public void Treant_Throw_Stone_Lock()
     {
         isLock = false;
@@ -1243,6 +1224,27 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
     public void Treant_Hulk_Burst_1_Start()
     {
 
+    }
+
+    public void Treant_Hulk_Throw_Stone_Spawn()
+    {
+        Stone.SetActive(true);
+        Vector3 Pos = Skill_StartPos.position + Skill_StartPos.forward * 15.0f;
+        Stone.transform.position = new Vector3(Pos.x, -4.0f, Pos.z);
+    }
+
+    public void Stone_Crash_R_VFX_On()
+    {
+        // 이펙트 생성
+        GameObject obj = Skill_Obj_Pool.GetStone_Crash_FromPool();
+        obj.transform.position = R_VFX_Pos.position;
+    }
+
+    public void Stone_Crash_L_VFX_On()
+    {
+        // 이펙트 생성
+        GameObject obj = Skill_Obj_Pool.GetStone_Crash_FromPool();
+        obj.transform.position = L_VFX_Pos.position;
     }
 
     public void Treant_Hulk_Burst_1_End()
