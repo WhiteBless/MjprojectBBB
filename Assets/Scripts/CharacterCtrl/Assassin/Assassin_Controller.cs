@@ -853,6 +853,12 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
     public void CantMove()
     {
         isMove = false;
+        isDodge = false;
+        isAttack = false;
+        isSkill1 = false;
+        isSkill2 = false;
+        isSkill3 = false;
+        isSkill4 = false;
         moveSpeed_Discount = moveSpeed;
     }
 
@@ -860,5 +866,13 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
     {
         isMove = true;
         moveSpeed_Discount = 0;
+    }
+
+    public void Move_Error()
+    {
+        if (moveSpeed_Discount != 0)
+        {
+            moveSpeed_Discount = 0;
+        }
     }
 }
