@@ -18,21 +18,19 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     PlaySceneManager playscenemanagerRef;
-
     // Managers Reference
     public SoundManager SoundManagerRef;
+    public CamShake CamShakeRef;
 
     void Awake()
     {
         if (GMInstance == null)
         {
-            Debug.Log(1);
             GMInstance = this;
             DontDestroyOnLoad(gameObject);
         }
         else
         {
-            Debug.Log(2);
             Destroy(this);
         }
     }
