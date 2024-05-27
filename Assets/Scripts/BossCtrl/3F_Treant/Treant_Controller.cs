@@ -131,6 +131,18 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
 
     Vector3 dir;                  // Treant 각도
 
+    [Header("----Treant_Skill_Variable---")]
+    [SerializeField]
+    GameObject Shield_VFX;
+    [SerializeField]
+    GameObject Normal_Atk_R_VFX;
+    [SerializeField]
+    GameObject Normal_Atk_L_VFX;
+    
+    [Header("----Treant_FormChange_Variable---")]
+    [SerializeField]
+    GameObject FormChange_VFX;
+
     [Header("----Treant_Normal_LeafMissale_Variable---")]
     [SerializeField]
     float LeafMissale_Time;
@@ -185,7 +197,19 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
     [SerializeField]
     float Golem_Active_Time;
 
-    [Header("----Treant_Power_HulkBurst2_Variable---")]
+    [Header("----Treant_Power_HulkBurst1_Variable---")]
+    [SerializeField]
+    GameObject Stone;
+    [SerializeField]
+    Transform Stone_seize;
+    [SerializeField]
+    Transform Stone_Throw_Parent;
+    [SerializeField]
+    Transform R_VFX_Pos;
+    [SerializeField]
+    Transform L_VFX_Pos;
+
+  [Header("----Treant_Power_HulkBurst2_Variable---")]
     [SerializeField]
     GameObject[] Combo_Atk_VFX;
     [SerializeField]
@@ -377,6 +401,9 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
     {
         int changePercent = Random.Range(0, 10);
 
+        FormChange_VFX.SetActive(true);
+        StartCoroutine(FormChange_VFX_Off());
+
         // 50 / 50 확률로 변신
         if (changePercent < 5)
         {
@@ -392,6 +419,9 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
     public void CurrentType_Speed_Form_Change()
     {
         int changePercent = Random.Range(0, 10);
+
+        FormChange_VFX.SetActive(true);
+        StartCoroutine(FormChange_VFX_Off());
 
         // 30 / 70 확률로 변신
         if (changePercent < 3)
@@ -409,6 +439,9 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
     {
         int changePercent = Random.Range(0, 10);
 
+        FormChange_VFX.SetActive(true);
+        StartCoroutine(FormChange_VFX_Off());
+
         // 30 / 70 확률로 변신
         if (changePercent < 3)
         {
@@ -418,6 +451,12 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
         {
             Change_Speed_Form();
         }
+    }
+
+    IEnumerator FormChange_VFX_Off()
+    {
+        yield return new WaitForSeconds(2.0f);
+        FormChange_VFX.SetActive(false);
     }
     #endregion
 
@@ -443,8 +482,8 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
         if (Treant_Type == TreantType.NORMAL)
         {
             // 랜덤으로 다음 상태 변경
-            //Treant_Normal_State randomNormalState = (Treant_Normal_State)Random.Range(2, (int)Treant_Normal_State.END - 1);
-            Treant_Normal_State randomNormalState = (Treant_Normal_State)3;
+            // Treant_Normal_State randomNormalState = (Treant_Normal_State)Random.Range(2, (int)Treant_Normal_State.END - 1);
+            Treant_Normal_State randomNormalState = (Treant_Normal_State)5;
             TreantNormalState = randomNormalState;
 
             Debug.Log(randomNormalState);
@@ -453,7 +492,7 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
         {
             // 랜덤으로 다음 상태 변경
             //Treant_Power_State randomPowerState = (Treant_Power_State)Random.Range(2, (int)Treant_Power_State.END);
-            Treant_Power_State randomPowerState = (Treant_Power_State)7;
+            Treant_Power_State randomPowerState = (Treant_Power_State)6;
             TreantPowerState = randomPowerState;
 
             Debug.Log(randomPowerState);
@@ -462,8 +501,8 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
         else if (Treant_Type == TreantType.SPEED)
         {
             // 랜덤으로 다음 상태 변경
-            // Treant_Speed_State randomSpeedState = (Treant_Speed_State)Random.Range(2, (int)Treant_Speed_State.END - 1);
-            Treant_Speed_State randomSpeedState = (Treant_Speed_State)6;
+            Treant_Speed_State randomSpeedState = (Treant_Speed_State)Random.Range(2, (int)Treant_Speed_State.END - 1);
+            // Treant_Speed_State randomSpeedState = (Treant_Speed_State)6;
             TreantSpeedState = randomSpeedState;
 
             Debug.Log(randomSpeedState);
@@ -662,6 +701,24 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
         StartCoroutine(Normal_Attack_Next_Motion());
     }
 
+    public void Normal_Attack_R_VFX_On()
+    {
+        Normal_Atk_R_VFX.SetActive(true);
+        StartCoroutine(Normal_Attack_VFX_Off(Normal_Atk_R_VFX));
+    }
+
+    public void Normal_Attack_L_VFX_On()
+    {
+        Normal_Atk_L_VFX.SetActive(true);
+        StartCoroutine(Normal_Attack_VFX_Off(Normal_Atk_L_VFX));
+    }
+
+    IEnumerator Normal_Attack_VFX_Off(GameObject _obj)
+    {
+        yield return new WaitForSeconds(0.5f);
+        _obj.SetActive(false);
+    }
+
     IEnumerator Normal_Attack_Next_Motion()
     {
         isLock = false;
@@ -686,7 +743,7 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
         isAttacking = true;
         animator.SetBool("isBlock", true);
 
-       
+        Shield_VFX.SetActive(true);
     }
 
     public void Treant_Barrier_End()
@@ -698,6 +755,7 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
     {
         yield return new WaitForSeconds(5.0f);
         isAttacking = false;
+        Shield_VFX.SetActive(false);
         animator.SetTrigger("BlockStop");
     }
 
@@ -1103,6 +1161,57 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
     {
         isAttacking = true;
         animator.SetTrigger("Throw_Stone");
+    }
+
+    public void Treant_Throw_Stone_Spawn()
+    {
+        Stone.SetActive(true);
+    }
+
+    public void Treant_Throw_Stone_Seize()
+    {
+        // 돌의 부모오브젝트 바꿔줌
+        Stone.transform.parent = Stone_seize.transform;
+        // 스톤을 잡음
+        Stone.GetComponent<Stone_Ctrl>().isSeize = true;
+        // 스톤의 위치를 초기화 시켜준다.
+        Stone.transform.localPosition = Vector3.zero;
+    }
+
+    public void Stone_Crash_R_VFX_On()
+    {
+        // 이펙트 생성
+        GameObject obj = Skill_Obj_Pool.GetStone_Crash_FromPool();
+        obj.transform.position = R_VFX_Pos.position;
+
+        StartCoroutine(Stone_Crash_VFX_Off(obj));
+    }
+
+    public void Stone_Crash_L_VFX_On()
+    {
+        // 이펙트 생성
+        GameObject obj = Skill_Obj_Pool.GetStone_Crash_FromPool();
+        obj.transform.position = L_VFX_Pos.position;
+
+        StartCoroutine(Stone_Crash_VFX_Off(obj));
+    }
+
+    IEnumerator Stone_Crash_VFX_Off(GameObject _obj)
+    {
+        yield return new WaitForSeconds(1.0f);
+
+        _obj.SetActive(false);
+    }
+
+    public void Stone_Throw()
+    {
+        Stone.transform.parent = Stone_Throw_Parent;
+
+        Vector3 direction = Target.transform.position - Stone.transform.position;
+        Quaternion rotation = Quaternion.LookRotation(direction);
+        Stone.transform.rotation = rotation;
+
+        Stone.GetComponent<Stone_Ctrl>().isThrow = true;
     }
 
     public void Treant_Throw_Stone_Start()
