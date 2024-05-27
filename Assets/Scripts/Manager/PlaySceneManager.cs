@@ -24,6 +24,8 @@ public class PlaySceneManager : MonoBehaviour
     [SerializeField]
     Slider BGM_Slider;
 
+    public float SFX_Volume;
+
     public TextMeshProUGUI[] keyCodeName;
 
     public GameObject keySettingImage;
@@ -245,6 +247,9 @@ public class PlaySceneManager : MonoBehaviour
 
             GameManager.GMInstance.SoundManagerRef.SFXPlayers[i].volume = volume;
         }
+
+
+        SFX_Volume = volume;
     }
 
     public void SetBGMVolume(float volume)
@@ -260,6 +265,7 @@ public class PlaySceneManager : MonoBehaviour
 
             GameManager.GMInstance.SoundManagerRef.BGMPlayers[i].volume = volume;
         }
+
     }
 
     #endregion
