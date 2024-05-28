@@ -9,11 +9,16 @@ public class RFX4_AudioCurves : MonoBehaviour
 
     private bool canUpdate;
     private float startTime;
+    [SerializeField]
     private AudioSource audioSource;
     private float startVolume;
 
-    private void Awake()
+    bool isSpawn;
+
+    private void Start()
     {
+        // isSpawn = true;
+
         audioSource = GetComponent<AudioSource>();
         // startVolume = GameManager.GMInstance.Get_PlaySceneManager().SFX_Volume;
         // audioSource.volume = AudioCurve.Evaluate(0);
@@ -21,8 +26,10 @@ public class RFX4_AudioCurves : MonoBehaviour
 
     private void OnEnable()
     {
-        audioSource.volume = GameManager.GMInstance.Get_PlaySceneManager().SFX_Volume;
-
+        if (GameManager.GMInstance.Get_PlaySceneManager().isArrivePlayScene)
+        {
+            audioSource.volume = GameManager.GMInstance.Get_PlaySceneManager().SFX_Volume;
+        }
         //startTime = Time.time;
         //canUpdate = true;
     }

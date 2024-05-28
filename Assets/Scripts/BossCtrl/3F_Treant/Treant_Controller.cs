@@ -154,19 +154,29 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
 
     [Header("----Treant_Normal_LeafMissale_Variable---")]
     [SerializeField]
+    GameObject NormalAtk_GuideLine;
+
+    [Header("----Treant_Normal_LeafMissale_Variable---")]
+    [SerializeField]
     float LeafMissale_Time;
     [SerializeField]
     float LeafMissale_Speed;
     [SerializeField]
     GameObject LeafMissale_VFX;
+    [SerializeField]
+    GameObject LeafMissale_GuideLine;
 
     [Header("----Treant_Normal_LeafTurn_Variable---")]
     [SerializeField]
     GameObject LeafTurn_VFX;
+    [SerializeField]
+    GameObject LeafTurn_GuideLine;
 
     [Header("----Treant_Normal_LeafBreath_Variable---")]
     [SerializeField]
     GameObject LeafBreath_VFX;
+    [SerializeField]
+    GameObject LeafBreath_GuideLine;
 
     [Header("----Treant_Speed_Dash_Variable---")]
     [SerializeField]
@@ -525,8 +535,8 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
         if (Treant_Type == TreantType.NORMAL)
         {
             // 랜덤으로 다음 상태 변경
-            // Treant_Normal_State randomNormalState = (Treant_Normal_State)Random.Range(2, (int)Treant_Normal_State.END - 1);
-            Treant_Normal_State randomNormalState = (Treant_Normal_State)6;
+            Treant_Normal_State randomNormalState = (Treant_Normal_State)Random.Range(2, (int)Treant_Normal_State.END - 1);
+            // Treant_Normal_State randomNormalState = (Treant_Normal_State)4;
             TreantNormalState = randomNormalState;
 
             //Debug.Log(randomNormalState);
@@ -544,8 +554,8 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
         else if (Treant_Type == TreantType.SPEED)
         {
             // 랜덤으로 다음 상태 변경
-            // Treant_Speed_State randomSpeedState = (Treant_Speed_State)Random.Range(2, (int)Treant_Speed_State.END - 1);
-            Treant_Speed_State randomSpeedState = (Treant_Speed_State)7;
+            Treant_Speed_State randomSpeedState = (Treant_Speed_State)Random.Range(2, (int)Treant_Speed_State.END - 1);
+            // Treant_Speed_State randomSpeedState = (Treant_Speed_State)7;
             TreantSpeedState = randomSpeedState;
 
             //Debug.Log(randomSpeedState);
@@ -795,6 +805,11 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
         StartCoroutine(Normal_Attack_VFX_Off(Normal_Atk_L_VFX));
     }
 
+    public void Normal_ATK_Guide_On()
+    {
+        NormalAtk_GuideLine.SetActive(true);
+    }
+
     IEnumerator Normal_Attack_VFX_Off(GameObject _obj)
     {
         yield return new WaitForSeconds(0.5f);
@@ -864,6 +879,11 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
         LeafTurn_VFX.SetActive(true);
     }
 
+    public void Treant_LeafTurn_GuideLine()
+    {
+        LeafTurn_GuideLine.SetActive(true);
+    }
+
     public void Treant_LeafTurn_End()
     {
         LeafTurn_VFX.SetActive(false);
@@ -881,8 +901,15 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
         animator.SetTrigger("LeafBreath");
     }
 
+    public void Treant_LeafBreath_GuideLine()
+    {
+        // 가이드라인
+        LeafBreath_GuideLine.SetActive(true);
+    }
+
     public void Treant_LeafBreath_Start()
     {
+        // 회전 속도 감소
         Treant_Slow_RotSpeed = 4.0f;
     }
 
@@ -958,6 +985,11 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
         StartCoroutine(Treant_LeafMissale_Start_Event());
         // 코루틴 재실행 방지
         isEnterCoroutine = true;
+    }
+    
+    public void Treant_LeafMissale_GuideLine()
+    {
+        LeafMissale_GuideLine.SetActive(true);
     }
 
     IEnumerator Treant_LeafMissale_Start_Event()

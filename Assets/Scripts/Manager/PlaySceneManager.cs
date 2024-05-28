@@ -7,6 +7,8 @@ using TMPro;
 
 public class PlaySceneManager : MonoBehaviour
 {
+    public bool isArrivePlayScene;
+
     public GameObject deathMenu; // 사망 메뉴 UI 오브젝트
     public RectTransform deathMenuRectTransform; // 사망 메뉴의 RectTransform
     private float currentWidth = 0f; // 현재 Width 값을 저장할 변수
@@ -51,6 +53,9 @@ public class PlaySceneManager : MonoBehaviour
         deathMenu.SetActive(false);
 
         GameManager.GMInstance.Set_PlaySceneManager(this);
+
+
+        // GameManager.GMInstance.Set_PlaySceneManager(this);
         //AudioSource[] sources = FindObjectsOfType<AudioSource>(); // 모든 오디오 소스를 찾아 배열에 추가
         //allAudioSources = new List<AudioSource>(); // 리스트 초기화
 
@@ -230,6 +235,14 @@ public class PlaySceneManager : MonoBehaviour
         {
             BGM_Slider.value = GameManager.GMInstance.SoundManagerRef.BGMPlayers[i].volume;
         }
+
+
+    }
+
+    IEnumerator Sound_Enable()
+    {
+        yield return new WaitForSeconds(2.0f);
+        isArrivePlayScene = true;
     }
 
     // TODO ## 로비화면 환경설정 사운드 조절 함수
