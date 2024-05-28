@@ -10,6 +10,8 @@ public class Treant_ObjPool : MonoBehaviour
     public GameObject Golem_objectPrefab;
     public GameObject Stone_Crash_objectPrefab;
 
+    public GameObject Stone_Guide_objectPrefab;
+
     public int poolSize; // 풀 크기
     [SerializeField]
     private List<GameObject> LeafPlace_objectPool; // 오브젝트 풀
@@ -19,7 +21,8 @@ public class Treant_ObjPool : MonoBehaviour
     private List<GameObject> Golem_objectPool; // 오브젝트 풀
     [SerializeField]
     private List<GameObject> Stone_Crash_objectPool; // 오브젝트 풀
-
+    [SerializeField]
+    private List<GameObject> Stone_Guide_objectPool; // 오브젝트 풀
 
     [SerializeField]
     Transform LeafPlace_Parent;
@@ -29,6 +32,9 @@ public class Treant_ObjPool : MonoBehaviour
     Transform Golem_Parent;
     [SerializeField]
     Transform Stone_Crash_Parent;
+    [SerializeField]
+    Transform Stone_Guide_Parent;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -61,12 +67,19 @@ public class Treant_ObjPool : MonoBehaviour
             obj_3.transform.parent = Golem_Parent;
             Golem_objectPool.Add(obj_3);
 
-            // Golem 오브젝트 풀 생성
+            // 스톤크래쉬 오브젝트 풀 생성
             GameObject obj_4 = Instantiate(Stone_Crash_objectPrefab);
             obj_4.transform.Rotate(Vector3.zero);
             obj_4.SetActive(false);
             obj_4.transform.parent = Stone_Crash_Parent;
             Stone_Crash_objectPool.Add(obj_4);
+
+            // 스톤크래쉬 오브젝트 풀 생성
+            GameObject obj_5 = Instantiate(Stone_Guide_objectPrefab);
+            obj_5.transform.Rotate(Vector3.zero);
+            obj_5.SetActive(false);
+            obj_5.transform.parent = Stone_Guide_Parent;
+            Stone_Guide_objectPool.Add(obj_5);
         }
     }
 
@@ -147,6 +160,26 @@ public class Treant_ObjPool : MonoBehaviour
         newObj.SetActive(true);
         Stone_Crash_objectPool.Add(newObj);
         newObj.transform.parent = Stone_Crash_Parent;
+        return newObj;
+    }
+
+    public GameObject GetStone_Guide_FromPool()
+    {
+        // 비활성화된 오브젝트를 찾아 반환
+        for (int i = 0; i < Stone_Guide_objectPool.Count; i++)
+        {
+            if (!Stone_Guide_objectPool[i].activeInHierarchy)
+            {
+                Stone_Guide_objectPool[i].SetActive(true);
+                return Stone_Guide_objectPool[i];
+            }
+        }
+
+        // 모든 오브젝트가 사용 중일 경우 새로운 오브젝트 생성 후 반환
+        GameObject newObj = Instantiate(Stone_Guide_objectPrefab);
+        newObj.SetActive(true);
+        Stone_Guide_objectPool.Add(newObj);
+        newObj.transform.parent = Stone_Guide_Parent;
         return newObj;
     }
 }

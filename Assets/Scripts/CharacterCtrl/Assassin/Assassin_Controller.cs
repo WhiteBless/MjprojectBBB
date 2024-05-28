@@ -819,6 +819,41 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
         }
     }
 
+    // 콜라이더에 계속 들어가 있을 시
+    void OnTriggerStay(Collider other)
+    {
+        if (other.tag == "EnemyAttack" && !isHit)
+        {
+            if (playscenemanager.health > 1)
+            {
+                GameManager.GMInstance.CamShakeRef.ShakeCam(CamShake_Intensity, CamShake_Time);
+                // playscenemanager.HealthDown();
+                // Debug.Log(other.gameObject.name);
+                animator.SetTrigger("Hit");
+                isHit = true;
+
+                Invoke("HitOut", 3f);
+            }
+            else
+            {
+                GameManager.GMInstance.CamShakeRef.ShakeCam(CamShake_Intensity, CamShake_Time);
+                // Debug.Log("1");
+                playscenemanager.HealthDown();
+                animator.SetBool("isMove", false);
+                animator.SetTrigger("doDie");
+                SkillOut();
+                isMove = false;
+                isAttack = false;
+                isDodge = false;
+                isDie = true;
+                transform.GetComponent<CapsuleCollider>().enabled = false;
+
+                Invoke("CharacterDie", 3f);
+            }
+        }
+    }
+
+
     void OnParticleCollision(GameObject other)
     {
         // 파티클에 닿을 시 데미지 
@@ -833,7 +868,7 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
 
                 isHit = true;
 
-                Invoke("HitOut", 1.5f);
+                Invoke("HitOut", 3.0f);
             }
         }
     }
