@@ -85,16 +85,15 @@ Subshader {
       #pragma vertex vert
       #pragma fragment fragBeautify
       #pragma target 3.0
-#pragma multi_compile_local __ BEAUTIFY_DALTONIZE BEAUTIFY_LUT BEAUTIFY_LUT3D BEAUTIFY_NIGHT_VISION BEAUTIFY_THERMAL_VISION
-#pragma multi_compile_local __ BEAUTIFY_DEPTH_OF_FIELD BEAUTIFY_DEPTH_OF_FIELD_TRANSPARENT BEAUTIFY_CHROMATIC_ABERRATION
-#pragma multi_compile_local __ BEAUTIFY_OUTLINE
-#pragma multi_compile_local __ BEAUTIFY_DIRT
-#pragma multi_compile_local __ BEAUTIFY_BLOOM
-#pragma multi_compile_local __ BEAUTIFY_EYE_ADAPTATION
-#pragma multi_compile_local __ BEAUTIFY_TONEMAP_ACES
-#pragma multi_compile_local __ BEAUTIFY_PURKINJE
-// Edited by Shader Control: #pragma multi_compile_local __ BEAUTIFY_VIGNETTING BEAUTIFY_VIGNETTING_MASK
-#pragma multi_compile_local __ BEAUTIFY_VIGNETTING 
+// Disabled by Shader Control: #pragma multi_compile_local __ BEAUTIFY_DALTONIZE BEAUTIFY_LUT BEAUTIFY_LUT3D BEAUTIFY_NIGHT_VISION BEAUTIFY_THERMAL_VISION
+// Disabled by Shader Control: #pragma multi_compile_local __ BEAUTIFY_DEPTH_OF_FIELD BEAUTIFY_DEPTH_OF_FIELD_TRANSPARENT BEAUTIFY_CHROMATIC_ABERRATION
+// Disabled by Shader Control: #pragma multi_compile_local __ BEAUTIFY_OUTLINE
+// Disabled by Shader Control: #pragma multi_compile_local __ BEAUTIFY_DIRT
+// Disabled by Shader Control: #pragma multi_compile_local __ BEAUTIFY_BLOOM
+// Disabled by Shader Control: #pragma multi_compile_local __ BEAUTIFY_EYE_ADAPTATION
+// Disabled by Shader Control: #pragma multi_compile_local __ BEAUTIFY_TONEMAP_ACES
+// Disabled by Shader Control: #pragma multi_compile_local __ BEAUTIFY_PURKINJE
+// Disabled by Shader Control: #pragma multi_compile_local __ BEAUTIFY_VIGNETTING BEAUTIFY_VIGNETTING_MASK
 // Disabled by Shader Control: #pragma multi_compile_local __ BEAUTIFY_FRAME BEAUTIFY_FRAME_MASK
 
       #include "Beautify.cginc"
@@ -230,7 +229,7 @@ Subshader {
       #pragma fragment fragCoC
       #pragma target 3.0
       #pragma fragmentoption ARB_precision_hint_fastest
-#pragma multi_compile_local __ BEAUTIFY_DEPTH_OF_FIELD_TRANSPARENT
+// Disabled by Shader Control: #pragma multi_compile_local __ BEAUTIFY_DEPTH_OF_FIELD_TRANSPARENT
       #include "BeautifyDoF.cginc"
       ENDCG
   } 
@@ -242,7 +241,7 @@ Subshader {
       #pragma fragment fragCoCDebug
       #pragma target 3.0
       #pragma fragmentoption ARB_precision_hint_fastest
-#pragma multi_compile_local __ BEAUTIFY_DEPTH_OF_FIELD_TRANSPARENT
+// Disabled by Shader Control: #pragma multi_compile_local __ BEAUTIFY_DEPTH_OF_FIELD_TRANSPARENT
       #include "BeautifyDoF.cginc"
       ENDCG
   } 
