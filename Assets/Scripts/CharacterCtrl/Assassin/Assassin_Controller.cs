@@ -133,7 +133,8 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
         if (Input.GetMouseButton(1))
         {
             RaycastHit hit;
-            if (Physics.Raycast(mainCam.ScreenPointToRay(Input.mousePosition), out hit) && hit.collider.CompareTag("Ground"))
+            Ray ray = mainCam.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity, groundLayer) && hit.collider.CompareTag("Ground"))
             {
                 SetDestination(hit.point);
             }
@@ -164,6 +165,35 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
         if (spaceDown)
         {
             Dodge();
+        }
+    }
+
+    private void SetDestination(Vector3 dest)
+    {
+        if (!isAttack)
+        {
+            destination = dest;
+            isMove = true;
+            animator.SetBool("isMove", true);
+        }
+    }
+
+    public override void Move()
+    {
+        if (!isSkill1 && !isSkill2 && !isSkill3 && !isSkill4 && !isAttack && !isDodge && !isDie)
+        {
+            if (isMove)
+            {
+                Vector3 dir = destination - transform.position;
+                transform.forward = dir;
+                transform.position += dir.normalized * Time.deltaTime * (moveSpeed - moveSpeed_Discount);
+            }
+
+            if (Vector3.Distance(transform.position, destination) <= 0.3f)
+            {
+                animator.SetBool("isMove", false);
+                isMove = false;
+            }
         }
     }
 
@@ -365,35 +395,6 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
         }
 
         transform.position = endPosition;
-    }
-
-    private void SetDestination(Vector3 dest)
-    {
-        if (!isAttack)
-        {
-            destination = dest;
-            isMove = true;
-            animator.SetBool("isMove", true);
-        }
-    }
-
-    public override void Move()
-    {
-        if (!isSkill1 && !isSkill2 && !isSkill3 && !isSkill4 && !isAttack && !isDodge && !isDie)
-        {
-            if (isMove)
-            {
-                Vector3 dir = destination - transform.position;
-                transform.forward = dir;
-                transform.position += dir.normalized * Time.deltaTime * (moveSpeed - moveSpeed_Discount);
-            }
-
-            if (Vector3.Distance(transform.position, destination) <= 0.3f)
-            {
-                animator.SetBool("isMove", false);
-                isMove = false;              
-            }
-        }
     }
 
     public override void Skill_1()
