@@ -88,11 +88,11 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
     float TargetDistance;
     [SerializeField]
     float ChaseDistance;
-    [SerializeField]
-    GameObject TreantAtkRange;
     public bool isStartRaid;
     [SerializeField]
     Transform Skill_StartPos;
+    [SerializeField]
+    Transform LookDir;
 
     [Header("----Treant_State_Variable---")]
     public bool isBarrier;                          // 방어 상태 체크
@@ -180,6 +180,10 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
     [SerializeField]
     bool isReDash;
     [SerializeField]
+    GameObject DashGuideLine;
+    [SerializeField]
+    GameObject Dash_VFX;
+    [SerializeField]
     bool isEnterCoroutine;
 
     [Header("----Treant_Speed_TurnWheel_Variable---")]
@@ -187,6 +191,8 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
     float TurnWheel_Time;
     [SerializeField]
     float TurnWheel_Speed;
+    [SerializeField]
+    GameObject TurnWheel_GuideLine;
     [SerializeField]
     GameObject TurnWheel_VFX;
 
@@ -205,6 +211,8 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
     [Header("----Treant_Power_Golem_Variable---")]
     [SerializeField]
     float Golem_Active_Time;
+    [SerializeField]
+    GameObject Golem_GuideLine;
 
     [Header("----Treant_Power_HulkBurst1_Variable---")]
     [SerializeField]
@@ -222,9 +230,9 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
     [SerializeField]
     GameObject[] Combo_Atk_VFX;
     [SerializeField]
-    int Combo_Index;
+    GameObject[] Combo_Atk_GuideLines;
     [SerializeField]
-    float HulkBurst2_Active_Time;
+    int Combo_Index;
     [SerializeField]
     float Crack_Forward;
 
@@ -521,7 +529,7 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
         {
             // 랜덤으로 다음 상태 변경
             Treant_Power_State randomPowerState = (Treant_Power_State)Random.Range(2, (int)Treant_Power_State.END - 1);
-            //Treant_Power_State randomPowerState = (Treant_Power_State)6;
+            // Treant_Power_State randomPowerState = (Treant_Power_State)4;
             TreantPowerState = randomPowerState;
 
             //Debug.Log(randomPowerState);
@@ -530,8 +538,8 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
         else if (Treant_Type == TreantType.SPEED)
         {
             // 랜덤으로 다음 상태 변경
-            Treant_Speed_State randomSpeedState = (Treant_Speed_State)Random.Range(2, (int)Treant_Speed_State.END - 1);
-            // Treant_Speed_State randomSpeedState = (Treant_Speed_State)6;
+            // Treant_Speed_State randomSpeedState = (Treant_Speed_State)Random.Range(2, (int)Treant_Speed_State.END - 1);
+            Treant_Speed_State randomSpeedState = (Treant_Speed_State)3;
             TreantSpeedState = randomSpeedState;
 
             //Debug.Log(randomSpeedState);
@@ -718,7 +726,7 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
         isMove = false;
         animator.SetFloat("Locomotion", 0.5f);
         //다시 활성화
-        TreantAtkRange.GetComponent<SphereCollider>().enabled = false;
+        // TreantAtkRange.GetComponent<SphereCollider>().enabled = false;
     }
 
     public void Treant_Idle_NextAct()
@@ -998,8 +1006,10 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
         if (isEnterCoroutine == true)
             yield break;
 
+        Dash_VFX.SetActive(true);
+
         isAttacking = true;
-        isLock = true;
+        // isLock = true;
         float time = 0.0f;
 
         while (time < DashTime)
@@ -1008,6 +1018,8 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
             transform.Translate(Vector3.forward * DashSpeed * Time.deltaTime);
             yield return null;
         }
+
+        Dash_VFX.SetActive(false);
 
         // 첫번째랑 두번째 돌진 때 계산
         if (DashCount != 0 && DashCount < 3)
@@ -1036,6 +1048,12 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
         }
 
         isEnterCoroutine = false;
+    }
+
+    public void Treant_Dash_GuideLine_On()
+    {
+        isLock = true;
+        DashGuideLine.SetActive(true);
     }
 
     public void Treant_Keep_Dash_End()
@@ -1088,6 +1106,12 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
 
         TurnWheel_VFX.SetActive(false);
         animator.SetTrigger("OutTurnWheel");
+    }
+
+    public void TurnWheel_Guide_On()
+    {
+        TurnWheel_GuideLine.SetActive(true);
+        TurnWheel_GuideLine.transform.position = this.transform.position;
     }
 
     public void TurnWheel_VFX_Off()
@@ -1202,6 +1226,15 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
         //isLock = true;
         animator.SetTrigger("Golem_Recall");
     }
+
+    public void Treant_Golem_Guide_On()
+    {
+        // 가이드 라인 활성화
+        isLock = true;
+        Golem_GuideLine.SetActive(true);
+        Golem_GuideLine.transform.position = Skill_StartPos.position + Skill_StartPos.forward * 3.0f;
+    }
+
     public void Treant_Golem_VFX_On()
     {
         // 골렘 이펙트 활성화
@@ -1263,7 +1296,10 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
         Quaternion rotation = Quaternion.LookRotation(direction);
         Stone.transform.rotation = rotation;
 
+        // 던지기
         Stone.GetComponent<Stone_Ctrl>().isThrow = true;
+        // 가이드라인 활성화
+        Skill_Obj_Pool.GetStone_Guide_FromPool().transform.position = new Vector3(Target.transform.position.x, 1.0f, Target.transform.position.z);
     }
 
 
@@ -1301,6 +1337,18 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
         Stone.transform.position = new Vector3(Pos.x, -4.0f, Pos.z);
     }
 
+    public void Spawn_Stone_Crash_GuideLine(float _pos)
+    {
+        if (_pos == 0)
+        {
+            Skill_Obj_Pool.GetStone_Guide_FromPool().transform.position = R_VFX_Pos.position;
+        }
+        else
+        {
+            Skill_Obj_Pool.GetStone_Guide_FromPool().transform.position = L_VFX_Pos.position;
+        }
+    }
+
     public void Stone_Crash_R_VFX_On()
     {
         // 이펙트 생성
@@ -1335,6 +1383,20 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
     public void Treant_Hulk_Burst_2_Start()
     {
         isLock = true;
+
+        // 단계에맞는 가이드라인 활성화
+        if (Combo_Index == 0)
+        {
+            Combo_Atk_GuideLines[0].SetActive(true);
+        }
+        else if (Combo_Index == 1)
+        {
+            Combo_Atk_GuideLines[1].SetActive(true);
+        }
+        else if (Combo_Index == 2)
+        {
+            Combo_Atk_GuideLines[2].SetActive(true);
+        }
     }
 
     // 회전 제한 해제
@@ -1352,9 +1414,6 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
             Combo_Atk_VFX[0].transform.position = Skill_StartPos.position + Skill_StartPos.forward * Crack_Forward;
             Combo_Atk_VFX[0].transform.rotation = Skill_StartPos.rotation;
             Combo_Index++;
-
-            // 비활성화
-            StartCoroutine(Treant_Hulk_Burst2_VFX_Off(Combo_Atk_VFX[0]));
         }
         else if (Combo_Index == 1)
         {
@@ -1364,9 +1423,6 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
             Combo_Atk_VFX[1].transform.position = Skill_StartPos.position + Skill_StartPos.forward * Crack_Forward;
             Combo_Atk_VFX[1].transform.rotation = Skill_StartPos.rotation;
             Combo_Index++;
-
-            // 비활성화
-            StartCoroutine(Treant_Hulk_Burst2_VFX_Off(Combo_Atk_VFX[1]));
         }
         else if (Combo_Index == 2)
         {
@@ -1376,15 +1432,7 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
             Combo_Atk_VFX[2].transform.rotation = Skill_StartPos.rotation;
             Combo_Index = 0;
 
-            // 비활성화
-            StartCoroutine(Treant_Hulk_Burst2_VFX_Off(Combo_Atk_VFX[2]));
         }
-    }
-
-    IEnumerator Treant_Hulk_Burst2_VFX_Off(GameObject _obj)
-    {
-        yield return new WaitForSeconds(HulkBurst2_Active_Time);
-        _obj.SetActive(false);
     }
 
     public void Treant_Hulk_Burst_2_End()
