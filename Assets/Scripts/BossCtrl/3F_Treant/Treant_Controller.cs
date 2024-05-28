@@ -200,6 +200,8 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
     [SerializeField]
     GameObject Energy_VFX;
     [SerializeField]
+    GameObject Explosion_GuideLine;
+    [SerializeField]
     GameObject Shooting_VFX;
 
     [Header("----Treant_Speed_Clap_Variable---")]
@@ -207,6 +209,10 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
     GameObject Clap_VFX;
     [SerializeField]
     GameObject Clap_After_VFX;
+    [SerializeField]
+    GameObject Clap_Guide;
+    [SerializeField]
+    GameObject Clap_After_Guide;
 
     [Header("----Treant_Power_Golem_Variable---")]
     [SerializeField]
@@ -539,7 +545,7 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
         {
             // 랜덤으로 다음 상태 변경
             // Treant_Speed_State randomSpeedState = (Treant_Speed_State)Random.Range(2, (int)Treant_Speed_State.END - 1);
-            Treant_Speed_State randomSpeedState = (Treant_Speed_State)3;
+            Treant_Speed_State randomSpeedState = (Treant_Speed_State)7;
             TreantSpeedState = randomSpeedState;
 
             //Debug.Log(randomSpeedState);
@@ -1144,6 +1150,7 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
     public void Treant_Explosion_Start()
     {
         isLock = true;
+        Explosion_GuideLine.SetActive(true);
     }
 
     public void Treant_Explosion_Energy()
@@ -1163,7 +1170,7 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
 
     IEnumerator On_Shoot_Collision()
     {
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(0.4f);
         // 0.3초후 피격 범위 발생
         Shooting_VFX.GetComponent<SphereCollider>().enabled = true;
     }
@@ -1188,8 +1195,21 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
 
     public void Treant_Clap_Start()
     {
-        isLock = true;
+        // isLock = true;       
     }
+
+    public void Treant_Clap_GuideLine()
+    {
+        isLock = true;
+
+        Clap_Guide.SetActive(true);
+    }
+
+    public void Treant_Clap_After_GuideLine()
+    {
+        Clap_After_Guide.SetActive(true);
+    }
+
 
     public void Treant_Clap_VFX_On()
     {
