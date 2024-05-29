@@ -29,6 +29,9 @@ public class PlaySceneManager : MonoBehaviour
     [SerializeField]
     Slider BGM_Slider;
 
+    [SerializeField]
+    Transform StartPos;
+
     public float SFX_Volume;
 
     public TextMeshProUGUI[] keyCodeName;
@@ -41,8 +44,14 @@ public class PlaySceneManager : MonoBehaviour
 
     private int floorLevelIndex = 0;
 
-    [Header("----Stage----")]
-    public GameObject[] Stages;
+    [Header("----Skill----")]
+    public Skill_Test[] Skills_Info;
+
+    [Header("----Character----")]
+    [SerializeField]
+    GameObject[] Spawn_Characters;
+    public GameObject CurCharacter;
+
 
     // public AudioSource hitAudioSource; // 피격음을 재생할 AudioSource
     // public AudioSource deathAudioSource; // 사망음을 재생할 AudioSource
@@ -69,6 +78,12 @@ public class PlaySceneManager : MonoBehaviour
         //        allAudioSources.Add(src); // 리스트에 추가
         //    }
         //}
+
+        if (GameManager.GMInstance.cur_Char == Define.Cur_Character.ASSASIN)
+        {
+            GameObject Char = Instantiate(Spawn_Characters[0], StartPos.position, StartPos.rotation);
+            CurCharacter = Char;
+        }
     }
 
     private void Start()
@@ -266,8 +281,6 @@ public class PlaySceneManager : MonoBehaviour
         {
             BGM_Slider.value = GameManager.GMInstance.SoundManagerRef.BGMPlayers[i].volume;
         }
-
-
     }
 
     IEnumerator Sound_Enable()

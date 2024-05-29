@@ -88,6 +88,18 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
     void Start()
     {
         assassin_ObjPoolRef = GetComponent<Assassin_ObjPool>();
+        Init();
+    }
+
+    void Init()
+    {
+        playscenemanager = GameManager.GMInstance.Get_PlaySceneManager();
+
+        skillManager1 = GameManager.GMInstance.Get_PlaySceneManager().Skills_Info[0];
+        skillManager2 = GameManager.GMInstance.Get_PlaySceneManager().Skills_Info[1];
+        skillManager3 = GameManager.GMInstance.Get_PlaySceneManager().Skills_Info[2];
+        skillManager4 = GameManager.GMInstance.Get_PlaySceneManager().Skills_Info[3];
+        skillManager5 = GameManager.GMInstance.Get_PlaySceneManager().Skills_Info[4];
     }
 
     // Update is called once per frame
@@ -793,7 +805,7 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
     {
         if (other.tag == "EnemyAttack" && !isHit)
         {
-            Debug.Log(other.gameObject.name);
+            // Debug.Log(other.gameObject.name);
 
             if (playscenemanager.health > 1)
             {
@@ -830,7 +842,7 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
     {
         if (other.tag == "EnemyAttack" && !isHit)
         {
-            Debug.Log(other.gameObject.name);
+            // Debug.Log(other.gameObject.name);
 
             if (playscenemanager.health > 1)
             {

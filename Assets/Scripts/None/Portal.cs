@@ -1,7 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
+using UnityEngine.SceneManagement;
+
 
 public class Portal : MonoBehaviour
 {
@@ -11,35 +12,41 @@ public class Portal : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        // 이 코드는 글로벌 좌표를 사용하여 오브젝트의 위치와 회전을 설정합니다.
-        Transform objectTransform = other.transform;
-        other.gameObject.GetComponent<NavMeshAgent>().enabled = false;
-        // 오브젝트의 위치와 회전을 toObj 오브젝트의 글로벌 위치와 회전으로 설정합니다.
-        objectTransform.position = toObj.transform.position; // 글로벌 위치 설정
-        objectTransform.rotation = toObj.transform.rotation; // 글로벌 회전 설정
-        other.gameObject.GetComponent<NavMeshAgent>().enabled = true;
+        Next_Scene();
+        //// 이 코드는 글로벌 좌표를 사용하여 오브젝트의 위치와 회전을 설정합니다.
+        //Transform objectTransform = other.transform;
+        //other.gameObject.GetComponent<NavMeshAgent>().enabled = false;
+        //// 오브젝트의 위치와 회전을 toObj 오브젝트의 글로벌 위치와 회전으로 설정합니다.
+        //objectTransform.position = toObj.transform.position; // 글로벌 위치 설정
+        //objectTransform.rotation = toObj.transform.rotation; // 글로벌 회전 설정
+        //other.gameObject.GetComponent<NavMeshAgent>().enabled = true;
 
-        // TODO ## 1층 포탈 탔으면
-        if (this.gameObject.name == "1F_Portal")
-        {
-            // 1층 오브젝트 비활성화
-            GameManager.GMInstance.Get_PlaySceneManager().Stages[0].SetActive(false);
-            // 2층 오브젝트 활성화
-            GameManager.GMInstance.Get_PlaySceneManager().Stages[1].SetActive(true);
-        }
-        else if (this.gameObject.name == "2F_Portal")
-        {
-            // 1층 오브젝트 비활성화
-            GameManager.GMInstance.Get_PlaySceneManager().Stages[1].SetActive(false);
-            // 2층 오브젝트 활성화
-            GameManager.GMInstance.Get_PlaySceneManager().Stages[2].SetActive(true);
-        }
+        //// TODO ## 1층 포탈 탔으면
+        //if (this.gameObject.name == "1F_Portal")
+        //{
+        //    // 1층 오브젝트 비활성화
+        //    GameManager.GMInstance.Get_PlaySceneManager().Stages[0].SetActive(false);
+        //    // 2층 오브젝트 활성화
+        //    GameManager.GMInstance.Get_PlaySceneManager().Stages[1].SetActive(true);
+        //}
+        //else if (this.gameObject.name == "2F_Portal")
+        //{
+        //    // 1층 오브젝트 비활성화
+        //    GameManager.GMInstance.Get_PlaySceneManager().Stages[1].SetActive(false);
+        //    // 2층 오브젝트 활성화
+        //    GameManager.GMInstance.Get_PlaySceneManager().Stages[2].SetActive(true);
+        //}
 
-        if (other.CompareTag("Player"))
-        {
-            playSceneManager.ActivateNextImage();
-            playSceneManager.health = 3;
-            playSceneManager.HealthActivateAll();
-        }
+        //if (other.CompareTag("Player"))
+        //{
+        //    playSceneManager.ActivateNextImage();
+        //    playSceneManager.health = 3;
+        //    playSceneManager.HealthActivateAll();
+        //}
+    }
+    
+    public void Next_Scene()
+    {
+        SceneManager.LoadScene("Loading");
     }
 }

@@ -15,26 +15,101 @@ public class SceneLoad : MonoBehaviour
     }
     IEnumerator LoadScene()
     {
-        yield return null;
-        AsyncOperation operation = SceneManager.LoadSceneAsync("Play_Test");//""에 넘어갈 씬 이름으로 변경
-        operation.allowSceneActivation = false;
 
-        while (!operation.isDone)
+        if (GameManager.GMInstance.cur_Scene == Define.Cur_Scene.MAIN)
         {
             yield return null;
-            if (progressbar.value < 1f)
-            {
-                progressbar.value = Mathf.MoveTowards(progressbar.value, 1f, Time.deltaTime);
-            }
+            AsyncOperation operation = SceneManager.LoadSceneAsync("Play_Floor_1F");//""에 넘어갈 씬 이름으로 변경
+            operation.allowSceneActivation = false;
 
-            else
+            while (!operation.isDone)
             {
-                SceneManager.LoadScene("Play_Test");//""에 넘어갈 씬 이름으로 변경
-            }
+                float progress = Mathf.Clamp01(operation.progress / 0.9f);
+                progressbar.value = progress;
 
-            if (Input.touchCount > 0 && progressbar.value >= 1f && operation.progress >= 0.9f)
+                if (operation.progress >= 0.9f)
+                {
+                    progressbar.value = 1f;
+
+                    yield return new WaitForSeconds(1.0f);
+
+                    // 씬 전환을 바로 트리거
+                    operation.allowSceneActivation = true;
+                }
+
+                //yield return null;
+                //if (progressbar.value < 1f)
+                //{
+                //    progressbar.value = Mathf.MoveTowards(progressbar.value, 1f, Time.deltaTime);
+                //}
+
+                //else
+                //{
+                //    SceneManager.LoadScene("Play_Floor_1F");//""에 넘어갈 씬 이름으로 변경
+                //}
+
+                //if (Input.touchCount > 0 && progressbar.value >= 1f && operation.progress >= 0.9f)
+                //{
+                //    operation.allowSceneActivation = true;
+                //}
+                yield return null;
+            }
+        }
+
+
+
+
+        if (GameManager.GMInstance.cur_Scene == Define.Cur_Scene.FLOOR_1)
+        {
+            yield return null;
+            AsyncOperation operation = SceneManager.LoadSceneAsync("Play_Floor_2F");//""에 넘어갈 씬 이름으로 변경
+            operation.allowSceneActivation = false;
+
+            while (!operation.isDone)
             {
-                operation.allowSceneActivation = true;
+                yield return null;
+                if (progressbar.value < 1f)
+                {
+                    progressbar.value = Mathf.MoveTowards(progressbar.value, 1f, Time.deltaTime);
+                }
+
+                else
+                {
+                    SceneManager.LoadScene("Play_Floor_2F");//""에 넘어갈 씬 이름으로 변경
+                }
+
+                if (Input.touchCount > 0 && progressbar.value >= 1f && operation.progress >= 0.9f)
+                {
+                    operation.allowSceneActivation = true;
+                }
+            }
+        }
+
+
+
+        if (GameManager.GMInstance.cur_Scene == Define.Cur_Scene.FLOOR_2)
+        {
+            yield return null;
+            AsyncOperation operation = SceneManager.LoadSceneAsync("Play_Floor_3F");//""에 넘어갈 씬 이름으로 변경
+            operation.allowSceneActivation = false;
+
+            while (!operation.isDone)
+            {
+                yield return null;
+                if (progressbar.value < 1f)
+                {
+                    progressbar.value = Mathf.MoveTowards(progressbar.value, 1f, Time.deltaTime);
+                }
+
+                else
+                {
+                    SceneManager.LoadScene("Play_Floor_3F");//""에 넘어갈 씬 이름으로 변경
+                }
+
+                if (Input.touchCount > 0 && progressbar.value >= 1f && operation.progress >= 0.9f)
+                {
+                    operation.allowSceneActivation = true;
+                }
             }
         }
     }

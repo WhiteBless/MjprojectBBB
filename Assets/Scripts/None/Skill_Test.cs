@@ -31,10 +31,25 @@ public class Skill_Test : MonoBehaviour
     public InGameSetting inGameSetting;
 
     public Assassin_Controller assassin_Controller;
+
+
+    void Init()
+    {
+        // TODO ## 캐릭터 스킬 UI 쪽 캐릭터 스폰 시 정보 들고 오는곳
+        // 현재 캐릭터가 어쌔신이면
+        if (GameManager.GMInstance.cur_Char == Define.Cur_Character.ASSASIN)
+        {
+            assassin_Controller = GameManager.GMInstance.Get_PlaySceneManager().CurCharacter.transform.GetChild(0).GetComponent<Assassin_Controller>();
+        }
+    }
+
+
     void Start()
     {
         hideSkillTimeTexts = textPros.GetComponent<TextMeshProUGUI>();
         hideSkillButtons.SetActive(false);
+
+        Init();
     }
 
     void Update()
