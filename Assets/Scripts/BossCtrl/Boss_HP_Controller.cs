@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class Boss_HP_Controller : MonoBehaviour
 {
     public GameObject Boss_HP_Canvas;
@@ -25,6 +26,8 @@ public class Boss_HP_Controller : MonoBehaviour
     public bool isReaper_SP_ATK_1;
     public bool isReaper_SP_ATK_2;
     public bool isReaper_SP_ATK_3;
+
+    public PlaySceneManager playSceneManager;
 
 
 
@@ -51,6 +54,7 @@ public class Boss_HP_Controller : MonoBehaviour
             Animator reaperanimator = GetComponent<Animator>();
             reaperanimator.SetTrigger("doDie2");
             Boss_HP_Canvas.transform.localScale = Vector3.zero;
+            playSceneManager.BossClear();
         }
         #endregion
 
@@ -64,6 +68,7 @@ public class Boss_HP_Controller : MonoBehaviour
             Animator reaperanimator = GetComponent<Animator>();
             reaperanimator.SetTrigger("isDeath");
             Boss_HP_Canvas.transform.localScale = Vector3.zero;
+            playSceneManager.BossClear();
         }
         #endregion
     }

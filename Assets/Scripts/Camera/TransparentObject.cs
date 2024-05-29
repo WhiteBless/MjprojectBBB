@@ -73,7 +73,7 @@ public class TransparentObject : MonoBehaviour
         foreach (RaycastHit hit in hits)
         {
             Renderer renderer = hit.transform.GetComponent<Renderer>();
-            if (renderer != null) // 오브젝트 자체에 레이가 닿았을 때
+            if (renderer != null && !hit.collider.CompareTag("Enemy")) // 오브젝트 자체에 레이가 닿았을 때
             {
                 originalMaterials = renderer.materials;
                 SetObjectTransparent(renderer);
