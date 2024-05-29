@@ -111,6 +111,11 @@ public class PlaySceneManager : MonoBehaviour
         SceneManager.LoadScene("Main"); // "MainMenu"라는 이름의 Scene을 로드
     }
 
+    public void ClearPopUpClose()
+    {
+        clearMenu.SetActive(false);
+    }
+
     void Update()
     {
         if (deathMenu.activeSelf) // 사망 메뉴가 활성화된 경우
