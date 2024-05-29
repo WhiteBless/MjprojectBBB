@@ -10,7 +10,6 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
     public GameObject skill_Look;
     [SerializeField]
     LayerMask groundLayer; // 지면의 레이어
-    public GameObject mouseMoveEffect; // 이동시 마우스 클릭 이펙트
     public Camera mainCam;
     private Animator animator;
     private Vector3 destination;
@@ -119,14 +118,13 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
 
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, groundLayer) && hit.collider.CompareTag("Ground"))
             {
-                Vector3 spawnPosition = new Vector3(hit.point.x, hit.point.y + 2f, hit.point.z);
+                Vector3 spawnPosition = new Vector3(hit.point.x, hit.point.y + 2, hit.point.z);
                 // 프리팹을 생성하고 1초 후에 파괴
-                GameObject newPrefab = Instantiate(mouseMoveEffect, spawnPosition, Quaternion.identity);
+                GameObject mouseEffect = assassin_ObjPoolRef.MouseMoveEffectFromPool();
+                mouseEffect.transform.position = spawnPosition; // 발사 위치 설정
+                mouseEffect.SetActive(true); // 발사체 활성화
 
-                // 회전 값을 변경합니다. x 값을 90으로 설정합니다.
-                newPrefab.transform.rotation = Quaternion.Euler(90f, 0f, 0f);
-
-                Destroy(newPrefab, 1.0f);
+                StartCoroutine(MouseEffectFalse(mouseEffect, 1f));
             }
         }
 
@@ -166,6 +164,11 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
         {
             Dodge();
         }
+    }
+    private IEnumerator MouseEffectFalse(GameObject obj, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        obj.SetActive(false);
     }
 
     private void SetDestination(Vector3 dest)

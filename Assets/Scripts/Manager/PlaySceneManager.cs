@@ -12,6 +12,9 @@ public class PlaySceneManager : MonoBehaviour
     public GameObject deathMenu; // 사망 메뉴 UI 오브젝트
     public RectTransform deathMenuRectTransform; // 사망 메뉴의 RectTransform
     private float currentWidth = 0f; // 현재 Width 값을 저장할 변수
+    public GameObject clearMenu; // 사망 메뉴 UI 오브젝트
+    private float startTime;
+    public TextMeshProUGUI clearTimeText;
 
     // public AudioClip deathSound; // 사망 효과음
     // public List<AudioSource> allAudioSources; // 모든 오디오 소스
@@ -87,6 +90,8 @@ public class PlaySceneManager : MonoBehaviour
         {
             floorLevelIMG[0].gameObject.SetActive(true);
         }
+
+        startTime = Time.time;
     }
 
     public void ActivateNextImage()
@@ -171,6 +176,27 @@ public class PlaySceneManager : MonoBehaviour
                 img.gameObject.SetActive(true);
             }
         }
+    }
+
+    void DisplayClearTime(float time)
+    {
+        // 시간을 분, 초로 변환하여 표시
+        int minutes = Mathf.FloorToInt(time / 60F);
+        int seconds = Mathf.FloorToInt(time % 60F);
+        //int milliseconds = Mathf.FloorToInt((time * 1000F) % 1000F);
+        clearTimeText.text = string.Format("{0:00}분:{1:00}초", minutes, seconds);
+    }
+    public void BossClear()
+    {
+        float clearTime = Time.time - startTime;
+        DisplayClearTime(clearTime);
+        StartCoroutine(ShowClearMenuAfterDelay(3.0f));
+    }
+
+    private IEnumerator ShowClearMenuAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        clearMenu.SetActive(true);
     }
     public void CharacterDie()
     {
