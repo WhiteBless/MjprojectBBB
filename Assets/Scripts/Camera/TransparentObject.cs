@@ -57,8 +57,21 @@ public class TransparentObject : MonoBehaviour
     private bool isTransparent = false; // 오브젝트가 반투명 상태인지 여부를 나타내는 변수
     private Material[] originalMaterials; // 오브젝트의 원래 머티리얼을 저장할 배열
 
+    void Start()
+    {
+        // TODO ## 카메라 반투명 캐릭터 적용
+        // 현재 캐릭터가 어쎄신이라면
+        if (GameManager.GMInstance.cur_Char == Define.Cur_Character.ASSASIN)
+        {
+            player = GameManager.GMInstance.Get_PlaySceneManager().CurCharacter.transform.GetChild(0);
+        }
+    }
+
     void Update()
     {
+        if (player == null)
+            return;
+
         // 카메라와 플레이어 사이의 방향 벡터
         Vector3 direction = player.position - transform.position;
 

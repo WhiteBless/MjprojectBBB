@@ -8,5 +8,6 @@ public class LobbyManager : MonoBehaviour
     void Start()
     {
         GameManager.GMInstance.SoundManagerRef.PlayBGM(SoundManager.BGM.Lobby);
+        GameManager.GMInstance.cur_Scene = Define.Cur_Scene.MAIN;
     }
 }

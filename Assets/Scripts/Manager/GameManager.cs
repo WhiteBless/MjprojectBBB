@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Define;
 
 public class GameManager : MonoBehaviour
 {
@@ -21,6 +22,16 @@ public class GameManager : MonoBehaviour
     // Managers Reference
     public SoundManager SoundManagerRef;
     public CamShake CamShakeRef;
+
+    // 현재 캐릭터 
+    [SerializeField]
+    Cur_Character Cur_Char;
+    public Cur_Character cur_Char { get { return Cur_Char; } set { Cur_Char = value; } }
+
+    // 현재 캐릭터 
+    [SerializeField]
+    Cur_Scene Cur_Scene;
+    public Cur_Scene cur_Scene { get { return Cur_Scene; } set { Cur_Scene = value; } }
 
     void Awake()
     {

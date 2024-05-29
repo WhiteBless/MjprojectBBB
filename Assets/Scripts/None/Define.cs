@@ -29,6 +29,22 @@ public class Define
         Floor_5,
     }
 
+    public enum Cur_Scene
+    { 
+        MAIN,
+        FLOOR_1,
+        FLOOR_2,
+        FLOOR_3,
+    }
+
+
+    public enum Cur_Character
+    { 
+        ASSASIN,
+        WARRIOR,
+        SAMURAI,
+    }
+
     public enum Reaper_Pattern_Color
     {
         NORMAL,
