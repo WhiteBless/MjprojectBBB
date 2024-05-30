@@ -1,7 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.Timeline;
+using UnityEngine.Playables;
 
 public class Boss_HP_Controller : MonoBehaviour
 {
@@ -11,6 +12,9 @@ public class Boss_HP_Controller : MonoBehaviour
     public bool isAwakening;
     public bool isDead;
     public bool isWSkillChek;
+
+    [SerializeField]
+    PlayableDirector PD;
 
     [Header("-----Treant-----")] // 3층 보스의 경우 
     [SerializeField]
@@ -35,6 +39,7 @@ public class Boss_HP_Controller : MonoBehaviour
     void Start()
     {
         Boss_HP_Canvas.transform.localScale = Vector3.zero;
+        // PD.GetComponent<PlayableDirector>();
     }
 
     void Update()
@@ -55,6 +60,8 @@ public class Boss_HP_Controller : MonoBehaviour
             reaperanimator.SetTrigger("doDie2");
             Boss_HP_Canvas.transform.localScale = Vector3.zero;
             playSceneManager.BossClear();
+
+            PD.Play();
         }
         #endregion
 

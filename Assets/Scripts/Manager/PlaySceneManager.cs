@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.Timeline;
+using UnityEngine.Playables;
 
 public class PlaySceneManager : MonoBehaviour
 {
@@ -52,6 +54,11 @@ public class PlaySceneManager : MonoBehaviour
     GameObject[] Spawn_Characters;
     public GameObject CurCharacter;
 
+    [Header("----CutScene----")]
+    public bool isCutScene;
+    [SerializeField]
+    PlayableDirector PD;
+
 
     // public AudioSource hitAudioSource; // 피격음을 재생할 AudioSource
     // public AudioSource deathAudioSource; // 사망음을 재생할 AudioSource
@@ -79,6 +86,7 @@ public class PlaySceneManager : MonoBehaviour
         //    }
         //}
 
+        // 어쎄신 캐릭터 스폰
         if (GameManager.GMInstance.cur_Char == Define.Cur_Character.ASSASIN)
         {
             GameObject Char = Instantiate(Spawn_Characters[0], StartPos.position, StartPos.rotation);
@@ -262,7 +270,7 @@ public class PlaySceneManager : MonoBehaviour
         //deathAudioSource.PlayOneShot(deathSound, 1.0f); // 사망 효과음 재생
 
         //Result UI
-        Debug.Log("죽었습니다!");
+        // Debug.Log("죽었습니다!");
     }
 
 
@@ -270,6 +278,8 @@ public class PlaySceneManager : MonoBehaviour
     {
         // 배경음 변경
         GameManager.GMInstance.SoundManagerRef.PlayBGM(SoundManager.BGM.Floor_1);
+
+        PD = GetComponent<PlayableDirector>();
 
         // 사운드 관련 초기화
         for (int i = 0; i < GameManager.GMInstance.SoundManagerRef.SFXPlayers.Length; i++)
@@ -281,6 +291,8 @@ public class PlaySceneManager : MonoBehaviour
         {
             BGM_Slider.value = GameManager.GMInstance.SoundManagerRef.BGMPlayers[i].volume;
         }
+
+        PD.Play();
     }
 
     IEnumerator Sound_Enable()
@@ -339,5 +351,24 @@ public class PlaySceneManager : MonoBehaviour
     public void OpenToKeySetting(GameObject obj)
     {
         obj.gameObject.SetActive(true);
+    }
+
+    public void CutScene_Start()
+    {
+        isCutScene = true;
+    }
+
+    public void CutScene_Start_Anim()
+    {
+        // 어쎄신이면
+        if (GameManager.GMInstance.cur_Char == Define.Cur_Character.ASSASIN)
+        {
+            CurCharacter.transform.GetChild(0).GetComponent<Animator>().SetTrigger("StartAnim");
+        }
+    }
+
+    public void CutScene_End()
+    {
+        isCutScene = false;
     }
 }
