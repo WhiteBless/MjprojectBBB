@@ -818,7 +818,7 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
             if (playscenemanager.health > 1)
             {
                 GameManager.GMInstance.CamShakeRef.ShakeCam(CamShake_Intensity, CamShake_Time);
-                // playscenemanager.HealthDown();
+                playscenemanager.HealthDown();
                 // Debug.Log(other.gameObject.name);
                 animator.SetTrigger("Hit");
                 isHit = true;
@@ -839,7 +839,7 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
                 isDie = true;
                 transform.GetComponent<CapsuleCollider>().enabled = false;
 
-                Invoke("CharacterDie", 3f);
+                Invoke("CharacterDie", 0.5f);
             }
             
         }
@@ -876,7 +876,7 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
                 isDie = true;
                 transform.GetComponent<CapsuleCollider>().enabled = false;
 
-                Invoke("CharacterDie", 3f);
+                Invoke("CharacterDie", 0.5f);
             }
         }
     }

@@ -15,6 +15,33 @@ public class SceneLoad : MonoBehaviour
     }
     IEnumerator LoadScene()
     {
+        if (GameManager.GMInstance.cur_Scene == Define.Cur_Scene.NONE)
+        {
+            yield return null;
+            AsyncOperation operation = SceneManager.LoadSceneAsync("Main");//""에 넘어갈 씬 이름으로 변경
+            operation.allowSceneActivation = false;
+
+            while (!operation.isDone)
+            {
+                yield return null;
+                if (progressbar.value < 1f)
+                {
+                    progressbar.value = Mathf.MoveTowards(progressbar.value, 1f, Time.deltaTime);
+                }
+
+                else
+                {
+                    SceneManager.LoadScene("Main");//""에 넘어갈 씬 이름으로 변경
+                }
+
+                if (Input.touchCount > 0 && progressbar.value >= 1f && operation.progress >= 0.9f)
+                {
+                    operation.allowSceneActivation = true;
+                }
+            }
+        }
+
+
 
         if (GameManager.GMInstance.cur_Scene == Define.Cur_Scene.MAIN)
         {

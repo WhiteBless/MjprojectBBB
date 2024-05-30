@@ -31,6 +31,7 @@ public class Define
 
     public enum Cur_Scene
     { 
+        NONE,
         MAIN,
         FLOOR_1,
         FLOOR_2,
