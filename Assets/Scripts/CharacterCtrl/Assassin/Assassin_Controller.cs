@@ -110,7 +110,7 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
         if ((Input.GetKey(KeySetting.Keys[KeyAction.Skill1]) && !skillManager1.isSkill1CT) || (Input.GetKey(KeySetting.Keys[KeyAction.Skill2]) && !skillManager2.isSkill2CT)
             || (Input.GetKey(KeySetting.Keys[KeyAction.Skill3]) && !skillManager3.isSkill3CT) || (Input.GetKey(KeySetting.Keys[KeyAction.Skill4]) && !skillManager4.isSkill4CT))//|| skill1 || skill2 || skill3 || skill4|| 
         {
-            if (!isAttack && !isDodge && !isSkill1 && !isSkill2 && !isSkill3 && !isSkill4 && !isDie)
+            if (!isAttack && !isDodge && !isSkill1 && !isSkill2 && !isSkill3 && !isSkill4 && !isDie && GameManager.GMInstance.Get_PlaySceneManager().isCutScene == false)
             {
                 Ray ray = mainCam.ScreenPointToRay(Input.mousePosition);
                 RaycastHit rayHit;
@@ -140,7 +140,7 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
             }
         }
 
-        if (Input.GetMouseButton(1))
+        if (Input.GetMouseButton(1) && GameManager.GMInstance.Get_PlaySceneManager().isCutScene == false)
         {
             RaycastHit hit;
             Ray ray = mainCam.ScreenPointToRay(Input.mousePosition);
@@ -214,6 +214,10 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
 
     public override void GetInput()
     {
+        // 연출 중이면 실행 안함
+        if (GameManager.GMInstance.Get_PlaySceneManager().isCutScene == true)
+            return;
+
         spaceDown = Input.GetKey(KeySetting.Keys[KeyAction.Dodge]);
         skill1 = Input.GetKey(KeySetting.Keys[KeyAction.Skill1]);
         skill2 = Input.GetKey(KeySetting.Keys[KeyAction.Skill2]);
@@ -223,6 +227,10 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
 
     public override void Attack()
     {
+        // 연출 중이면 실행 안함
+        if (GameManager.GMInstance.Get_PlaySceneManager().isCutScene == true)
+            return;
+
         if (Input.GetMouseButtonDown(0) && !isSkill1 && !isSkill2 && !isSkill3 && !isSkill4 && !isDie)
         {
             CancelInvoke("AttackOut");
@@ -847,7 +855,7 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
             if (playscenemanager.health > 1)
             {
                 GameManager.GMInstance.CamShakeRef.ShakeCam(CamShake_Intensity, CamShake_Time);
-                // playscenemanager.HealthDown();
+                playscenemanager.HealthDown();
                 // Debug.Log(other.gameObject.name);
                 animator.SetTrigger("Hit");
                 isHit = true;
