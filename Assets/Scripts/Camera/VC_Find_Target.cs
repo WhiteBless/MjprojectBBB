@@ -5,12 +5,17 @@ using Cinemachine;
 
 public class VC_Find_Target : MonoBehaviour
 {
-    CinemachineVirtualCamera VCaM;
+    [SerializeField]
+    Transform Target;
 
     void Start()
     {
-        VCaM = GetComponent<CinemachineVirtualCamera>();
+        Target = GameManager.GMInstance.Get_PlaySceneManager().CurCharacter.transform.GetChild(1);
+    }
 
-        VCaM.LookAt = GameManager.GMInstance.Get_PlaySceneManager().CurCharacter.transform.GetChild(1);
+    void Update()
+    {
+        this.transform.rotation = Target.rotation;
+        this.transform.position = Target.position;
     }
 }

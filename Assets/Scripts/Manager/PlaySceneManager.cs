@@ -58,6 +58,8 @@ public class PlaySceneManager : MonoBehaviour
     public bool isCutScene;
     [SerializeField]
     PlayableDirector PD;
+    [SerializeField]
+    PlayableDirector DeathPD;
 
 
     // public AudioSource hitAudioSource; // 피격음을 재생할 AudioSource
@@ -130,8 +132,10 @@ public class PlaySceneManager : MonoBehaviour
 
     public void GoToMainMenu()
     {
-        Time.timeScale = 1; // 타임스케일을 원래대로 복구
-        SceneManager.LoadScene("Main"); // "MainMenu"라는 이름의 Scene을 로드
+        // Time.timeScale = 1; // 타임스케일을 원래대로 복구
+        // 딱히 메인으로 돌아가게 할 변수 없어서 적용
+        GameManager.GMInstance.cur_Scene = Define.Cur_Scene.NONE;
+        SceneManager.LoadScene("Loading"); // "MainMenu"라는 이름의 Scene을 로드
     }
 
     public void ClearPopUpClose()
@@ -234,11 +238,11 @@ public class PlaySceneManager : MonoBehaviour
 
 
         //Player Die Effect
-        Time.timeScale = 0; // 타임스케일을 0으로 설정
-        deathMenu.SetActive(true); // 사망 메뉴를 활성화
+        // Time.timeScale = 0; // 타임스케일을 0으로 설정
+        // deathMenu.SetActive(true); // 사망 메뉴를 활성화
 
         GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.DeadSong);
-
+        DeathPD.Play();
         //AudioSource[] sources = FindObjectsOfType<AudioSource>(); // 모든 오디오 소스를 찾아 배열에 추가
         //allAudioSources.Clear(); // 리스트를 비웁니다.
 
