@@ -76,6 +76,22 @@ public class Boss_HP_Controller : MonoBehaviour
             reaperanimator.SetTrigger("isDeath");
             Boss_HP_Canvas.transform.localScale = Vector3.zero;
             playSceneManager.BossClear();
+            PD.Play();
+        }
+        #endregion
+
+        #region Reaper_Death
+        if (this.gameObject.name == "Treant" && BossCurHP <= 0 && !isDead)
+        {
+            BossCurHP = 0;
+            isDead = true;
+            this.GetComponent<CapsuleCollider>().enabled = false;
+
+            Animator reaperanimator = GetComponent<Animator>();
+            reaperanimator.SetTrigger("isDeath");
+            Boss_HP_Canvas.transform.localScale = Vector3.zero;
+            playSceneManager.BossClear();
+            PD.Play();
         }
         #endregion
     }
