@@ -222,7 +222,7 @@ public class PlaySceneManager : MonoBehaviour
     {
         float clearTime = Time.time - startTime;
         DisplayClearTime(clearTime);
-        StartCoroutine(ShowClearMenuAfterDelay(3.0f));
+        // StartCoroutine(ShowClearMenuAfterDelay(3.0f));
     }
 
     private IEnumerator ShowClearMenuAfterDelay(float delay)
@@ -374,5 +374,17 @@ public class PlaySceneManager : MonoBehaviour
     public void CutScene_End()
     {
         isCutScene = false;
+    }
+
+    public void CutSceneUI_Off()
+    {
+        StartCoroutine(UI_Off(clearMenu));
+    }
+
+    IEnumerator UI_Off(GameObject _obj)
+    {
+        yield return new WaitForSeconds(1.5f);
+
+        _obj.SetActive(false);
     }
 }

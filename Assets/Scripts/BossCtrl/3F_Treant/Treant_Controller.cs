@@ -864,6 +864,14 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
     }
     #endregion
 
+    #region Treant_Death
+    public void Treant_Death()
+    {
+        isLock = true;
+        StopAllCoroutines();
+    }
+    #endregion
+
     // Normal Form
     #region Treant_LeafTurn
     // TODO ## Treant_LeafTurn
