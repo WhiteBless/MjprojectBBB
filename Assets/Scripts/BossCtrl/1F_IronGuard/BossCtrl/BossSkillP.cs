@@ -115,7 +115,7 @@ public class BossSkillP : MonoBehaviour
 
         int ranAction = Random.Range(0, 4);
 
-        switch (0)
+        switch (ranAction)
         {
             case 0:
                 //검기 패턴
