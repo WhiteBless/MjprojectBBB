@@ -115,7 +115,7 @@ public class BossSkillP : MonoBehaviour
 
         int ranAction = Random.Range(0, 4);
 
-        switch (ranAction)
+        switch (0)
         {
             case 0:
                 //검기 패턴
@@ -193,7 +193,7 @@ public class BossSkillP : MonoBehaviour
     }
     #endregion
 
-    // TODO ## IronGuard_Skill2 점프 어택
+    // TODO ## IronGuard_Skill2 9번 찍기
     #region IronGuard_Skill2
     IEnumerator BossSkill2()
     {
@@ -546,7 +546,7 @@ public class BossSkillP : MonoBehaviour
 
     #endregion
 
-    // TODO ## IronGuard_Skill3 9번 찍기
+    // TODO ## IronGuard_Skill3 점프 어택
     #region IronGuard_Skill3
     IEnumerator BossSkill3()
     {  
@@ -562,6 +562,8 @@ public class BossSkillP : MonoBehaviour
 
         GuideLine[0].SetActive(true);
         GuideLine[0].transform.position = jumpEndAttackVec + bossPos.forward * 15.0f;
+        Vector3 Guide_Pos = GuideLine[0].transform.position;
+        GuideLine[0].transform.position = new Vector3(Guide_Pos.x, 0.5f, Guide_Pos.z);
 
         yield return new WaitForSeconds(0.3f);
         // 가이드 라인 제거
@@ -578,6 +580,7 @@ public class BossSkillP : MonoBehaviour
 
         yield return new WaitForSeconds(1.2f);
 
+        GameManager.GMInstance.SoundManagerRef.Play_1FBoss_SFX(SoundManager.Boss_1F_SFX.JUMP_GROUND_ATK);
         // JumpAttackRange.enabled = true;
         Vector3 bossForward = bossPos.position + bossPos.forward * 15.0f;
         GameObject newPrefab = objPool.Get_JumpAtk_ObjectFromPool();
@@ -671,6 +674,10 @@ public class BossSkillP : MonoBehaviour
         animator.SetTrigger("doRazer");
 
         yield return new WaitForSeconds(1f);
+
+
+        // TODO ## 1층 보스 레이저 사운드
+        GameManager.GMInstance.SoundManagerRef.Play_1FBoss_SFX(SoundManager.Boss_1F_SFX.RAZER);
 
         for (int i = 0; i < SelectRazerNum.Length; i++)
         {

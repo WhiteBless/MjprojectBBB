@@ -34,8 +34,10 @@ public class Find_Target : MonoBehaviour
             // TODO ## 리퍼 타켓 초기화
             if (this.gameObject.name == "2F_Raid_Start_Collision")
             {
+                // 조우 컷씬 재생
                 PD.Play();
-
+                // 브금 재생
+                GameManager.GMInstance.SoundManagerRef.PlayBGM(SoundManager.BGM.BOSS_2FLOOR);
                 // 범위 안에 들었을 때 타켓을 지정한다
                 ReaperCtrl.Target = other.gameObject;
                 ReaperCtrl.reaperState = ReaperState.RaidStart;
@@ -44,17 +46,20 @@ public class Find_Target : MonoBehaviour
             }
             #endregion
 
+            #region Treant
             // TODO ## 나무정령 타켓 초기화
             if (this.gameObject.name == "3F_Raid_Start_Collision")
             {
+                // 조우 컷씬
                 PD.Play();
-
+                // 브금 재생
+                GameManager.GMInstance.SoundManagerRef.PlayBGM(SoundManager.BGM.BOSS_3FLOOR);
                 // 범위 안에 들었을 때 타켓을 지정한다
                 // TreantCtrl.isStartRaid = true;
                 TreantCtrl.animator.SetTrigger("FirstSee");
                 StartCoroutine(SeePlayer());
             }
-
+            #endregion
             // HP바 활성화
             HP_Canvas.transform.localScale = new Vector3(0.0f, 1.0f, 0.0f);
 

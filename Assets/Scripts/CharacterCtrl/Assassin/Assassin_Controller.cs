@@ -27,6 +27,7 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
     public bool isSkill4;
 
     public bool isHit;
+    public bool isHitOut;
     public bool isDie;
 
     public PlaySceneManager playscenemanager;
@@ -195,6 +196,9 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
 
     public override void Move()
     {
+        if (isHitOut == false)
+            return;
+
         if (!isSkill1 && !isSkill2 && !isSkill3 && !isSkill4 && !isAttack && !isDodge && !isDie)
         {
             if (isMove)
@@ -261,6 +265,10 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
 
     public void BaseAtk1_Eff()
     {
+        // 보이스 랜덤 재생
+        GameManager.GMInstance.SoundManagerRef.Play_Assasin_SFX((SoundManager.Assasin_SFX)Random.Range(6, 8));
+        // 슬래시 효과음 재생
+        GameManager.GMInstance.SoundManagerRef.Play_Assasin_SFX((SoundManager.Assasin_SFX)Random.Range(0, 3));
         StartCoroutine(Play_BaseAtk1_Eff());
     }
 
@@ -283,6 +291,10 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
 
     public void BaseAtk2_Eff()
     {
+        // 보이스 랜덤 재생
+        GameManager.GMInstance.SoundManagerRef.Play_Assasin_SFX((SoundManager.Assasin_SFX)Random.Range(6, 8));
+        // 슬래시 효과음 재생
+        GameManager.GMInstance.SoundManagerRef.Play_Assasin_SFX((SoundManager.Assasin_SFX)Random.Range(0, 3));
         StartCoroutine(Play_BaseAtk2_Eff());
     }
 
@@ -305,6 +317,10 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
 
     public void BaseAtk3_Eff()
     {
+        // 보이스 랜덤 재생
+        GameManager.GMInstance.SoundManagerRef.Play_Assasin_SFX((SoundManager.Assasin_SFX)Random.Range(6, 8));
+        // 슬래시 효과음 재생
+        GameManager.GMInstance.SoundManagerRef.Play_Assasin_SFX((SoundManager.Assasin_SFX)Random.Range(0, 3));
         StartCoroutine(Play_BaseAtk3_Eff());
     }
 
@@ -327,6 +343,10 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
 
     public void BaseAtk4_Eff()
     {
+        // 보이스 랜덤 재생
+        GameManager.GMInstance.SoundManagerRef.Play_Assasin_SFX((SoundManager.Assasin_SFX)Random.Range(6, 8));
+        // 슬래시 효과음 재생
+        GameManager.GMInstance.SoundManagerRef.Play_Assasin_SFX((SoundManager.Assasin_SFX)Random.Range(0, 3));
         StartCoroutine(Play_BaseAtk4_Eff());
     }
 
@@ -349,6 +369,10 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
 
     public void BaseAtk5_Eff()
     {
+        // 보이스 랜덤 재생
+        GameManager.GMInstance.SoundManagerRef.Play_Assasin_SFX(SoundManager.Assasin_SFX.ASSASIN_VOICE_2);
+        // 슬래시 효과음 재생
+        GameManager.GMInstance.SoundManagerRef.Play_Assasin_SFX((SoundManager.Assasin_SFX)Random.Range(0, 3));
         StartCoroutine(Play_BaseAtk5_Eff());
     }
 
@@ -431,6 +455,9 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
 
             animator.SetTrigger("doSkill1");
 
+            // 보이스 랜덤 재생
+            GameManager.GMInstance.SoundManagerRef.Play_Assasin_SFX((SoundManager.Assasin_SFX)Random.Range(5, 8));
+
             Ray ray = mainCam.ScreenPointToRay(Input.mousePosition);
             RaycastHit rayHit;
 
@@ -446,6 +473,8 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
 
     public void Skill01_Event01()
     {
+        // 사운드
+        GameManager.GMInstance.SoundManagerRef.Play_Assasin_SFX(SoundManager.Assasin_SFX.SWING_1);
         StartCoroutine("ShurikenShot");
     }
 
@@ -463,7 +492,7 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
         Quaternion q2 = Quaternion.LookRotation(d2);
         shuriken.transform.rotation = q2 * Quaternion.Euler(90f, 180f, 0f);
 
-        yield return new WaitForSeconds(0f);
+        yield return null;
     }
 
     public override void Skill_2()
@@ -474,6 +503,9 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
 
             isMove = false;
             isSkill2 = true;
+
+            // 보이스 랜덤 재생
+            GameManager.GMInstance.SoundManagerRef.Play_Assasin_SFX((SoundManager.Assasin_SFX)Random.Range(5, 8));
 
             animator.SetTrigger("doSkill2");
 
@@ -492,6 +524,8 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
 
     public void Skill2Atk1_Eff()
     {
+        // 사운드
+        GameManager.GMInstance.SoundManagerRef.Play_Assasin_SFX(SoundManager.Assasin_SFX.SWING_1);
         StartCoroutine(Play_Skill2Atk_1_Eff());
     }
 
@@ -514,6 +548,7 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
 
     public void Skill2Atk2_Eff()
     {
+        GameManager.GMInstance.SoundManagerRef.Play_Assasin_SFX(SoundManager.Assasin_SFX.SWING_2);
         StartCoroutine(Play_Skill2Atk_2_Eff());
     }
 
@@ -536,6 +571,8 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
 
     public void Skill2Atk3_Eff()
     {
+        // 사운드
+        GameManager.GMInstance.SoundManagerRef.Play_Assasin_SFX(SoundManager.Assasin_SFX.SWING_3);
         StartCoroutine(Play_Skill2Atk_3_Eff());
     }
 
@@ -596,7 +633,8 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
         if (!isSkill1 && !isSkill2 && !isSkill3 && !isSkill4 && !isAttack && !isDodge && !skillManager3.isSkill3CT && !isDie)
         {
             animator.SetBool("isMove", false);
-
+            // 보이스 랜덤 재생
+            GameManager.GMInstance.SoundManagerRef.Play_Assasin_SFX((SoundManager.Assasin_SFX)Random.Range(5, 8));
             isMove = false;
             isSkill3 = true;
             animator.SetTrigger("doSkill3");
@@ -667,6 +705,7 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
     {
         if (!isSkill1 && !isSkill2 && !isSkill3 && !isSkill4 && !isAttack && !isDodge && !skillManager4.isSkill4CT && !isDie)
         {
+            GameManager.GMInstance.SoundManagerRef.Play_Assasin_SFX(SoundManager.Assasin_SFX.ASSASIN_VOICE_1);
             animator.SetBool("isMove", false);
 
             isMove = false;
@@ -702,6 +741,8 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
 
     public void Skill4Atk1_Eff()
     {
+        // 사운드
+        GameManager.GMInstance.SoundManagerRef.Play_Assasin_SFX(SoundManager.Assasin_SFX.R_Sound);
         StartCoroutine(Play_Skill4Atk_1_Eff());
     }
 
@@ -818,7 +859,7 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
             if (playscenemanager.health > 1)
             {
                 GameManager.GMInstance.CamShakeRef.ShakeCam(CamShake_Intensity, CamShake_Time);
-                playscenemanager.HealthDown();
+                // playscenemanager.HealthDown();
                 // Debug.Log(other.gameObject.name);
                 animator.SetTrigger("Hit");
                 isHit = true;
@@ -922,13 +963,15 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
         isSkill2 = false;
         isSkill3 = false;
         isSkill4 = false;
+        isHitOut = false;
         moveSpeed_Discount = moveSpeed;
     }
 
     public void CanMove()
     {
         isMove = true;
-        moveSpeed_Discount = 0;
+        isHitOut = true;
+        // moveSpeed_Discount = 0;
     }
 
     public void Move_Error()
