@@ -46,6 +46,9 @@ public class PlaySceneManager : MonoBehaviour
 
     private int floorLevelIndex = 0;
 
+    [Header("----Raid_Variable----")]
+    public bool isRaidStart;
+
     [Header("----Skill----")]
     public Skill_Test[] Skills_Info;
 
@@ -373,7 +376,12 @@ public class PlaySceneManager : MonoBehaviour
 
     public void CutScene_End()
     {
-        isCutScene = false;
+        isCutScene = false;   
+    }
+
+    public void RaidStart()
+    {
+        isRaidStart = true;
     }
 
     public void CutSceneUI_Off()

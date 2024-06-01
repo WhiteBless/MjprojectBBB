@@ -25,6 +25,8 @@ public class BossHP_UI_Ctrl : MonoBehaviour
 
     [SerializeField]
     int remain_BossHP_Line;
+    [SerializeField]
+    bool isCoroutineEnter;
 
     [SerializeField]
     bool isCheck_HP_Down;
@@ -49,7 +51,7 @@ public class BossHP_UI_Ctrl : MonoBehaviour
         CurBoss_HP_Img.color = GetColorByLayer(BossCur_HP);
 
         // 체력이 깎이는 중이 아니라면
-        if (isCheck_HP_Down == false)
+        if (isCheck_HP_Down == false && GameManager.GMInstance.Get_PlaySceneManager().isRaidStart == true && isCoroutineEnter == false)
         {
             StartCoroutine(TakeDamageBar_Refresh());
         }
@@ -72,7 +74,7 @@ public class BossHP_UI_Ctrl : MonoBehaviour
     IEnumerator TakeDamageBar_Refresh()
     {
         isCheck_HP_Down = true;
-
+        isCoroutineEnter = true;
         yield return new WaitForSeconds(1.0f);
 
         if (isCheck_HP_Down)
@@ -80,10 +82,11 @@ public class BossHP_UI_Ctrl : MonoBehaviour
             // 사이즈 비율 조정
             TakeDamage_Img.rectTransform.sizeDelta =
                 new Vector2(NextBoss_HP_Img.rectTransform.sizeDelta.x * GetHPRatioSingleBar(BossCur_HP),
-                NextBoss_HP_Img.rectTransform.sizeDelta.y);
-
-            isCheck_HP_Down = false;
+                NextBoss_HP_Img.rectTransform.sizeDelta.y);     
         }
+
+        isCheck_HP_Down = false;
+        isCoroutineEnter = false;
     }
 
     float GetHPRatioSingleBar(int _targetHP)
