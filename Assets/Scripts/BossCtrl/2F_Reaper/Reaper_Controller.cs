@@ -295,7 +295,7 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
                 int randomIndex = GetRandomSkillIndex(Awakening_Short_Skill_Percent, _skillnum);
                 NextSkillNum = randomIndex;
 
-                switch (NextSkillNum)
+                switch (randomIndex)
                 {
                     case 0: // 기본 공격
                         StartCoroutine(BaseAtk_0());
@@ -331,7 +331,7 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
                 int randomIndex = GetRandomSkillIndex(Normal_Long_Skill_Percent, _skillnum);
                 NextSkillNum = randomIndex;
 
-                switch (NextSkillNum)
+                switch (randomIndex)
                 {
                     case 0:
                         StartCoroutine(BossMove());
@@ -352,7 +352,7 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
                 int randomIndex = GetRandomSkillIndex(Awakening_Long_Skill_Percent, _skillnum);
                 NextSkillNum = randomIndex;
 
-                switch (NextSkillNum)
+                switch (randomIndex)
                 {
                     case 0:
                         StartCoroutine(BossMove());
@@ -621,6 +621,7 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
     IEnumerator Play_BaseAtk0_Eff()
     {
         // 이펙트 피격범위 생성
+        GameManager.GMInstance.SoundManagerRef.Play_2FBoss_SFX(SoundManager.Boss_2F_SFX.BASE_ATK_SFX);
         BaseAtk_0_Eff.SetActive(true);
         BaseAtk_Collider.SetActive(true);
 
@@ -715,6 +716,7 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
 
     IEnumerator Play_BaseAtk1_Eff()
     {
+        GameManager.GMInstance.SoundManagerRef.Play_2FBoss_SFX(SoundManager.Boss_2F_SFX.BASE_ATK_SFX);
         // 이펙트 피격범위 생성
         BaseAtk_1_Eff.SetActive(true);
         BaseAtk_Collider.SetActive(true);
@@ -762,6 +764,8 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
 
             yield return new WaitForSeconds(Decline_LockTime);
             isLock = true;
+
+            GameManager.GMInstance.SoundManagerRef.Play_2FBoss_SFX(SoundManager.Boss_2F_SFX.DARK_DECLINE_SFX);
             // 오브젝트 풀에서 이펙트 위치 조정시켜 생성
             GameObject DarkDeclineEff_1 = reaper_ObjPoolRef.GetDarkDeclineFromPool();
             DarkDeclineEff_1.transform.position = Skill_Pos.transform.position + Skill_Pos.transform.forward * DarkDecline_Dis;
@@ -786,6 +790,8 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
 
             yield return new WaitForSeconds(Decline_LockTime);
             isLock = true;
+
+            GameManager.GMInstance.SoundManagerRef.Play_2FBoss_SFX(SoundManager.Boss_2F_SFX.DARK_DECLINE_SFX);
             // 오브젝트 풀에서 이펙트 위치 조정시켜 생성
             GameObject DarkDeclineEff_2 = reaper_ObjPoolRef.GetDarkDeclineFromPool();
             // DarkDeclineEff_2.transform.forward = Vector3.right;
@@ -813,6 +819,8 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
 
             yield return new WaitForSeconds(Decline_LockTime);
             isLock = true;
+
+            GameManager.GMInstance.SoundManagerRef.Play_2FBoss_SFX(SoundManager.Boss_2F_SFX.DARK_DECLINE_SFX);
             // 오브젝트 풀에서 이펙트 위치 조정시켜 생성
             GameObject DarkDeclineEff_3 = reaper_ObjPoolRef.GetDarkDeclineFromPool();
             //DarkDeclineEff_3.transform.forward = Vector3.right;
@@ -1310,6 +1318,7 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
         if (reaperState == ReaperState.Dark_Soul) // 각성 전 
         {
             Reaper_animator.SetFloat("DarkSoulSpeed", 0.2f);
+            GameManager.GMInstance.SoundManagerRef.Play_2FBoss_SFX(SoundManager.Boss_2F_SFX.DARK_SOUL_SFX);
             DarkSoul_Skill_Eff.SetActive(true);
 
 
@@ -1325,12 +1334,13 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
 
 
             Reaper_animator.SetFloat("DarkSoulSpeed", 0.1f);
+            GameManager.GMInstance.SoundManagerRef.Play_2FBoss_SFX(SoundManager.Boss_2F_SFX.DARK_SOUL_SFX);
             DarkBall_Soul_Eff.SetActive(true);
 
 
             yield return new WaitForSeconds(DarkBall_Razer_Time);
             Reaper_animator.SetFloat("DarkSoulSpeed", 1.0f);
-            Debug.Log(1);
+            
             // 영혼 콜라이더 이펙트 끄기
             DarkSoul_Collider.SetActive(false);
 
@@ -1373,24 +1383,29 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
             isMove = false;
             Reaper_animator.SetBool("isMove", isMove);
 
+           
             yield return new WaitForSeconds(DarkBall_Delay);
 
-            // 애니메이션 작동
+            // 애니메이션, 효과음 작동
+            GameManager.GMInstance.SoundManagerRef.Play_2FBoss_SFX(SoundManager.Boss_2F_SFX.DARK_BALL_THROW_SFX);
             Reaper_animator.SetTrigger("Dark_Ball");
 
             yield return new WaitForSeconds(DarkBall_Delay);
 
-            // 애니메이션 작동
+            // 애니메이션 효과음 작동
+            GameManager.GMInstance.SoundManagerRef.Play_2FBoss_SFX(SoundManager.Boss_2F_SFX.DARK_BALL_THROW_SFX);
             Reaper_animator.SetTrigger("Dark_Ball");
 
             yield return new WaitForSeconds(DarkBall_Delay);
 
-            // 애니메이션 작동
+            // 애니메이션 효과음 작동
+            GameManager.GMInstance.SoundManagerRef.Play_2FBoss_SFX(SoundManager.Boss_2F_SFX.DARK_BALL_THROW_SFX);
             Reaper_animator.SetTrigger("Dark_Ball");
 
             yield return new WaitForSeconds(DarkBall_Delay);
 
-            // 애니메이션 작동
+            // 애니메이션 효과음 작동
+            GameManager.GMInstance.SoundManagerRef.Play_2FBoss_SFX(SoundManager.Boss_2F_SFX.DARK_BALL_THROW_SFX);
             Reaper_animator.SetTrigger("Dark_Ball");
 
             yield return new WaitForSeconds(Finish_DarkBall);
@@ -1515,6 +1530,7 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
 
             // 빨강 구체 생성
             yield return new WaitForSeconds(2.0f);
+            GameManager.GMInstance.SoundManagerRef.Play_2FBoss_SFX(SoundManager.Boss_2F_SFX.DARK_BALL_THROW_SFX);
             // 어둠의 구체 활성화
             DarkBall_Awakening[Awakening_Ball_Index].gameObject.SetActive(true);
             // 어둠의 구체 생성 위치 초기화
@@ -1524,6 +1540,7 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
 
             // 파랑 구체 생성
             yield return new WaitForSeconds(DarkBall_Delay);
+            GameManager.GMInstance.SoundManagerRef.Play_2FBoss_SFX(SoundManager.Boss_2F_SFX.DARK_BALL_THROW_SFX);
             // 어둠의 구체 활성화
             DarkBall_Awakening[Awakening_Ball_Index].gameObject.SetActive(true);
             // 어둠의 구체 생성 위치 초기화
@@ -1533,6 +1550,7 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
 
             // 노랑 구체 생성
             yield return new WaitForSeconds(DarkBall_Delay);
+            GameManager.GMInstance.SoundManagerRef.Play_2FBoss_SFX(SoundManager.Boss_2F_SFX.DARK_BALL_THROW_SFX);
             // 어둠의 구체 활성화
             DarkBall_Awakening[Awakening_Ball_Index].gameObject.SetActive(true);
             // 어둠의 구체 생성 위치 초기화
@@ -1542,6 +1560,7 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
 
             // 초록 구체 생성
             yield return new WaitForSeconds(DarkBall_Delay);
+            GameManager.GMInstance.SoundManagerRef.Play_2FBoss_SFX(SoundManager.Boss_2F_SFX.DARK_BALL_THROW_SFX);
             // 어둠의 구체 활성화
             DarkBall_Awakening[Awakening_Ball_Index].gameObject.SetActive(true);
             // 어둠의 구체 생성 위치 초기화

@@ -19,6 +19,7 @@ public class SoundManager : MonoBehaviour
     public AudioClip[] SFXClips;
     public AudioClip[] Assasin_SFXClips;
     public AudioClip[] Boss_1F_SFXClips;
+    public AudioClip[] Boss_2F_SFXClips;
     public int SFXChannels;
     public AudioSource[] SFXPlayers;
     int SFXChannelIndex;
@@ -48,10 +49,23 @@ public class SoundManager : MonoBehaviour
     {
         RAZER,
         JUMP_GROUND_ATK,
+        COMBO_9_ATK,
+        SWORD_SPIN,
+        THROW_SWORDSPIRIT,
+    }
+
+    public enum Boss_2F_SFX
+    {
+        BASE_ATK_SFX,
+        DARK_DECLINE_SFX,
+        DARK_BALL_THROW_SFX,
+        DARK_SOUL_SFX,
+
     }
 
     public enum Assasin_SFX
     {
+       // 스킬 사운드
        SWING_1, // 0
        SWING_2, // 1
        SWING_3, // 2
@@ -62,6 +76,9 @@ public class SoundManager : MonoBehaviour
        ASSASIN_VOICE_2, // 5
        ASSASIN_VOICE_3, // 6
        ASSASIN_VOICE_4, // 7
+
+       // 수리검 투척 사운드
+       THROW_KNIFE,
     }
 
     #endregion
@@ -193,6 +210,31 @@ public class SoundManager : MonoBehaviour
             SFXChannelIndex = LoopIndex;
             /** SFXPlayers의 0번째 Clip은 SFX Enum의 순서를 가져온다. */
             SFXPlayers[LoopIndex].clip = Boss_1F_SFXClips[(int)sfx];
+            /** 재생 */
+            SFXPlayers[LoopIndex].Play();
+            break;
+        }
+    }
+
+    // 2층 보스 관련 효과음 재생
+    public void Play_2FBoss_SFX(Boss_2F_SFX sfx)
+    {
+        /** 저장된 Length값만큼 반복 */
+        for (int i = 0; i < SFXPlayers.Length; i++)
+        {
+            int LoopIndex = (i + SFXChannelIndex) % SFXPlayers.Length;
+
+            /** 만약 지금 효과음이 실행중이면? */
+            if (SFXPlayers[LoopIndex].isPlaying)
+            {
+                /** 다시 반복문 초기부터 실행 */
+                continue;
+            }
+
+            /** ChanelIndex를 LoopIndex값으로 바꿔준다. */
+            SFXChannelIndex = LoopIndex;
+            /** SFXPlayers의 0번째 Clip은 SFX Enum의 순서를 가져온다. */
+            SFXPlayers[LoopIndex].clip = Boss_2F_SFXClips[(int)sfx];
             /** 재생 */
             SFXPlayers[LoopIndex].Play();
             break;

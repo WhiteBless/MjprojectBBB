@@ -156,6 +156,10 @@ public class BossSkillP : MonoBehaviour
         Vector3 targetTrDirection = Target.transform.GetChild(0).transform.position - SpiritPos.position;
         // GameObject SpiritEffectPrf = Instantiate(SpiritEffect);
 
+        // 효과음 재생
+        GameManager.GMInstance.SoundManagerRef.Play_1FBoss_SFX(SoundManager.Boss_1F_SFX.THROW_SWORDSPIRIT);
+        GameManager.GMInstance.SoundManagerRef.Play_1FBoss_SFX(SoundManager.Boss_1F_SFX.SWORD_SPIN);
+
         GameObject SpiritEffectPrf = objPool.Get_SpiritSword_ObjectFromPool();
         SpiritEffectPrf.transform.position = SpiritPos.position + SpiritPos.forward * 5.0f;
         SpiritEffectPrf.transform.rotation = Quaternion.LookRotation(targetTrDirection);
@@ -173,6 +177,7 @@ public class BossSkillP : MonoBehaviour
         bossLookAt.isLook = false;
 
         yield return new WaitForSeconds(1.9f);
+        
         // SpiritEffectPrf.transform.GetChild(4).gameObject.SetActive(false);
         SpiritEffectPrf.GetComponent<SwordParticle_Eff>().isBig = true;
         SpiritEffectPrf.GetComponent<SwordParticle_Eff>().isShot = true;
@@ -221,6 +226,7 @@ public class BossSkillP : MonoBehaviour
         DownAttackRange_1.transform.position = new Vector3(DownAttackRange_1.transform.position.x, 1.0f, DownAttackRange_1.transform.position.z);
         // DownAttackRange_1.transform.rotation = Quaternion.LookRotation(transform.forward);
         DownAttackRange_1.transform.parent = DownSword_SpawnTr;
+        GameManager.GMInstance.SoundManagerRef.Play_1FBoss_SFX(SoundManager.Boss_1F_SFX.COMBO_9_ATK);
 
         //PoolEffectObj.Add(DownAttackRange_1);
         // Destroy(DownAttackRange_1, 10.0f);
@@ -253,6 +259,7 @@ public class BossSkillP : MonoBehaviour
         DownAttackRange_2.transform.position = JumpPos.transform.position + JumpPos.transform.forward * 30.0f;
         DownAttackRange_2.transform.position = new Vector3(DownAttackRange_2.transform.position.x, 1.0f, DownAttackRange_2.transform.position.z);
         DownAttackRange_2.transform.parent = DownSword_SpawnTr;
+        GameManager.GMInstance.SoundManagerRef.Play_1FBoss_SFX(SoundManager.Boss_1F_SFX.COMBO_9_ATK);
 
         // PoolEffectObj.Add(DownAttackRange_2);
         //Destroy(DownAttackRange_2, 10.0f);
@@ -286,6 +293,7 @@ public class BossSkillP : MonoBehaviour
         DownAttackRange_3.transform.position = JumpPos.transform.position + JumpPos.transform.forward * 30.0f;
         DownAttackRange_3.transform.position = new Vector3(DownAttackRange_3.transform.position.x, 1.0f, DownAttackRange_3.transform.position.z);
         DownAttackRange_3.transform.parent = DownSword_SpawnTr;
+        GameManager.GMInstance.SoundManagerRef.Play_1FBoss_SFX(SoundManager.Boss_1F_SFX.COMBO_9_ATK);
 
         // PoolEffectObj.Add(DownAttackRange_3);
         //Destroy(DownAttackRange_3, 10.0f);
@@ -320,6 +328,7 @@ public class BossSkillP : MonoBehaviour
         DownAttackRange_4.transform.position = JumpPos.transform.position + JumpPos.transform.forward * 30.0f;
         DownAttackRange_4.transform.position = new Vector3(DownAttackRange_4.transform.position.x, 1.0f, DownAttackRange_4.transform.position.z);
         DownAttackRange_4.transform.parent = DownSword_SpawnTr;
+        GameManager.GMInstance.SoundManagerRef.Play_1FBoss_SFX(SoundManager.Boss_1F_SFX.COMBO_9_ATK);
 
         //PoolEffectObj.Add(DownAttackRange_4);
         //Destroy(DownAttackRange_4, 10.0f);
@@ -354,6 +363,7 @@ public class BossSkillP : MonoBehaviour
         DownAttackRange_5.transform.position = JumpPos.transform.position + JumpPos.transform.forward * 30.0f;
         DownAttackRange_5.transform.position = new Vector3(DownAttackRange_5.transform.position.x, 1.0f, DownAttackRange_5.transform.position.z);
         DownAttackRange_5.transform.parent = DownSword_SpawnTr;
+        GameManager.GMInstance.SoundManagerRef.Play_1FBoss_SFX(SoundManager.Boss_1F_SFX.COMBO_9_ATK);
 
         // PoolEffectObj.Add(DownAttackRange_5);
         // Destroy(DownAttackRange_5, 10.0f);
@@ -387,6 +397,7 @@ public class BossSkillP : MonoBehaviour
         DownAttackRange_6.transform.position = JumpPos.transform.position + JumpPos.transform.forward * 30.0f;
         DownAttackRange_6.transform.position = new Vector3(DownAttackRange_6.transform.position.x, 1.0f, DownAttackRange_6.transform.position.z);
         DownAttackRange_6.transform.parent = DownSword_SpawnTr;
+        GameManager.GMInstance.SoundManagerRef.Play_1FBoss_SFX(SoundManager.Boss_1F_SFX.COMBO_9_ATK);
 
         // PoolEffectObj.Add(DownAttackRange_6);
         // Destroy(DownAttackRange_6, 10.0f);
@@ -420,6 +431,7 @@ public class BossSkillP : MonoBehaviour
         DownAttackRange_7.transform.position = JumpPos.transform.position + JumpPos.transform.forward * 30.0f;
         DownAttackRange_7.transform.position = new Vector3(DownAttackRange_7.transform.position.x, 1.0f, DownAttackRange_7.transform.position.z);
         DownAttackRange_7.transform.parent = DownSword_SpawnTr;
+        GameManager.GMInstance.SoundManagerRef.Play_1FBoss_SFX(SoundManager.Boss_1F_SFX.COMBO_9_ATK);
 
         //PoolEffectObj.Add(DownAttackRange_7);
         // Destroy(DownAttackRange_7, 10.0f);
@@ -452,6 +464,7 @@ public class BossSkillP : MonoBehaviour
         DownAttackRange_8.transform.position = JumpPos.transform.position + JumpPos.transform.forward * 30.0f;
         DownAttackRange_8.transform.position = new Vector3(DownAttackRange_8.transform.position.x, 1.0f, DownAttackRange_8.transform.position.z);
         DownAttackRange_8.transform.parent = DownSword_SpawnTr;
+        GameManager.GMInstance.SoundManagerRef.Play_1FBoss_SFX(SoundManager.Boss_1F_SFX.COMBO_9_ATK);
 
         // PoolEffectObj.Add(DownAttackRange_8);
         // Destroy(DownAttackRange_8, 10.0f);
@@ -484,6 +497,7 @@ public class BossSkillP : MonoBehaviour
         DownAttackRange_9.transform.position = JumpPos.transform.position + JumpPos.transform.forward * 30.0f;
         DownAttackRange_9.transform.position = new Vector3(DownAttackRange_9.transform.position.x, 1.0f, DownAttackRange_9.transform.position.z);
         DownAttackRange_9.transform.parent = DownSword_SpawnTr;
+        GameManager.GMInstance.SoundManagerRef.Play_1FBoss_SFX(SoundManager.Boss_1F_SFX.COMBO_9_ATK);
 
         //PoolEffectObj.Add(DownAttackRange_9);
         //Destroy(DownAttackRange_9, 10.0f);
