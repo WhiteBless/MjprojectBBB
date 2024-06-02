@@ -854,8 +854,8 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
     {
         if (other.tag == "EnemyAttack" && !isHit)
         {
-            // Debug.Log(other.gameObject.name);
-
+            Debug.Log(other.gameObject.name);
+            // Debug.Break();
             if (playscenemanager.health > 1)
             {
                 GameManager.GMInstance.CamShakeRef.ShakeCam(CamShake_Intensity, CamShake_Time);
@@ -891,8 +891,8 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
     {
         if (other.tag == "EnemyAttack" && !isHit)
         {
-            // Debug.Log(other.gameObject.name);
-
+            Debug.Log(other.gameObject.name + "@");
+            
             if (playscenemanager.health > 1)
             {
                 GameManager.GMInstance.CamShakeRef.ShakeCam(CamShake_Intensity, CamShake_Time);

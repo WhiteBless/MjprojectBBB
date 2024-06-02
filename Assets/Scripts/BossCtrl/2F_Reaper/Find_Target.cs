@@ -88,14 +88,14 @@ public class Find_Target : MonoBehaviour
             ReaperCtrl.Reaper_animator.SetFloat("FirstSeeAniSpeed", 1.0f);
 
             // 거리에 따라 원거리 공격 근거리 공격
-            if (ReaperCtrl.TargetDistance > ReaperCtrl.Skill_Think_Range)
-            {
-                ReaperCtrl.Reaper_Long_nextAct(0);
-            }
-            else if (ReaperCtrl.TargetDistance <= ReaperCtrl.Skill_Think_Range)
-            {
-                ReaperCtrl.Reaper_Short_nextAct(0);
-            }
+            //if (ReaperCtrl.TargetDistance > ReaperCtrl.Skill_Think_Range)
+            //{
+            //    ReaperCtrl.Reaper_Long_nextAct(0);
+            //}
+            //else if (ReaperCtrl.TargetDistance <= ReaperCtrl.Skill_Think_Range)
+            //{
+            //    ReaperCtrl.Reaper_Short_nextAct(0);
+            //}
         }
         #endregion
 
