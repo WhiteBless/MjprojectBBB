@@ -34,6 +34,7 @@ public class SoundManager : MonoBehaviour
         BOSS_1FLOOR,
         BOSS_2FLOOR,
         BOSS_3FLOOR,
+        LOADING,
     }
 
     #region Enum_SFX
@@ -43,6 +44,8 @@ public class SoundManager : MonoBehaviour
         DeadSong,
         DoorOpening,
         DoorClosing,
+        
+        PORTAL,
     }
 
     public enum Boss_1F_SFX
