@@ -120,12 +120,16 @@ public class Skill_Test : MonoBehaviour
                 case SkillType.D:
                     if (getSkillTimes <= 0f)
                     {
-                        if (!isDodgeCT && assassin_Controller.spaceDown)
+                        if (GameManager.GMInstance.cur_Char == Define.Cur_Character.ASSASIN)
                         {
-                            hideSkillButtons.SetActive(true);
-                            getSkillTimes = skillTimes;
-                            isHideSkills = true;
-                            isDodgeCT = true;
+                            // TODO ## 어쌔신 클래스 전용 닷지 스킬
+                            if (!isDodgeCT && assassin_Controller.spaceDown && assassin_Controller.isHitOut)
+                            {
+                                hideSkillButtons.SetActive(true);
+                                getSkillTimes = skillTimes;
+                                isHideSkills = true;
+                                isDodgeCT = true;
+                            }
                         }
                     }
                     break;

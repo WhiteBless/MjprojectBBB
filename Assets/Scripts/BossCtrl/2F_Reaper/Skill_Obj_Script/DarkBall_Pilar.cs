@@ -12,11 +12,11 @@ public class DarkBall_Pilar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (reaper_ctrl.reaperState == ReaperState.Dark_Ball && this.transform.position.y < 0)
+        if (reaper_ctrl.reaper_NormalState == ReaperNormalState.Dark_Ball && this.transform.position.y < 0)
         {
             this.transform.Translate(Vector3.up * UpDownSpeed * Time.deltaTime);
         }
-        else if (reaper_ctrl.reaperState != ReaperState.Dark_Ball && this.transform.position.y > -10)
+        else if (reaper_ctrl.reaper_NormalState != ReaperNormalState.Dark_Ball && this.transform.position.y > -10)
         {
             this.transform.Translate(Vector3.down * UpDownSpeed * Time.deltaTime);
         }

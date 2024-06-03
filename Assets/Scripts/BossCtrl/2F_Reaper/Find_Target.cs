@@ -40,7 +40,7 @@ public class Find_Target : MonoBehaviour
                 GameManager.GMInstance.SoundManagerRef.PlayBGM(SoundManager.BGM.BOSS_2FLOOR);
                 // 범위 안에 들었을 때 타켓을 지정한다
                 ReaperCtrl.Target = other.gameObject;
-                ReaperCtrl.reaperState = ReaperState.RaidStart;
+                ReaperCtrl.reaper_NormalState = ReaperNormalState.RaidStart;
 
                 StartCoroutine(SeePlayer());
             }
