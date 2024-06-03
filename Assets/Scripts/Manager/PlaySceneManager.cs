@@ -118,8 +118,6 @@ public class PlaySceneManager : MonoBehaviour
         {
             floorLevelIMG[0].gameObject.SetActive(true);
         }
-
-        startTime = Time.time;
     }
 
     public void ActivateNextImage()
@@ -379,9 +377,14 @@ public class PlaySceneManager : MonoBehaviour
         isCutScene = false;   
     }
 
+    // 시그널 호출 
     public void RaidStart()
     {
+        // 레이드 시작
         isRaidStart = true;
+
+        startTime = Time.time;
+
     }
 
     public void CutSceneUI_Off()

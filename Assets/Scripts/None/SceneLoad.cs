@@ -11,6 +11,7 @@ public class SceneLoad : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
+        GameManager.GMInstance.SoundManagerRef.PlayBGM(SoundManager.BGM.LOADING);
         StartCoroutine(LoadScene());
     }
     IEnumerator LoadScene()

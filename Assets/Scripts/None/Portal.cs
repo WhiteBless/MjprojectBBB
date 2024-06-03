@@ -16,6 +16,20 @@ public class Portal : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        // 포탈 효과음 재생
+        GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.PORTAL);
+
+        // 어쌔신이면
+        if (GameManager.GMInstance.cur_Char == Define.Cur_Character.ASSASIN)
+        {
+            // 캐릭터 찾아와서 애니메이션 시작
+            GameManager.GMInstance.Get_PlaySceneManager().CurCharacter.transform.GetChild(0).GetComponent<Animator>().SetTrigger("GoNext");
+            // 캐릭터 찾아와서 애니메이션 시작
+            GameManager.GMInstance.Get_PlaySceneManager().CurCharacter.transform.GetChild(0).GetComponent<Assassin_Controller>().moveSpeed_Discount =
+                GameManager.GMInstance.Get_PlaySceneManager().CurCharacter.transform.GetChild(0).GetComponent<Assassin_Controller>().moveSpeed;
+        }
+
+
         PD.Play();
     }
     
