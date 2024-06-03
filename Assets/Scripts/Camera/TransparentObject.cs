@@ -52,6 +52,7 @@ using UnityEngine;
 public class TransparentObject : MonoBehaviour
 {
     public Transform player; // 플레이어 오브젝트
+    public Transform CamRay;
     public float transparency = 0.5f; // 반투명도 조절을 위한 변수
 
     private bool isTransparent = false; // 오브젝트가 반투명 상태인지 여부를 나타내는 변수
@@ -64,6 +65,7 @@ public class TransparentObject : MonoBehaviour
         if (GameManager.GMInstance.cur_Char == Define.Cur_Character.ASSASIN)
         {
             player = GameManager.GMInstance.Get_PlaySceneManager().CurCharacter.transform.GetChild(0);
+            CamRay = GameManager.GMInstance.Get_PlaySceneManager().CurCharacter.transform.GetChild(0).GetChild(16);
         }
     }
 
@@ -73,7 +75,7 @@ public class TransparentObject : MonoBehaviour
             return;
 
         // 카메라와 플레이어 사이의 방향 벡터
-        Vector3 direction = player.position - transform.position;
+        Vector3 direction = CamRay.position - transform.position;
 
         // 카메라에서 플레이어까지의 거리
         float distanceToPlayer = direction.magnitude;

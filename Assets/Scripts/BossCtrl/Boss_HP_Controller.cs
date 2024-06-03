@@ -16,6 +16,9 @@ public class Boss_HP_Controller : MonoBehaviour
     [SerializeField]
     PlayableDirector PD;
 
+    [SerializeField]
+    GameObject[] Boss_Skill_Objects;
+
     [Header("-----Treant-----")] // 3층 보스의 경우 
     [SerializeField]
     int Treant_Possible_FormChange_HP; //폼 체인지 체력
@@ -30,6 +33,7 @@ public class Boss_HP_Controller : MonoBehaviour
     public bool isReaper_SP_ATK_1;
     public bool isReaper_SP_ATK_2;
     public bool isReaper_SP_ATK_3;
+
 
     public PlaySceneManager playSceneManager;
 
@@ -76,6 +80,13 @@ public class Boss_HP_Controller : MonoBehaviour
             reaperanimator.SetTrigger("isDeath");
             Boss_HP_Canvas.transform.localScale = Vector3.zero;
             playSceneManager.BossClear();
+
+
+            for (int i = 0; i < Boss_Skill_Objects.Length; i++)
+            {
+                Boss_Skill_Objects[i].SetActive(false);
+            }
+
             PD.Play();
         }
         #endregion

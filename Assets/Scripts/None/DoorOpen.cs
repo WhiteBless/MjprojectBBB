@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class DoorOpen : MonoBehaviour
 {
@@ -12,6 +13,9 @@ public class DoorOpen : MonoBehaviour
     private bool isClosing = false; // 문이 닫히고 있는지 확인
     private Vector3 closedPosition; // 문 닫힘 위치
     private Vector3 openPosition; // 문 열림 위치
+
+    [SerializeField]
+
 
     void Start()
     {
@@ -60,7 +64,8 @@ public class DoorOpen : MonoBehaviour
             if (other.CompareTag("Player"))
             {
                 GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.DoorClosing);
-                GetComponent<BoxCollider>().isTrigger = false;
+                GetComponent<CapsuleCollider>().enabled = false;
+                GetComponent<NavMeshObstacle>().enabled = true;
                 isClosing = true; // 문 닫힘 상태로 설정
                 isOpening = false; // 문 열림 상태 해제
             }
