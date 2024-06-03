@@ -240,6 +240,7 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
             CancelInvoke("AttackOut");
             isMove = false;
             isAttack = true;
+            isHitOut = true;
             animator.SetBool("isMove", false);
             animator.SetTrigger("Attack");
 
@@ -400,6 +401,7 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
             animator.SetTrigger("doDodge");
             isDodge = true;
             isHit = true;
+            isHitOut = true;
             isMove = false;
 
             SkillOut();
@@ -451,6 +453,7 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
             animator.SetBool("isMove", false);
 
             isMove = false;
+            isHitOut = true;
             isSkill1 = true;
 
             animator.SetTrigger("doSkill1");
@@ -502,6 +505,7 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
             animator.SetBool("isMove", false);
 
             isMove = false;
+            isHitOut = true;
             isSkill2 = true;
 
             // 보이스 랜덤 재생
@@ -636,6 +640,8 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
             // 보이스 랜덤 재생
             GameManager.GMInstance.SoundManagerRef.Play_Assasin_SFX((SoundManager.Assasin_SFX)Random.Range(5, 8));
             isMove = false;
+
+            isHitOut = true;
             isSkill3 = true;
             animator.SetTrigger("doSkill3");
 
@@ -708,6 +714,7 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
             GameManager.GMInstance.SoundManagerRef.Play_Assasin_SFX(SoundManager.Assasin_SFX.ASSASIN_VOICE_1);
             animator.SetBool("isMove", false);
 
+            isHitOut = true;
             isMove = false;
             isSkill4 = true;
 
@@ -964,21 +971,22 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
         isSkill3 = false;
         isSkill4 = false;
         isHitOut = false;
-        moveSpeed_Discount = moveSpeed;
+        // moveSpeed_Discount = moveSpeed;
     }
 
     public void CanMove()
     {
+        Debug.Log(0);
         isMove = true;
         isHitOut = true;
         // moveSpeed_Discount = 0;
     }
 
-    public void Move_Error()
-    {
-        if (moveSpeed_Discount != 0)
-        {
-            moveSpeed_Discount = 0;
-        }
-    }
+    //public void Move_Error()
+    //{
+    //    if (moveSpeed_Discount != 0)
+    //    {
+    //        moveSpeed_Discount = 0;
+    //    }
+    //}
 }

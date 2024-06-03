@@ -2,24 +2,39 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using static Define;
-public enum ReaperState
+public enum ReaperNormalState
 {
-    RaidStart,      // 0
-    Idle,           // 1
+    Move,           // 0
+    Teleport,       // 1
+    Dark_Hand,      // 2
+    Dark_Ball,      // 3
 
-    Dark_Hand2,     // 2
-    Move,           // 3
-    Teleport,       // 4
-    Dark_Hand,      // 5
-    Dark_Ball,      // 6
-
-    BaseAtk_0,      // 7
-    BaseAtk_1,      // 8
-    Dark_Decline,   // 9
-    Dark_Soul,      // 10
+    BaseAtk_0,      // 4
+    BaseAtk_1,      // 5
+    Dark_Decline,   // 6
 
     Awakening,
     Dark_Token,
+    RaidStart,      // 
+    Idle,           // 
+}
+
+public enum ReaperAwakeState
+{ 
+    Dark_Hand2,     // 0
+    Move,           // 1
+    Teleport,       // 2
+    Dark_Hand,      // 3
+    Dark_Ball,      // 4
+
+    BaseAtk_0,      // 5
+    BaseAtk_1,      // 6
+    Dark_Decline,   // 7
+    Dark_Soul,      // 8
+
+    Dark_Token,
+    RaidStart,      // 
+    Idle,           // 
 }
 
 public enum Reaper_Awake
@@ -32,7 +47,12 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
 {
     #region Variable
     [Header("-----Reaper State-----")]
-    public ReaperState reaperState;
+    public ReaperNormalState reaper_NormalState;
+    public ReaperNormalState reaper_Normal_PreviousState;
+
+    public ReaperAwakeState reaper_AwakeState;
+    public ReaperAwakeState reaper_Awake_PreviousState;
+
     public Reaper_Awake reaperAwakeState;
     public bool isLock;               // 각도 조절 여부
     public bool isAttacking;          // 공격 중 인지 여부
@@ -67,21 +87,13 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
     GameObject Skill_Look; // 스킬이 바라보는 방향
     Vector3 dir; // 각도
 
-    [Tooltip("NORMAL_SHORT_SKILL_PERCENT")]
+    [Tooltip("NORMAL_SKILL_PERCENT")]
     [SerializeField]
-    float[] Normal_Short_Skill_Percent;
+    float[] Normal_Skill_Percent;
 
-    [Tooltip("NORMAL_LONG_SKILL_PERCENT")]
+    [Tooltip("AWAKENING_KILL_PERCENT")]
     [SerializeField]
-    float[] Normal_Long_Skill_Percent;
-
-    [Tooltip("AWAKENING_SHORT_SKILL_PERCENT")]
-    [SerializeField]
-    float[] Awakening_Short_Skill_Percent;
-
-    [Tooltip("AWAKENING_LONG_SKILL_PERCENT")]
-    [SerializeField]
-    float[] Awakening_Long_Skill_Percent;
+    float[] Awakening_Skill_Percent;
 
     [Header("-----Animation Var-----")]
     public Animator Reaper_animator;   // 애니메이터
@@ -272,7 +284,7 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
     private void FixedUpdate()
     {
         // 현재 상태가 움직이는 Move고 대상이 멀면
-        if (reaperState == ReaperState.Move && TargetDistance > Skill_Think_Range)
+        if (reaper_NormalState == ReaperNormalState.Move && TargetDistance > Skill_Think_Range)
         {
             Move();
         }
@@ -315,21 +327,13 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
         // 다음 행동 변경
         if (reaperAwakeState == Reaper_Awake.NORMAL)
         {
-            // 랜덤으로 다음 상태 변경
-            ReaperState randomNormalState = (ReaperState)Random.Range(7, (int)ReaperState.Dark_Soul);
-            // ReaperState randomNormalState = (ReaperState)3;
-            reaperState = randomNormalState;
-
-            Debug.Log(randomNormalState);
+            reaper_NormalState = 
+                (ReaperNormalState)GetRandomSkillIndex(Normal_Skill_Percent, 4, 6, (int)reaper_Normal_PreviousState);
         }
         else if (reaperAwakeState == Reaper_Awake.AWAKENING)
         {
-            // 랜덤으로 다음 상태 변경
-            ReaperState randomNormalState = (ReaperState)Random.Range(7, (int)ReaperState.Awakening);
-            // ReaperState randomNormalState = (ReaperState)5;
-            reaperState = randomNormalState;
-
-            Debug.Log(randomNormalState);
+            reaper_AwakeState =
+              (ReaperAwakeState)GetRandomSkillIndex(Normal_Skill_Percent, 5, 8, (int)reaper_Awake_PreviousState);
         }
 
         // 기본 상태가 아닐 시 2초간의 딜레이를 준다
@@ -340,72 +344,81 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
         {
             if (reaperAwakeState == Reaper_Awake.NORMAL)
             {
-                // 랜덤으로 다음 상태 변경
-                ReaperState randomNormalState = (ReaperState)Random.Range(3, 7);
-                reaperState = randomNormalState;
+                reaper_NormalState =
+                     (ReaperNormalState)GetRandomSkillIndex(Normal_Skill_Percent, 0, 3, (int)reaper_Normal_PreviousState);
             }
             else if (reaperAwakeState == Reaper_Awake.AWAKENING)
             {
-                // 랜덤으로 다음 상태 변경
-                ReaperState randomNormalState = (ReaperState)Random.Range(2, 7);
-                reaperState = randomNormalState;
+                reaper_AwakeState =
+                    (ReaperAwakeState)GetRandomSkillIndex(Normal_Skill_Percent, 0, 4, (int)reaper_Awake_PreviousState);
             }
         }
 
         // 각성
         if (boss_hp_ctrl.isAwakening == true && reaperAwakeState == Reaper_Awake.NORMAL)
         {
-            reaperState = ReaperState.Awakening;
+            reaper_NormalState = ReaperNormalState.Awakening;
         }
 
         // 어둠의 증표 
         if (boss_hp_ctrl.isReaper_SP_ATK_1 && !DarkToken_END[0])
         {
             boss_hp_ctrl.isReaper_SP_ATK_1 = false;
-            reaperState = ReaperState.Dark_Token;
+            reaper_NormalState = ReaperNormalState.Dark_Token;
         }
         else if (boss_hp_ctrl.isReaper_SP_ATK_2 && !DarkToken_END[1])
         {
             boss_hp_ctrl.isReaper_SP_ATK_2 = false;
-            reaperState = ReaperState.Dark_Token;
+            reaper_NormalState = ReaperNormalState.Dark_Token;
         }
         else if (boss_hp_ctrl.isReaper_SP_ATK_3 && !DarkToken_END[2])
         {
             boss_hp_ctrl.isReaper_SP_ATK_3 = false;
-            reaperState = ReaperState.Dark_Token;
+            reaper_NormalState = ReaperNormalState.Dark_Token;
+        }
+
+        // 각성 전이라면
+        if (reaperAwakeState == Reaper_Awake.NORMAL)
+        {
+            reaper_Normal_PreviousState = reaper_NormalState;
+        }
+        else if(reaperAwakeState == Reaper_Awake.AWAKENING)
+        {
+            // 각성 후라면
+            reaper_Awake_PreviousState = reaper_AwakeState;
         }
 
         switch (reaperAwakeState)
         {
             // 노말 폼일 때 스킬
             case Reaper_Awake.NORMAL:
-                switch (reaperState)
+                switch (reaper_NormalState)
                 {
-                    case ReaperState.Move:
+                    case ReaperNormalState.Move:
                         Reaper_Move();
                         break;
-                    case ReaperState.BaseAtk_0:
+                    case ReaperNormalState.BaseAtk_0:
                         Reaper_Base_0_ATK();
                         break;
-                    case ReaperState.BaseAtk_1:
+                    case ReaperNormalState.BaseAtk_1:
                         Reaper_Base_1_ATK();
                         break;
-                    case ReaperState.Dark_Ball:
+                    case ReaperNormalState.Dark_Ball:
                         Reaper_DarkBall();
                         break;
-                    case ReaperState.Dark_Decline:
+                    case ReaperNormalState.Dark_Decline:
                         Reaper_Dark_Decline();
                         break;
-                    case ReaperState.Dark_Hand:
+                    case ReaperNormalState.Dark_Hand:
                         Reaper_DarkHand();
                         break;
-                    case ReaperState.Dark_Token:
+                    case ReaperNormalState.Dark_Token:
                         Reaper_DarkToken();
                         break;
-                    case ReaperState.Awakening:
+                    case ReaperNormalState.Awakening:
                         AwakeBoss();
                         break;
-                    case ReaperState.Teleport:
+                    case ReaperNormalState.Teleport:
                         Reaper_Teleport();
                         break;
                     default:
@@ -414,36 +427,36 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
                 break;
             // 스피드 폼일때
             case Reaper_Awake.AWAKENING:
-                switch (reaperState)
+                switch (reaper_AwakeState)
                 {
-                    case ReaperState.Move:
+                    case ReaperAwakeState.Move:
                         Reaper_Move();
                         break;
-                    case ReaperState.BaseAtk_0:
+                    case ReaperAwakeState.BaseAtk_0:
                         Reaper_Base_0_ATK();
                         break;
-                    case ReaperState.BaseAtk_1:
+                    case ReaperAwakeState.BaseAtk_1:
                         Reaper_Base_1_ATK();
                         break;
-                    case ReaperState.Dark_Ball:
+                    case ReaperAwakeState.Dark_Ball:
                         Reaper_DarkBall();
                         break;
-                    case ReaperState.Dark_Decline:
+                    case ReaperAwakeState.Dark_Decline:
                         Reaper_Dark_Decline();
                         break;
-                    case ReaperState.Dark_Hand:
+                    case ReaperAwakeState.Dark_Hand:
                         Reaper_DarkHand();
                         break;
-                    case ReaperState.Dark_Hand2:
+                    case ReaperAwakeState.Dark_Hand2:
                         Reaper_DarkHand2();
                         break;
-                    case ReaperState.Dark_Soul:
+                    case ReaperAwakeState.Dark_Soul:
                         Reaper_DarkSoul();
                         break;
-                    case ReaperState.Dark_Token:
+                    case ReaperAwakeState.Dark_Token:
                         Reaper_DarkToken();
                         break;
-                    case ReaperState.Teleport:
+                    case ReaperAwakeState.Teleport:
                         Reaper_Teleport();
                         break;
                     default:
@@ -455,13 +468,12 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
         }
     }
 
-    // 주어진 확률에 따라 랜덤으로 스킬 인덱스를 선택하는 함수
-    int GetRandomSkillIndex(float[] probabilities, int excludedIndex)
+    int GetRandomSkillIndex(float[] probabilities, int startIndex, int endIndex, int excludedIndex)
     {
         float total = 0;
 
         // 제외된 인덱스의 확률을 제외하고 전체 확률 합 계산
-        for (int i = 0; i < probabilities.Length; i++)
+        for (int i = startIndex; i <= endIndex; i++)
         {
             if (i != excludedIndex)
             {
@@ -473,7 +485,7 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
         float randomPoint = Random.value * total;
 
         // 누적 확률과 비교하여 선택된 스킬 인덱스 결정
-        for (int i = 0; i < probabilities.Length; i++)
+        for (int i = startIndex; i <= endIndex; i++)
         {
             if (i != excludedIndex)
             {
@@ -581,7 +593,7 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
         yield return new WaitForSeconds(1.4f);
         // 이동
         isMove = true;
-        reaperState = ReaperState.Move;
+        reaper_NormalState = ReaperNormalState.Move;
     }
 
     public void Reaper_Move()
@@ -900,7 +912,7 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
 
     IEnumerator Play_DarkSoul_Eff()
     {
-        if (reaperState == ReaperState.Dark_Soul) // 각성 전 
+        if (reaper_AwakeState == ReaperAwakeState.Dark_Soul) // 각성 전 
         {
             Reaper_animator.SetFloat("DarkSoulSpeed", 0.2f);
             GameManager.GMInstance.SoundManagerRef.Play_2FBoss_SFX(SoundManager.Boss_2F_SFX.DARK_SOUL_SFX);
@@ -914,7 +926,7 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
             yield return new WaitForSeconds(2.0f);
             DarkSoul_Skill_Eff.SetActive(false);
         }
-        else if (reaperState == ReaperState.Dark_Ball)// 각성 후
+        else if (reaper_NormalState == ReaperNormalState.Dark_Ball)// 각성 후
         {
 
 
@@ -1126,7 +1138,7 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
             }
 
             // 상태 변경
-            reaperState = ReaperState.Dark_Ball;
+            reaper_NormalState = ReaperNormalState.Dark_Ball;
             // 애니메이션 작동
             Reaper_animator.SetTrigger("Teleport");
             // 중앙으로 이동
@@ -1227,7 +1239,7 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
                 DarkBall_Pilar_Awakening[i].GetComponent<DarkBall_Pilar_Ctrl>().isEnter = false;
             }
             // 상태 변경
-            reaperState = ReaperState.Dark_Ball;
+            reaper_NormalState = ReaperNormalState.Dark_Ball;
             // 애니메이션 작동
             Reaper_animator.SetTrigger("Teleport");
             // 중앙으로 이동
@@ -1369,7 +1381,7 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
         }
 
         // 상태 변경
-        reaperState = ReaperState.Dark_Token;
+        reaper_NormalState = ReaperNormalState.Dark_Token;
         // 애니메이션 작동
         Reaper_animator.SetTrigger("Teleport");
         // 중앙으로 이동
