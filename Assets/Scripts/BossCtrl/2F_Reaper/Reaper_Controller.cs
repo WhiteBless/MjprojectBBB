@@ -8,10 +8,11 @@ public enum ReaperNormalState
     Teleport,       // 1
     Dark_Hand,      // 2
     Dark_Ball,      // 3
+    Dark_Hand_Combo,// 4
 
-    BaseAtk_0,      // 4
-    BaseAtk_1,      // 5
-    Dark_Decline,   // 6
+    BaseAtk_0,      // 5
+    BaseAtk_1,      // 6
+    Dark_Decline,   // 7
 
     Awakening,
     Dark_Token,
@@ -26,11 +27,12 @@ public enum ReaperAwakeState
     Teleport,       // 2
     Dark_Hand,      // 3
     Dark_Ball,      // 4
+    Dark_Hand_Combo,// 5
 
-    BaseAtk_0,      // 5
-    BaseAtk_1,      // 6
-    Dark_Decline,   // 7
-    Dark_Soul,      // 8
+    BaseAtk_0,      // 6
+    BaseAtk_1,      // 7
+    Dark_Decline,   // 8
+    Dark_Soul,      // 9
 
     Dark_Token,
     RaidStart,      // 
@@ -328,12 +330,12 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
         if (reaperAwakeState == Reaper_Awake.NORMAL)
         {
             reaper_NormalState = 
-                (ReaperNormalState)GetRandomSkillIndex(Normal_Skill_Percent, 4, 6, (int)reaper_Normal_PreviousState);
+                (ReaperNormalState)GetRandomSkillIndex(Normal_Skill_Percent, (int)ReaperNormalState.BaseAtk_0, (int)ReaperNormalState.Dark_Decline, (int)reaper_Normal_PreviousState);
         }
         else if (reaperAwakeState == Reaper_Awake.AWAKENING)
         {
             reaper_AwakeState =
-              (ReaperAwakeState)GetRandomSkillIndex(Awakening_Skill_Percent, 5, 8, (int)reaper_Awake_PreviousState);
+              (ReaperAwakeState)GetRandomSkillIndex(Awakening_Skill_Percent, (int)ReaperAwakeState.BaseAtk_0, (int)ReaperAwakeState.Dark_Soul, (int)reaper_Awake_PreviousState);
         }
 
         // 기본 상태가 아닐 시 2초간의 딜레이를 준다
@@ -345,12 +347,12 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
             if (reaperAwakeState == Reaper_Awake.NORMAL)
             {
                 reaper_NormalState =
-                     (ReaperNormalState)GetRandomSkillIndex(Normal_Skill_Percent, 0, 3, (int)reaper_Normal_PreviousState);
+                     (ReaperNormalState)GetRandomSkillIndex(Normal_Skill_Percent, (int)ReaperNormalState.Move, (int)ReaperNormalState.Dark_Hand_Combo, (int)reaper_Normal_PreviousState);
             }
             else if (reaperAwakeState == Reaper_Awake.AWAKENING)
             {
                 reaper_AwakeState =
-                    (ReaperAwakeState)GetRandomSkillIndex(Awakening_Skill_Percent, 0, 4, (int)reaper_Awake_PreviousState);
+                    (ReaperAwakeState)GetRandomSkillIndex(Awakening_Skill_Percent, (int)ReaperAwakeState.Dark_Hand2, (int)ReaperAwakeState.Dark_Hand_Combo, (int)reaper_Awake_PreviousState);
             }
         }
 
@@ -421,6 +423,9 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
                     case ReaperNormalState.Teleport:
                         Reaper_Teleport();
                         break;
+                    case ReaperNormalState.Dark_Hand_Combo:
+                        Reaper_DarkHand_Combo();
+                        break;
                     default:
                         break;
                 }
@@ -458,6 +463,9 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
                         break;
                     case ReaperAwakeState.Teleport:
                         Reaper_Teleport();
+                        break;
+                    case ReaperAwakeState.Dark_Hand_Combo:
+                        Reaper_DarkHand_Combo();
                         break;
                     default:
                         break;
@@ -765,8 +773,16 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
 
     #endregion
 
-    #region Reaper_Atk_3_DarkHand
+    #region Reaper_Atk_3_DarkHand && DarkHandCombo
     // TODO ## Reaper_DarkHand / Reaper_DarkHand2
+    public void Reaper_DarkHand_Combo()
+    {
+        isAttacking = true;
+        // 애니메이션 작동
+        Reaper_animator.SetTrigger("Dark_Hand_Combo");
+    }
+
+
     // 수정 후
     public void Reaper_DarkHand()
     {
@@ -787,7 +803,7 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
 
         //가이드라인 활성화, 위치 조정
         DarkHand_GuideLine.SetActive(true);
-        DarkHand_GuideLine.transform.position = Pos;
+        DarkHand_GuideLine.transform.position = new Vector3(Pos.x, 1.0f, Pos.z);
 
         yield return new WaitForSeconds(1.5f);
 
@@ -1459,7 +1475,6 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
         Reaper_animator.SetTrigger("DarkTokenEnd");
     }
     #endregion
-
 
     #region Reaper_Think
     public void Reaper_Think_Out()

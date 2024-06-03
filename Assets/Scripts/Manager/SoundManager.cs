@@ -46,6 +46,11 @@ public class SoundManager : MonoBehaviour
         DoorClosing,
         
         PORTAL,
+
+        BOSS_HIT_1,
+        BOSS_HIT_2,
+
+        END,
     }
 
     public enum Boss_1F_SFX
