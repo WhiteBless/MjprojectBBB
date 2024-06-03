@@ -20,7 +20,7 @@ public class InGameSetting : MonoBehaviour
 
     public void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape)) // ESC키가 눌렸는지 확인
+        if (Input.GetKeyDown(KeyCode.Escape) && GameManager.GMInstance.Get_PlaySceneManager().isCutScene == false) // ESC키가 눌렸는지 확인
         {
             if (isPaused)
             {
@@ -36,20 +36,26 @@ public class InGameSetting : MonoBehaviour
     public void PauseGame()
     {
         settingsUI.SetActive(true); // 설정 UI 활성화
-        //Time.timeScale = 0f; // 게임 시간을 0으로 설정해 게임 일시 정지
+        Time.timeScale = 0f; // 게임 시간을 0으로 설정해 게임 일시 정지
         isPaused = true; // 일시 정지 플래그 설정
     }
 
     public void ResumeGame()
     {
         settingsUI.SetActive(false); // 설정 UI 비활성화
-        //Time.timeScale = 1f; // 게임 시간을 1로 설정해 게임 재개
+        Time.timeScale = 1f; // 게임 시간을 1로 설정해 게임 재개
         isPaused = false; // 일시 정지 플래그 해제
     }
 
     public void GoToMainScene()
     {
-        SceneManager.LoadScene("Main"); // Main 씬 로드
+        if (Time.timeScale == 0.0f)
+        {
+            Time.timeScale = 1.0f;
+        }
+
+        GameManager.GMInstance.cur_Scene = Define.Cur_Scene.NONE;
+        SceneManager.LoadScene("Loading"); // Main 씬 로드
     }
 
     public void OnClickRePlay_Btn()

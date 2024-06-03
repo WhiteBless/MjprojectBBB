@@ -19,6 +19,12 @@ public class Boss_HP_Controller : MonoBehaviour
     [SerializeField]
     GameObject[] Boss_Skill_Objects;
 
+    [Header("-----ShakeCam-----")] // 카메라 흔들림 변수
+    [SerializeField]
+    float CamShake_Intensity;
+    [SerializeField]
+    float CamShake_Time;
+
     [Header("-----Treant-----")] // 3층 보스의 경우 
     [SerializeField]
     int Treant_Possible_FormChange_HP; //폼 체인지 체력
@@ -111,6 +117,10 @@ public class Boss_HP_Controller : MonoBehaviour
     {
         if (other.CompareTag("Weapon"))
         {
+            // 보스 피격 소리 재생
+            GameManager.GMInstance.SoundManagerRef.PlaySFX(((SoundManager.SFX)Random.Range((int)SoundManager.SFX.BOSS_HIT_1, (int)SoundManager.SFX.END)));
+            GameManager.GMInstance.CamShakeRef.ShakeCam(CamShake_Intensity, CamShake_Time);
+
             // HP가 0이상일 시 작동
             if (BossCurHP > 0)
             {

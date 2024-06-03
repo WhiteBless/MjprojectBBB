@@ -861,12 +861,13 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
     {
         if (other.tag == "EnemyAttack" && !isHit)
         {
+
             Debug.Log(other.gameObject.name);
             // Debug.Break();
             if (playscenemanager.health > 1)
             {
                 GameManager.GMInstance.CamShakeRef.ShakeCam(CamShake_Intensity, CamShake_Time);
-                // playscenemanager.HealthDown();
+                playscenemanager.HealthDown();
                 // Debug.Log(other.gameObject.name);
                 animator.SetTrigger("Hit");
                 isHit = true;
@@ -899,7 +900,7 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
         if (other.tag == "EnemyAttack" && !isHit)
         {
             Debug.Log(other.gameObject.name + "@");
-            
+
             if (playscenemanager.health > 1)
             {
                 GameManager.GMInstance.CamShakeRef.ShakeCam(CamShake_Intensity, CamShake_Time);
@@ -935,6 +936,7 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
         // 파티클에 닿을 시 데미지 
         if(other.gameObject.CompareTag("Particle_EnemyAtk") && !isHit)
         {
+            
             if (playscenemanager.health > 1)
             {
                 GameManager.GMInstance.CamShakeRef.ShakeCam(CamShake_Intensity, CamShake_Time);

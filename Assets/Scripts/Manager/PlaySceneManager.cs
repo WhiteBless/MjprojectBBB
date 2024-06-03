@@ -133,6 +133,11 @@ public class PlaySceneManager : MonoBehaviour
 
     public void GoToMainMenu()
     {
+        if (Time.timeScale == 0.0f)
+        {
+            Time.timeScale = 1.0f;
+        }
+
         // Time.timeScale = 1; // 타임스케일을 원래대로 복구
         // 딱히 메인으로 돌아가게 할 변수 없어서 적용
         GameManager.GMInstance.cur_Scene = Define.Cur_Scene.NONE;
@@ -194,7 +199,8 @@ public class PlaySceneManager : MonoBehaviour
             UIhealth[health].gameObject.SetActive(false);
 
             // 피격음 재생
-            //GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.HitSound);
+            GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.HitSound);
+
             // hitAudioSource.PlayOneShot(hitSound, 1.0f); // 피격음 재생 (볼륨은 1.0)
         }
     }
@@ -346,10 +352,12 @@ public class PlaySceneManager : MonoBehaviour
 
     public void OpenToConfig(GameObject obj)
     {
+        
         obj.gameObject.SetActive(true);
     }
     public void CloseToConfig(GameObject obj)
     {
+        
         obj.gameObject.SetActive(false);
     }
 
@@ -384,7 +392,6 @@ public class PlaySceneManager : MonoBehaviour
         isRaidStart = true;
 
         startTime = Time.time;
-
     }
 
     public void CutSceneUI_Off()
