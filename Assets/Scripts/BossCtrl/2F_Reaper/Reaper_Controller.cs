@@ -333,7 +333,7 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
         else if (reaperAwakeState == Reaper_Awake.AWAKENING)
         {
             reaper_AwakeState =
-              (ReaperAwakeState)GetRandomSkillIndex(Normal_Skill_Percent, 5, 8, (int)reaper_Awake_PreviousState);
+              (ReaperAwakeState)GetRandomSkillIndex(Awakening_Skill_Percent, 5, 8, (int)reaper_Awake_PreviousState);
         }
 
         // 기본 상태가 아닐 시 2초간의 딜레이를 준다
@@ -350,7 +350,7 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
             else if (reaperAwakeState == Reaper_Awake.AWAKENING)
             {
                 reaper_AwakeState =
-                    (ReaperAwakeState)GetRandomSkillIndex(Normal_Skill_Percent, 0, 4, (int)reaper_Awake_PreviousState);
+                    (ReaperAwakeState)GetRandomSkillIndex(Awakening_Skill_Percent, 0, 4, (int)reaper_Awake_PreviousState);
             }
         }
 
@@ -361,20 +361,20 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
         }
 
         // 어둠의 증표 
-        if (boss_hp_ctrl.isReaper_SP_ATK_1 && !DarkToken_END[0])
+        if (boss_hp_ctrl.isReaper_SP_ATK_1 && !DarkToken_END[0]) // 70퍼
         {
             boss_hp_ctrl.isReaper_SP_ATK_1 = false;
             reaper_NormalState = ReaperNormalState.Dark_Token;
         }
-        else if (boss_hp_ctrl.isReaper_SP_ATK_2 && !DarkToken_END[1])
+        else if (boss_hp_ctrl.isReaper_SP_ATK_2 && !DarkToken_END[1]) // 50퍼
         {
             boss_hp_ctrl.isReaper_SP_ATK_2 = false;
             reaper_NormalState = ReaperNormalState.Dark_Token;
         }
-        else if (boss_hp_ctrl.isReaper_SP_ATK_3 && !DarkToken_END[2])
+        else if (boss_hp_ctrl.isReaper_SP_ATK_3 && !DarkToken_END[2]) // 30퍼
         {
             boss_hp_ctrl.isReaper_SP_ATK_3 = false;
-            reaper_NormalState = ReaperNormalState.Dark_Token;
+            reaper_AwakeState = ReaperAwakeState.Dark_Token;
         }
 
         // 각성 전이라면
@@ -609,6 +609,7 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
     {
         Reaper_animator.SetTrigger("Awakening");
         reaperAwakeState = Reaper_Awake.AWAKENING;
+        reaper_Awake_PreviousState = ReaperAwakeState.Teleport;
         // nextActTime = 1.0f;
         // 각성 기둥 활성화
         Pattern_Pillar_Awakening.SetActive(true);

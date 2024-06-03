@@ -976,7 +976,7 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
 
     public void CanMove()
     {
-        Debug.Log(0);
+        // Debug.Log(0);
         isMove = true;
         isHitOut = true;
         // moveSpeed_Discount = 0;
