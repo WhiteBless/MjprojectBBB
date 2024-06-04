@@ -384,6 +384,12 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
     #endregion
 
     #region Treant_Form_Change
+
+    public void FormChange_SFX()
+    {
+        GameManager.GMInstance.SoundManagerRef.Play_3FBoss_SFX(SoundManager.Boss_3F_SFX.FORMCHANGE);
+    }
+
     public void Change_Normal_Form()
     {
         // TODO ## 3층 보스 노말 폼 체인지
@@ -536,7 +542,7 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
         {
             // 랜덤으로 다음 상태 변경
             Treant_Normal_State randomNormalState = (Treant_Normal_State)Random.Range(2, (int)Treant_Normal_State.END - 1);
-            // Treant_Normal_State randomNormalState = (Treant_Normal_State)4;
+            // Treant_Normal_State randomNormalState = (Treant_Normal_State)6;
             TreantNormalState = randomNormalState;
 
             //Debug.Log(randomNormalState);
@@ -545,7 +551,7 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
         {
             // 랜덤으로 다음 상태 변경
             Treant_Power_State randomPowerState = (Treant_Power_State)Random.Range(2, (int)Treant_Power_State.END - 1);
-            // Treant_Power_State randomPowerState = (Treant_Power_State)4;
+            // Treant_Power_State randomPowerState = (Treant_Power_State)5;
             TreantPowerState = randomPowerState;
 
             //Debug.Log(randomPowerState);
@@ -555,7 +561,7 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
         {
             // 랜덤으로 다음 상태 변경
             Treant_Speed_State randomSpeedState = (Treant_Speed_State)Random.Range(2, (int)Treant_Speed_State.END - 1);
-            // Treant_Speed_State randomSpeedState = (Treant_Speed_State)7;
+            // Treant_Speed_State randomSpeedState = (Treant_Speed_State)2;
             TreantSpeedState = randomSpeedState;
 
             //Debug.Log(randomSpeedState);
@@ -795,14 +801,16 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
 
     public void Normal_Attack_R_VFX_On()
     {
+        GameManager.GMInstance.SoundManagerRef.Play_3FBoss_SFX(SoundManager.Boss_3F_SFX.NORMAL_ATK);
         Normal_Atk_R_VFX.SetActive(true);
-        StartCoroutine(Normal_Attack_VFX_Off(Normal_Atk_R_VFX));
+        //  StartCoroutine(Normal_Attack_VFX_Off(Normal_Atk_R_VFX));
     }
 
     public void Normal_Attack_L_VFX_On()
     {
+        GameManager.GMInstance.SoundManagerRef.Play_3FBoss_SFX(SoundManager.Boss_3F_SFX.NORMAL_ATK);
         Normal_Atk_L_VFX.SetActive(true);
-        StartCoroutine(Normal_Attack_VFX_Off(Normal_Atk_L_VFX));
+        // StartCoroutine(Normal_Attack_VFX_Off(Normal_Atk_L_VFX));
     }
 
     public void Normal_ATK_Guide_On()
@@ -810,11 +818,11 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
         NormalAtk_GuideLine.SetActive(true);
     }
 
-    IEnumerator Normal_Attack_VFX_Off(GameObject _obj)
-    {
-        yield return new WaitForSeconds(0.5f);
-        _obj.SetActive(false);
-    }
+    //IEnumerator Normal_Attack_VFX_Off(GameObject _obj)
+    //{
+    //    yield return new WaitForSeconds(0.5f);
+    //    _obj.SetActive(false);
+    //}
 
     IEnumerator Normal_Attack_Next_Motion()
     {
@@ -837,6 +845,8 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
     // TODO ## Treant_Barrier
     public void Treant_Barrier()
     {
+        GameManager.GMInstance.SoundManagerRef.Play_3FBoss_SFX(SoundManager.Boss_3F_SFX.BARRIER);
+
         isAttacking = true;
         animator.SetBool("isBlock", true);
         isBarrier = true;
@@ -884,6 +894,7 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
 
     public void Treant_LeafTurn_Start()
     {
+        GameManager.GMInstance.SoundManagerRef.Play_3FBoss_SFX(SoundManager.Boss_3F_SFX.LEAF_TURN);
         LeafTurn_VFX.SetActive(true);
     }
 
@@ -909,6 +920,11 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
         animator.SetTrigger("LeafBreath");
     }
 
+    public void LeafBreath_Ready_SFX()
+    {
+        GameManager.GMInstance.SoundManagerRef.Play_3FBoss_SFX(SoundManager.Boss_3F_SFX.LEAF_BREATH_START);
+    }
+
     public void Treant_LeafBreath_GuideLine()
     {
         // 가이드라인
@@ -923,6 +939,7 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
 
     public void Treant_LeafBreath_VFX_Start()
     {
+        GameManager.GMInstance.SoundManagerRef.Play_3FBoss_SFX(SoundManager.Boss_3F_SFX.LEAF_BREATH);
         LeafBreath_VFX.SetActive(true);
     }
 
@@ -965,6 +982,7 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
         // 매개변수로 받은 가이드라인 꺼주기
         _guideline.SetActive(false);
 
+        GameManager.GMInstance.SoundManagerRef.Play_3FBoss_SFX(SoundManager.Boss_3F_SFX.LEAF_PLACE);
         // 이펙트 위치
         GameObject leafPlace = Skill_Obj_Pool.GetLeafPlaceFromPool();
         leafPlace.transform.position = _position;
@@ -1005,6 +1023,7 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
         if (isEnterCoroutine == true)
             yield break;
 
+        GameManager.GMInstance.SoundManagerRef.Play_3FBoss_SFX(SoundManager.Boss_3F_SFX.LEAF_MISSALE);
         LeafMissale_VFX.SetActive(true);
 
         float time = 0.0f;
@@ -1052,6 +1071,7 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
         if (isEnterCoroutine == true)
             yield break;
 
+        GameManager.GMInstance.SoundManagerRef.Play_3FBoss_SFX(SoundManager.Boss_3F_SFX.DASH);
         Dash_VFX.SetActive(true);
 
         isAttacking = true;
@@ -1066,6 +1086,7 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
         }
 
         Dash_VFX.SetActive(false);
+        GameManager.GMInstance.SoundManagerRef.Play_3FBoss_SFX(SoundManager.Boss_3F_SFX.DASH_END);
 
         // 첫번째랑 두번째 돌진 때 계산
         if (DashCount != 0 && DashCount < 3)
@@ -1129,8 +1150,6 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
     {
         // 코루틴 실행
         StartCoroutine(Treant_TurnWheel_Start_Event());
-        // 이펙트 활성화
-        TurnWheel_VFX.SetActive(true);
         // 코루틴 재실행 방지
         isEnterCoroutine = true;
     }
@@ -1139,6 +1158,10 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
     {
         if (isEnterCoroutine == true)
             yield break;
+
+        // 이펙트 활성화     
+        TurnWheel_VFX.SetActive(true);
+        GameManager.GMInstance.SoundManagerRef.Play_3FBoss_SFX(SoundManager.Boss_3F_SFX.TURNWHEEL);
 
         float time = 0.0f;
         Treant_Slow_RotSpeed = 4.0f;
@@ -1150,6 +1173,7 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
             yield return null;
         }
 
+        GameManager.GMInstance.SoundManagerRef.Play_3FBoss_SFX(SoundManager.Boss_3F_SFX.TURNWHEEL_END);
         TurnWheel_VFX.SetActive(false);
         animator.SetTrigger("OutTurnWheel");
     }
@@ -1189,13 +1213,14 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
 
     public void Treant_Explosion_Start()
     {
-        isLock = true;
+        // isLock = true;
         Explosion_GuideLine.SetActive(true);
     }
 
     public void Treant_Explosion_Energy()
     {
         // 에너지 활성화
+        GameManager.GMInstance.SoundManagerRef.Play_3FBoss_SFX(SoundManager.Boss_3F_SFX.SPIRIT);
         Energy_VFX.SetActive(true);
     }
 
@@ -1203,6 +1228,10 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
     {
         // 에너지 이펙트 비활성화
         Energy_VFX.SetActive(false);
+
+        GameManager.GMInstance.SoundManagerRef.Play_3FBoss_SFX(SoundManager.Boss_3F_SFX.SPIRIT_THROW);
+        isLock = true;
+        Explosion_GuideLine.SetActive(false);
         // 폭발 이펙트 활성화
         Shooting_VFX.SetActive(true);
         StartCoroutine(On_Shoot_Collision());
@@ -1254,7 +1283,8 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
     public void Treant_Clap_VFX_On()
     {
         // 이펙트 활성화
-        Clap_VFX.SetActive(true);
+        GameManager.GMInstance.SoundManagerRef.Play_3FBoss_SFX(SoundManager.Boss_3F_SFX.CLAP);
+        Clap_VFX.SetActive(true);       
         Clap_After_VFX.SetActive(true);
 
         StartCoroutine(Treant_Clap_VFX_Off());
@@ -1265,6 +1295,7 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
         yield return new WaitForSeconds(0.2f);
         Clap_VFX.SetActive(false);
 
+        GameManager.GMInstance.SoundManagerRef.Play_3FBoss_SFX(SoundManager.Boss_3F_SFX.CLAP_SHOCK);
         yield return new WaitForSeconds(1.7f);
         Clap_After_VFX.SetActive(false);
         isLock = false;
@@ -1356,6 +1387,8 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
         Quaternion rotation = Quaternion.LookRotation(direction);
         Stone.transform.rotation = rotation;
 
+        GameManager.GMInstance.SoundManagerRef.Play_3FBoss_SFX(SoundManager.Boss_3F_SFX.THROW_STONE);
+
         // 던지기
         Stone.GetComponent<Stone_Ctrl>().isThrow = true;
         // 가이드라인 활성화
@@ -1411,6 +1444,8 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
 
     public void Stone_Crash_R_VFX_On()
     {
+        GameManager.GMInstance.SoundManagerRef.Play_3FBoss_SFX(SoundManager.Boss_3F_SFX.GROUND_EXPLOSIN);
+
         // 이펙트 생성
         GameObject obj = Skill_Obj_Pool.GetStone_Crash_FromPool();
         obj.transform.position = R_VFX_Pos.position;
@@ -1418,6 +1453,8 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
 
     public void Stone_Crash_L_VFX_On()
     {
+        GameManager.GMInstance.SoundManagerRef.Play_3FBoss_SFX(SoundManager.Boss_3F_SFX.GROUND_EXPLOSIN);
+
         // 이펙트 생성
         GameObject obj = Skill_Obj_Pool.GetStone_Crash_FromPool();
         obj.transform.position = L_VFX_Pos.position;
@@ -1443,7 +1480,7 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
     public void Treant_Hulk_Burst_2_Start()
     {
         isLock = true;
-
+      
         // 단계에맞는 가이드라인 활성화
         if (Combo_Index == 0)
         {
@@ -1467,6 +1504,9 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
 
     public void Treant_Hulk_Burst2_VFX_On()
     {
+        GameManager.GMInstance.SoundManagerRef.Play_3FBoss_SFX(SoundManager.Boss_3F_SFX.GROUND_WAVE);
+        GameManager.GMInstance.SoundManagerRef.Play_3FBoss_SFX(SoundManager.Boss_3F_SFX.GROUND_WAVE_START);
+
         if (Combo_Index == 0)
         {
             // 콤보 1 실행

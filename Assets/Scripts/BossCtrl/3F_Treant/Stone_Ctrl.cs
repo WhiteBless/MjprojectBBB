@@ -22,6 +22,7 @@ public class Stone_Ctrl : MonoBehaviour
 
     void OnEnable()
     {
+        GameManager.GMInstance.SoundManagerRef.Play_3FBoss_SFX(SoundManager.Boss_3F_SFX.SPAWNSTONE);
         Quaternion rotation = Quaternion.identity;
         this.transform.rotation = rotation;
         // 처음은 던지지 않으니
@@ -52,7 +53,8 @@ public class Stone_Ctrl : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Ground") && isThrow)
-        { 
+        {
+            GameManager.GMInstance.SoundManagerRef.Play_3FBoss_SFX(SoundManager.Boss_3F_SFX.GROUND_EXPLOSIN);
             // 폭발 이펙트 생성
             Explosion_Obj.GetChild(0).gameObject.SetActive(true);
             Explosion_Obj.GetChild(0).gameObject.transform.position = this.transform.position;

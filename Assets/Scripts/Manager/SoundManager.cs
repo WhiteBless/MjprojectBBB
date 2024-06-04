@@ -17,9 +17,12 @@ public class SoundManager : MonoBehaviour
     /** 효과음 관련 */
     [Header("---SFX---")]
     public AudioClip[] SFXClips;
+
     public AudioClip[] Assasin_SFXClips;
     public AudioClip[] Boss_1F_SFXClips;
     public AudioClip[] Boss_2F_SFXClips;
+    public AudioClip[] Boss_3F_SFXClips;
+
     public int SFXChannels;
     public AudioSource[] SFXPlayers;
     int SFXChannelIndex;
@@ -71,6 +74,38 @@ public class SoundManager : MonoBehaviour
 
     }
 
+    public enum Boss_3F_SFX
+    {
+        FORMCHANGE,         // 0
+        BARRIER,            // 1
+        NORMAL_ATK,         // 2
+
+        // NORMAL SFX
+        LEAF_BREATH_START,  // 3
+        LEAF_BREATH,        // 4
+        LEAF_MISSALE,       // 5
+        LEAF_PLACE,         // 6
+        LEAF_TURN,          // 7
+
+        // SPEED SFX
+        SPIRIT,             // 8
+        SPIRIT_THROW,       // 9
+        CLAP,               // 10
+        CLAP_SHOCK,         // 11
+        DASH,               // 12
+        DASH_END,           // 13
+        TURNWHEEL,          // 14
+        TURNWHEEL_END,      // 15
+
+        // POWER SFX
+        GROUND_WAVE,        // 16
+        GROUND_WAVE_START,  // 17
+        GROUND_EXPLOSIN,    // 18
+        SPAWNSTONE,         // 19
+        THROW_STONE,        // 20
+    }
+
+
     public enum Assasin_SFX
     {
        // 스킬 사운드
@@ -91,6 +126,7 @@ public class SoundManager : MonoBehaviour
 
     #endregion
 
+    #region Init
     void Awake()
     {
         Init();
@@ -139,12 +175,7 @@ public class SoundManager : MonoBehaviour
         // PlayBGM(BGM.Lobby);
 
     }
-
-    void Start()
-    {
-        // GameManager.GMInstance.SoundManagerRef = this;
-    }
-
+    #endregion
 
     #region SFX_Sound
     /** TODO ## SoundManager.cs 효과음 재생 관련 함수 */
@@ -248,8 +279,32 @@ public class SoundManager : MonoBehaviour
             break;
         }
     }
-    #endregion
 
+    // 3층 보스 관련 효과음 재생
+    public void Play_3FBoss_SFX(Boss_3F_SFX sfx)
+    {
+        /** 저장된 Length값만큼 반복 */
+        for (int i = 0; i < SFXPlayers.Length; i++)
+        {
+            int LoopIndex = (i + SFXChannelIndex) % SFXPlayers.Length;
+
+            /** 만약 지금 효과음이 실행중이면? */
+            if (SFXPlayers[LoopIndex].isPlaying)
+            {
+                /** 다시 반복문 초기부터 실행 */
+                continue;
+            }
+
+            /** ChanelIndex를 LoopIndex값으로 바꿔준다. */
+            SFXChannelIndex = LoopIndex;
+            /** SFXPlayers의 0번째 Clip은 SFX Enum의 순서를 가져온다. */
+            SFXPlayers[LoopIndex].clip = Boss_3F_SFXClips[(int)sfx];
+            /** 재생 */
+            SFXPlayers[LoopIndex].Play();
+            break;
+        }
+    }
+    #endregion
 
     #region BGM_Sound
     /** TODO ## SoundManager.cs 배경음 재생 관련 함수 */

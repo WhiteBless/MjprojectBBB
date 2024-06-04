@@ -391,6 +391,11 @@ public class PlaySceneManager : MonoBehaviour
         // 레이드 시작
         isRaidStart = true;
 
+        if (GameManager.GMInstance.cur_Char == Define.Cur_Character.ASSASIN)
+        {
+            CurCharacter.transform.GetChild(0).GetComponent<Assassin_Controller>().isDodge = false;
+        }
+
         startTime = Time.time;
     }
 
