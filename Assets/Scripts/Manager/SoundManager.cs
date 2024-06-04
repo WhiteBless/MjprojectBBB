@@ -38,6 +38,8 @@ public class SoundManager : MonoBehaviour
         BOSS_2FLOOR,
         BOSS_3FLOOR,
         LOADING,
+        CLEAR_SOUND,
+
     }
 
     #region Enum_SFX
@@ -53,6 +55,7 @@ public class SoundManager : MonoBehaviour
         BOSS_HIT_1,
         BOSS_HIT_2,
 
+        CLEAR_SOUND,
         END,
     }
 

@@ -366,6 +366,7 @@ public class PlaySceneManager : MonoBehaviour
         obj.gameObject.SetActive(true);
     }
 
+    #region Signal
     public void CutScene_Start()
     {
         isCutScene = true;
@@ -385,6 +386,11 @@ public class PlaySceneManager : MonoBehaviour
         isCutScene = false;   
     }
 
+    public void RaidClear_SFX()
+    {
+        GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.CLEAR_SOUND);
+    }
+
     // 시그널 호출 
     public void RaidStart()
     {
@@ -399,10 +405,16 @@ public class PlaySceneManager : MonoBehaviour
         startTime = Time.time;
     }
 
+    public void RaidEnd()
+    {
+        GameManager.GMInstance.SoundManagerRef.PlayBGM(SoundManager.BGM.CLEAR_SOUND);
+    }
+
     public void CutSceneUI_Off()
     {
         StartCoroutine(UI_Off(clearMenu));
     }
+
 
     IEnumerator UI_Off(GameObject _obj)
     {
@@ -410,4 +422,5 @@ public class PlaySceneManager : MonoBehaviour
 
         _obj.SetActive(false);
     }
+    #endregion
 }
