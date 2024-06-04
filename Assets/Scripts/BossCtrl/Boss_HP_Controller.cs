@@ -118,7 +118,7 @@ public class Boss_HP_Controller : MonoBehaviour
         if (other.CompareTag("Weapon"))
         {
             // 보스 피격 소리 재생
-            GameManager.GMInstance.SoundManagerRef.PlaySFX(((SoundManager.SFX)Random.Range((int)SoundManager.SFX.BOSS_HIT_1, (int)SoundManager.SFX.END)));
+            GameManager.GMInstance.SoundManagerRef.PlaySFX(((SoundManager.SFX)Random.Range((int)SoundManager.SFX.BOSS_HIT_1, (int)SoundManager.SFX.CLEAR_SOUND)));
             GameManager.GMInstance.CamShakeRef.ShakeCam(CamShake_Intensity, CamShake_Time);
 
             // HP가 0이상일 시 작동
