@@ -41,11 +41,6 @@ public class PlaySceneManager : MonoBehaviour
     public GameObject keySettingImage;
     public GameObject keySettingFailImage;
 
-    public Image[] floorLevelIMG; // 이미지 배열, 순서대로 활성화할 이미지들
-    public TextMeshProUGUI floorLevelTxt;
-
-    private int floorLevelIndex = 0;
-
     [Header("----Raid_Variable----")]
     public bool isRaidStart;
 
@@ -106,28 +101,6 @@ public class PlaySceneManager : MonoBehaviour
         for (int i = 0; i < keyCodeName.Length; i++)
         {
             keyCodeName[i].text = KeySetting.Keys[(KeyAction)i].ToString();
-        }
-
-        // 모든 이미지를 비활성화하고 첫 번째 이미지를 활성화
-        foreach (Image img in floorLevelIMG)
-        {
-            img.gameObject.SetActive(false);
-        }
-
-        if (floorLevelIMG.Length > 0)
-        {
-            floorLevelIMG[0].gameObject.SetActive(true);
-        }
-    }
-
-    public void ActivateNextImage()
-    {
-        if (floorLevelIndex < floorLevelIMG.Length - 1)
-        {
-            floorLevelIMG[floorLevelIndex].gameObject.SetActive(false);
-            floorLevelIndex++;
-            floorLevelIMG[floorLevelIndex].gameObject.SetActive(true);
-            floorLevelTxt.text = (floorLevelIndex + 1).ToString() + " " + "Floor";
         }
     }
 
@@ -364,6 +337,11 @@ public class PlaySceneManager : MonoBehaviour
     public void OpenToKeySetting(GameObject obj)
     {
         obj.gameObject.SetActive(true);
+    }
+
+    public void ASD(GameObject obj)
+    {
+        Debug.Log(this.gameObject.name);
     }
 
     #region Signal
