@@ -10,6 +10,10 @@ public class InGameSetting : MonoBehaviour
     public Button mainSceneButton; // Main 씬으로 이동하기 위한 버튼. Inspector에서 연결해줍니다.
     public bool isPaused = false; // 게임이 일시 정지되었는지 확인하는 플래그
 
+    private void Awake()
+    {
+        GameManager.GMInstance.Set_InGameSetting(this);
+    }
     public void Start()
     {
         settingsUI.SetActive(false); // 시작 시 설정 UI 비활성화
@@ -35,16 +39,16 @@ public class InGameSetting : MonoBehaviour
 
     public void PauseGame()
     {
+        isPaused = true; // 일시 정지 플래그 설정
         settingsUI.SetActive(true); // 설정 UI 활성화
         Time.timeScale = 0f; // 게임 시간을 0으로 설정해 게임 일시 정지
-        isPaused = true; // 일시 정지 플래그 설정
     }
 
     public void ResumeGame()
     {
+        isPaused = false; // 일시 정지 플래그 해제
         settingsUI.SetActive(false); // 설정 UI 비활성화
         Time.timeScale = 1f; // 게임 시간을 1로 설정해 게임 재개
-        isPaused = false; // 일시 정지 플래그 해제
     }
 
     public void GoToMainScene()

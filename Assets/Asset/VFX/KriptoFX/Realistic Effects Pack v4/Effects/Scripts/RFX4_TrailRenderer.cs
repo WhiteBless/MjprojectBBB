@@ -323,8 +323,7 @@ public class RFX4_TrailRenderer : MonoBehaviour
         return pointList;
     }
 
-    private int FindDrawingPoints(int curveIndex, float t0, float t1,
-        List<Vector3> pointList, int insertionIndex)
+    private int FindDrawingPoints(int curveIndex, float t0, float t1, List<Vector3> pointList, int insertionIndex)
     {
         Vector3 left = CalculateBezierPoint(curveIndex, t0);
         Vector3 right = CalculateBezierPoint(curveIndex, t1);
@@ -338,7 +337,8 @@ public class RFX4_TrailRenderer : MonoBehaviour
         Vector3 leftDirection = (left - mid).normalized;
         Vector3 rightDirection = (right - mid).normalized;
 
-        if (Vector3.Dot(leftDirection, rightDirection) > DivisionThreshold || Mathf.Abs(tMid - 0.5f) < 0.0001f)
+        // 종료 조건 개선: tMid와의 차이가 충분히 작을 때 재귀 종료
+        if (Vector3.Dot(leftDirection, rightDirection) > DivisionThreshold || Mathf.Abs(tMid - 0.5f) < 0.0001f || (t1 - t0) < 0.01f)
         {
             int pointsAddedCount = 0;
 
@@ -363,6 +363,64 @@ public class RFX4_TrailRenderer : MonoBehaviour
 
         return CalculateBezierPoint(t, p0, p1, p2, p3);
     }
+
+
+
+    //private List<Vector3> FindDrawingPoints(int curveIndex)
+    //{
+    //    List<Vector3> pointList = new List<Vector3>();
+
+    //    Vector3 left = CalculateBezierPoint(curveIndex, 0);
+    //    Vector3 right = CalculateBezierPoint(curveIndex, 1);
+
+    //    pointList.Add(left);
+    //    pointList.Add(right);
+
+    //    FindDrawingPoints(curveIndex, 0, 1, pointList, 1);
+
+    //    return pointList;
+    //}
+
+    //private int FindDrawingPoints(int curveIndex, float t0, float t1,
+    //    List<Vector3> pointList, int insertionIndex)
+    //{
+    //    Vector3 left = CalculateBezierPoint(curveIndex, t0);
+    //    Vector3 right = CalculateBezierPoint(curveIndex, t1);
+
+    //    if ((left - right).sqrMagnitude < MinimumSqrDistance)
+    //        return 0;
+
+    //    float tMid = (t0 + t1) / 2;
+    //    Vector3 mid = CalculateBezierPoint(curveIndex, tMid);
+
+    //    Vector3 leftDirection = (left - mid).normalized;
+    //    Vector3 rightDirection = (right - mid).normalized;
+
+    //    if (Vector3.Dot(leftDirection, rightDirection) > DivisionThreshold || Mathf.Abs(tMid - 0.5f) < 0.0001f)
+    //    {
+    //        int pointsAddedCount = 0;
+
+    //        pointsAddedCount += FindDrawingPoints(curveIndex, t0, tMid, pointList, insertionIndex);
+    //        pointList.Insert(insertionIndex + pointsAddedCount, mid);
+    //        pointsAddedCount++;
+    //        pointsAddedCount += FindDrawingPoints(curveIndex, tMid, t1, pointList, insertionIndex + pointsAddedCount);
+
+    //        return pointsAddedCount;
+    //    }
+
+    //    return 0;
+    //}
+
+    //public Vector3 CalculateBezierPoint(int curveIndex, float t)
+    //{
+    //    int nodeIndex = curveIndex * 3;
+    //    Vector3 p0 = controlPoints[nodeIndex];
+    //    Vector3 p1 = controlPoints[nodeIndex + 1];
+    //    Vector3 p2 = controlPoints[nodeIndex + 2];
+    //    Vector3 p3 = controlPoints[nodeIndex + 3];
+
+    //    return CalculateBezierPoint(t, p0, p1, p2, p3);
+    //}
 
     private Vector3 CalculateBezierPoint(float t, Vector3 p0, Vector3 p1, Vector3 p2, Vector3 p3)
     {

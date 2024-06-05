@@ -31,6 +31,7 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
     public bool isDie;
 
     public PlaySceneManager playscenemanager;
+    public InGameSetting inGameSetting;
 
     public bool skill1;
     public bool skill2;
@@ -95,6 +96,7 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
     void Init()
     {
         playscenemanager = GameManager.GMInstance.Get_PlaySceneManager();
+        inGameSetting = GameManager.GMInstance.Get_InGameSetting();
 
         skillManager1 = GameManager.GMInstance.Get_PlaySceneManager().Skills_Info[0];
         skillManager2 = GameManager.GMInstance.Get_PlaySceneManager().Skills_Info[1];
@@ -129,7 +131,7 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
             RaycastHit hit;
             Ray ray = mainCam.ScreenPointToRay(Input.mousePosition);
 
-            if (Physics.Raycast(ray, out hit, Mathf.Infinity, groundLayer) && hit.collider.CompareTag("Ground"))
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity, groundLayer) && hit.collider.CompareTag("Ground") && !inGameSetting.isPaused)
             {
                 Vector3 spawnPosition = new Vector3(hit.point.x, hit.point.y + 2, hit.point.z);
                 // 프리팹을 생성하고 1초 후에 파괴
@@ -141,7 +143,7 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
             }
         }
 
-        if (Input.GetMouseButton(1) && GameManager.GMInstance.Get_PlaySceneManager().isCutScene == false)
+        if (Input.GetMouseButton(1) && GameManager.GMInstance.Get_PlaySceneManager().isCutScene == false && !inGameSetting.isPaused)
         {
             RaycastHit hit;
             Ray ray = mainCam.ScreenPointToRay(Input.mousePosition);
@@ -235,7 +237,7 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
         if (GameManager.GMInstance.Get_PlaySceneManager().isCutScene == true)
             return;
 
-        if (Input.GetMouseButtonDown(0) && !isSkill1 && !isSkill2 && !isSkill3 && !isSkill4 && !isDie)
+        if (Input.GetMouseButtonDown(0) && !isSkill1 && !isSkill2 && !isSkill3 && !isSkill4 && !isDie && !inGameSetting.isPaused)
         {
             CancelInvoke("AttackOut");
             isMove = false;
@@ -395,7 +397,7 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
 
     public override void Dodge()
     {
-        if (!isDodge && !skillManager5.isDodgeCT && !isDie)
+        if (!isDodge && !skillManager5.isDodgeCT && !isDie && !inGameSetting.isPaused)
         {
             animator.SetBool("isMove", false);
             animator.SetTrigger("doDodge");
@@ -448,7 +450,7 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
 
     public override void Skill_1()
     {
-        if (!isSkill1 && !isSkill2 && !isSkill3 && !isSkill4 && !isAttack && !isDodge && !skillManager1.isSkill1CT && !isDie) 
+        if (!isSkill1 && !isSkill2 && !isSkill3 && !isSkill4 && !isAttack && !isDodge && !skillManager1.isSkill1CT && !isDie && !inGameSetting.isPaused) 
         {
             animator.SetBool("isMove", false);
 
@@ -500,7 +502,7 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
 
     public override void Skill_2()
     {
-        if (!isSkill1 && !isSkill2 && !isSkill3 && !isSkill4 && !isAttack && !isDodge && !skillManager2.isSkill2CT && !isDie)
+        if (!isSkill1 && !isSkill2 && !isSkill3 && !isSkill4 && !isAttack && !isDodge && !skillManager2.isSkill2CT && !isDie && !inGameSetting.isPaused)
         {
             animator.SetBool("isMove", false);
 
@@ -634,7 +636,7 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
 
     public override void Skill_3()
     {
-        if (!isSkill1 && !isSkill2 && !isSkill3 && !isSkill4 && !isAttack && !isDodge && !skillManager3.isSkill3CT && !isDie)
+        if (!isSkill1 && !isSkill2 && !isSkill3 && !isSkill4 && !isAttack && !isDodge && !skillManager3.isSkill3CT && !isDie && !inGameSetting.isPaused)
         {
             animator.SetBool("isMove", false);
             // 보이스 랜덤 재생
@@ -709,7 +711,7 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
 
     public override void Skill_4()
     {
-        if (!isSkill1 && !isSkill2 && !isSkill3 && !isSkill4 && !isAttack && !isDodge && !skillManager4.isSkill4CT && !isDie)
+        if (!isSkill1 && !isSkill2 && !isSkill3 && !isSkill4 && !isAttack && !isDodge && !skillManager4.isSkill4CT && !isDie && !inGameSetting.isPaused)
         {
             GameManager.GMInstance.SoundManagerRef.Play_Assasin_SFX(SoundManager.Assasin_SFX.ASSASIN_VOICE_1);
             animator.SetBool("isMove", false);

@@ -19,6 +19,9 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     PlaySceneManager playscenemanagerRef;
+
+    [SerializeField]
+    InGameSetting inGameSettingRef;
     // Managers Reference
     public SoundManager SoundManagerRef;
     public CamShake CamShakeRef;
@@ -55,6 +58,18 @@ public class GameManager : MonoBehaviour
     public void Set_PlaySceneManager(PlaySceneManager _ref)
     {
         playscenemanagerRef = _ref;
+    }
+    #endregion
+
+    #region inGameSetting_Ref
+    public InGameSetting Get_InGameSetting()
+    {
+        return inGameSettingRef;
+    }
+
+    public void Set_InGameSetting(InGameSetting _ref)
+    {
+        inGameSettingRef = _ref;
     }
     #endregion
 }
