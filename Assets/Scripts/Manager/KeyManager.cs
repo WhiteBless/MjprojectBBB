@@ -13,7 +13,7 @@ public static class KeySetting
 public class KeyManager : MonoBehaviour
 {
     KeyCode[] defaultKeys = new KeyCode[] { KeyCode.Q, KeyCode.W, KeyCode.E, KeyCode.R, KeyCode.Space };
-    public PlaySceneManager playSceneManager;
+    public KeySettingManager keySettingManager;
 
     private void Awake()
     {
@@ -41,7 +41,7 @@ public class KeyManager : MonoBehaviour
             }
             else
             {
-                playSceneManager.keySettingFailImage.SetActive(true);
+                keySettingManager.keySettingFailImage.SetActive(true);
                 
             }
 
@@ -54,5 +54,13 @@ public class KeyManager : MonoBehaviour
     public void ChangeKey(int num)
     {
         key = num;
+    }
+
+    public void ResetToDefaultKeys()
+    {
+        for (int i = 0; i < (int)KeyAction.KeyCount; i++)
+        {
+            KeySetting.Keys[(KeyAction)i] = defaultKeys[i];
+        }
     }
 }
