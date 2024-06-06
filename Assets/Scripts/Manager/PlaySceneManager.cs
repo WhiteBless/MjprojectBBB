@@ -36,10 +36,10 @@ public class PlaySceneManager : MonoBehaviour
 
     public float SFX_Volume;
 
-    public TextMeshProUGUI[] keyCodeName;
+    //public TextMeshProUGUI[] keyCodeName;
 
-    public GameObject keySettingImage;
-    public GameObject keySettingFailImage;
+    //public GameObject keySettingImage;
+    //public GameObject keySettingFailImage;
 
     [Header("----Raid_Variable----")]
     public bool isRaidStart;
@@ -98,10 +98,10 @@ public class PlaySceneManager : MonoBehaviour
     {
         Init();
 
-        for (int i = 0; i < keyCodeName.Length; i++)
-        {
-            keyCodeName[i].text = KeySetting.Keys[(KeyAction)i].ToString();
-        }
+        //for (int i = 0; i < keyCodeName.Length; i++)
+        //{
+        //    keyCodeName[i].text = KeySetting.Keys[(KeyAction)i].ToString();
+        //}
     }
 
     public void GoToMainMenu()
@@ -130,38 +130,38 @@ public class PlaySceneManager : MonoBehaviour
             deathMenuRectTransform.sizeDelta = new Vector2(currentWidth, deathMenuRectTransform.sizeDelta.y); // 새로 계산된 Width 값으로 사망 메뉴의 Width를 업데이트
         }
 
-        for (int i = 0; i < keyCodeName.Length; i++)
-        {
-            keyCodeName[i].text = KeySetting.Keys[(KeyAction)i].ToString();
-        }
+        //for (int i = 0; i < keyCodeName.Length; i++)
+        //{
+        //    keyCodeName[i].text = KeySetting.Keys[(KeyAction)i].ToString();
+        //}
 
-        if (keySettingImage.activeSelf)
-        {
-            // 키보드의 모든 키에 대해 확인합니다.
-            foreach (KeyCode keyCode in System.Enum.GetValues(typeof(KeyCode)))
-            {
-                // 마우스 버튼이 아닌 경우에만 처리합니다.
-                if (!IsMouseButton(keyCode) && Input.GetKeyDown(keyCode))
-                {
-                    // 게임 오브젝트를 비활성화합니다.
-                    keySettingImage.SetActive(false);
-                    break; // 키 입력이 감지되었으므로 루프를 종료합니다.
-                }
-            }
-        }
+        //if (keySettingImage.activeSelf)
+        //{
+        //    // 키보드의 모든 키에 대해 확인합니다.
+        //    foreach (KeyCode keyCode in System.Enum.GetValues(typeof(KeyCode)))
+        //    {
+        //        // 마우스 버튼이 아닌 경우에만 처리합니다.
+        //        if (!IsMouseButton(keyCode) && Input.GetKeyDown(keyCode))
+        //        {
+        //            // 게임 오브젝트를 비활성화합니다.
+        //            keySettingImage.SetActive(false);
+        //            break; // 키 입력이 감지되었으므로 루프를 종료합니다.
+        //        }
+        //    }
+        //}
 
-        if (keySettingFailImage.activeSelf && Input.GetMouseButtonDown(0))
-        {
-            // 게임 오브젝트를 비활성화합니다.
-            keySettingFailImage.SetActive(false);
-        }
+        //if (keySettingFailImage.activeSelf && Input.GetMouseButtonDown(0))
+        //{
+        //    // 게임 오브젝트를 비활성화합니다.
+        //    keySettingFailImage.SetActive(false);
+        //}
     }
 
-    // 입력된 키가 마우스 버튼인지 확인합니다.
-    private bool IsMouseButton(KeyCode keyCode)
-    {
-        return keyCode >= KeyCode.Mouse0 && keyCode <= KeyCode.Mouse6;
-    }
+    //// 입력된 키가 마우스 버튼인지 확인합니다.
+    //private bool IsMouseButton(KeyCode keyCode)
+    //{
+    //    return keyCode >= KeyCode.Mouse0 && keyCode <= KeyCode.Mouse6;
+    //}
 
     public void HealthDown()
     {
@@ -334,10 +334,10 @@ public class PlaySceneManager : MonoBehaviour
         obj.gameObject.SetActive(false);
     }
 
-    public void OpenToKeySetting(GameObject obj)
-    {
-        obj.gameObject.SetActive(true);
-    }
+    //public void OpenToKeySetting(GameObject obj)
+    //{
+    //    obj.gameObject.SetActive(true);
+    //}
 
     #region Signal
     public void CutScene_Start()
