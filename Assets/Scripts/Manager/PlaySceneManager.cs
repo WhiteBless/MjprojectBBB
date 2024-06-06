@@ -339,11 +339,6 @@ public class PlaySceneManager : MonoBehaviour
         obj.gameObject.SetActive(true);
     }
 
-    public void ASD(GameObject obj)
-    {
-        Debug.Log(this.gameObject.name);
-    }
-
     #region Signal
     public void CutScene_Start()
     {
