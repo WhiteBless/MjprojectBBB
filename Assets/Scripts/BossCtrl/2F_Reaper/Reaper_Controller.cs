@@ -866,7 +866,7 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
 
         // 가이드라인 활성화 및 위치 조정
         DarkHand2_GuideLine.SetActive(true);
-        DarkHand2_GuideLine.transform.position = Pos;
+        DarkHand2_GuideLine.transform.position = new Vector3(Pos.x, 2.5f, Pos.z);
 
         yield return new WaitForSeconds(0.5f);
 
