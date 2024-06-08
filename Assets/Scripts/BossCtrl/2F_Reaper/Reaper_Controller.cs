@@ -746,6 +746,7 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
         }
         else if (reaperAwakeState == Reaper_Awake.AWAKENING)
         {
+            GameManager.GMInstance.SoundManagerRef.Play_2FBoss_SFX(SoundManager.Boss_2F_SFX.DARK_DECLINE_SFX);
             // 오브젝트 풀에서 이펙트 위치 조정시켜 생성
             GameObject DarkDeclineEff_3 = reaper_ObjPoolRef.GetDarkDecline2FromPool();
             //DarkDeclineEff_3.transform.forward = Vector3.right;
@@ -920,7 +921,6 @@ public class Reaper_Controller : Boss_BehaviorCtrl_Base
     public void DarkSoul_Eff_Off()
     {
         Reaper_animator.SetFloat("DarkSoulSpeed", 1.0f);
-        GameManager.GMInstance.SoundManagerRef.Play_2FBoss_SFX(SoundManager.Boss_2F_SFX.DARK_SOUL_SFX);
         Slow_RotSpeed = 0.0f;
         isAttacking = false;
         DarkSoul_Skill_Eff.SetActive(false);
