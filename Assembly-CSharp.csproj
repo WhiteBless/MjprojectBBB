@@ -55,7 +55,7 @@
     <UnityVersion>2022.3.17f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Analyzer Include="C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
+    <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\2022.3.17f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.SourceGenerators.dll" />
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\2022.3.17f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
@@ -596,6 +596,7 @@
     <Compile Include="Assets\Asset\Lighting\GSpawn - Level Designer\Scripts\Level Design\Object Spawn\BoxObjectSpawn.cs" />
     <Compile Include="Assets\Asset\Lighting\GSpawn - Level Designer\Scripts\Core\Extensions\RayEx.cs" />
     <Compile Include="Assets\#NVJOB Dynamic Sky\Example Scenes\Environment\Standard Assets\Effects\ImageEffects\Scripts\ColorCorrectionCurves.cs" />
+    <Compile Include="Assets\Matthew Guz\Hits Effects FREE\Scene Demo\Script\Prefab Manager.cs" />
     <Compile Include="Assets\Asset\Lighting\GSpawn - Level Designer\Scripts\Core\Extensions\GenericMenuEx.cs" />
     <Compile Include="Assets\InfinityPBR\Demo Scripts\SFB_AnubisDemo.cs" />
     <Compile Include="Assets\Asset\Lighting\GSpawn - Level Designer\Scripts\Shortcuts\ShortcutProfile.cs" />
@@ -912,6 +913,7 @@
     <None Include="Assets\Asset\Beautify\Resources\Shaders\BeautifyDistortion.cginc" />
     <None Include="Assets\Asset\Boss\1F_IronGuard\__CubemapsShaders\ASE_StandartPlants.shader" />
     <None Include="Assets\Asset\VFX\KriptoFX\Magic Effects Pack v1\Shaders\RFX1_CutoutBorder.shader" />
+    <None Include="Assets\Setting\UI\UIEffect-upm\Resources\UIShiny.shader" />
     <None Include="Assets\Asset\Boss\1F_IronGuard\__CubemapsShaders\VertexColorTransp.shader" />
     <None Include="Assets\InfinityPBR\Shaders\AV\Hair\AV HDRP 2020.3.4.f1 Hair.shader" />
     <None Include="Assets\InfinityPBR\Audio Snapshot Exporter\Instructions.txt" />
@@ -936,11 +938,13 @@
     <None Include="Assets\#NVJOB Dynamic Sky\Example Scenes\Environment\Standard Assets\Effects\ImageEffects\Shaders\ConvertDepth.shader" />
     <None Include="Assets\Asset\VFX\SkillsEffectsPack\Shader_ForEffects\Shader_Decal.shader" />
     <None Include="Assets\Malbers Animations\Common\Shaders\DragonEggs_Shader.shader" />
+    <None Include="Assets\Matthew Guz\Hits Effects FREE\Documentation\Readme.txt" />
     <None Include="Assets\#NVJOB Dynamic Sky\Example Scenes\Environment\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\BlurAndFlares.shader" />
     <None Include="Assets\#NVJOB Dynamic Sky\Example Scenes\Environment\Standard Assets\Effects\ImageEffects\Shaders\Tonemapper.shader" />
     <None Include="Assets\Asset\Indicator\SkillIndicator\Examples\Meshes\ProjectorLight.shader" />
     <None Include="Assets\InfinityPBR\__READ ME &amp; Support &amp; Instructions\GET THE SUPPORT FILES.txt" />
     <None Include="Assets\TheReaper\Shaders\DawnShader\HornShader.shader" />
+    <None Include="Assets\Setting\UI\UIEffect-upm\Resources\UIDissolve.shader" />
     <None Include="Assets\#NVJOB Dynamic Sky\Example Scenes\Environment\Standard Assets\Effects\ImageEffects\Shaders\_DepthOfField\DepthOfFieldScatter.shader" />
     <None Include="Assets\Asset\VFX\JMO Assets\Cartoon FX Remaster\CFXR Assets\Shaders\CFXR_SETTINGS.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
@@ -955,6 +959,7 @@
     <None Include="Assets\Asset\Boss\1F_IronGuard\__CubemapsShaders\ASE_Standart.shader" />
     <None Include="Assets\InfinityPBR\__READ ME &amp; Support &amp; Instructions\READ ME.txt" />
     <None Include="Assets\Malbers Animations\Common\Shaders\Color4x4.shader" />
+    <None Include="Assets\Materials\SpriteGlow\Resources\SpriteGlow\Shaders\SpriteOutline.shader" />
     <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\Oswald-Bold - OFL.txt" />
     <None Include="Assets\Asset\Boss\1F_IronGuard\__CubemapsShaders\ASE_StandartVertexCDetails.shader" />
     <None Include="Assets\Asset\VFX\Hovl Studio\Epic toon VFX 2\Prefabs\Punches\Readme.txt" />
@@ -989,6 +994,7 @@
     <None Include="Assets\InfinityPBR\Shaders\AV\Hair\AV HDRP Hair.shader" />
     <None Include="Assets\Malbers Animations\Common\Shaders\Golem Shader.shader" />
     <None Include="Assets\Asset\Beautify\_README FIRST!.txt" />
+    <None Include="Assets\Setting\UI\UIEffect-upm\Resources\UIEffect.cginc" />
     <None Include="Assets\#NVJOB Dynamic Sky\Example Scenes\Environment\Standard Assets\Effects\ImageEffects\Shaders\_DepthOfField\DepthOfField34.shader" />
     <None Include="Assets\Asset\Boss\1F_IronGuard\__CubemapsShaders\ASE_StandartVertexBlendTesselated.shader" />
     <None Include="Assets\Asset\Boss\1F_IronGuard\__CubemapsShaders\ASE_StandartMaskedDetails.shader" />
@@ -1005,6 +1011,7 @@
     <None Include="Assets\Asset\VFX\Hovl Studio\HSFiles\Shaders\Add_Fresnel.shader" />
     <None Include="Assets\Asset\VFX\Vefects\Free Fire\Shaders\SH_Vefects_VFX_SRP_Particles_Erosion_01.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface-Mobile.shader" />
+    <None Include="Assets\Setting\UI\UIEffect-upm\Resources\UITtransition.shader" />
     <None Include="Assets\#NVJOB Dynamic Sky\Example Scenes\Environment\Standard Assets\Effects\ImageEffects\Shaders\SunShaftsComposite.shader" />
     <None Include="Assets\Malbers Animations\Common\Shaders\Fur.shader" />
     <None Include="Assets\Malbers Animations\Common\Shaders\Color3x3.shader" />
@@ -1073,6 +1080,7 @@
     <None Include="Assets\#NVJOB Dynamic Sky\Example Scenes\Environment\Standard Assets\Effects\ImageEffects\Shaders\GlobalFog.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF.shader" />
     <None Include="Assets\#NVJOB Dynamic Sky\Example Scenes\Environment\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\BlendForBloom.shader" />
+    <None Include="Assets\Setting\UI\UIEffect-upm\Resources\UIEffect.shader" />
     <None Include="Assets\Asset\VFX\Hovl Studio\HSFiles\Shaders\Lightning.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile SSD.shader" />
     <None Include="Assets\#NVJOB Dynamic Sky\Example Scenes\Environment\Standard Assets\Effects\ImageEffects\Shaders\BlurEffectConeTaps.shader" />
@@ -1171,6 +1179,7 @@
     <None Include="Assets\Asset\VFX\Hovl Studio\HSFiles\Shaders\Add_CenterGlow.shader" />
     <None Include="Assets\Piloto Studio\Shaders\PBR_Piloto\PBR_UberShader.shader" />
     <None Include="Assets\Piloto Studio\Shaders\README.txt" />
+    <None Include="Assets\Setting\UI\UIEffect-upm\Resources\UIEffectSprite.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF Overlay.shader" />
     <None Include="Assets\Asset\(LITE) Splash of Color - Unique Photogrammetry Plants\Documentation\README.txt" />
     <None Include="Assets\#NVJOB Dynamic Sky\Example Scenes\Environment\Standard Assets\Effects\ImageEffects\Shaders\ShowAlphaChannel.shader" />
@@ -1184,6 +1193,7 @@
     <None Include="Assets\#NVJOB Dynamic Sky\Example Scenes\Environment\Standard Assets\Effects\ImageEffects\Shaders\frag_ao.cginc" />
     <None Include="Assets\Asset\Beautify\Resources\Shaders\BeautifyDoF.cginc" />
     <None Include="Assets\#NVJOB Dynamic Sky\Example Scenes\Environment\Standard Assets\Effects\ImageEffects\Shaders\CreaseApply.shader" />
+    <None Include="Assets\Setting\UI_Glow.shader" />
     <None Include="Assets\#NVJOB Dynamic Sky\Example Scenes\Environment\Standard Assets\Effects\ImageEffects\Shaders\ColorCorrectionSelective.shader" />
     <None Include="Assets\#NVJOB Dynamic Sky\Example Scenes\Environment\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\MultiPassHollywoodFlares.shader" />
     <None Include="Assets\TheReaper\Shaders\DawnShaderHDRP\ClothingShaderHDRP.shader" />
@@ -1198,6 +1208,7 @@
     <None Include="Assets\TheReaper\Shaders\DawnShaderURP\HairShaderURP_V2.shader" />
     <None Include="Assets\Asset\Beautify\Resources\Shaders\BeautifyACESFitted.cginc" />
     <None Include="Assets\Asset\Beautify\Resources\Shaders\BeautifyMobile.shader" />
+    <None Include="Assets\Setting\UI\UIEffect-upm\Resources\UIHsvModifier.shader" />
     <None Include="Assets\Asset\Indicator\SkillIndicator\Shaders\WarningArrow.shader" />
     <None Include="Assets\#NVJOB Dynamic Sky\Example Scenes\Environment\Standard Assets\Effects\ImageEffects\Shaders\NoiseAndGrain.shader" />
     <None Include="Assets\Asset\VFX\Hovl Studio\HSFiles\Shaders\Explosion.shader" />
@@ -1554,6 +1565,18 @@
     </Reference>
     <Reference Include="Unity.VisualScripting.Antlr3.Runtime">
       <HintPath>Library\PackageCache\com.unity.visualscripting@1.9.1\Runtime\VisualScripting.Flow\Dependencies\NCalc\Unity.VisualScripting.Antlr3.Runtime.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.Android.Types">
+      <HintPath>C:\Program Files\Unity\Hub\Editor\2022.3.17f1\Editor\Data\PlaybackEngines\AndroidPlayer\Unity.Android.Types.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.Android.Gradle">
+      <HintPath>C:\Program Files\Unity\Hub\Editor\2022.3.17f1\Editor\Data\PlaybackEngines\AndroidPlayer\Unity.Android.Gradle.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.Android.GradleProject">
+      <HintPath>C:\Program Files\Unity\Hub\Editor\2022.3.17f1\Editor\Data\PlaybackEngines\AndroidPlayer\Unity.Android.GradleProject.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="netstandard">
@@ -2265,6 +2288,14 @@
     <ProjectReference Include="CFXRRuntime.csproj">
       <Project>{47A3FE04-8948-0A46-3F10-C522DCD6FA6B}</Project>
       <Name>CFXRRuntime</Name>
+    </ProjectReference>
+    <ProjectReference Include="Elringus.SpriteGlow.Runtime.csproj">
+      <Project>{82D9C7FA-0333-A444-880C-4AF7162171E7}</Project>
+      <Name>Elringus.SpriteGlow.Runtime</Name>
+    </ProjectReference>
+    <ProjectReference Include="UIEffect.csproj">
+      <Project>{F19A171E-DE06-958A-9B62-DDB1EB5A8717}</Project>
+      <Name>UIEffect</Name>
     </ProjectReference>
     <ProjectReference Include="KinoBloom.Runtime.csproj">
       <Project>{6C6C852A-0454-8755-B2D4-BCCF4B9C449A}</Project>
