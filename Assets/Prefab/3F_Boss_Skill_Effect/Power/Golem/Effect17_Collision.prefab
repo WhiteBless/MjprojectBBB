@@ -10716,6 +10716,7 @@ MonoBehaviour:
     m_RotationOrder: 0
   GraphTimeMultiplier: 3.7
   IsLoop: 0
+  audioSource: {fileID: 0}
 --- !u!166 &166315098538683724
 AudioChorusFilter:
   m_ObjectHideFlags: 0
@@ -18083,6 +18084,7 @@ MonoBehaviour:
     m_RotationOrder: 0
   GraphTimeMultiplier: 1.2
   IsLoop: 0
+  audioSource: {fileID: 0}
 --- !u!1 &1340623386740716
 GameObject:
   m_ObjectHideFlags: 0
@@ -33608,8 +33610,8 @@ GameObject:
   - component: {fileID: 23651474779880768}
   - component: {fileID: 114702672019752034}
   - component: {fileID: 114095628944577432}
-  - component: {fileID: 6507881384466220757}
   - component: {fileID: 4015272417458928968}
+  - component: {fileID: 4850207266956265298}
   m_Layer: 0
   m_Name: Decal
   m_TagString: EnemyAttack
@@ -33753,8 +33755,21 @@ MonoBehaviour:
   GraphTimeMultiplier: 7
   GraphIntensityMultiplier: 1
   IsLoop: 0
---- !u!65 &6507881384466220757
-BoxCollider:
+--- !u!114 &4015272417458928968
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1531389471973362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e88ee69902a4e9541be0fa681b79f609, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ActiveTime: 0.4
+--- !u!135 &4850207266956265298
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -33772,21 +33787,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.0000001, y: 1, z: 1.0000001}
+  m_Radius: 0.4
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &4015272417458928968
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1531389471973362}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e88ee69902a4e9541be0fa681b79f609, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ActiveTime: 0.4
 --- !u!1 &1541573143662870
 GameObject:
   m_ObjectHideFlags: 0
@@ -40862,6 +40864,7 @@ MonoBehaviour:
     m_RotationOrder: 0
   GraphTimeMultiplier: 4.5
   IsLoop: 0
+  audioSource: {fileID: 0}
 --- !u!1 &1749713358515106
 GameObject:
   m_ObjectHideFlags: 0
@@ -41061,6 +41064,7 @@ MonoBehaviour:
     m_RotationOrder: 0
   GraphTimeMultiplier: 2
   IsLoop: 0
+  audioSource: {fileID: 0}
 --- !u!1 &1784996766452730
 GameObject:
   m_ObjectHideFlags: 0
@@ -42187,7 +42191,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_LocalScale: {x: 8, y: 8, z: 8}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 4883790210852778}
