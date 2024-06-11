@@ -71,6 +71,11 @@ public class Boss_HP_Controller : MonoBehaviour
             Boss_HP_Canvas.transform.localScale = Vector3.zero;
             playSceneManager.BossClear();
 
+            for (int i = 0; i < Boss_Skill_Objects.Length; i++)
+            {
+                Boss_Skill_Objects[i].SetActive(false);
+            }
+
             PD.Play();
         }
         #endregion
@@ -97,7 +102,7 @@ public class Boss_HP_Controller : MonoBehaviour
         }
         #endregion
 
-        #region Reaper_Death
+        #region Treant_Death
         if (this.gameObject.name == "Treant" && BossCurHP <= 0 && !isDead)
         {
             BossCurHP = 0;

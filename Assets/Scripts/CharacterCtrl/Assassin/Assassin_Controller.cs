@@ -869,7 +869,7 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
             if (playscenemanager.health > 1)
             {
                 GameManager.GMInstance.CamShakeRef.ShakeCam(CamShake_Intensity, CamShake_Time);
-                playscenemanager.HealthDown();
+                // playscenemanager.HealthDown();
                 // Debug.Log(other.gameObject.name);
                 animator.SetTrigger("Hit");
                 isHit = true;
@@ -880,7 +880,7 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
             {
                 GameManager.GMInstance.CamShakeRef.ShakeCam(CamShake_Intensity, CamShake_Time);
                 // Debug.Log("1");
-                playscenemanager.HealthDown();
+                // playscenemanager.HealthDown();
                 animator.SetBool("isMove", false);
                 animator.SetTrigger("doDie");
                 SkillOut();
@@ -901,12 +901,12 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
     {
         if (other.tag == "EnemyAttack" && !isHit)
         {
-            Debug.Log(other.gameObject.name + "@");
+            // Debug.Log(other.gameObject.name + "@");
 
             if (playscenemanager.health > 1)
             {
                 GameManager.GMInstance.CamShakeRef.ShakeCam(CamShake_Intensity, CamShake_Time);
-                playscenemanager.HealthDown();
+                // playscenemanager.HealthDown();
                 // Debug.Log(other.gameObject.name);
                 animator.SetTrigger("Hit");
                 isHit = true;
@@ -917,7 +917,7 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
             {
                 GameManager.GMInstance.CamShakeRef.ShakeCam(CamShake_Intensity, CamShake_Time);
                 // Debug.Log("1");
-                playscenemanager.HealthDown();
+                // playscenemanager.HealthDown();
                 animator.SetBool("isMove", false);
                 animator.SetTrigger("doDie");
                 SkillOut();
