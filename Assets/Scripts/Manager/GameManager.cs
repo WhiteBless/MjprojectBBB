@@ -5,6 +5,8 @@ using static Define;
 
 public class GameManager : MonoBehaviour
 {
+    public int DisplayWidth;
+    public int DisplayHeight;
     //// ManagerRef
     //[SerializeField]
     //TitleSceneManager TitleSceneManagerRef;
@@ -19,9 +21,12 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     PlaySceneManager playscenemanagerRef;
-
     [SerializeField]
     InGameSetting inGameSettingRef;
+    [SerializeField]
+    SetResolution SetResolutionRef;
+
+
     // Managers Reference
     public SoundManager SoundManagerRef;
     public CamShake CamShakeRef;
@@ -70,6 +75,18 @@ public class GameManager : MonoBehaviour
     public void Set_InGameSetting(InGameSetting _ref)
     {
         inGameSettingRef = _ref;
+    }
+    #endregion
+
+    #region SetResolution_Ref
+    public SetResolution Get_SetResolution()
+    {
+        return SetResolutionRef;
+    }
+
+    public void Set_SetResolution(SetResolution _ref)
+    {
+        SetResolutionRef = _ref;
     }
     #endregion
 }
