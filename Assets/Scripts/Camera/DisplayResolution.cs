@@ -12,8 +12,15 @@ public class DisplayResolution : MonoBehaviour
     // 해상도 리스트 Index
     [SerializeField]
     int DropboxIndex;
+    [SerializeField]
+    CanvasScaler CanvasScale;
+    [SerializeField]
+    Toggle FullScreenBtn;
+
     // 해상도 값 저장하기 위한 변수
     List<Resolution> resolutions = new List<Resolution>();
+    [SerializeField]
+    RawImage BackImage;
 
     // Start is called before the first frame update
     void Start()
@@ -24,11 +31,20 @@ public class DisplayResolution : MonoBehaviour
 
     public void InitUI()
     {
+        for (int i = 0; i < Screen.resolutions.Length; i++)
+        {
+            if(Screen.resolutions[i].width >= 1200)
+            {
+                resolutions.Add(Screen.resolutions[i]);
+            }
+        }
+
         // 해상도 저장
         resolutions.AddRange(Screen.resolutions);
         resolutionDropdown.options.Clear();
 
         int optionIndex = 0;
+
         foreach(Resolution item in resolutions)
         {
             Dropdown.OptionData option = new Dropdown.OptionData();
@@ -51,19 +67,23 @@ public class DisplayResolution : MonoBehaviour
 
         // 재설정
         resolutionDropdown.RefreshShownValue();
+
+        FullScreenBtn.isOn = Screen.fullScreenMode.Equals(FullScreenMode.FullScreenWindow) ? true : false;
     }
 
-    public void DropboxOptionChange(int x)
+    public void DropboxOptionChange(int _x)
     {
-        DropboxIndex = x;
+        DropboxIndex = _x;
+    }
+
+    public void On_FullScreenBtn(bool _isFull)
+    {
+        // 참이면 전체화면 아니면 창모드
+        screenMode = _isFull ? FullScreenMode.FullScreenWindow : FullScreenMode.Windowed;
     }
 
     public void ChangeDisplay()
     {
-        Screen.SetResolution(resolutions[DropboxIndex].width,
-            resolutions[DropboxIndex].height,
-            screenMode);
-
         GameManager.GMInstance.DisplayWidth = resolutions[DropboxIndex].width;
         GameManager.GMInstance.DisplayHeight = resolutions[DropboxIndex].height;
 
@@ -72,5 +92,22 @@ public class DisplayResolution : MonoBehaviour
         {
             GameManager.GMInstance.Get_SetResolution().ResolutionSet();
         }
+
+        // 배경화면이 null이 아니라면
+        if (BackImage != null)
+        {
+            BackImage.rectTransform.sizeDelta =
+                new Vector2(GameManager.GMInstance.DisplayWidth, GameManager.GMInstance.DisplayHeight);
+        }
+
+        if (CanvasScale != null)
+        {
+            CanvasScale.referenceResolution =
+                new Vector2(GameManager.GMInstance.DisplayWidth, GameManager.GMInstance.DisplayHeight);
+        }
+
+        Screen.SetResolution(resolutions[DropboxIndex].width,
+          resolutions[DropboxIndex].height,
+          screenMode);
     }
 }
