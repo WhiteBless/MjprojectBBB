@@ -11,6 +11,8 @@ public class LobbyManager : MonoBehaviour
     PlayableDirector PD;
 
     [SerializeField]
+    RawImage Background_Img;
+    [SerializeField]
     Slider SFX_Slider;
     [SerializeField]
     Slider BGM_Slider;
@@ -32,6 +34,10 @@ public class LobbyManager : MonoBehaviour
         PD = GetComponent<PlayableDirector>();
 
         PD.Play();
+
+        // 배경화면 해상도 초기화
+        Background_Img.rectTransform.sizeDelta = 
+            new Vector2(GameManager.GMInstance.DisplayWidth, GameManager.GMInstance.DisplayHeight);
 
         // 사운드 관련 초기화
         for (int i = 0; i < GameManager.GMInstance.SoundManagerRef.SFXPlayers.Length; i++)
