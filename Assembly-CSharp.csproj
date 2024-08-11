@@ -104,8 +104,8 @@
     <Compile Include="Assets\Asset\Lighting\GSpawn - Level Designer\Scripts\Core\Extensions\EditorUIEx.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeA.cs" />
     <Compile Include="Assets\InfinityPBR\Demo Scripts\ExtendedFlycam.cs" />
-    <Compile Include="Assets\Asset\Lighting\GSpawn - Level Designer\Scripts\Resource Pools\MaterialPool.cs" />
     <Compile Include="Assets\Asset\Lighting\GSpawn - Level Designer\Scripts\UI\GUIStyleDb.cs" />
+    <Compile Include="Assets\Asset\Lighting\GSpawn - Level Designer\Scripts\Resource Pools\MaterialPool.cs" />
     <Compile Include="Assets\Scripts\BossCtrl\2F_Reaper\Reaper_ObjPool.cs" />
     <Compile Include="Assets\Asset\VFX\KriptoFX\Realistic Effects Pack v4\SceneResources\Other\RFX4_RealtimeReflection.cs" />
     <Compile Include="Assets\Asset\VFX\KriptoFX\Realistic Effects Pack v4\Effects\Scripts\ParticleSysem\RFX4_CollisionPropertyDeactiavtion.cs" />
@@ -285,8 +285,8 @@
     <Compile Include="Assets\Asset\Lighting\ProceduralLightning\Prefab\Scripts\LightningBoltTransformTrackerScript.cs" />
     <Compile Include="Assets\Asset\Lighting\GSpawn - Level Designer\Scripts\Optimization\MeshCombiner.cs" />
     <Compile Include="Assets\Asset\Lighting\GSpawn - Level Designer\Scripts\Prefabs\ScatterBrushPrefabProfileDbWindow.cs" />
-    <Compile Include="Assets\Asset\Lighting\GSpawn - Level Designer\Scripts\Prefabs\PrefabLibProfileDbWindow.cs" />
     <Compile Include="Assets\#NVJOB Dynamic Sky\Example Scenes\Environment\Standard Assets\Effects\ImageEffects\Scripts\SunShafts.cs" />
+    <Compile Include="Assets\Asset\Lighting\GSpawn - Level Designer\Scripts\Prefabs\PrefabLibProfileDbWindow.cs" />
     <Compile Include="Assets\Asset\Lighting\GSpawn - Level Designer\Scripts\UI\General\CreateNewEntityUI.cs" />
     <Compile Include="Assets\Asset\Lighting\GSpawn - Level Designer\Scripts\Core\Extensions\MouseUpEventEx.cs" />
     <Compile Include="Assets\TheReaper\Scrips\Balrond3Pcontroller\Balrond3personCameraCollision.cs" />
@@ -880,8 +880,8 @@
     <Compile Include="Assets\TheReaper\Scrips\Deleteable\CrossPlatformInputManager.cs" />
     <Compile Include="Assets\Asset\Lighting\GSpawn - Level Designer\Scripts\Math\Triangle.cs" />
     <Compile Include="Assets\Scripts\BossCtrl\2F_Reaper\Skill_Obj_Script\DarkToken_Ctrl.cs" />
-    <Compile Include="Assets\InfinityPBR\Equipment System\Scripts\BlendShapeGameObject.cs" />
     <Compile Include="Assets\Scripts\BossCtrl\1F_IronGuard\BossCtrl\IronGuard_ObjPool.cs" />
+    <Compile Include="Assets\InfinityPBR\Equipment System\Scripts\BlendShapeGameObject.cs" />
     <Compile Include="Assets\Asset\Lighting\GSpawn - Level Designer\Scripts\Level Design\Object Selection\ObjectSelectionGrowSettings.cs" />
     <Compile Include="Assets\Asset\Lighting\GSpawn - Level Designer\Scripts\Grid\GridHandles.cs" />
     <Compile Include="Assets\Asset\Lighting\GSpawn - Level Designer\Scripts\Math\Box3D.cs" />
@@ -2154,6 +2154,10 @@
       <HintPath>Library\ScriptAssemblies\Unity.EditorCoroutines.Editor.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Unity.TerrainTools.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.TerrainTools.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Unity.PlasticSCM.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.PlasticSCM.Editor.dll</HintPath>
       <Private>False</Private>
@@ -2168,6 +2172,10 @@
     </Reference>
     <Reference Include="Unity.VisualScripting.Shared.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.Shared.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.TerrainTools">
+      <HintPath>Library\ScriptAssemblies\Unity.TerrainTools.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.ShaderGraph.Editor">
