@@ -92,6 +92,11 @@ public class PlaySceneManager : MonoBehaviour
             GameObject Char = Instantiate(Spawn_Characters[0], StartPos.position, StartPos.rotation);
             CurCharacter = Char;
         }
+        if (GameManager.GMInstance.cur_Char == Define.Cur_Character.SAMURAI)
+        {
+            GameObject Char = Instantiate(Spawn_Characters[1], StartPos.position, StartPos.rotation);
+            CurCharacter = Char;
+        }
     }
 
     private void Start()
