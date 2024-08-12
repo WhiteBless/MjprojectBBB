@@ -42,8 +42,8 @@ public class Define
     public enum Cur_Character
     { 
         ASSASIN,
-        WARRIOR,
         SAMURAI,
+        WARRIOR,
     }
 
     public enum Reaper_Pattern_Color
