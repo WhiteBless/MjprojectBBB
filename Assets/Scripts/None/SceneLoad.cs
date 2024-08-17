@@ -43,7 +43,7 @@ public class SceneLoad : MonoBehaviour
         }
 
 
-
+        // 1층으로 이동
         if (GameManager.GMInstance.cur_Scene == Define.Cur_Scene.MAIN)
         {
             yield return null;
@@ -86,7 +86,7 @@ public class SceneLoad : MonoBehaviour
 
 
 
-
+        // 2층으로 이동
         if (GameManager.GMInstance.cur_Scene == Define.Cur_Scene.FLOOR_1)
         {
             yield return null;
@@ -114,7 +114,7 @@ public class SceneLoad : MonoBehaviour
         }
 
 
-
+        // 3층으로 이동
         if (GameManager.GMInstance.cur_Scene == Define.Cur_Scene.FLOOR_2)
         {
             yield return null;
@@ -132,6 +132,34 @@ public class SceneLoad : MonoBehaviour
                 else
                 {
                     SceneManager.LoadScene("Play_Floor_3F");//""에 넘어갈 씬 이름으로 변경
+                }
+
+                if (Input.touchCount > 0 && progressbar.value >= 1f && operation.progress >= 0.9f)
+                {
+                    operation.allowSceneActivation = true;
+                }
+            }
+        }
+
+
+        // 4층으로 이동
+        if (GameManager.GMInstance.cur_Scene == Define.Cur_Scene.FLOOR_3)
+        {
+            yield return null;
+            AsyncOperation operation = SceneManager.LoadSceneAsync("Play_Floor_4F");//""에 넘어갈 씬 이름으로 변경
+            operation.allowSceneActivation = false;
+
+            while (!operation.isDone)
+            {
+                yield return null;
+                if (progressbar.value < 1f)
+                {
+                    progressbar.value = Mathf.MoveTowards(progressbar.value, 1f, Time.deltaTime);
+                }
+
+                else
+                {
+                    SceneManager.LoadScene("Play_Floor_4F");//""에 넘어갈 씬 이름으로 변경
                 }
 
                 if (Input.touchCount > 0 && progressbar.value >= 1f && operation.progress >= 0.9f)
