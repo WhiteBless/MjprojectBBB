@@ -31,6 +31,7 @@ public class Skill_Test : MonoBehaviour
     public InGameSetting inGameSetting;
 
     public Assassin_Controller assassin_Controller;
+    public Samurai_Controller samurai_Controller;
 
 
     void Init()
@@ -40,6 +41,10 @@ public class Skill_Test : MonoBehaviour
         if (GameManager.GMInstance.cur_Char == Define.Cur_Character.ASSASIN)
         {
             assassin_Controller = GameManager.GMInstance.Get_PlaySceneManager().CurCharacter.transform.GetChild(0).GetComponent<Assassin_Controller>();
+        }
+        if (GameManager.GMInstance.cur_Char == Define.Cur_Character.SAMURAI)
+        {
+            samurai_Controller = GameManager.GMInstance.Get_PlaySceneManager().CurCharacter.transform.GetChild(0).GetComponent<Samurai_Controller>();
         }
     }
 
@@ -66,56 +71,121 @@ public class Skill_Test : MonoBehaviour
             switch (skillType)
             {
                 case SkillType.Q:
-                    if (!isSkill1CT && !assassin_Controller.isSkill2 && !assassin_Controller.isSkill3 && !assassin_Controller.isSkill4 && !assassin_Controller.isDodge && !assassin_Controller.isAttack)
+                    if (GameManager.GMInstance.cur_Char == Define.Cur_Character.ASSASIN)
                     {
-                        if (skillTimes > 0f && assassin_Controller.skill1)
+                        if (!isSkill1CT && !assassin_Controller.isSkill2 && !assassin_Controller.isSkill3 && !assassin_Controller.isSkill4 && !assassin_Controller.isDodge && !assassin_Controller.isAttack)
                         {
-                            hideSkillButtons.SetActive(true);
-                            getSkillTimes = skillTimes;
-                            isHideSkills = true;
-                            isSkill1CT = true;
+                            if (skillTimes > 0f && assassin_Controller.skill1)
+                            {
+                                hideSkillButtons.SetActive(true);
+                                getSkillTimes = skillTimes;
+                                isHideSkills = true;
+                                isSkill1CT = true;
+                            }
                         }
                     }
-                    break;
+                    if (GameManager.GMInstance.cur_Char == Define.Cur_Character.SAMURAI)
+                    {
+                        if (!isSkill1CT && !samurai_Controller.isSkill2 && !samurai_Controller.isSkill3 && !samurai_Controller.isSkill4 && !samurai_Controller.isDodge && !samurai_Controller.isAttack)
+                        {
+                            if (skillTimes > 0f && samurai_Controller.skill1)
+                            {
+                                hideSkillButtons.SetActive(true);
+                                getSkillTimes = skillTimes;
+                                isHideSkills = true;
+                                isSkill1CT = true;
+                            }
+                        }
+                    }
+
+                        break;
 
                 case SkillType.W:
-                    if (!isSkill2CT && !assassin_Controller.isSkill1 && !assassin_Controller.isSkill3 && !assassin_Controller.isSkill4 && !assassin_Controller.isDodge && !assassin_Controller.isAttack)
+                    if (GameManager.GMInstance.cur_Char == Define.Cur_Character.ASSASIN)
                     {
-                        if (skillTimes > 0f && assassin_Controller.skill2)
+                        if (!isSkill2CT && !assassin_Controller.isSkill1 && !assassin_Controller.isSkill3 && !assassin_Controller.isSkill4 && !assassin_Controller.isDodge && !assassin_Controller.isAttack)
                         {
-                            hideSkillButtons.SetActive(true);
-                            getSkillTimes = skillTimes;
-                            isHideSkills = true;
-                            isSkill2CT = true;
+                            if (skillTimes > 0f && assassin_Controller.skill2)
+                            {
+                                hideSkillButtons.SetActive(true);
+                                getSkillTimes = skillTimes;
+                                isHideSkills = true;
+                                isSkill2CT = true;
+                            }
                         }
                     }
-                    break;
+                    if (GameManager.GMInstance.cur_Char == Define.Cur_Character.SAMURAI)
+                    {
+                        //if (!isSkill2CT && !samurai_Controller.isSkill1 && !samurai_Controller.isSkill3 && !samurai_Controller.isSkill4 && !samurai_Controller.isDodge && !samurai_Controller.isAttack)
+                        //{
+                        //    if (skillTimes > 0f && samurai_Controller.skill2)
+                        //    {
+                        //        hideSkillButtons.SetActive(true);
+                        //        getSkillTimes = skillTimes;
+                        //        isHideSkills = true;
+                        //        isSkill2CT = true;
+                        //    }
+                        //}
+                    }
+                        break;
 
                 case SkillType.E:
-                    if (!isSkill3CT && !assassin_Controller.isSkill1 && !assassin_Controller.isSkill2 && !assassin_Controller.isSkill4 && !assassin_Controller.isDodge && !assassin_Controller.isAttack)
+                    if (GameManager.GMInstance.cur_Char == Define.Cur_Character.ASSASIN)
                     {
-                        if (skillTimes > 0f && assassin_Controller.skill3)
+                        if (!isSkill3CT && !assassin_Controller.isSkill1 && !assassin_Controller.isSkill2 && !assassin_Controller.isSkill4 && !assassin_Controller.isDodge && !assassin_Controller.isAttack)
                         {
-                            hideSkillButtons.SetActive(true);
-                            getSkillTimes = skillTimes;
-                            isHideSkills = true;
-                            isSkill3CT = true;
+                            if (skillTimes > 0f && assassin_Controller.skill3)
+                            {
+                                hideSkillButtons.SetActive(true);
+                                getSkillTimes = skillTimes;
+                                isHideSkills = true;
+                                isSkill3CT = true;
+                            }
                         }
                     }
-                    break;
+                    if (GameManager.GMInstance.cur_Char == Define.Cur_Character.SAMURAI)
+                    {
+                        if (!isSkill3CT && !samurai_Controller.isSkill1 && !samurai_Controller.isSkill2 && !samurai_Controller.isSkill4 && !samurai_Controller.isDodge && !samurai_Controller.isAttack)
+                        {
+                            if (skillTimes > 0f && samurai_Controller.skill3)
+                            {
+                                hideSkillButtons.SetActive(true);
+                                getSkillTimes = skillTimes;
+                                isHideSkills = true;
+                                isSkill3CT = true;
+                            }
+                        }
+                    }
+                        break;
 
                 case SkillType.R:
-                    if (!isSkill4CT && !assassin_Controller.isSkill1 && !assassin_Controller.isSkill2 && !assassin_Controller.isSkill3 && !assassin_Controller.isDodge && !assassin_Controller.isAttack)
+                    if (GameManager.GMInstance.cur_Char == Define.Cur_Character.ASSASIN)
                     {
-                        if (skillTimes > 0f && assassin_Controller.skill4)
+                        if (!isSkill4CT && !assassin_Controller.isSkill1 && !assassin_Controller.isSkill2 && !assassin_Controller.isSkill3 && !assassin_Controller.isDodge && !assassin_Controller.isAttack)
                         {
-                            hideSkillButtons.SetActive(true);
-                            getSkillTimes = skillTimes;
-                            isHideSkills = true;
-                            isSkill4CT = true;
+                            if (skillTimes > 0f && assassin_Controller.skill4)
+                            {
+                                hideSkillButtons.SetActive(true);
+                                getSkillTimes = skillTimes;
+                                isHideSkills = true;
+                                isSkill4CT = true;
+                            }
                         }
                     }
-                    break;
+                    if (GameManager.GMInstance.cur_Char == Define.Cur_Character.SAMURAI)
+                    {
+                        if (!isSkill4CT && !samurai_Controller.isSkill1 && !samurai_Controller.isSkill2 && !samurai_Controller.isSkill3 && !samurai_Controller.isDodge && !samurai_Controller.isAttack)
+                        {
+                            if (skillTimes > 0f && samurai_Controller.skill4)
+                            {
+                                hideSkillButtons.SetActive(true);
+                                getSkillTimes = skillTimes;
+                                isHideSkills = true;
+                                isSkill4CT = true;
+                            }
+                        }
+                    }
+                        break;
 
                 case SkillType.D:
                     if (getSkillTimes <= 0f)
@@ -124,6 +194,16 @@ public class Skill_Test : MonoBehaviour
                         {
                             // TODO ## 어쌔신 클래스 전용 닷지 스킬
                             if (!isDodgeCT && assassin_Controller.spaceDown && assassin_Controller.isHitOut)
+                            {
+                                hideSkillButtons.SetActive(true);
+                                getSkillTimes = skillTimes;
+                                isHideSkills = true;
+                                isDodgeCT = true;
+                            }
+                        }
+                        if (GameManager.GMInstance.cur_Char == Define.Cur_Character.SAMURAI)
+                        {
+                            if (!isDodgeCT && samurai_Controller.spaceDown && samurai_Controller.isHitOut)
                             {
                                 hideSkillButtons.SetActive(true);
                                 getSkillTimes = skillTimes;
