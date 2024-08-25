@@ -28,6 +28,7 @@ public class Assassin_ObjPool : MonoBehaviour
     {
         shuriken_objectPool_Q = new List<GameObject>();
         shuriken_objectPool_W = new List<GameObject>();
+        mouseMoveEffect_objectPool = new List<GameObject>();
 
         // 초기에 풀에 오브젝트를 생성하여 저장
         for (int i = 0; i < poolSize; i++)
@@ -44,7 +45,7 @@ public class Assassin_ObjPool : MonoBehaviour
             obj_2.SetActive(false);
             obj_2.transform.parent = shuriken_Parent_W;
             shuriken_objectPool_W.Add(obj_2);
-            // W스킬 수리검 생성
+            // 마우스 클릭 이동 이펙트
             GameObject obj_3 = Instantiate(mouseMoveEffect);
             obj_3.transform.Rotate(Vector3.zero);
             obj_3.SetActive(false);
