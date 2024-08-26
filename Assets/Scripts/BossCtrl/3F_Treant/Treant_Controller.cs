@@ -372,7 +372,7 @@ public class Treant_Controller : Boss_BehaviorCtrl_Base
         animator = GetComponent<Animator>();
         boss_hp_ctrl = GetComponent<Boss_HP_Controller>();
 
-        Target = GameObject.FindGameObjectWithTag("Player");
+        // Target = GameObject.FindGameObjectWithTag("Player");
         // 최대 체력 전달 현재 체력 
         boss_hp_ctrl.BossMaxHP = MaxHP;
         // 현재 폼 초기화

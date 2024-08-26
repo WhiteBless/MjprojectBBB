@@ -62,6 +62,7 @@ public class Find_Target : MonoBehaviour
                 // 범위 안에 들었을 때 타켓을 지정한다
                 // TreantCtrl.isStartRaid = true;
                 TreantCtrl.animator.SetTrigger("FirstSee");
+                TreantCtrl.Target = other.gameObject;
                 StartCoroutine(SeePlayer());
             }
             #endregion
@@ -76,6 +77,8 @@ public class Find_Target : MonoBehaviour
                 // GameManager.GMInstance.SoundManagerRef.PlayBGM(SoundManager.BGM.BOSS_3FLOOR);
                 // 범위 안에 들었을 때 타켓을 지정한다
                 // TreantCtrl.isStartRaid = true;
+                DragonCtrl.Dragon_animator.SetTrigger("FirstSee");
+                DragonCtrl.Target = other.gameObject;
                 
                 StartCoroutine(SeePlayer());
             }

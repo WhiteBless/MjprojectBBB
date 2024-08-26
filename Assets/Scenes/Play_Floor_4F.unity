@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.73082966, g: 0.7985114, b: 0.8355451, a: 1}
+  m_IndirectSpecularColor: {r: 0.73045343, g: 0.79851073, b: 0.8354537, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -811,14 +811,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 26531032}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.13871586, y: 0.51552516, z: -0.071677044, w: 0.8425284}
+  m_LocalRotation: {x: 0.17585409, y: 0.5109645, z: -0.09459786, w: 0.8360872}
   m_LocalPosition: {x: -738.33, y: 120.54, z: 467.39}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2072005641}
   m_Father: {fileID: 838380189}
-  m_LocalEulerAnglesHint: {x: 17.917, y: 63.134, z: 1.34}
+  m_LocalEulerAnglesHint: {x: 23, y: 63.134, z: 1.34}
 --- !u!114 &26531034
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3055,6 +3055,7 @@ MonoBehaviour:
   isDodgeCT: 0
   inGameSetting: {fileID: 750823378}
   assassin_Controller: {fileID: 0}
+  samurai_Controller: {fileID: 0}
 --- !u!1 &95852180
 GameObject:
   m_ObjectHideFlags: 0
@@ -7318,7 +7319,7 @@ Transform:
   m_GameObject: {fileID: 304197299}
   serializedVersion: 2
   m_LocalRotation: {x: -0.4906985, y: -0.5091316, z: 0.4906985, w: 0.5091316}
-  m_LocalPosition: {x: 40.94, y: -19.8, z: -13.2}
+  m_LocalPosition: {x: -1.7, y: -5, z: -13}
   m_LocalScale: {x: 0.99999994, y: 0, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -13935,6 +13936,7 @@ MonoBehaviour:
   isDodgeCT: 0
   inGameSetting: {fileID: 750823378}
   assassin_Controller: {fileID: 0}
+  samurai_Controller: {fileID: 0}
 --- !u!1001 &501228337
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16088,6 +16090,7 @@ MonoBehaviour:
   isDodgeCT: 0
   inGameSetting: {fileID: 750823378}
   assassin_Controller: {fileID: 0}
+  samurai_Controller: {fileID: 0}
 --- !u!1 &585768263 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1211177089722228287, guid: 82c2afe06252a1e4f8d1bec86438876f, type: 3}
@@ -23093,6 +23096,7 @@ MonoBehaviour:
   isDodgeCT: 0
   inGameSetting: {fileID: 750823378}
   assassin_Controller: {fileID: 0}
+  samurai_Controller: {fileID: 0}
 --- !u!1001 &807552402
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -28344,7 +28348,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -28363,6 +28367,9 @@ MonoBehaviour:
   isLock: 0
   isAttacking: 0
   isThink: 0
+  IceDragonState: 0
+  ThunderDragonState: 0
+  FireDragonState: 0
   boss_hp_ctrl: {fileID: 0}
   Dragon_ObjPoolRef: {fileID: 0}
   Target: {fileID: 0}
@@ -28370,9 +28377,9 @@ MonoBehaviour:
   NextSkillNum: 0
   Slow_RotSpeed: 1
   MaxHP: 20000
-  Boss_RotSpeed: 0
+  Boss_RotSpeed: 8
   moveSpeed: 10
-  Skill_Think_Range: 0
+  Skill_Think_Range: 10
   Skill_Pos: {fileID: 0}
   Skill_Look: {fileID: 0}
   Dragon_animator: {fileID: 0}
@@ -33344,7 +33351,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1222725509
 Transform:
   m_ObjectHideFlags: 0
@@ -35693,7 +35700,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1332285658}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.14651865, y: -0.81796825, z: 0.5025903, w: 0.23845983}
+  m_LocalRotation: {x: 0.14651868, y: -0.81796837, z: 0.5025903, w: 0.23845989}
   m_LocalPosition: {x: 1.1424346, y: 4.197, z: 1.7928718}
   m_LocalScale: {x: 0.16666667, y: 0.16666667, z: 0.16666667}
   m_ConstrainProportionsScale: 0
@@ -43686,6 +43693,7 @@ MonoBehaviour:
   isDodgeCT: 0
   inGameSetting: {fileID: 750823378}
   assassin_Controller: {fileID: 0}
+  samurai_Controller: {fileID: 0}
 --- !u!1 &1655733032
 GameObject:
   m_ObjectHideFlags: 0
