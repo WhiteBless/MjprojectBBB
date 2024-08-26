@@ -2,6 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum IceDragon_State
+{
+    NONE,
+    ICE_IDLE,
+    ICE_MOVE,
+}
+
+public enum ThunderDragon_State
+{
+    NONE,
+    THUNDER_IDLE,
+    THUNDER_MOVE,
+}
+
+public enum FireDragon_State
+{
+    NONE,
+    FIRE_IDLE,
+    FIRE_MOVE,
+}
+
 public class Dragon_Controller : Boss_BehaviorCtrl_Base
 {
     #region Variable
@@ -10,6 +31,10 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
     public bool isAttacking;          // 공격 중 인지 여부
     [SerializeField]
     bool isThink;
+
+    public IceDragon_State IceDragonState;
+    public ThunderDragon_State ThunderDragonState;
+    public FireDragon_State FireDragonState;
 
     [Header("-----Dragon Reference-----")]
     public Boss_HP_Controller boss_hp_ctrl;  // HP 컨트롤러
@@ -122,15 +147,15 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
 
     private void FixedUpdate()
     {
-        //// 현재 상태가 움직이는 Move고 대상이 멀면
-        //if (reaper_NormalState == ReaperNormalState.Move && TargetDistance > Skill_Think_Range)
-        //{
-        //    Move();
-        //}
-        //else if (TargetDistance < Skill_Think_Range + 1.0f && !isAttacking) // 공격중이 아니고 사정거리안에 들어 왔을 시
-        //{
-        //    NotMove();
-        //}
+        // 현재 상태가 움직이는 Move고 대상이 멀면
+        if (TargetDistance >= Skill_Think_Range)
+        {
+            Move();
+        }
+        else if (TargetDistance < Skill_Think_Range + 1.0f && !isAttacking) // 공격중이 아니고 사정거리안에 들어 왔을 시
+        {
+            NotMove();
+        }
     }
 
     // Update is called once per frame
@@ -144,5 +169,13 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
 
         LookAtPlayer();
     }
+    #endregion
+
+    #region Dragon_FindTarget
+    public void FindTarget()
+    {
+
+    }
+
     #endregion
 }
