@@ -6115,7 +6115,7 @@ CapsuleCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.51
   m_Height: 1.4708989
@@ -6224,7 +6224,7 @@ MonoBehaviour:
   _spawnGuide: {fileID: 2117108722}
   _extensionPlane:
     _refOBBFace: 4
-  _modularSnapSession: {fileID: 2012022402}
+  _modularSnapSession: {fileID: 343153065}
   _mirrorGizmo: {fileID: 1863135110}
 --- !u!1001 &269645020
 PrefabInstance:
@@ -8635,6 +8635,21 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2.9999998, y: 6.147875, z: 1.3160193}
   m_Center: {x: 0, y: 2.9260626, z: -0.32714453}
+--- !u!114 &343153065
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38a40404d9721ed4f984030fbce11d53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _snapMode: 0
+  _snapHalfSpace: 0
+  _projectionSettings: {fileID: 0}
 --- !u!1001 &344421675
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9859,7 +9874,7 @@ CapsuleCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.3
   m_Height: 1.21
@@ -11481,7 +11496,7 @@ CapsuleCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.14321524
   m_Height: 0.784981
@@ -18592,7 +18607,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8725edae6a1fd4408036dedaf0199f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _projectionSettings: {fileID: 1238489862}
+  _projectionSettings: {fileID: 1854437898}
   _dragAndDropGuide: {fileID: 0}
 --- !u!1 &660539577
 GameObject:
@@ -22986,7 +23001,7 @@ CapsuleCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.14321138
   m_Height: 0.95308316
@@ -26466,7 +26481,7 @@ CapsuleCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.19
   m_Height: 0.97
@@ -28304,6 +28319,7 @@ GameObject:
   - component: {fileID: 993512647}
   - component: {fileID: 993512646}
   - component: {fileID: 993512649}
+  - component: {fileID: 993512650}
   m_Layer: 0
   m_Name: Dragon
   m_TagString: Enemy
@@ -28351,13 +28367,16 @@ MonoBehaviour:
   Boss_Skill_Objects: []
   CamShake_Intensity: 0
   CamShake_Time: 0
-  Treant_Possible_FormChange_HP: 0
   Reaper_SP_1_HP: 0
   Reaper_SP_2_HP: 0
   Reaper_SP_3_HP: 0
   isReaper_SP_ATK_1: 0
   isReaper_SP_ATK_2: 0
   isReaper_SP_ATK_3: 0
+  Treant_Possible_FormChange_HP: 0
+  isTriggerHandled: 0
+  isChange_Thunder: 0
+  isChange_Fire: 0
   playSceneManager: {fileID: 750823374}
 --- !u!95 &993512647
 Animator:
@@ -28426,7 +28445,7 @@ MonoBehaviour:
   IceDragonState: 0
   ThunderDragonState: 0
   FireDragonState: 0
-  boss_hp_ctrl: {fileID: 0}
+  boss_hp_ctrl: {fileID: 993512646}
   Dragon_ObjPoolRef: {fileID: 0}
   Target: {fileID: 0}
   TargetDistance: 0
@@ -28434,12 +28453,33 @@ MonoBehaviour:
   Slow_RotSpeed: 1
   MaxHP: 20000
   Boss_RotSpeed: 8
-  moveSpeed: 10
+  moveSpeed: 25
   ChaseDistance: 15
   Skill_Pos: {fileID: 0}
   Skill_Look: {fileID: 0}
   Dragon_animator: {fileID: 0}
   isMove: 0
+--- !u!65 &993512650
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 993512644}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.33, y: 1.61, z: 2.61}
+  m_Center: {x: 0, y: 1.03, z: 0.67}
 --- !u!114 &997806648
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28751,7 +28791,7 @@ CapsuleCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.14321524
   m_Height: 0.784981
@@ -29174,10 +29214,10 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 1.16, z: 0}
+  m_Center: {x: 0, y: 1.35, z: 0}
 --- !u!1001 &1046710780
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -30912,6 +30952,21 @@ MonoBehaviour:
   _surfaceSnapSession: {fileID: 1583309620}
   _mirrorGizmo: {fileID: 2144624695}
   _decorRuleIndex: 0
+--- !u!114 &1134915360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38a40404d9721ed4f984030fbce11d53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _snapMode: 0
+  _snapHalfSpace: 0
+  _projectionSettings: {fileID: 0}
 --- !u!1001 &1137541932
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -31434,7 +31489,7 @@ CapsuleCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.51
   m_Height: 1.89
@@ -31933,7 +31988,7 @@ CapsuleCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.3
   m_Height: 1.21
@@ -33845,26 +33900,6 @@ Transform:
   - {fileID: 748111169}
   m_Father: {fileID: 1758886489}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1238489862
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 49490255aaf1a2641a4c5771511bd253, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _halfSpace: 1
-  _alignAxis: 0
-  _alignmentAxis: 1
-  _invertAlignmentAxis: 0
-  _projectAsUnit: 0
-  _embedInSurface: 1
-  _inFrontOffset: 0
-  _behindOffset: 0
 --- !u!1 &1238689689
 GameObject:
   m_ObjectHideFlags: 0
@@ -33955,7 +33990,7 @@ CapsuleCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.19
   m_Height: 0.97
@@ -34179,7 +34214,7 @@ CapsuleCollider:
   m_Radius: 0.18
   m_Height: 3.54
   m_Direction: 0
-  m_Center: {x: 0, y: 0.09, z: 0}
+  m_Center: {x: -0.52, y: 0.09, z: 0}
 --- !u!1001 &1260292372
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -35885,7 +35920,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1332285658}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.14651865, y: -0.81796837, z: 0.5025903, w: 0.2384599}
+  m_LocalRotation: {x: 0.14651868, y: -0.81796837, z: 0.5025903, w: 0.23845989}
   m_LocalPosition: {x: 1.1424346, y: 4.197, z: 1.7928718}
   m_LocalScale: {x: 0.16666667, y: 0.16666667, z: 0.16666667}
   m_ConstrainProportionsScale: 0
@@ -36922,7 +36957,7 @@ CapsuleCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.11047424
   m_Height: 0.71036494
@@ -43282,7 +43317,7 @@ CapsuleCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.14321138
   m_Height: 0.95308316
@@ -47410,21 +47445,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 266df0a446fb18247bf276688cba3743, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1825289109
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38a40404d9721ed4f984030fbce11d53, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _snapMode: 0
-  _snapHalfSpace: 0
-  _projectionSettings: {fileID: 0}
 --- !u!1001 &1825303151
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -47602,7 +47622,7 @@ CapsuleCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.35
   m_Height: 0.9448736
@@ -47886,6 +47906,26 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1854437898
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49490255aaf1a2641a4c5771511bd253, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _halfSpace: 1
+  _alignAxis: 0
+  _alignmentAxis: 1
+  _invertAlignmentAxis: 0
+  _projectAsUnit: 0
+  _embedInSurface: 1
+  _inFrontOffset: 0
+  _behindOffset: 0
 --- !u!1 &1857291356
 GameObject:
   m_ObjectHideFlags: 0
@@ -48141,7 +48181,7 @@ CapsuleCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.11047424
   m_Height: 0.71036494
@@ -52228,21 +52268,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _isContentVisible: 1
---- !u!114 &2012022402
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38a40404d9721ed4f984030fbce11d53, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _snapMode: 0
-  _snapHalfSpace: 0
-  _projectionSettings: {fileID: 0}
 --- !u!1 &2013468939
 GameObject:
   m_ObjectHideFlags: 0
@@ -53310,7 +53335,7 @@ MonoBehaviour:
   _extensionPlane:
     _refOBBFace: 4
   _heightPatternDirection: 0
-  _modularSnapSession: {fileID: 1825289109}
+  _modularSnapSession: {fileID: 1134915360}
   _mirrorGizmo: {fileID: 642458978}
 --- !u!1 &2051460312
 GameObject:
@@ -54588,7 +54613,7 @@ CapsuleCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.51
   m_Height: 1.53

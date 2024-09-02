@@ -14,7 +14,9 @@ public enum IceDragon_State
 {
     NONE,
     ICE_IDLE,
+    CHANGE_FORM,
     ICE_MOVE,
+
     END
 }
 
@@ -22,6 +24,7 @@ public enum ThunderDragon_State
 {
     NONE,
     THUNDER_IDLE,
+    CHANGE_FORM,
     THUNDER_MOVE,
     END
 }
@@ -109,7 +112,7 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
     }
     #endregion
 
-    #region Reaper_Move
+    #region Dragon_Move
     public override void Move()
     {
         // 플레이어를 찾을 수 없다면 실행 안함
@@ -153,10 +156,10 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
         Dragon_ObjPoolRef = GetComponent<Dragon_ObjPool>();
         Dragon_animator = GetComponent<Animator>();
 
-        CurrentElement = CurentElement_State.THUNDER_DRAGON;
+        CurrentElement = CurentElement_State.ICE_DRAGON;
 
-        ThunderDragonState = ThunderDragon_State.THUNDER_IDLE;
-        IceDragonState = IceDragon_State.NONE;
+        IceDragonState = IceDragon_State.ICE_IDLE;
+        ThunderDragonState = ThunderDragon_State.NONE;
         FireDragonState = FireDragon_State.NONE;
 
         isMove = false;
@@ -212,7 +215,7 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
         if (CurrentElement == CurentElement_State.THUNDER_DRAGON)
         {
             // 랜덤으로 다음 상태 변경
-            ThunderDragon_State randomThunderState = (ThunderDragon_State)Random.Range(2, (int)ThunderDragon_State.END - 1);
+            ThunderDragon_State randomThunderState = (ThunderDragon_State)Random.Range(3, (int)ThunderDragon_State.END - 1);
             // Treant_Normal_State randomNormalState = (Treant_Normal_State)6;
             ThunderDragonState = randomThunderState;
 
@@ -221,7 +224,7 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
         else if (CurrentElement == CurentElement_State.ICE_DRAGON)
         {
             // 랜덤으로 다음 상태 변경
-            IceDragon_State randomIceState = (IceDragon_State)Random.Range(2, (int)IceDragon_State.END - 1);
+            IceDragon_State randomIceState = (IceDragon_State)Random.Range(3, (int)IceDragon_State.END - 1);
             // Treant_Power_State randomPowerState = (Treant_Power_State)5;
             IceDragonState = randomIceState;
 
@@ -258,27 +261,27 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
             }
         }
 
-        // 폼 체인지 가능할때
-        //if (isStartFormChange && FormChange_Count == ChangeForm_Skill_Max_Count)
-        //{
-        //    if (Treant_Type == TreantType.NORMAL)
-        //    {
-        //        TreantNormalState = Treant_Normal_State.FORMCHANGE;
-        //    }
-        //    else if (Treant_Type == TreantType.POWER)
-        //    {
-        //        TreantPowerState = Treant_Power_State.FORMCHANGE;
-        //    }
-        //    else
-        //    {
-        //        TreantSpeedState = Treant_Speed_State.FORMCHANGE;
-        //    }
-
-        //    // 변신 했으니 0으로 초기화
-        //    FormChange_Count = 0;
+        #region Dragon_FormChange_Function
+        Change_Thuunder();
+        Change_Fire();
+        #endregion
 
         switch (CurrentElement)
         {
+            // 얼음 폼일때
+            case CurentElement_State.ICE_DRAGON:
+                switch (IceDragonState)
+                {
+                    case IceDragon_State.ICE_MOVE:
+                        Dragon_Move();
+                        break;
+                    case IceDragon_State.CHANGE_FORM:
+                        Change_Thunder_Element();
+                        break;
+                    default:
+                        break;
+                }
+                break;
             // 번개 폼일 때 스킬
             case CurentElement_State.THUNDER_DRAGON:
                 switch (ThunderDragonState)
@@ -286,16 +289,8 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
                     case ThunderDragon_State.THUNDER_MOVE:
                         Dragon_Move();
                         break;
-                    default:
-                        break;
-                }
-                break;
-            // 얼음 폼일때
-            case CurentElement_State.ICE_DRAGON:
-                switch (IceDragonState)
-                {
-                    case IceDragon_State.ICE_MOVE:
-                        Dragon_Move();
+                    case ThunderDragon_State.CHANGE_FORM:
+                        Change_Fire_Element();
                         break;
                     default:
                         break;
@@ -342,6 +337,53 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
         isMove = true;
         isThink = false;
     }
+    #endregion
+
+    #region Dragon_Change
+    public void Change_Thunder_Element()
+    {
+        Debug.Log(1);
+
+        // 번개드래곤 변신
+        Dragon_animator.SetTrigger("ChangeThunderForm");
+
+        // 상태값 초기화
+        CurrentElement = CurentElement_State.THUNDER_DRAGON;
+        IceDragonState = IceDragon_State.NONE;
+        ThunderDragonState = ThunderDragon_State.THUNDER_IDLE;
+        FireDragonState = FireDragon_State.NONE;
+    }
+
+    public void Change_Fire_Element()
+    {
+        // 불 드래곤 변신
+        Dragon_animator.SetTrigger("ChangeFireForm");
+
+        // 상태값 초기화
+        CurrentElement = CurentElement_State.FIRE_DRAGON;
+        IceDragonState = IceDragon_State.NONE;
+        ThunderDragonState = ThunderDragon_State.NONE;
+        FireDragonState = FireDragon_State.FIRE_IDLE;
+    }
+
+    public void Change_Thuunder()
+    {
+        // 번개 변신이 가능할때
+        if (boss_hp_ctrl.isChange_Thunder == true && CurrentElement == CurentElement_State.ICE_DRAGON)
+        {
+            IceDragonState = IceDragon_State.CHANGE_FORM;
+        }
+    }
+
+    public void Change_Fire()
+    {
+        // 불 변신이 가능할때
+        if (boss_hp_ctrl.isChange_Fire == true && CurrentElement == CurentElement_State.THUNDER_DRAGON)
+        {
+            ThunderDragonState = ThunderDragon_State.CHANGE_FORM;
+        }
+    }
+
     #endregion
 
     #region Dragon_FindTarget
