@@ -2,11 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum CurentElement_State
+{
+    THUNDER_DRAGON,
+    ICE_DRAGON,
+    FIRE_DRAGON,
+}
+
+
 public enum IceDragon_State
 {
     NONE,
     ICE_IDLE,
     ICE_MOVE,
+    END
 }
 
 public enum ThunderDragon_State
@@ -14,6 +23,7 @@ public enum ThunderDragon_State
     NONE,
     THUNDER_IDLE,
     THUNDER_MOVE,
+    END
 }
 
 public enum FireDragon_State
@@ -21,6 +31,7 @@ public enum FireDragon_State
     NONE,
     FIRE_IDLE,
     FIRE_MOVE,
+    END
 }
 
 public class Dragon_Controller : Boss_BehaviorCtrl_Base
@@ -32,6 +43,7 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
     [SerializeField]
     bool isThink;
 
+    public CurentElement_State CurrentElement;
     public IceDragon_State IceDragonState;
     public ThunderDragon_State ThunderDragonState;
     public FireDragon_State FireDragonState;
@@ -56,7 +68,7 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
     float Boss_RotSpeed;    //  회전 속도
     [SerializeField]
     float moveSpeed;        // 움직임 속도
-    public float Skill_Think_Range; // 스킬 시전 가능 범위
+    public float ChaseDistance; // 스킬 시전 가능 범위
     [SerializeField]
     GameObject Skill_Pos; // 스킬 생성 위치
     [SerializeField]
@@ -141,6 +153,14 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
         Dragon_ObjPoolRef = GetComponent<Dragon_ObjPool>();
         Dragon_animator = GetComponent<Animator>();
 
+        CurrentElement = CurentElement_State.THUNDER_DRAGON;
+
+        ThunderDragonState = ThunderDragon_State.THUNDER_IDLE;
+        IceDragonState = IceDragon_State.NONE;
+        FireDragonState = FireDragon_State.NONE;
+
+        isMove = false;
+
         // 최대 체력 전달 현재 체력 
         boss_hp_ctrl.BossMaxHP = MaxHP;
     }
@@ -148,11 +168,11 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
     private void FixedUpdate()
     {
         // 현재 상태가 움직이는 Move고 대상이 멀면
-        if (TargetDistance >= Skill_Think_Range)
+        if (TargetDistance >= ChaseDistance)
         {
             Move();
         }
-        else if (TargetDistance < Skill_Think_Range + 1.0f && !isAttacking) // 공격중이 아니고 사정거리안에 들어 왔을 시
+        else if (TargetDistance < ChaseDistance + 1.0f && !isAttacking) // 공격중이 아니고 사정거리안에 들어 왔을 시
         {
             NotMove();
         }
@@ -168,6 +188,159 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
         }
 
         LookAtPlayer();
+    }
+    #endregion
+
+    #region Dragon_NextAct
+
+    public void Dragon_NextAct()
+    {
+        // 타깃이 없거나 공격중이면 return;
+        if (Target == null || isAttacking || isThink)
+            return;
+
+        //StartCoroutine(Next_Act());
+        Next_Act();
+    }
+
+    // IEnumerator Next_Act()
+    public void Next_Act()
+    {
+        isThink = true;
+
+        // 다음 행동 변경
+        if (CurrentElement == CurentElement_State.THUNDER_DRAGON)
+        {
+            // 랜덤으로 다음 상태 변경
+            ThunderDragon_State randomThunderState = (ThunderDragon_State)Random.Range(2, (int)ThunderDragon_State.END - 1);
+            // Treant_Normal_State randomNormalState = (Treant_Normal_State)6;
+            ThunderDragonState = randomThunderState;
+
+            //Debug.Log(randomNormalState);
+        }
+        else if (CurrentElement == CurentElement_State.ICE_DRAGON)
+        {
+            // 랜덤으로 다음 상태 변경
+            IceDragon_State randomIceState = (IceDragon_State)Random.Range(2, (int)IceDragon_State.END - 1);
+            // Treant_Power_State randomPowerState = (Treant_Power_State)5;
+            IceDragonState = randomIceState;
+
+            //Debug.Log(randomPowerState);
+
+        }
+        else if (CurrentElement == CurentElement_State.FIRE_DRAGON)
+        {
+            // 랜덤으로 다음 상태 변경
+            FireDragon_State randomFireState = (FireDragon_State)Random.Range(2, (int)FireDragon_State.END - 1);
+            // Treant_Speed_State randomSpeedState = (Treant_Speed_State)2;
+            FireDragonState = randomFireState;
+
+            //Debug.Log(randomSpeedState);
+        }
+
+        // 기본 상태가 아닐 시 2초간의 딜레이를 준다
+        //yield return new WaitForSeconds(0.0f);
+
+        // 대상이 사정 거리보다 멀면 이동 선택
+        if (TargetDistance >= ChaseDistance + 1.0f)
+        {
+            if (CurrentElement == CurentElement_State.THUNDER_DRAGON)
+            {
+                ThunderDragonState = ThunderDragon_State.THUNDER_MOVE;
+            }
+            else if (CurrentElement == CurentElement_State.ICE_DRAGON)
+            {
+                IceDragonState = IceDragon_State.ICE_MOVE;
+            }
+            else
+            {
+                FireDragonState = FireDragon_State.FIRE_MOVE;
+            }
+        }
+
+        // 폼 체인지 가능할때
+        //if (isStartFormChange && FormChange_Count == ChangeForm_Skill_Max_Count)
+        //{
+        //    if (Treant_Type == TreantType.NORMAL)
+        //    {
+        //        TreantNormalState = Treant_Normal_State.FORMCHANGE;
+        //    }
+        //    else if (Treant_Type == TreantType.POWER)
+        //    {
+        //        TreantPowerState = Treant_Power_State.FORMCHANGE;
+        //    }
+        //    else
+        //    {
+        //        TreantSpeedState = Treant_Speed_State.FORMCHANGE;
+        //    }
+
+        //    // 변신 했으니 0으로 초기화
+        //    FormChange_Count = 0;
+
+        switch (CurrentElement)
+        {
+            // 번개 폼일 때 스킬
+            case CurentElement_State.THUNDER_DRAGON:
+                switch (ThunderDragonState)
+                {
+                    case ThunderDragon_State.THUNDER_MOVE:
+                        Dragon_Move();
+                        break;
+                    default:
+                        break;
+                }
+                break;
+            // 얼음 폼일때
+            case CurentElement_State.ICE_DRAGON:
+                switch (IceDragonState)
+                {
+                    case IceDragon_State.ICE_MOVE:
+                        Dragon_Move();
+                        break;
+                    default:
+                        break;
+                }
+                break;
+            // 불 폼일때
+            case CurentElement_State.FIRE_DRAGON:
+                switch (FireDragonState)
+                {
+                    case FireDragon_State.FIRE_MOVE:
+                        Dragon_Move();
+                        break;
+                    default:
+                        break;
+                }
+                break;
+
+            default:
+                break;
+        }
+    }
+    #endregion
+
+    #region Dragon_Idle
+    public void Dragon_Idle()
+    {
+        // 생각중이면
+        if (isThink)
+        {
+            isThink = false;
+            // return;
+        }
+
+        if (!isThink && GameManager.GMInstance.Get_PlaySceneManager().isRaidStart == true)
+        {
+            Dragon_NextAct();
+        }
+    }
+    #endregion
+
+    #region Dragon_Move
+    public void Dragon_Move()
+    {
+        isMove = true;
+        isThink = false;
     }
     #endregion
 

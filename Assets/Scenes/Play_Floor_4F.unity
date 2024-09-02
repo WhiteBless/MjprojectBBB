@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.73082966, g: 0.7985114, b: 0.8355451, a: 1}
+  m_IndirectSpecularColor: {r: 0.73045343, g: 0.79851073, b: 0.8354537, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -812,7 +812,7 @@ Transform:
   m_GameObject: {fileID: 26531032}
   serializedVersion: 2
   m_LocalRotation: {x: 0.17585409, y: 0.5109645, z: -0.09459786, w: 0.8360872}
-  m_LocalPosition: {x: -738.33, y: 120.54, z: 467.39}
+  m_LocalPosition: {x: -738.33, y: 115.6, z: 467.39}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -28422,6 +28422,7 @@ MonoBehaviour:
   isLock: 0
   isAttacking: 0
   isThink: 0
+  CurrentElement: 0
   IceDragonState: 0
   ThunderDragonState: 0
   FireDragonState: 0
@@ -28434,7 +28435,7 @@ MonoBehaviour:
   MaxHP: 20000
   Boss_RotSpeed: 8
   moveSpeed: 10
-  Skill_Think_Range: 10
+  ChaseDistance: 15
   Skill_Pos: {fileID: 0}
   Skill_Look: {fileID: 0}
   Dragon_animator: {fileID: 0}
