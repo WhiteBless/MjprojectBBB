@@ -17,6 +17,9 @@ public class Samurai_Controller : Character_BehaviorCtrl_Base
     public float moveSpeed_Discount;
     public float DodgeDistance;
     public float EskillDistance;
+    public float rSkillDistance;
+    public float attackMoveDistance;
+    public float attackDuration = 0.5f;  // 이동할 시간
 
     private bool isMove;
     public bool isDodge;
@@ -261,6 +264,27 @@ public class Samurai_Controller : Character_BehaviorCtrl_Base
             Invoke("AttackOut", 0.8f);
         }
     }
+
+    public void AttackEvent()
+    {
+        StartCoroutine(PerformAttackMove());
+    }
+
+    private IEnumerator PerformAttackMove()
+    {
+        float elapsedTime = 0f;
+        float attackSpeed = attackMoveDistance / attackDuration;
+
+        while (elapsedTime < attackDuration)
+        {
+            float moveDistance = attackSpeed * Time.deltaTime;
+            transform.Translate(transform.forward * moveDistance, Space.World);
+
+            elapsedTime += Time.deltaTime;
+            yield return null;  // 다음 프레임까지 대기
+        }
+    }
+
     public void AttackOut()
     {
         isAttack = false;
@@ -731,21 +755,38 @@ public class Samurai_Controller : Character_BehaviorCtrl_Base
                 transform.LookAt(transform.position + dodgeDirection);
 
                 Vector3 dodgeStartPosition = transform.position;
-                //Vector3 dodgeEndPosition = transform.position + dodgeDirection * 25f;
-                Vector3 dodgeEndPosition;
-                if (Vector3.Distance(transform.position, rayHit.point) < 25f)
-                {
-                    dodgeEndPosition = rayHit.point;
-                }
-                else
-                {
-                    dodgeEndPosition = transform.position + dodgeDirection * 25f;
-                }
 
-                StartCoroutine(MoveDuring(dodgeStartPosition, dodgeEndPosition, 0.1f));
+                StartCoroutine(DodgeAndHover(dodgeStartPosition, dodgeStartPosition));
                 animator.SetTrigger("doSkill4");
             }
         }
+    }
+
+    private IEnumerator DodgeAndHover(Vector3 start, Vector3 end)
+    {
+        // 0.1초 동안 상승
+        Vector3 upPosition = start + Vector3.up * rSkillDistance;
+        float elapsedTime = 0f;
+        while (elapsedTime < 0.2f)
+        {
+            transform.position = Vector3.Lerp(start, upPosition, elapsedTime / 0.1f);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        transform.position = upPosition; // 정확한 위치 설정
+
+        // 0.2초 동안 체공
+        yield return new WaitForSeconds(0.3f);
+
+        // 0.2초 동안 내려가면서 이동
+        elapsedTime = 0f;
+        while (elapsedTime < 0.2f)
+        {
+            transform.position = Vector3.Lerp(upPosition, end, elapsedTime / 0.2f);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        transform.position = end; // 정확한 위치 설정
     }
 
     public void Skill4Atk1_Eff()
