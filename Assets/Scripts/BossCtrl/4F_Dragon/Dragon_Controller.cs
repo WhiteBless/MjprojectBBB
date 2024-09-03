@@ -12,11 +12,13 @@ public enum CurentElement_State
 
 public enum IceDragon_State
 {
-    NONE,
-    ICE_IDLE,
-    CHANGE_FORM,
-    ICE_MOVE,
-
+    NONE,                       // 0
+    ICE_IDLE,                   // 1
+    CHANGE_FORM,                // 2
+    ICE_MOVE,                   // 3
+    ICE_FLY_NORMAL_ATK,         // 4
+        
+    ICE_CLOSE_NORMAL_ATK,
     END
 }
 
@@ -26,6 +28,9 @@ public enum ThunderDragon_State
     THUNDER_IDLE,
     CHANGE_FORM,
     THUNDER_MOVE,
+    THUNDER_FLY_NORMAL_ATK,
+
+    THUNDER_CLOSE_NORMAL_ATK,
     END
 }
 
@@ -34,6 +39,9 @@ public enum FireDragon_State
     NONE,
     FIRE_IDLE,
     FIRE_MOVE,
+    FIRE_FLY_NORMAL_ATK,
+
+    FIRE_CLOSE_NORMAL_ATK,
     END
 }
 
@@ -57,6 +65,7 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
     Dragon_ObjPool Dragon_ObjPoolRef;
 
     [Header("-----Dragon Variable-----")]
+    bool isEnterCoroutine;
     public GameObject Target;       // 플레이어
     public float TargetDistance;    // 플레이어와의 거리
     [SerializeField]
@@ -82,6 +91,11 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
     public Animator Dragon_animator;   // 애니메이터
     public bool isMove;         // 이동 여부
     #endregion
+
+    [Header("-----Dragon_Normal_ATK-----")]
+    [SerializeField]
+    float NormalAtk_Fly_Speed;
+
 
     #region Dragon_Rotate
     public override void LookAtPlayer()
@@ -211,26 +225,27 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
     {
         isThink = true;
 
-        // 다음 행동 변경
-        if (CurrentElement == CurentElement_State.THUNDER_DRAGON)
+        if (CurrentElement == CurentElement_State.ICE_DRAGON)
         {
             // 랜덤으로 다음 상태 변경
-            ThunderDragon_State randomThunderState = (ThunderDragon_State)Random.Range(3, (int)ThunderDragon_State.END - 1);
-            // Treant_Normal_State randomNormalState = (Treant_Normal_State)6;
-            ThunderDragonState = randomThunderState;
-
-            //Debug.Log(randomNormalState);
-        }
-        else if (CurrentElement == CurentElement_State.ICE_DRAGON)
-        {
-            // 랜덤으로 다음 상태 변경
-            IceDragon_State randomIceState = (IceDragon_State)Random.Range(3, (int)IceDragon_State.END - 1);
-            // Treant_Power_State randomPowerState = (Treant_Power_State)5;
+            IceDragon_State randomIceState = (IceDragon_State)Random.Range(5, (int)IceDragon_State.END - 1);
+            // IceDragon_State randomIceState = (IceDragon_State)4;
             IceDragonState = randomIceState;
 
             //Debug.Log(randomPowerState);
 
         }
+        // 다음 행동 변경
+        else if (CurrentElement == CurentElement_State.THUNDER_DRAGON)
+        {
+            // 랜덤으로 다음 상태 변경
+            ThunderDragon_State randomThunderState = (ThunderDragon_State)Random.Range(3, (int)ThunderDragon_State.END - 1);
+            //ThunderDragon_State randomThunderState = (ThunderDragon_State)4;
+            ThunderDragonState = randomThunderState;
+
+            //Debug.Log(randomNormalState);
+        }
+
         else if (CurrentElement == CurentElement_State.FIRE_DRAGON)
         {
             // 랜덤으로 다음 상태 변경
@@ -247,14 +262,17 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
         // 대상이 사정 거리보다 멀면 이동 선택
         if (TargetDistance >= ChaseDistance + 1.0f)
         {
-            if (CurrentElement == CurentElement_State.THUNDER_DRAGON)
+            if (CurrentElement == CurentElement_State.ICE_DRAGON)
             {
-                ThunderDragonState = ThunderDragon_State.THUNDER_MOVE;
+                IceDragon_State randomIceState = (IceDragon_State)Random.Range(3, 5);
+                // IceDragon_State randomIceState = (IceDragon_State)4;
+                IceDragonState = randomIceState;
             }
-            else if (CurrentElement == CurentElement_State.ICE_DRAGON)
+            else if(CurrentElement == CurentElement_State.THUNDER_DRAGON)
             {
-                IceDragonState = IceDragon_State.ICE_MOVE;
+                
             }
+           
             else
             {
                 FireDragonState = FireDragon_State.FIRE_MOVE;
@@ -278,6 +296,13 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
                     case IceDragon_State.CHANGE_FORM:
                         Change_Thunder_Element();
                         break;
+                    case IceDragon_State.ICE_FLY_NORMAL_ATK:
+                        Debug.Log(1);
+                        Fly_NormalAtk();
+                        break;
+                    case IceDragon_State.ICE_CLOSE_NORMAL_ATK:
+                        Close_NormalAtk();
+                        break;
                     default:
                         break;
                 }
@@ -292,6 +317,12 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
                     case ThunderDragon_State.CHANGE_FORM:
                         Change_Fire_Element();
                         break;
+                    case ThunderDragon_State.THUNDER_FLY_NORMAL_ATK:
+                        Fly_NormalAtk();
+                        break;
+                    case ThunderDragon_State.THUNDER_CLOSE_NORMAL_ATK:
+                        Close_NormalAtk();
+                        break;
                     default:
                         break;
                 }
@@ -303,6 +334,12 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
                     case FireDragon_State.FIRE_MOVE:
                         Dragon_Move();
                         break;
+                    case FireDragon_State.FIRE_FLY_NORMAL_ATK:
+                        Fly_NormalAtk();
+                        break;
+                    case FireDragon_State.FIRE_CLOSE_NORMAL_ATK:
+                        Close_NormalAtk();
+                        break;
                     default:
                         break;
                 }
@@ -311,6 +348,20 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
             default:
                 break;
         }
+    }
+    #endregion
+
+    #region Dragon_Atk_Finish
+    public void Atk_Finish()
+    {
+        isAttacking = false;
+        isLock = false;
+    }
+
+    public void Atk_Start()
+    {
+        isAttacking = true;
+        isLock = true;
     }
     #endregion
 
@@ -382,6 +433,48 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
         {
             ThunderDragonState = ThunderDragon_State.CHANGE_FORM;
         }
+    }
+
+    #endregion
+
+
+
+    #region Dragon_NormalAtk
+    public void Fly_NormalAtk()
+    {
+        Dragon_animator.SetTrigger("Fly_NormalAtk_1");
+    }
+
+    public void Fly_Forward()
+    {
+        StartCoroutine(Dragon_Fly_Forward_Start_Event());
+        // 중복 방지
+        isEnterCoroutine = true;
+    }
+
+    IEnumerator Dragon_Fly_Forward_Start_Event()
+    {
+        if (isEnterCoroutine == true)
+            yield break;
+
+        isAttacking = true;
+        // isLock = true;
+
+        while (TargetDistance >= ChaseDistance + 1.0f)
+        {
+            transform.Translate(Vector3.forward * NormalAtk_Fly_Speed * Time.deltaTime);
+            yield return null;
+        }
+
+        Dragon_animator.SetTrigger("Fly_NormalAtk_2");
+
+        isEnterCoroutine = false;
+    }
+
+
+    public void Close_NormalAtk()
+    {
+        Dragon_animator.SetTrigger("Close_NormalAtk");
     }
 
     #endregion
