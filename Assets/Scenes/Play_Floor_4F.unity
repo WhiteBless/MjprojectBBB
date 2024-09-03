@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.73082966, g: 0.7985114, b: 0.8355451, a: 1}
+  m_IndirectSpecularColor: {r: 0.73045343, g: 0.79851073, b: 0.8354537, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -26968,7 +26968,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 119
+    m_Bits: 127
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -28286,7 +28286,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: a46359feabc94ae44a95f71cea8cd9eb, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_WarningMessage: 
@@ -28354,6 +28354,7 @@ MonoBehaviour:
   Skill_Look: {fileID: 0}
   Dragon_animator: {fileID: 0}
   isMove: 0
+  NormalAtk_Fly_Speed: 30
 --- !u!65 &993512650
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -35814,7 +35815,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1332285658}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.14651866, y: -0.81796825, z: 0.50259036, w: 0.23845991}
+  m_LocalRotation: {x: 0.14651868, y: -0.81796837, z: 0.5025903, w: 0.23845989}
   m_LocalPosition: {x: 1.1424346, y: 4.197, z: 1.7928718}
   m_LocalScale: {x: 0.16666667, y: 0.16666667, z: 0.16666667}
   m_ConstrainProportionsScale: 0

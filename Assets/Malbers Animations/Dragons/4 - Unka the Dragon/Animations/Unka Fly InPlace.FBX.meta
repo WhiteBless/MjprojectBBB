@@ -1,7 +1,7 @@
 fileFormatVersion: 2
 guid: 47c70e2dd99a9f14f90c8e037c1c792b
 ModelImporter:
-  serializedVersion: 20200
+  serializedVersion: 22200
   internalIDToNameTable:
   - first:
       1: 100000
@@ -1346,6 +1346,7 @@ ModelImporter:
     bakeSimulation: 0
     resampleCurves: 1
     optimizeGameObjects: 0
+    removeConstantScaleCurves: 0
     motionNodeName: 
     rigImportErrors: 
     rigImportWarnings: 
@@ -3018,7 +3019,7 @@ ModelImporter:
       lastFrame: 298
       wrapMode: 0
       orientationOffsetY: 0
-      level: -1
+      level: -8
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
@@ -3035,9 +3036,9 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.18241447
-        functionName: PlaySound
-        data: Wing Flap
+      - time: 0.24761905
+        functionName: Atk_Start
+        data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
@@ -5235,7 +5236,7 @@ ModelImporter:
       lastFrame: 643
       wrapMode: 0
       orientationOffsetY: 0
-      level: -2.18
+      level: -5
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
@@ -9884,10 +9885,12 @@ ModelImporter:
     addColliders: 0
     useSRGBMaterialColor: 1
     sortHierarchyByName: 1
+    importPhysicalCameras: 1
     importVisibility: 0
     importBlendShapes: 1
     importCameras: 0
     importLights: 0
+    nodeNameCollisionStrategy: 0
     fileIdsGeneration: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
@@ -9899,6 +9902,7 @@ ModelImporter:
     skinWeightsMode: 0
     maxBonesPerVertex: 4
     minBoneWeight: 0.001
+    optimizeBones: 1
     meshOptimizationFlags: -1
     indexFormat: 1
     secondaryUVAngleDistortion: 8
@@ -9909,6 +9913,7 @@ ModelImporter:
     secondaryUVMinObjectScale: 1
     secondaryUVPackMargin: 4
     useFileScale: 1
+    strictVertexDataChecks: 0
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
@@ -9935,13 +9940,14 @@ ModelImporter:
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1
-  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: e127a9a1479186149aa6f16e8745b8de,
-    type: 3}
+  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: e127a9a1479186149aa6f16e8745b8de, type: 3}
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1
   avatarSetup: 2
   addHumanoidExtraRootOnlyWhenUsingAvatar: 0
+  importBlendShapeDeformPercent: 0
+  remapMaterialsIfMaterialImportModeIsNone: 1
   additionalBone: 0
   userData: 
   assetBundleName: 
