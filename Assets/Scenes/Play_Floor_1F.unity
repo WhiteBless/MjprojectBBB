@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.73045343, g: 0.79851073, b: 0.8354537, a: 1}
+  m_IndirectSpecularColor: {r: 0.73082966, g: 0.7985114, b: 0.8355451, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2970,6 +2970,7 @@ MonoBehaviour:
   isDodgeCT: 0
   inGameSetting: {fileID: 750823378}
   assassin_Controller: {fileID: 0}
+  samurai_Controller: {fileID: 0}
 --- !u!1001 &96535021
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15142,6 +15143,7 @@ MonoBehaviour:
   isDodgeCT: 0
   inGameSetting: {fileID: 750823378}
   assassin_Controller: {fileID: 0}
+  samurai_Controller: {fileID: 0}
 --- !u!4 &503169529 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 873880662458531553, guid: 323f66117a9b44b44821122ef174d7fc, type: 3}
@@ -17309,6 +17311,7 @@ MonoBehaviour:
   isDodgeCT: 0
   inGameSetting: {fileID: 750823378}
   assassin_Controller: {fileID: 0}
+  samurai_Controller: {fileID: 0}
 --- !u!1001 &586154281
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18505,7 +18508,7 @@ MonoBehaviour:
   m_OverrideTileSize: 0
   m_TileSize: 256
   m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.16666667
+  m_VoxelSize: 0.016666668
   m_MinRegionArea: 20
   m_NavMeshData: {fileID: 23800000, guid: ee83fe3942e76c94d9d6f810103d9cc7, type: 2}
   m_BuildHeightMesh: 0
@@ -24204,6 +24207,7 @@ MonoBehaviour:
   isDodgeCT: 0
   inGameSetting: {fileID: 750823378}
   assassin_Controller: {fileID: 0}
+  samurai_Controller: {fileID: 0}
 --- !u!1001 &809156340
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -27746,13 +27750,16 @@ MonoBehaviour:
   - {fileID: 492563315}
   CamShake_Intensity: 1
   CamShake_Time: 0.2
-  Treant_Possible_FormChange_HP: 0
   Reaper_SP_1_HP: 0
   Reaper_SP_2_HP: 0
   Reaper_SP_3_HP: 0
   isReaper_SP_ATK_1: 0
   isReaper_SP_ATK_2: 0
   isReaper_SP_ATK_3: 0
+  Treant_Possible_FormChange_HP: 0
+  isTriggerHandled: 0
+  isChange_Thunder: 0
+  isChange_Fire: 0
   playSceneManager: {fileID: 750823374}
 --- !u!65 &948126483
 BoxCollider:
@@ -48726,6 +48733,7 @@ MonoBehaviour:
   isDodgeCT: 0
   inGameSetting: {fileID: 750823378}
   assassin_Controller: {fileID: 0}
+  samurai_Controller: {fileID: 0}
 --- !u!1 &1655733032
 GameObject:
   m_ObjectHideFlags: 0
@@ -53898,7 +53906,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1916441238}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.26589838, y: 0.13974291, z: -0.03898906, w: 0.9530214}
+  m_LocalRotation: {x: 0.2658984, y: 0.13974288, z: -0.03898906, w: 0.95302147}
   m_LocalPosition: {x: -3.3210678, y: 10, z: -11.081055}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
