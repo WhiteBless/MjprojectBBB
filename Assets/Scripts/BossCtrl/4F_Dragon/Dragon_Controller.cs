@@ -65,6 +65,7 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
     Dragon_ObjPool Dragon_ObjPoolRef;
 
     [Header("-----Dragon Variable-----")]
+    [SerializeField]
     bool isEnterCoroutine;
     public GameObject Target;       // 플레이어
     public float TargetDistance;    // 플레이어와의 거리
@@ -351,11 +352,12 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
     }
     #endregion
 
-    #region Dragon_Atk_Finish
+    #region Dragon_Atk
     public void Atk_Finish()
     {
         isAttacking = false;
         isLock = false;
+        isThink = false;
     }
 
     public void Atk_Start()
@@ -437,8 +439,6 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
 
     #endregion
 
-
-
     #region Dragon_NormalAtk
     public void Fly_NormalAtk()
     {
@@ -466,15 +466,21 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
             yield return null;
         }
 
-        Dragon_animator.SetTrigger("Fly_NormalAtk_2");
-
-        isEnterCoroutine = false;
+        Dragon_animator.SetTrigger("Fly_NormalAtk_2");       
     }
 
 
     public void Close_NormalAtk()
     {
         Dragon_animator.SetTrigger("Close_NormalAtk");
+    }
+
+    public void Fly_Atk_Finish()
+    {
+        isEnterCoroutine = false;
+        isAttacking = false;
+        isLock = false;
+        isThink = false;
     }
 
     #endregion
