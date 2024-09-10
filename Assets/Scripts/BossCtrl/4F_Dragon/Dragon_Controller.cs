@@ -17,8 +17,8 @@ public enum IceDragon_State
     CHANGE_FORM,                // 2
     ICE_MOVE,                   // 3
     ICE_FLY_NORMAL_ATK,         // 4
-    ICE_WIND_ATK,
-    ICE_CLOSE_NORMAL_ATK,
+    ICE_WIND_ATK,               // 5
+    ICE_CLOSE_NORMAL_ATK,       // 6
     END
 }
 
@@ -107,7 +107,19 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
 
     [Header("-----Dragon_Wind_ATK-----")]
     [SerializeField]
-    bool isAtk;
+    bool isEnterWindAtk;
+    [SerializeField]
+    bool isEnterLeftMove;
+    [SerializeField]
+    float Left_MaxTime;
+    [SerializeField]
+    float Left_Time;
+    [SerializeField]
+    float LeftSpeed;
+    [SerializeField]
+    float WindAtk_MaxTime;
+    [SerializeField]
+    float WindAtk_Time;
     #endregion
 
 
@@ -280,8 +292,8 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
         {
             if (CurrentElement == CurentElement_State.ICE_DRAGON)
             {
-                // IceDragon_State randomIceState = (IceDragon_State)Random.Range(3, 5);
-                IceDragon_State randomIceState = (IceDragon_State)4;
+                // IceDragon_State randomIceState = (IceDragon_State)Random.Range(3, 6);
+                IceDragon_State randomIceState = (IceDragon_State)5;
                 IceDragonState = randomIceState;
             }
             else if(CurrentElement == CurentElement_State.THUNDER_DRAGON)
@@ -313,11 +325,13 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
                         Change_Thunder_Element();
                         break;
                     case IceDragon_State.ICE_FLY_NORMAL_ATK:
-                        Debug.Log(1);
                         Fly_NormalAtk();
                         break;
                     case IceDragon_State.ICE_CLOSE_NORMAL_ATK:
                         Close_NormalAtk();
+                        break;
+                    case IceDragon_State.ICE_WIND_ATK:
+                        Wind_Atk();
                         break;
                     default:
                         break;
@@ -339,6 +353,9 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
                     case ThunderDragon_State.THUNDER_CLOSE_NORMAL_ATK:
                         Close_NormalAtk();
                         break;
+                    case ThunderDragon_State.THUNDER_WIND_ATK:
+                        Wind_Atk();
+                        break;
                     default:
                         break;
                 }
@@ -355,6 +372,9 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
                         break;
                     case FireDragon_State.FIRE_CLOSE_NORMAL_ATK:
                         Close_NormalAtk();
+                        break;
+                    case FireDragon_State.FIRE_WIND_ATK:
+                        Wind_Atk();
                         break;
                     default:
                         break;
@@ -533,6 +553,72 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
         isThink = false;
     }
 
+    #endregion
+
+    #region Dragon_WindAtk
+    public void Wind_Atk()
+    {
+        Dragon_animator.SetTrigger("WindAtk");
+    }
+
+    // 바람 공격 실행
+    public void Wind_SideMove()
+    {
+        StartCoroutine(Wind_LeftMove());
+        isEnterLeftMove = true;
+    }
+
+    // 바람 공격 로직
+    IEnumerator Wind_LeftMove()
+    {
+        if (isEnterLeftMove == true)
+            yield break;
+
+        while (Left_Time <= Left_MaxTime)
+        {
+            Left_Time += Time.deltaTime;
+            transform.Translate(Vector3.left * LeftSpeed * Time.deltaTime);
+            yield return null;
+        }
+    }
+
+    // 바람 공격 실행
+    public void Wind_Attaking()
+    {
+        StartCoroutine(WindAttack());
+        isEnterWindAtk = true;
+    }
+
+    // 바람 공격 로직
+    IEnumerator WindAttack()
+    {
+        if (isEnterWindAtk == true)
+            yield break;
+
+        while (WindAtk_Time <= WindAtk_MaxTime)
+        {
+            WindAtk_Time += Time.deltaTime;
+            yield return null;
+        }
+
+        Wind_Atk_Finish_Anim();
+
+    }
+
+    // 공격 끝 애님
+    public void Wind_Atk_Finish_Anim()
+    {
+        Dragon_animator.SetTrigger("WindAtk_End"); 
+    }
+
+    // 공격 끝 로직
+    public void WindAtk_Finish()
+    {
+        isEnterLeftMove = false;
+        isEnterWindAtk = false;
+        WindAtk_Time = 0.0f;
+        Left_Time = 0.0f;
+    }
     #endregion
 
     #region Dragon_FindTarget

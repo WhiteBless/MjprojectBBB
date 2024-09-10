@@ -6224,7 +6224,7 @@ MonoBehaviour:
   _spawnGuide: {fileID: 2117108722}
   _extensionPlane:
     _refOBBFace: 4
-  _modularSnapSession: {fileID: 500396092}
+  _modularSnapSession: {fileID: 2043512454}
   _mirrorGizmo: {fileID: 1863135110}
 --- !u!1001 &269645020
 PrefabInstance:
@@ -13747,21 +13747,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &500396092
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38a40404d9721ed4f984030fbce11d53, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _snapMode: 0
-  _snapHalfSpace: 0
-  _projectionSettings: {fileID: 0}
 --- !u!1 &500736874
 GameObject:
   m_ObjectHideFlags: 0
@@ -18502,7 +18487,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8725edae6a1fd4408036dedaf0199f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _projectionSettings: {fileID: 1451450306}
+  _projectionSettings: {fileID: 1604883664}
   _dragAndDropGuide: {fileID: 0}
 --- !u!1 &660539577
 GameObject:
@@ -26988,8 +26973,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.16309533, y: 0.6880407, z: -0.16309533, w: 0.6880407}
-  m_LocalPosition: {x: 404.4, y: 117.049, z: 478.47}
+  m_LocalRotation: {x: 0.371748, y: 0.6015009, z: -0.371748, w: 0.601501}
+  m_LocalPosition: {x: 252.8, y: 140.8, z: 482}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -28359,6 +28344,13 @@ MonoBehaviour:
   DownValue_Min: 15
   NormalAtk_Fly_Speed: 30
   NormalAtk_Down_Speed: 23
+  isEnterWindAtk: 0
+  isEnterLeftMove: 0
+  Left_MaxTime: 2
+  Left_Time: 0
+  LeftSpeed: 5
+  WindAtk_MaxTime: 6
+  WindAtk_Time: 0
 --- !u!114 &997806648
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33517,6 +33509,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1224606291}
   m_CullTransparentMesh: 1
+--- !u!114 &1226260191
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38a40404d9721ed4f984030fbce11d53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _snapMode: 0
+  _snapHalfSpace: 0
+  _projectionSettings: {fileID: 0}
 --- !u!1 &1226720973
 GameObject:
   m_ObjectHideFlags: 0
@@ -35783,7 +35790,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1332285658}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.14651869, y: -0.81796825, z: 0.5025904, w: 0.23845991}
+  m_LocalRotation: {x: 0.14651866, y: -0.81796825, z: 0.50259036, w: 0.23845991}
   m_LocalPosition: {x: 1.1424346, y: 4.197, z: 1.7928718}
   m_LocalScale: {x: 0.16666667, y: 0.16666667, z: 0.16666667}
   m_ConstrainProportionsScale: 0
@@ -38093,26 +38100,6 @@ MonoBehaviour:
   _propsSpawnMirrorGizmoSettingsSection: {fileID: 244163659}
   _scatterBrushSpawnSettingsSection: {fileID: 1647235565}
   _physicsSimulationSettingsSection: {fileID: 322418977}
---- !u!114 &1451450306
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 49490255aaf1a2641a4c5771511bd253, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _halfSpace: 1
-  _alignAxis: 0
-  _alignmentAxis: 1
-  _invertAlignmentAxis: 0
-  _projectAsUnit: 0
-  _embedInSurface: 1
-  _inFrontOffset: 0
-  _behindOffset: 0
 --- !u!1001 &1452050199
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -42502,6 +42489,26 @@ Transform:
   - {fileID: 839924634}
   m_Father: {fileID: 795601602}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1604883664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49490255aaf1a2641a4c5771511bd253, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _halfSpace: 1
+  _alignAxis: 0
+  _alignmentAxis: 1
+  _invertAlignmentAxis: 0
+  _projectAsUnit: 0
+  _embedInSurface: 1
+  _inFrontOffset: 0
+  _behindOffset: 0
 --- !u!1 &1611832605
 GameObject:
   m_ObjectHideFlags: 0
@@ -44468,21 +44475,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2.9999998, y: 6.147875, z: 1.3160193}
   m_Center: {x: 0, y: 2.9260626, z: -0.32714453}
---- !u!114 &1675808809
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38a40404d9721ed4f984030fbce11d53, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _snapMode: 0
-  _snapHalfSpace: 0
-  _projectionSettings: {fileID: 0}
 --- !u!1001 &1682873785
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -53108,6 +53100,21 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2.9999998, y: 6.147875, z: 1.3160193}
   m_Center: {x: 0, y: 2.9260626, z: -0.32714453}
+--- !u!114 &2043512454
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38a40404d9721ed4f984030fbce11d53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _snapMode: 0
+  _snapHalfSpace: 0
+  _projectionSettings: {fileID: 0}
 --- !u!1 &2043821343
 GameObject:
   m_ObjectHideFlags: 0
@@ -53213,7 +53220,7 @@ MonoBehaviour:
   _extensionPlane:
     _refOBBFace: 4
   _heightPatternDirection: 0
-  _modularSnapSession: {fileID: 1675808809}
+  _modularSnapSession: {fileID: 1226260191}
   _mirrorGizmo: {fileID: 642458978}
 --- !u!1 &2051460312
 GameObject:
