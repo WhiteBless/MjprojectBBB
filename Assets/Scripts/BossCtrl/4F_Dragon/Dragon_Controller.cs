@@ -18,7 +18,8 @@ public enum IceDragon_State
     ICE_MOVE,                   // 3
     ICE_FLY_NORMAL_ATK,         // 4
     ICE_WIND_ATK,               // 5
-    ICE_CLOSE_NORMAL_ATK,       // 6
+    ICE_DASH_ATK,               // 6
+    ICE_CLOSE_NORMAL_ATK,       // 7
     END
 }
 
@@ -30,6 +31,7 @@ public enum ThunderDragon_State
     THUNDER_MOVE,
     THUNDER_FLY_NORMAL_ATK,
     THUNDER_WIND_ATK,
+    THUNDER_DASH_ATK,
     THUNDER_CLOSE_NORMAL_ATK,
     END
 }
@@ -41,6 +43,7 @@ public enum FireDragon_State
     FIRE_MOVE,
     FIRE_FLY_NORMAL_ATK,
     FIRE_WIND_ATK,
+    FIRE_DASH_ATK,
     FIRE_CLOSE_NORMAL_ATK,
     END
 }
@@ -120,9 +123,19 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
     float WindAtk_MaxTime;
     [SerializeField]
     float WindAtk_Time;
+
+    [Header("-----Dragon_Dash_ATK-----")]
+    [SerializeField]
+    Transform[] Dash_StartPos;
+    [SerializeField]
+    bool isEnterDashAtk;
+    [SerializeField]
+    float Dash_MaxTime;
+    [SerializeField]
+    float Dash_Time;
+    [SerializeField]
+    float DashSpeed;
     #endregion
-
-
 
     #region Dragon_Rotate
     public override void LookAtPlayer()
@@ -293,7 +306,7 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
             if (CurrentElement == CurentElement_State.ICE_DRAGON)
             {
                 // IceDragon_State randomIceState = (IceDragon_State)Random.Range(3, 6);
-                IceDragon_State randomIceState = (IceDragon_State)5;
+                IceDragon_State randomIceState = (IceDragon_State)6;
                 IceDragonState = randomIceState;
             }
             else if(CurrentElement == CurentElement_State.THUNDER_DRAGON)
@@ -333,6 +346,9 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
                     case IceDragon_State.ICE_WIND_ATK:
                         Wind_Atk();
                         break;
+                    case IceDragon_State.ICE_DASH_ATK:
+                        Dash_Atk();
+                        break;
                     default:
                         break;
                 }
@@ -356,6 +372,9 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
                     case ThunderDragon_State.THUNDER_WIND_ATK:
                         Wind_Atk();
                         break;
+                    case ThunderDragon_State.THUNDER_DASH_ATK:
+                        Dash_Atk();
+                        break;
                     default:
                         break;
                 }
@@ -375,6 +394,9 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
                         break;
                     case FireDragon_State.FIRE_WIND_ATK:
                         Wind_Atk();
+                        break;
+                    case FireDragon_State.FIRE_DASH_ATK:
+                        Dash_Atk();
                         break;
                     default:
                         break;
@@ -618,6 +640,49 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
         isEnterWindAtk = false;
         WindAtk_Time = 0.0f;
         Left_Time = 0.0f;
+    }
+    #endregion
+
+    #region Dragon_Dash
+    public void Dash_Atk()
+    {
+        Dragon_animator.SetTrigger("DashAtk");
+    }
+
+    public void Dash_Atk_MoveStart()
+    {
+        StartCoroutine(Dash_Atk_Move());
+        isEnterDashAtk = true;
+    }
+
+    IEnumerator Dash_Atk_Move()
+    {
+        if (isEnterDashAtk == true)
+            yield break;
+
+        while (Dash_Time <= Dash_MaxTime)
+        {
+            Dash_Time += Time.deltaTime;
+            transform.Translate(Vector3.forward * DashSpeed * Time.deltaTime);
+            yield return null;
+        }
+
+        Dash_Atk_End();
+    }
+
+    public void Dash_Atk_End()
+    {
+        Dragon_animator.SetTrigger("DashAtk_End");
+    }
+
+    public void Dash_Atk_End_Pos()
+    {
+        DragonPos.localPosition = new Vector3(Target.transform.position.x, Target.transform.position.y, 0.0f);
+    }
+
+    public void Dash_Atk_Pos()
+    {
+        DragonPos.localPosition = Dash_StartPos[Random.Range(0, Dash_StartPos.Length)].transform.localPosition;
     }
     #endregion
 
