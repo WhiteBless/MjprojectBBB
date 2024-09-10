@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using System.Threading;
 using TMPro;
 using UnityEngine;
@@ -116,18 +117,18 @@ public class Skill_Test : MonoBehaviour
                     }
                     if (GameManager.GMInstance.cur_Char == Define.Cur_Character.SAMURAI)
                     {
-                        //if (!isSkill2CT && !samurai_Controller.isSkill1 && !samurai_Controller.isSkill3 && !samurai_Controller.isSkill4 && !samurai_Controller.isDodge && !samurai_Controller.isAttack)
-                        //{
-                        //    if (skillTimes > 0f && samurai_Controller.skill2)
-                        //    {
-                        //        hideSkillButtons.SetActive(true);
-                        //        getSkillTimes = skillTimes;
-                        //        isHideSkills = true;
-                        //        isSkill2CT = true;
-                        //    }
-                        //}
+                        if (!isSkill2CT && !samurai_Controller.isSkill1 && !samurai_Controller.isSkill3 && !samurai_Controller.isSkill4 && !samurai_Controller.isDodge && !samurai_Controller.isAttack)
+                        {
+                            if (samurai_Controller.isComboTimeout)
+                            {
+                                hideSkillButtons.SetActive(true);
+                                getSkillTimes = skillTimes;
+                                isHideSkills = true;
+                                isSkill2CT = true;
+                            }
+                        }
                     }
-                        break;
+                    break;
 
                 case SkillType.E:
                     if (GameManager.GMInstance.cur_Char == Define.Cur_Character.ASSASIN)
@@ -254,5 +255,6 @@ public class Skill_Test : MonoBehaviour
         isSkill2CT = false;
         isSkill3CT = false;
         isSkill4CT = false;
+        samurai_Controller.isComboTimeout = false;
     }
 }

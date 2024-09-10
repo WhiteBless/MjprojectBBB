@@ -21,6 +21,13 @@ public class Samurai_Controller : Character_BehaviorCtrl_Base
     public float attackMoveDistance;
     public float attackDuration = 0.5f;  // 이동할 시간
 
+    public int comboStep = 0; // 현재 콤보의 단계
+    public float comboTimeLimit = 1f; // 콤보 타이머 제한 시간
+    public float comboTimer = 0f; // 콤보 타이머
+    public bool isComboInProgress = false; // 콤보 진행 중 여부
+    public bool isComboTimeout = false; // 콤보가 끝났는지의 여부
+
+
     private bool isMove;
     public bool isDodge;
     public bool isAttack;
@@ -61,6 +68,9 @@ public class Samurai_Controller : Character_BehaviorCtrl_Base
     public GameObject BaseAtk_5_Eff;
     public Transform BaseAtk_5_Point;
 
+    public GameObject Skill1Atk_1_Eff;
+    public Transform Skill1Atk_1_Point;
+
     public GameObject Skill2Atk_1_Eff;
     public Transform Skill2Atk_1_Point;
     public GameObject Skill2Atk_2_Eff;
@@ -69,9 +79,7 @@ public class Samurai_Controller : Character_BehaviorCtrl_Base
     public Transform Skill2Atk_3_Point;
 
     public GameObject Skill3Atk_1_Eff;
-    public GameObject Skill3Atk_2_Eff;
-    public Transform Skill3Atk_3_Point;
-    public GameObject Skill3Atk_3_Eff;
+    public Transform Skill3Atk_1_Point;
 
     public GameObject Skill4Atk_1_Eff;
     public Transform Skill4Atk_1_Point;
@@ -182,6 +190,8 @@ public class Samurai_Controller : Character_BehaviorCtrl_Base
         {
             Dodge();
         }
+
+        UpdateComboStep();
     }
     private IEnumerator MouseEffectFalse(GameObject obj, float delay)
     {
@@ -333,7 +343,7 @@ public class Samurai_Controller : Character_BehaviorCtrl_Base
         d2.y = 0.0f;
         Quaternion q2 = Quaternion.LookRotation(d2);
         //BaseAtk_2_Eff.transform.rotation = q2 * Quaternion.Euler(75f, 0f, 90f);
-        BaseAtk_2_Eff.transform.rotation = q2 * Quaternion.Euler(0f, 180f, 270f);
+        BaseAtk_2_Eff.transform.rotation = q2 * Quaternion.Euler(0f, 90f, 0f);
 
         BaseAtk_2_Eff.SetActive(true);
 
@@ -500,34 +510,68 @@ public class Samurai_Controller : Character_BehaviorCtrl_Base
         }
     }
 
-    //public void Skill01_Event01()
-    //{
-    //    // 사운드
-    //    GameManager.GMInstance.SoundManagerRef.Play_Assasin_SFX(SoundManager.Assasin_SFX.SWING_1);
-    //    StartCoroutine("ShurikenShot");
-    //}
+    public void Skill1Atk_Eff()
+    {
+        // 보이스 랜덤 재생
+        GameManager.GMInstance.SoundManagerRef.Play_Assasin_SFX(SoundManager.Assasin_SFX.ASSASIN_VOICE_2);
+        // 슬래시 효과음 재생
+        GameManager.GMInstance.SoundManagerRef.Play_Assasin_SFX((SoundManager.Assasin_SFX)Random.Range(0, 3));
+        StartCoroutine(Play_Skill1Atk_Eff());
+    }
 
+    IEnumerator Play_Skill1Atk_Eff()
+    {
+        Skill1Atk_1_Eff.transform.position = Skill1Atk_1_Point.transform.position;
 
-    //IEnumerator ShurikenShot()
-    //{
-    //    GameObject shuriken = samurai_ObjPoolRef.ShurikenFromPool_Q();
-    //    shuriken.transform.position = firePoint.transform.position; // 발사 위치 설정
-    //    shuriken.transform.Rotate(0, 0, 90);
-    //    shuriken.SetActive(true); // 발사체 활성화
+        Vector3 d2 = Skill1Atk_1_Eff.transform.position - skill_Look.transform.position;
+        d2.y = 0.0f;
+        Quaternion q2 = Quaternion.LookRotation(d2);
+        Skill1Atk_1_Eff.transform.rotation = q2 * Quaternion.Euler(0f, 180f, 90f);
 
+        Skill1Atk_1_Eff.SetActive(true);
 
-    //    Vector3 d2 = shuriken.transform.position - skill_Look.transform.position;
-    //    d2.y = 0.0f;
-    //    Quaternion q2 = Quaternion.LookRotation(d2);
-    //    shuriken.transform.rotation = q2 * Quaternion.Euler(90f, 180f, 0f);
+        yield return new WaitForSeconds(0.5f);
 
-    //    yield return null;
-    //}
+        Skill1Atk_1_Eff.SetActive(false);
+    }
 
     public override void Skill_2()
     {
-        if (!isSkill1 && !isSkill2 && !isSkill3 && !isSkill4 && !isAttack && !isDodge && !skillManager2.isSkill2CT && !isDie && !inGameSetting.isPaused)
+        if (!isComboTimeout && !isSkill1 && !isSkill2 && !isSkill3 && !isSkill4 && !isAttack && !isDodge && !skillManager2.isSkill2CT && !isDie && !inGameSetting.isPaused)
         {
+            if (comboStep == 0)
+            {
+                // 첫 번째 콤보 단계 시작
+                StartComboStep();
+                animator.SetTrigger("doSkill2");
+            }
+            else if (comboStep == 1)
+            {
+                // 두 번째 콤보 단계
+                comboStep = 2;
+                comboTimer = comboTimeLimit;
+                animator.SetTrigger("doSkill2");
+            }
+            else if (comboStep == 2)
+            {
+                // 세 번째 콤보 단계
+                comboStep = 3;
+                comboTimer = comboTimeLimit;
+                animator.SetTrigger("doSkill2");
+            }
+            else if (comboStep == 3)
+            {
+                // 네 번째 콤보 단계
+                comboStep = 4;
+                comboTimer = comboTimeLimit;
+                animator.SetTrigger("doSkill2");
+            }
+            else if (comboStep == 4)
+            {
+                animator.SetTrigger("doSkill2");
+                // 마지막 콤보 단계
+                ResetCombo(); // 콤보 초기화
+            }
             animator.SetBool("isMove", false);
 
             isMove = false;
@@ -537,7 +581,7 @@ public class Samurai_Controller : Character_BehaviorCtrl_Base
             // 보이스 랜덤 재생
             GameManager.GMInstance.SoundManagerRef.Play_Assasin_SFX((SoundManager.Assasin_SFX)Random.Range(5, 8));
 
-            animator.SetTrigger("doSkill2");
+           
 
             Ray ray = mainCam.ScreenPointToRay(Input.mousePosition);
             RaycastHit rayHit;
@@ -550,6 +594,45 @@ public class Samurai_Controller : Character_BehaviorCtrl_Base
                 transform.LookAt(transform.position + dodgeDirection);
             }
         }
+    }
+
+    public void StartComboStep()
+    {
+        if (!isComboInProgress)
+        {
+            comboStep = 1;
+            comboTimer = comboTimeLimit;
+            isComboInProgress = true; // 콤보 진행 중으로 설정
+        }
+    }
+
+    public void UpdateComboStep()
+    {
+        if (isComboInProgress)
+        {
+            comboTimer -= Time.deltaTime;
+
+            if (comboTimer <= 0f)
+            {
+                // 콤보 타이머 종료
+                comboStep = 0;
+                isComboInProgress = false; // 콤보 진행 중이 아님
+                isComboTimeout = true;
+            }
+        }
+    }
+
+    public void ResetCombo()
+    {
+        isComboTimeout = true;
+        isComboInProgress = false;
+        comboStep = 0;
+        comboTimer = 0f;
+    }
+
+    public void Skill2_Envet()
+    {
+        comboStep++;
     }
 
     public void Skill2Atk1_Eff()
@@ -713,24 +796,16 @@ public class Samurai_Controller : Character_BehaviorCtrl_Base
 
     IEnumerator Play_Skill3Atk_1_Eff()
     {
+        Skill3Atk_1_Eff.transform.position = Skill3Atk_1_Point.transform.position;
+
+        Vector3 d2 = Skill3Atk_1_Eff.transform.position - skill_Look.transform.position;
+        d2.y = 0.0f;
+        Quaternion q2 = Quaternion.LookRotation(d2);
+        Skill3Atk_1_Eff.transform.rotation = q2 * Quaternion.Euler(0f, 180f, 0f);
+
         Skill3Atk_1_Eff.SetActive(true);
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1.3f);
         Skill3Atk_1_Eff.SetActive(false);
-    }
-
-    public void Skill3Atk2_Eff()
-    {
-        StartCoroutine(Play_Skill3Atk_2_Eff());
-    }
-
-
-    IEnumerator Play_Skill3Atk_2_Eff()
-    {
-        //Vector3 skillEff_Position = transform.position;
-        Skill3Atk_3_Point.transform.position = transform.position;
-        Skill3Atk_3_Eff.SetActive(true);
-        yield return new WaitForSeconds(2f);
-        Skill3Atk_3_Eff.SetActive(false);
     }
 
     public override void Skill_4()
