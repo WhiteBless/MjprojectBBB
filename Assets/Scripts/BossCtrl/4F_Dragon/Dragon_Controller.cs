@@ -17,7 +17,7 @@ public enum IceDragon_State
     CHANGE_FORM,                // 2
     ICE_MOVE,                   // 3
     ICE_FLY_NORMAL_ATK,         // 4
-        
+    ICE_WIND_ATK,
     ICE_CLOSE_NORMAL_ATK,
     END
 }
@@ -29,7 +29,7 @@ public enum ThunderDragon_State
     CHANGE_FORM,
     THUNDER_MOVE,
     THUNDER_FLY_NORMAL_ATK,
-
+    THUNDER_WIND_ATK,
     THUNDER_CLOSE_NORMAL_ATK,
     END
 }
@@ -40,7 +40,7 @@ public enum FireDragon_State
     FIRE_IDLE,
     FIRE_MOVE,
     FIRE_FLY_NORMAL_ATK,
-
+    FIRE_WIND_ATK,
     FIRE_CLOSE_NORMAL_ATK,
     END
 }
@@ -73,6 +73,8 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
     int NextSkillNum;
     [SerializeField]
     float Slow_RotSpeed;
+    [SerializeField]
+    Transform DragonPos;
 
     [Header("-----Dragon State Variable-----")]
     public int MaxHP;   // 드래곤 체력
@@ -91,11 +93,23 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
     [Header("-----Animation Var-----")]
     public Animator Dragon_animator;   // 애니메이터
     public bool isMove;         // 이동 여부
-    #endregion
+
 
     [Header("-----Dragon_Normal_ATK-----")]
     [SerializeField]
+    bool isEnterDown;
+    [SerializeField]
+    float DownValue_Min;
+    [SerializeField]
     float NormalAtk_Fly_Speed;
+    [SerializeField]
+    float NormalAtk_Down_Speed;
+
+    [Header("-----Dragon_Wind_ATK-----")]
+    [SerializeField]
+    bool isAtk;
+    #endregion
+
 
 
     #region Dragon_Rotate
@@ -198,7 +212,8 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
 
     // Update is called once per frame
     void Update()
-    {
+    { 
+
         // 플레이어가 null이 아니라면
         if (Target != null)
         {
@@ -265,8 +280,8 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
         {
             if (CurrentElement == CurentElement_State.ICE_DRAGON)
             {
-                IceDragon_State randomIceState = (IceDragon_State)Random.Range(3, 5);
-                // IceDragon_State randomIceState = (IceDragon_State)4;
+                // IceDragon_State randomIceState = (IceDragon_State)Random.Range(3, 5);
+                IceDragon_State randomIceState = (IceDragon_State)4;
                 IceDragonState = randomIceState;
             }
             else if(CurrentElement == CurentElement_State.THUNDER_DRAGON)
@@ -445,6 +460,7 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
         Dragon_animator.SetTrigger("Fly_NormalAtk_1");
     }
 
+    // 캐릭터를 향해 다가가도록 호출
     public void Fly_Forward()
     {
         StartCoroutine(Dragon_Fly_Forward_Start_Event());
@@ -452,6 +468,7 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
         isEnterCoroutine = true;
     }
 
+    // 캐릭터를 향해 다가감
     IEnumerator Dragon_Fly_Forward_Start_Event()
     {
         if (isEnterCoroutine == true)
@@ -469,6 +486,39 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
         Dragon_animator.SetTrigger("Fly_NormalAtk_2");       
     }
 
+    public void Fly_Down()
+    {
+        StartCoroutine(Dragon_Fly_Down_Event());
+        // 중복 방지
+        isEnterDown = true;
+    }
+
+    // 땅으로 내려찍음
+    IEnumerator Dragon_Fly_Down_Event()
+    {
+        if (isEnterDown == true)
+            yield break;
+
+
+        // 드래곤이 하강함
+        while (this.DragonPos.localPosition.z < DownValue_Min)
+        {
+            transform.Translate(Vector3.down * NormalAtk_Down_Speed * Time.deltaTime);
+            yield return null;
+        }
+    }
+
+    // 하강 모션을 끝냈으니 위치 다시 조정
+    public void Down_Finish()
+    {
+        isEnterDown = false;
+
+        // 오브젝트의 현재 위치를 가져옴
+        Vector3 currentPosition = DragonPos.localPosition;
+        currentPosition.z = 0.0f;
+        // 변경된 위치를 다시 할당
+        DragonPos.localPosition = currentPosition;
+    }
 
     public void Close_NormalAtk()
     {
