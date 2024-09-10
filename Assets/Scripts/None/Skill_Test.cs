@@ -255,6 +255,9 @@ public class Skill_Test : MonoBehaviour
         isSkill2CT = false;
         isSkill3CT = false;
         isSkill4CT = false;
-        samurai_Controller.isComboTimeout = false;
+        if (GameManager.GMInstance.cur_Char == Define.Cur_Character.SAMURAI)
+        {
+            samurai_Controller.isComboTimeout = false;
+        }  
     }
 }
