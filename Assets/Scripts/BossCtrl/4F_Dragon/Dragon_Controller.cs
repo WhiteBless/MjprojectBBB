@@ -19,7 +19,8 @@ public enum IceDragon_State
     ICE_FLY_NORMAL_ATK,         // 4
     ICE_WIND_ATK,               // 5
     ICE_DASH_ATK,               // 6
-    ICE_CLOSE_NORMAL_ATK,       // 7
+    ICE_BREATH_ATK,             // 7
+    ICE_CLOSE_NORMAL_ATK,       // 8
     END
 }
 
@@ -32,6 +33,7 @@ public enum ThunderDragon_State
     THUNDER_FLY_NORMAL_ATK,
     THUNDER_WIND_ATK,
     THUNDER_DASH_ATK,
+    THUNDER_BREATH_ATK,
     THUNDER_CLOSE_NORMAL_ATK,
     END
 }
@@ -44,6 +46,7 @@ public enum FireDragon_State
     FIRE_FLY_NORMAL_ATK,
     FIRE_WIND_ATK,
     FIRE_DASH_ATK,
+    FIRE_BREATH_ATK,
     FIRE_CLOSE_NORMAL_ATK,
     END
 }
@@ -78,6 +81,8 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
     float Slow_RotSpeed;
     [SerializeField]
     Transform DragonPos;
+    [SerializeField]
+    Transform DragonStartPos;
 
     [Header("-----Dragon State Variable-----")]
     public int MaxHP;   // µå·¡°ï Ã¼·Â
@@ -135,6 +140,10 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
     float Dash_Time;
     [SerializeField]
     float DashSpeed;
+
+    [Header("-----Dragon_Breath-----")]
+    [SerializeField]
+    float BreathTime;
     #endregion
 
     #region Dragon_Rotate
@@ -306,7 +315,7 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
             if (CurrentElement == CurentElement_State.ICE_DRAGON)
             {
                 // IceDragon_State randomIceState = (IceDragon_State)Random.Range(3, 6);
-                IceDragon_State randomIceState = (IceDragon_State)6;
+                IceDragon_State randomIceState = (IceDragon_State)7;
                 IceDragonState = randomIceState;
             }
             else if(CurrentElement == CurentElement_State.THUNDER_DRAGON)
@@ -349,6 +358,9 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
                     case IceDragon_State.ICE_DASH_ATK:
                         Dash_Atk();
                         break;
+                    case IceDragon_State.ICE_BREATH_ATK:
+                        Breath_Atk();
+                        break;
                     default:
                         break;
                 }
@@ -375,6 +387,9 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
                     case ThunderDragon_State.THUNDER_DASH_ATK:
                         Dash_Atk();
                         break;
+                    case ThunderDragon_State.THUNDER_BREATH_ATK:
+                        Breath_Atk();
+                        break;
                     default:
                         break;
                 }
@@ -397,6 +412,9 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
                         break;
                     case FireDragon_State.FIRE_DASH_ATK:
                         Dash_Atk();
+                        break;
+                    case FireDragon_State.FIRE_BREATH_ATK:
+                        Breath_Atk();
                         break;
                     default:
                         break;
@@ -677,12 +695,39 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
 
     public void Dash_Atk_End_Pos()
     {
-        DragonPos.localPosition = new Vector3(Target.transform.position.x, Target.transform.position.y, 0.0f);
+        DragonPos.localPosition = Vector3.zero;
+
+        Dash_Time = 0.0f;
+        isAttacking = false;
+        isThink = false;
+        isLock = false;
+        isEnterDashAtk = false;
     }
 
     public void Dash_Atk_Pos()
     {
         DragonPos.localPosition = Dash_StartPos[Random.Range(0, Dash_StartPos.Length)].transform.localPosition;
+    }
+    #endregion
+
+    #region Dragon_Breath
+    public void Breath_Atk()
+    {
+        Dragon_animator.SetTrigger("BreathAtk");
+    }
+
+    public void Breath_AnimTime()
+    {
+        Dragon_animator.SetFloat("BreathAnimSpeed", BreathTime);
+    }
+
+    public void Breath_Atk_End()
+    {
+        Dragon_animator.SetFloat("BreathAnimSpeed", 1.0f);
+
+        isAttacking = false;
+        isLock = false;
+        isThink = false;
     }
     #endregion
 
