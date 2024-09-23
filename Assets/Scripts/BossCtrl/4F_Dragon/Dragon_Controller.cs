@@ -20,7 +20,9 @@ public enum IceDragon_State
     ICE_WIND_ATK,               // 5
     ICE_DASH_ATK,               // 6
     ICE_BREATH_ATK,             // 7
-    ICE_CLOSE_NORMAL_ATK,       // 8
+    ICE_TSUNAMI_ATK,            // 8
+    ICE_DROPDOWN_ATK,           // 9
+    ICE_CLOSE_NORMAL_ATK,       // 10
     END
 }
 
@@ -144,6 +146,14 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
     [Header("-----Dragon_Breath-----")]
     [SerializeField]
     float BreathTime;
+
+    [Header("-----Dragon_ICE_DropDown-----")]
+    [SerializeField]
+    bool isEnterDropDown;
+    [SerializeField]
+    float Drop_Time;
+    [SerializeField]
+    float Drop_MaxTime;
     #endregion
 
     #region Dragon_Rotate
@@ -278,8 +288,8 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
         if (CurrentElement == CurentElement_State.ICE_DRAGON)
         {
             // 랜덤으로 다음 상태 변경
-            IceDragon_State randomIceState = (IceDragon_State)Random.Range(5, (int)IceDragon_State.END - 1);
-            // IceDragon_State randomIceState = (IceDragon_State)4;
+            //IceDragon_State randomIceState = (IceDragon_State)Random.Range(8, (int)IceDragon_State.END - 1);
+            IceDragon_State randomIceState = (IceDragon_State)8;
             IceDragonState = randomIceState;
 
             //Debug.Log(randomPowerState);
@@ -314,8 +324,8 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
         {
             if (CurrentElement == CurentElement_State.ICE_DRAGON)
             {
-                // IceDragon_State randomIceState = (IceDragon_State)Random.Range(3, 6);
-                IceDragon_State randomIceState = (IceDragon_State)7;
+                // IceDragon_State randomIceState = (IceDragon_State)Random.Range(3, 8);
+                IceDragon_State randomIceState = (IceDragon_State)9;
                 IceDragonState = randomIceState;
             }
             else if(CurrentElement == CurentElement_State.THUNDER_DRAGON)
@@ -360,6 +370,12 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
                         break;
                     case IceDragon_State.ICE_BREATH_ATK:
                         Breath_Atk();
+                        break;
+                    case IceDragon_State.ICE_TSUNAMI_ATK:
+                        Tsunami_Atk();
+                        break;
+                    case IceDragon_State.ICE_DROPDOWN_ATK:
+                        DropDown_Atk();
                         break;
                     default:
                         break;
@@ -731,6 +747,75 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
     }
     #endregion
 
+    #region Ice_Dragon_Tsunami
+    public void Tsunami_Atk()
+    {
+        Dragon_animator.SetTrigger("Tsunami_Atk");
+    }
+
+    public void Set_Tsunmai_Pos()
+    {
+        DragonPos.localPosition = Vector3.zero;
+        isAttacking = true; 
+    }
+
+    public void Tsunami_Start()
+    {
+        isLock = true;
+    }
+
+    public void Tsunami_End()
+    {
+        isThink = false;
+        isAttacking = false;
+        isLock = false;
+    }
+    #endregion
+
+    #region Ice_Dragon_DropDown
+    public void DropDown_Atk()
+    {
+        Dragon_animator.SetTrigger("DropDownStart");
+        isAttacking = true;
+    }
+
+    public void DropDown_Start()
+    {
+        StartCoroutine(DropDown_Time());
+        DragonPos.position = Vector3.zero;
+        isEnterDropDown = true;
+    }
+
+    IEnumerator DropDown_Time()
+    {
+        if (isEnterDropDown == true)
+            yield break;
+
+        while (Drop_Time <= Drop_MaxTime)
+        {
+            Drop_Time += Time.deltaTime;
+            yield return null;
+        }
+
+        DropDown_Atk_Anim();
+    }
+
+    public void DropDown_Atk_Anim()
+    {
+        DragonPos.localPosition = Vector3.zero;
+        Dragon_animator.SetTrigger("DropDownAtk");
+    }
+
+    public void DropDown_End()
+    {
+        isEnterDropDown = false;
+        Drop_Time = 0.0f;
+        isThink = false;
+        isAttacking = false;
+    }
+
+    #endregion
+
     #region Dragon_FindTarget
     public void FindTarget()
     {
@@ -739,3 +824,4 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
 
     #endregion
 }
+    
