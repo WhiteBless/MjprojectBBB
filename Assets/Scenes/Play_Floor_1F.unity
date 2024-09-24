@@ -1072,21 +1072,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4390602184462994, guid: aed84c40eacf3df438b76fd7b9208a38, type: 3}
   m_PrefabInstance: {fileID: 853803791}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &43566439
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38a40404d9721ed4f984030fbce11d53, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _snapMode: 0
-  _snapHalfSpace: 0
-  _projectionSettings: {fileID: 0}
 --- !u!1 &44705043
 GameObject:
   m_ObjectHideFlags: 0
@@ -2970,6 +2955,7 @@ MonoBehaviour:
   isDodgeCT: 0
   inGameSetting: {fileID: 750823378}
   assassin_Controller: {fileID: 0}
+  samurai_Controller: {fileID: 0}
 --- !u!1001 &96535021
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7839,7 +7825,7 @@ MonoBehaviour:
   _spawnGuide: {fileID: 2117108722}
   _extensionPlane:
     _refOBBFace: 4
-  _modularSnapSession: {fileID: 632008349}
+  _modularSnapSession: {fileID: 1070274154}
   _mirrorGizmo: {fileID: 1863135110}
 --- !u!1001 &270299756
 PrefabInstance:
@@ -15142,6 +15128,7 @@ MonoBehaviour:
   isDodgeCT: 0
   inGameSetting: {fileID: 750823378}
   assassin_Controller: {fileID: 0}
+  samurai_Controller: {fileID: 0}
 --- !u!4 &503169529 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 873880662458531553, guid: 323f66117a9b44b44821122ef174d7fc, type: 3}
@@ -17309,6 +17296,7 @@ MonoBehaviour:
   isDodgeCT: 0
   inGameSetting: {fileID: 750823378}
   assassin_Controller: {fileID: 0}
+  samurai_Controller: {fileID: 0}
 --- !u!1001 &586154281
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18063,21 +18051,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1657101680, guid: fb06b1a40434f814891f0e320583a9d0, type: 3}
   m_PrefabInstance: {fileID: 1975931233}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &632008349
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38a40404d9721ed4f984030fbce11d53, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _snapMode: 0
-  _snapHalfSpace: 0
-  _projectionSettings: {fileID: 0}
 --- !u!1 &632166579
 GameObject:
   m_ObjectHideFlags: 0
@@ -18505,7 +18478,7 @@ MonoBehaviour:
   m_OverrideTileSize: 0
   m_TileSize: 256
   m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.16666667
+  m_VoxelSize: 0.016666668
   m_MinRegionArea: 20
   m_NavMeshData: {fileID: 23800000, guid: ee83fe3942e76c94d9d6f810103d9cc7, type: 2}
   m_BuildHeightMesh: 0
@@ -19207,7 +19180,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8725edae6a1fd4408036dedaf0199f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _projectionSettings: {fileID: 1697174509}
+  _projectionSettings: {fileID: 2115684880}
   _dragAndDropGuide: {fileID: 0}
 --- !u!1001 &655486229
 PrefabInstance:
@@ -24204,6 +24177,7 @@ MonoBehaviour:
   isDodgeCT: 0
   inGameSetting: {fileID: 750823378}
   assassin_Controller: {fileID: 0}
+  samurai_Controller: {fileID: 0}
 --- !u!1001 &809156340
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -27746,13 +27720,16 @@ MonoBehaviour:
   - {fileID: 492563315}
   CamShake_Intensity: 1
   CamShake_Time: 0.2
-  Treant_Possible_FormChange_HP: 0
   Reaper_SP_1_HP: 0
   Reaper_SP_2_HP: 0
   Reaper_SP_3_HP: 0
   isReaper_SP_ATK_1: 0
   isReaper_SP_ATK_2: 0
   isReaper_SP_ATK_3: 0
+  Treant_Possible_FormChange_HP: 0
+  isTriggerHandled: 0
+  isChange_Thunder: 0
+  isChange_Fire: 0
   playSceneManager: {fileID: 750823374}
 --- !u!65 &948126483
 BoxCollider:
@@ -28229,9 +28206,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _mode: 0
-  _delta: {x: -20, y: 35, z: 0}
+  _delta: {x: -20, y: 40, z: 0}
   _player: {fileID: 0}
   wallDistance: 10
+  lockYPosition: 0
+  fixedYPosition: 0
 --- !u!114 &963194231
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30641,6 +30620,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1068551119}
   m_CullTransparentMesh: 1
+--- !u!114 &1070274154
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38a40404d9721ed4f984030fbce11d53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _snapMode: 0
+  _snapHalfSpace: 0
+  _projectionSettings: {fileID: 0}
 --- !u!1001 &1070461566
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -36658,6 +36652,8 @@ MonoBehaviour:
   _delta: {x: -20, y: 35, z: 0}
   _player: {fileID: 0}
   wallDistance: 2
+  lockYPosition: 0
+  fixedYPosition: 0
 --- !u!114 &1260514097
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -48726,6 +48722,7 @@ MonoBehaviour:
   isDodgeCT: 0
   inGameSetting: {fileID: 750823378}
   assassin_Controller: {fileID: 0}
+  samurai_Controller: {fileID: 0}
 --- !u!1 &1655733032
 GameObject:
   m_ObjectHideFlags: 0
@@ -49076,6 +49073,21 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5862613817031353211, guid: 4d9a3b35b3bc07649b697df7fb497b6d, type: 3}
   m_PrefabInstance: {fileID: 1672113851}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1672248063
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38a40404d9721ed4f984030fbce11d53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _snapMode: 0
+  _snapHalfSpace: 0
+  _projectionSettings: {fileID: 0}
 --- !u!1 &1675042954
 GameObject:
   m_ObjectHideFlags: 0
@@ -49414,26 +49426,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 9191615819576399551, guid: a6d4b20a16fbafa4883caef120e1103a, type: 3}
   m_PrefabInstance: {fileID: 1689956011}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1697174509
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 49490255aaf1a2641a4c5771511bd253, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _halfSpace: 1
-  _alignAxis: 0
-  _alignmentAxis: 1
-  _invertAlignmentAxis: 0
-  _projectAsUnit: 0
-  _embedInSurface: 1
-  _inFrontOffset: 0
-  _behindOffset: 0
 --- !u!114 &1697955308
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -57572,7 +57564,7 @@ Transform:
   m_GameObject: {fileID: 2039778901}
   serializedVersion: 2
   m_LocalRotation: {x: 0.14552462, y: -0.8043468, z: 0.53246987, w: 0.21982887}
-  m_LocalPosition: {x: 1.1424346, y: 3.241, z: 1.7928743}
+  m_LocalPosition: {x: 1.1424346, y: 3.2410002, z: 1.7928745}
   m_LocalScale: {x: 0.16666667, y: 0.16666667, z: 0.16666667}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -57888,7 +57880,7 @@ Transform:
   m_GameObject: {fileID: 2050000431}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.8187069, z: -0, w: 0.57421154}
-  m_LocalPosition: {x: -0.42460582, y: 3.241, z: 1.2252705}
+  m_LocalPosition: {x: -0.42460585, y: 3.2410002, z: 1.2252706}
   m_LocalScale: {x: 0.16666667, y: 0.1666667, z: 0.1666667}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -57948,7 +57940,7 @@ MonoBehaviour:
   _extensionPlane:
     _refOBBFace: 4
   _heightPatternDirection: 0
-  _modularSnapSession: {fileID: 43566439}
+  _modularSnapSession: {fileID: 1672248063}
   _mirrorGizmo: {fileID: 642458978}
 --- !u!114 &2051596471
 MonoBehaviour:
@@ -60175,6 +60167,26 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 323f66117a9b44b44821122ef174d7fc, type: 3}
+--- !u!114 &2115684880
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49490255aaf1a2641a4c5771511bd253, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _halfSpace: 1
+  _alignAxis: 0
+  _alignmentAxis: 1
+  _invertAlignmentAxis: 0
+  _projectAsUnit: 0
+  _embedInSurface: 1
+  _inFrontOffset: 0
+  _behindOffset: 0
 --- !u!114 &2117108722
 MonoBehaviour:
   m_ObjectHideFlags: 0
