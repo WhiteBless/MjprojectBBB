@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -807,6 +808,9 @@ public class Samurai_Controller : Character_BehaviorCtrl_Base
             isMove = false;
             isSkill4 = true;
 
+            // 카메라 Y값 잠금
+            Camera.main.GetComponent<Follow>().LockCameraYPosition();
+
             Ray ray = mainCam.ScreenPointToRay(Input.mousePosition);
             RaycastHit rayHit;
 
@@ -822,7 +826,16 @@ public class Samurai_Controller : Character_BehaviorCtrl_Base
                 StartCoroutine(DodgeAndHover(dodgeStartPosition, dodgeStartPosition));
                 animator.SetTrigger("doSkill4");
             }
+
+            // 스킬이 끝난 후 카메라 Y값 해제
+            StartCoroutine(UnlockCameraAfterDelay(2.0f)); // 예시로 2초 후에 Y값 해제
         }
+    }
+
+    private IEnumerator UnlockCameraAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        Camera.main.GetComponent<Follow>().UnlockCameraYPosition();
     }
 
     private IEnumerator DodgeAndHover(Vector3 start, Vector3 end)
