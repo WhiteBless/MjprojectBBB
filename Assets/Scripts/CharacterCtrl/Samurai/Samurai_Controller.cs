@@ -22,7 +22,7 @@ public class Samurai_Controller : Character_BehaviorCtrl_Base
     public float attackDuration = 0.5f;  // 이동할 시간
 
     public int comboStep = 0; // 현재 콤보의 단계
-    public float comboTimeLimit = 1f; // 콤보 타이머 제한 시간
+    public float comboTimeLimit = 2f; // 콤보 타이머 제한 시간
     public float comboTimer = 0f; // 콤보 타이머
     public bool isComboInProgress = false; // 콤보 진행 중 여부
     public bool isComboTimeout = false; // 콤보가 끝났는지의 여부
@@ -544,31 +544,26 @@ public class Samurai_Controller : Character_BehaviorCtrl_Base
                 // 첫 번째 콤보 단계 시작
                 StartComboStep();
                 animator.SetTrigger("doSkill2");
+                
             }
             else if (comboStep == 1)
             {
                 // 두 번째 콤보 단계
-                comboStep = 2;
+                comboStep++;
                 comboTimer = comboTimeLimit;
-                animator.SetTrigger("doSkill2");
+                animator.SetTrigger("Combo1");
             }
             else if (comboStep == 2)
             {
                 // 세 번째 콤보 단계
-                comboStep = 3;
+                comboStep++;
                 comboTimer = comboTimeLimit;
-                animator.SetTrigger("doSkill2");
+                animator.SetTrigger("Combo2");
             }
             else if (comboStep == 3)
             {
-                // 네 번째 콤보 단계
-                comboStep = 4;
-                comboTimer = comboTimeLimit;
-                animator.SetTrigger("doSkill2");
-            }
-            else if (comboStep == 4)
-            {
-                animator.SetTrigger("doSkill2");
+                comboStep++;
+                animator.SetTrigger("Combo3");
                 // 마지막 콤보 단계
                 ResetCombo(); // 콤보 초기화
             }
@@ -600,7 +595,7 @@ public class Samurai_Controller : Character_BehaviorCtrl_Base
     {
         if (!isComboInProgress)
         {
-            comboStep = 1;
+            comboStep++;
             comboTimer = comboTimeLimit;
             isComboInProgress = true; // 콤보 진행 중으로 설정
         }
@@ -624,8 +619,14 @@ public class Samurai_Controller : Character_BehaviorCtrl_Base
 
     public void ResetCombo()
     {
+        StartCoroutine(Play_ResetCombo());
+    }
+
+    IEnumerator Play_ResetCombo()
+    {
         isComboTimeout = true;
         isComboInProgress = false;
+        yield return new WaitForSeconds(1f);
         comboStep = 0;
         comboTimer = 0f;
     }
