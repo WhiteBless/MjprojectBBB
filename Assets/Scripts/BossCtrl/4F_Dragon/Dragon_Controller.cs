@@ -288,8 +288,8 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
         if (CurrentElement == CurentElement_State.ICE_DRAGON)
         {
             // 랜덤으로 다음 상태 변경
-            //IceDragon_State randomIceState = (IceDragon_State)Random.Range(8, (int)IceDragon_State.END - 1);
-            IceDragon_State randomIceState = (IceDragon_State)8;
+            IceDragon_State randomIceState = (IceDragon_State)Random.Range(8, (int)IceDragon_State.END - 1);
+            // IceDragon_State randomIceState = (IceDragon_State)8;
             IceDragonState = randomIceState;
 
             //Debug.Log(randomPowerState);
@@ -324,8 +324,8 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
         {
             if (CurrentElement == CurentElement_State.ICE_DRAGON)
             {
-                // IceDragon_State randomIceState = (IceDragon_State)Random.Range(3, 8);
-                IceDragon_State randomIceState = (IceDragon_State)9;
+                IceDragon_State randomIceState = (IceDragon_State)Random.Range(3, 10);
+                // IceDragon_State randomIceState = (IceDragon_State)9;
                 IceDragonState = randomIceState;
             }
             else if(CurrentElement == CurentElement_State.THUNDER_DRAGON)
