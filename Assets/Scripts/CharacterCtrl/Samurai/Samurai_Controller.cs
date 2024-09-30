@@ -316,7 +316,7 @@ public class Samurai_Controller : Character_BehaviorCtrl_Base
         d2.y = 0.0f;
         Quaternion q2 = Quaternion.LookRotation(d2);
         //BaseAtk_1_Eff.transform.rotation = q2 * Quaternion.Euler(0f, 0f, 0f);
-        BaseAtk_1_Eff.transform.rotation = q2 * Quaternion.Euler(0f, 90f, 0f);
+        BaseAtk_1_Eff.transform.rotation = q2 * Quaternion.Euler(180f, 0f, 0f);
 
         BaseAtk_1_Eff.SetActive(true);
 
@@ -483,7 +483,7 @@ public class Samurai_Controller : Character_BehaviorCtrl_Base
 
     public override void Skill_1()
     {
-        if (!isSkill1 && !isSkill2 && !isSkill3 && !isSkill4 && !isAttack && !isDodge && !skillManager1.isSkill1CT && !isDie && !inGameSetting.isPaused)
+        if (!isSkill1 && !isAttack && !isDodge && !skillManager1.isSkill1CT && !isDie && !inGameSetting.isPaused)
         {
             animator.SetBool("isMove", false);
 
@@ -536,7 +536,7 @@ public class Samurai_Controller : Character_BehaviorCtrl_Base
 
     public override void Skill_2()
     {
-        if (!isComboTimeout && !isSkill1 && !isSkill2 && !isSkill3 && !isSkill4 && !isAttack && !isDodge && !skillManager2.isSkill2CT && !isDie && !inGameSetting.isPaused)
+        if (!isComboTimeout && !isSkill2 && !isAttack && !isDodge && !skillManager2.isSkill2CT && !isDie && !inGameSetting.isPaused)
         {
             if (comboStep == 0)
             {
@@ -732,7 +732,7 @@ public class Samurai_Controller : Character_BehaviorCtrl_Base
 
     public override void Skill_3()
     {
-        if (!isSkill1 && !isSkill2 && !isSkill3 && !isSkill4 && !isAttack && !isDodge && !skillManager3.isSkill3CT && !isDie && !inGameSetting.isPaused)
+        if (!isSkill3 && !isAttack && !isDodge && !skillManager3.isSkill3CT && !isDie && !inGameSetting.isPaused)
         {
             animator.SetBool("isMove", false);
             // 보이스 랜덤 재생
@@ -799,7 +799,7 @@ public class Samurai_Controller : Character_BehaviorCtrl_Base
 
     public override void Skill_4()
     {
-        if (!isSkill1 && !isSkill2 && !isSkill3 && !isSkill4 && !isAttack && !isDodge && !skillManager4.isSkill4CT && !isDie && !inGameSetting.isPaused)
+        if (!isSkill4 && !isAttack && !isDodge && !skillManager4.isSkill4CT && !isDie && !inGameSetting.isPaused)
         {
             GameManager.GMInstance.SoundManagerRef.Play_Assasin_SFX(SoundManager.Assasin_SFX.ASSASIN_VOICE_1);
             animator.SetBool("isMove", false);
