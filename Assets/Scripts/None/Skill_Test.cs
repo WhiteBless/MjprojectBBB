@@ -87,7 +87,7 @@ public class Skill_Test : MonoBehaviour
                     }
                     if (GameManager.GMInstance.cur_Char == Define.Cur_Character.SAMURAI)
                     {
-                        if (!isSkill1CT && !samurai_Controller.isSkill2 && !samurai_Controller.isSkill3 && !samurai_Controller.isSkill4 && !samurai_Controller.isDodge && !samurai_Controller.isAttack)
+                        if (!isSkill1CT && !samurai_Controller.isDodge && !samurai_Controller.isAttack)
                         {
                             if (skillTimes > 0f && samurai_Controller.skill1)
                             {
@@ -117,7 +117,7 @@ public class Skill_Test : MonoBehaviour
                     }
                     if (GameManager.GMInstance.cur_Char == Define.Cur_Character.SAMURAI)
                     {
-                        if (!isSkill2CT && !samurai_Controller.isSkill1 && !samurai_Controller.isSkill3 && !samurai_Controller.isSkill4 && !samurai_Controller.isDodge && !samurai_Controller.isAttack)
+                        if (!isSkill2CT && !samurai_Controller.isDodge && !samurai_Controller.isAttack)
                         {
                             if (samurai_Controller.isComboTimeout)
                             {
@@ -146,7 +146,7 @@ public class Skill_Test : MonoBehaviour
                     }
                     if (GameManager.GMInstance.cur_Char == Define.Cur_Character.SAMURAI)
                     {
-                        if (!isSkill3CT && !samurai_Controller.isSkill1 && !samurai_Controller.isSkill2 && !samurai_Controller.isSkill4 && !samurai_Controller.isDodge && !samurai_Controller.isAttack)
+                        if (!isSkill3CT && !samurai_Controller.isDodge && !samurai_Controller.isAttack)
                         {
                             if (skillTimes > 0f && samurai_Controller.skill3)
                             {
@@ -175,7 +175,7 @@ public class Skill_Test : MonoBehaviour
                     }
                     if (GameManager.GMInstance.cur_Char == Define.Cur_Character.SAMURAI)
                     {
-                        if (!isSkill4CT && !samurai_Controller.isSkill1 && !samurai_Controller.isSkill2 && !samurai_Controller.isSkill3 && !samurai_Controller.isDodge && !samurai_Controller.isAttack)
+                        if (!isSkill4CT && !samurai_Controller.isDodge && !samurai_Controller.isAttack)
                         {
                             if (skillTimes > 0f && samurai_Controller.skill4)
                             {
