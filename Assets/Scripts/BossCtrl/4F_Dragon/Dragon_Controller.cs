@@ -324,8 +324,8 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
         {
             if (CurrentElement == CurentElement_State.ICE_DRAGON)
             {
-                // IceDragon_State randomIceState = (IceDragon_State)Random.Range(3, 8);
-                IceDragon_State randomIceState = (IceDragon_State)9;
+                IceDragon_State randomIceState = (IceDragon_State)Random.Range(3, 8);
+                // IceDragon_State randomIceState = (IceDragon_State)9;
                 IceDragonState = randomIceState;
             }
             else if(CurrentElement == CurentElement_State.THUNDER_DRAGON)
