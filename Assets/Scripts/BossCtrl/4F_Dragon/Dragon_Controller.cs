@@ -44,14 +44,17 @@ public enum ThunderDragon_State
 
 public enum FireDragon_State
 {
-    NONE,
-    FIRE_IDLE,
-    FIRE_MOVE,
-    FIRE_FLY_NORMAL_ATK,
-    FIRE_WIND_ATK,
-    FIRE_DASH_ATK,
-    FIRE_BREATH_ATK,
-    FIRE_CLOSE_NORMAL_ATK,
+    NONE,                       // 0
+    FIRE_IDLE,                  // 1
+    FIRE_MOVE,                  // 2
+    FIRE_FLY_NORMAL_ATK,        // 3
+    FIRE_WIND_ATK,              // 4
+    FIRE_DASH_ATK,              // 5
+    FIRE_BREATH_ATK,            // 6
+    FIRE_DRAGON_DROP,           // 7
+    FIRE_DRAGON_FURY,           // 8
+    FIRE_BALL_ATK,              // 9 
+    FIRE_CLOSE_NORMAL_ATK,      // 10
     END
 }
 
@@ -239,11 +242,15 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
         Dragon_ObjPoolRef = GetComponent<Dragon_ObjPool>();
         Dragon_animator = GetComponent<Animator>();
 
-        CurrentElement = CurentElement_State.ICE_DRAGON;
+        // CurrentElement = CurentElement_State.ICE_DRAGON;
+        CurrentElement = CurentElement_State.FIRE_DRAGON;
 
-        IceDragonState = IceDragon_State.ICE_IDLE;
+        // IceDragonState = IceDragon_State.ICE_IDLE;
+        IceDragonState = IceDragon_State.NONE;
         ThunderDragonState = ThunderDragon_State.NONE;
-        FireDragonState = FireDragon_State.NONE;
+
+        // ireDragonState = FireDragon_State.NONE;
+        FireDragonState = FireDragon_State.FIRE_IDLE;
 
         isMove = false;
 
@@ -345,7 +352,9 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
            
             else
             {
-                FireDragonState = FireDragon_State.FIRE_MOVE;
+                //FireDragon_State randomFireState = (FireDragon_State)Random.Range(3, 8);
+                FireDragon_State randomFireState = (FireDragon_State)9;
+                FireDragonState = randomFireState;
             }
         }
 
@@ -447,6 +456,15 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
                         break;
                     case FireDragon_State.FIRE_BREATH_ATK:
                         Breath_Atk();
+                        break;
+                    case FireDragon_State.FIRE_DRAGON_FURY:
+                        Fire_Fury();
+                        break;
+                    case FireDragon_State.FIRE_DRAGON_DROP:
+                        Fire_Drop();
+                        break;
+                    case FireDragon_State.FIRE_BALL_ATK:
+                        FireBall_Atk();
                         break;
                     default:
                         break;
@@ -893,6 +911,71 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
         isAttacking = false;
         isThink = false;
     }
+    #endregion
+
+    #region Fire_Dragon_Drop
+    public void Fire_Drop()
+    {
+        Dragon_animator.SetTrigger("Fire_Drop");
+        isLock = true;
+        isAttacking = true;
+    }
+
+    public void Fire_Drop_Jump()
+    {
+        DragonPos.localPosition = new Vector3(100.0f, 100.0f, 100.0f);
+    }
+
+    public void Fire_Drop_Land()
+    {
+        DragonPos.localPosition = Vector3.zero;
+    }
+
+    public void Fire_Drop_Down()
+    {
+        DragonPos.localPosition = Vector3.zero;
+    }
+
+    public void Fire_Drop_Stump()
+    {
+        
+    }
+
+    public void Fire_Drop_End()
+    {
+        isAttacking = false;
+        isLock = false;
+        isThink = false;
+
+    }
+    #endregion
+
+    #region Fire_Dragon_Fury
+    public void Fire_Fury()
+    {
+        Dragon_animator.SetTrigger("Fire_Fury");
+        isAttacking = true;
+    }
+
+    public void Fire_Fury_Start()
+    {
+        isLock = true;
+    }
+    #endregion
+
+    #region Fire_Dragon_FireBall
+    public void FireBall_Atk()
+    {
+        Dragon_animator.SetTrigger("FireBall");
+        isAttacking = true;
+    }
+
+    public void FireBall_End()
+    {
+        isAttacking = false;
+        isThink = false;
+    }
+
     #endregion
 
     #region Dragon_FindTarget
