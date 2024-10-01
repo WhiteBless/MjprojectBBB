@@ -22,7 +22,9 @@ public enum IceDragon_State
     ICE_BREATH_ATK,             // 7
     ICE_TSUNAMI_ATK,            // 8
     ICE_DROPDOWN_ATK,           // 9
-    ICE_CLOSE_NORMAL_ATK,       // 10
+    ICE_WAVE_ATK,               // 10
+    ICE_ARROW_ATK,              // 11
+    ICE_CLOSE_NORMAL_ATK,       // 12
     END
 }
 
@@ -154,6 +156,14 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
     float Drop_Time;
     [SerializeField]
     float Drop_MaxTime;
+
+    [Header("-----Dragon_ICE_Arrow-----")]
+    [SerializeField]
+    bool isEnterIceArrow;
+    [SerializeField]
+    float IceArrow_Time;
+    [SerializeField]
+    float IceArrow_MaxTime;
     #endregion
 
     #region Dragon_Rotate
@@ -324,8 +334,8 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
         {
             if (CurrentElement == CurentElement_State.ICE_DRAGON)
             {
-                IceDragon_State randomIceState = (IceDragon_State)Random.Range(3, 8);
-                // IceDragon_State randomIceState = (IceDragon_State)9;
+                //IceDragon_State randomIceState = (IceDragon_State)Random.Range(3, 8);
+                IceDragon_State randomIceState = (IceDragon_State)11;
                 IceDragonState = randomIceState;
             }
             else if(CurrentElement == CurentElement_State.THUNDER_DRAGON)
@@ -376,6 +386,12 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
                         break;
                     case IceDragon_State.ICE_DROPDOWN_ATK:
                         DropDown_Atk();
+                        break;
+                    case IceDragon_State.ICE_WAVE_ATK:
+                        IceWave_Atk();
+                        break;
+                    case IceDragon_State.ICE_ARROW_ATK:
+                        IceArrow_Atk();
                         break;
                     default:
                         break;
@@ -814,6 +830,69 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
         isAttacking = false;
     }
 
+    #endregion
+
+    #region Ice_Dragon_Wave
+    public void IceWave_Atk()
+    {
+        Dragon_animator.SetTrigger("IceWaveAtk");
+    }
+
+    public void IceWave_Center_Land()
+    {
+        DragonPos.localPosition = Vector3.zero;
+        isAttacking = true;
+        isLock = true;
+    }
+
+    public void IceWave_Center_Jump()
+    {
+        DragonPos.localPosition = new Vector3(100.0f, 100.0f, 100.0f);
+    }
+
+    public void IceWave_Atk_End()
+    {
+        isAttacking = false;
+        isThink = false;
+        isLock = false;
+    }
+    #endregion
+
+    #region Ice_Dragon_IceArrow
+    public void IceArrow_Atk()
+    {
+        Dragon_animator.SetTrigger("IceArrowAtk");
+    }
+
+    public void IceArrow_Start()
+    {
+        StartCoroutine(IceArrowTime());
+        isEnterIceArrow = true;
+        isAttacking = true;
+    }
+
+    IEnumerator IceArrowTime()
+    {
+        if (isEnterIceArrow == true)
+            yield break;
+
+        while (IceArrow_Time <= IceArrow_MaxTime)
+        {
+            IceArrow_Time += Time.deltaTime;
+            yield return null;
+        }
+
+        IceArrow_End();
+    }
+
+    public void IceArrow_End()
+    {
+        Dragon_animator.SetTrigger("IceArrowAtk_End");
+        IceArrow_Time = 0.0f;
+        isEnterIceArrow = false;
+        isAttacking = false;
+        isThink = false;
+    }
     #endregion
 
     #region Dragon_FindTarget
