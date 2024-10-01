@@ -270,7 +270,7 @@ public class Samurai_Controller : Character_BehaviorCtrl_Base
                 transform.LookAt(transform.position + dodgeDirection);
             }
 
-            Invoke("AttackOut", 0.8f);
+            Invoke("AttackOut", 0.4f);
         }
     }
 
@@ -897,7 +897,7 @@ public class Samurai_Controller : Character_BehaviorCtrl_Base
             if (playscenemanager.health > 1)
             {
                 GameManager.GMInstance.CamShakeRef.ShakeCam(CamShake_Intensity, CamShake_Time);
-                // playscenemanager.HealthDown();
+                playscenemanager.HealthDown();
                 // Debug.Log(other.gameObject.name);
                 animator.SetTrigger("Hit");
                 isHit = true;
@@ -908,7 +908,7 @@ public class Samurai_Controller : Character_BehaviorCtrl_Base
             {
                 GameManager.GMInstance.CamShakeRef.ShakeCam(CamShake_Intensity, CamShake_Time);
                 // Debug.Log("1");
-                // playscenemanager.HealthDown();
+                playscenemanager.HealthDown();
                 animator.SetBool("isMove", false);
                 animator.SetTrigger("doDie");
                 SkillOut();
@@ -934,7 +934,7 @@ public class Samurai_Controller : Character_BehaviorCtrl_Base
             if (playscenemanager.health > 1)
             {
                 GameManager.GMInstance.CamShakeRef.ShakeCam(CamShake_Intensity, CamShake_Time);
-                // playscenemanager.HealthDown();
+                playscenemanager.HealthDown();
                 // Debug.Log(other.gameObject.name);
                 animator.SetTrigger("Hit");
                 isHit = true;
@@ -945,7 +945,7 @@ public class Samurai_Controller : Character_BehaviorCtrl_Base
             {
                 GameManager.GMInstance.CamShakeRef.ShakeCam(CamShake_Intensity, CamShake_Time);
                 // Debug.Log("1");
-                // playscenemanager.HealthDown();
+                playscenemanager.HealthDown();
                 animator.SetBool("isMove", false);
                 animator.SetTrigger("doDie");
                 SkillOut();
@@ -971,7 +971,7 @@ public class Samurai_Controller : Character_BehaviorCtrl_Base
             {
                 GameManager.GMInstance.CamShakeRef.ShakeCam(CamShake_Intensity, CamShake_Time);
                 animator.SetTrigger("Hit");
-                // playscenemanager.HealthDown();
+                playscenemanager.HealthDown();
                 // Debug.Log(other.gameObject.name);
 
                 isHit = true;
