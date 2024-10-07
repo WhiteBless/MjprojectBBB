@@ -30,15 +30,18 @@ public enum IceDragon_State
 
 public enum ThunderDragon_State
 {
-    NONE,
-    THUNDER_IDLE,
-    CHANGE_FORM,
-    THUNDER_MOVE,
-    THUNDER_FLY_NORMAL_ATK,
-    THUNDER_WIND_ATK,
-    THUNDER_DASH_ATK,
-    THUNDER_BREATH_ATK,
-    THUNDER_CLOSE_NORMAL_ATK,
+    NONE,                       // 0
+    THUNDER_IDLE,               // 1
+    CHANGE_FORM,                // 2
+    THUNDER_MOVE,               // 3
+    THUNDER_FLY_NORMAL_ATK,     // 4
+    THUNDER_WIND_ATK,           // 5
+    THUNDER_DASH_ATK,           // 6
+    THUNDER_BREATH_ATK,         // 7
+    THUNDER_THUNDER_ATK,        // 8
+    THUNDER_LASER_ATK,          // 9
+    THUNDER_ROPE_ATK,           // 10
+    THUNDER_CLOSE_NORMAL_ATK,   // 11
     END
 }
 
@@ -53,8 +56,9 @@ public enum FireDragon_State
     FIRE_BREATH_ATK,            // 6
     FIRE_DRAGON_DROP,           // 7
     FIRE_DRAGON_FURY,           // 8
-    FIRE_BALL_ATK,              // 9 
-    FIRE_CLOSE_NORMAL_ATK,      // 10
+    FIRE_BALL_ATK,              // 9
+    FIRE_HEAL,                  // 10
+    FIRE_CLOSE_NORMAL_ATK,      // 11
     END
 }
 
@@ -167,6 +171,22 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
     float IceArrow_Time;
     [SerializeField]
     float IceArrow_MaxTime;
+
+    [Header("-----Dragon_Thunder_Thunder_Atk-----")]
+    [SerializeField]
+    bool isEnterThunderAtk;
+    [SerializeField]
+    float Thunder_Time;
+    [SerializeField]
+    float Thunder_MaxTime;
+
+    [Header("-----Dragon_Thunder_Rope_Atk-----")]
+    [SerializeField]
+    bool isEnterRopeAtk;
+    [SerializeField]
+    float Rope_Time;
+    [SerializeField]
+    float Rope_MaxTime;
     #endregion
 
     #region Dragon_Rotate
@@ -243,14 +263,17 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
         Dragon_animator = GetComponent<Animator>();
 
         // CurrentElement = CurentElement_State.ICE_DRAGON;
-        CurrentElement = CurentElement_State.FIRE_DRAGON;
+        // CurrentElement = CurentElement_State.FIRE_DRAGON;
+        CurrentElement = CurentElement_State.THUNDER_DRAGON;
 
         // IceDragonState = IceDragon_State.ICE_IDLE;
-        IceDragonState = IceDragon_State.NONE;
-        ThunderDragonState = ThunderDragon_State.NONE;
+        //FireDragonState = FireDragon_State.FIRE_IDLE;
+        ThunderDragonState = ThunderDragon_State.THUNDER_IDLE;
 
-        // ireDragonState = FireDragon_State.NONE;
-        FireDragonState = FireDragon_State.FIRE_IDLE;
+        IceDragonState = IceDragon_State.NONE;
+        //ThunderDragonState = ThunderDragon_State.NONE;
+        FireDragonState = FireDragon_State.NONE;
+       
 
         isMove = false;
 
@@ -305,8 +328,8 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
         if (CurrentElement == CurentElement_State.ICE_DRAGON)
         {
             // 랜덤으로 다음 상태 변경
-            //IceDragon_State randomIceState = (IceDragon_State)Random.Range(8, (int)IceDragon_State.END - 1);
-            IceDragon_State randomIceState = (IceDragon_State)8;
+            IceDragon_State randomIceState = (IceDragon_State)Random.Range(8, (int)IceDragon_State.END - 1);
+            //IceDragon_State randomIceState = (IceDragon_State)8;
             IceDragonState = randomIceState;
 
             //Debug.Log(randomPowerState);
@@ -347,13 +370,15 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
             }
             else if(CurrentElement == CurentElement_State.THUNDER_DRAGON)
             {
-                
+                //ThunderDragon_State randomThunderState = (FireDragon_State)Random.Range(3, 8);
+                ThunderDragon_State randomThunderState = (ThunderDragon_State)10;
+                ThunderDragonState = randomThunderState;
             }
            
             else
             {
                 //FireDragon_State randomFireState = (FireDragon_State)Random.Range(3, 8);
-                FireDragon_State randomFireState = (FireDragon_State)9;
+                FireDragon_State randomFireState = (FireDragon_State)10;
                 FireDragonState = randomFireState;
             }
         }
@@ -431,6 +456,15 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
                     case ThunderDragon_State.THUNDER_BREATH_ATK:
                         Breath_Atk();
                         break;
+                    case ThunderDragon_State.THUNDER_THUNDER_ATK:
+                        Thunder_Atk();
+                        break;
+                    case ThunderDragon_State.THUNDER_LASER_ATK:
+                        Laser_Atk();
+                        break;
+                    case ThunderDragon_State.THUNDER_ROPE_ATK:
+                        Rope_Atk();
+                        break;
                     default:
                         break;
                 }
@@ -465,6 +499,9 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
                         break;
                     case FireDragon_State.FIRE_BALL_ATK:
                         FireBall_Atk();
+                        break;
+                    case FireDragon_State.FIRE_HEAL:
+                        Fire_Heal();
                         break;
                     default:
                         break;
@@ -976,6 +1013,107 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
         isThink = false;
     }
 
+    #endregion
+
+    #region Fire_Dragon_Heal
+    public void Fire_Heal()
+    {
+        Dragon_animator.SetTrigger("Fire_Heal");
+    }
+    #endregion
+
+    #region Thunder_Dragon_ThunderAtk
+    public void Thunder_Atk()
+    {
+        Dragon_animator.SetTrigger("Thunder_Atk");
+    }
+
+    public void Thunder_Flying()
+    {
+        StartCoroutine(Thunder_Atk_Fly());
+        isEnterThunderAtk = true;
+    }
+
+    IEnumerator Thunder_Atk_Fly()
+    {
+        if (isEnterThunderAtk == true)
+            yield break;
+
+        while (Thunder_Time <= Thunder_MaxTime)
+        {
+            Thunder_Time += Time.deltaTime;
+            yield return null;
+        }
+
+        Thunder_Atk_Fly_End();
+    }
+
+    public void Thunder_Atk_Fly_End()
+    {
+        Dragon_animator.SetTrigger("Thunder_Atk_End");
+    }
+
+    public void Thunder_Atk_End()
+    {
+        Thunder_Time = 0.0f;
+        isEnterThunderAtk = false;
+        isAttacking = false;
+        isThink = false;
+    }
+    #endregion
+
+    #region Thunder_Dragon_Laser
+    public void Laser_Atk()
+    {
+        Dragon_animator.SetTrigger("Laser_Atk");
+    }
+    #endregion
+
+    #region Thunder_Dragon_Rope_Atk
+    public void Rope_Atk()
+    {
+        Dragon_animator.SetTrigger("Rope_Atk_Start");
+    }
+
+    public void Rope_Jump()
+    {
+        DragonPos.localPosition = new Vector3(100.0f, 100.0f, 100.0f);
+    }
+
+    public void Rope_Center()
+    {
+        StartCoroutine(Rope_Atk_Fly());
+        DragonPos.localPosition = Vector3.zero;
+        isAttacking = true;
+        isLock = true;
+    }
+
+    IEnumerator Rope_Atk_Fly()
+    {
+        if (isEnterRopeAtk == true)
+            yield break;
+
+        while (Rope_Time <= Rope_MaxTime)
+        {
+            Rope_Time += Time.deltaTime;
+            yield return null;
+        }
+
+        Rope_Atk_Fly_End();
+    }
+
+    public void Rope_Atk_Fly_End()
+    {
+        Dragon_animator.SetTrigger("Rope_Atk_End");
+    }
+
+    public void Rope_Atk_End()
+    {
+        Rope_Time = 0.0f;
+        isAttacking = false;
+        isEnterRopeAtk = false;
+        isLock = false;
+    }
     #endregion
 
     #region Dragon_FindTarget
