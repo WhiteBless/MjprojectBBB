@@ -822,8 +822,17 @@ public class Samurai_Controller : Character_BehaviorCtrl_Base
                 transform.LookAt(transform.position + dodgeDirection);
 
                 Vector3 dodgeStartPosition = transform.position;
+                Vector3 dodgeEndPosition;
+                if (Vector3.Distance(transform.position, rayHit.point) < 25f)
+                {
+                    dodgeEndPosition = rayHit.point;
+                }
+                else
+                {
+                    dodgeEndPosition = transform.position + dodgeDirection * 25f;
+                }
 
-                StartCoroutine(DodgeAndHover(dodgeStartPosition, dodgeStartPosition));
+                StartCoroutine(DodgeAndHover(dodgeStartPosition, dodgeEndPosition));
                 animator.SetTrigger("doSkill4");
             }
 
@@ -838,31 +847,68 @@ public class Samurai_Controller : Character_BehaviorCtrl_Base
         Camera.main.GetComponent<Follow>().UnlockCameraYPosition();
     }
 
+    //private IEnumerator DodgeAndHover(Vector3 start, Vector3 end)
+    //{
+    //    // 0.1초 동안 상승
+    //    Vector3 upPosition = start + Vector3.up * rSkillDistance;
+    //    float elapsedTime = 0f;
+    //    while (elapsedTime < 0.2f)
+    //    {
+    //        transform.position = Vector3.Lerp(start, upPosition, elapsedTime / 0.1f);
+    //        elapsedTime += Time.deltaTime;
+    //        yield return null;
+    //    }
+    //    transform.position = upPosition; // 정확한 위치 설정
+
+    //    // 0.2초 동안 체공
+    //    yield return new WaitForSeconds(0.3f);
+
+    //    // 0.2초 동안 내려가면서 이동
+    //    elapsedTime = 0f;
+    //    while (elapsedTime < 0.2f)
+    //    {
+    //        transform.position = Vector3.Lerp(upPosition, end, elapsedTime / 0.2f);
+    //        elapsedTime += Time.deltaTime;
+    //        yield return null;
+    //    }
+    //    transform.position = end; // 정확한 위치 설정
+    //}
+
     private IEnumerator DodgeAndHover(Vector3 start, Vector3 end)
     {
-        // 0.1초 동안 상승
-        Vector3 upPosition = start + Vector3.up * rSkillDistance;
+        float duration = 0.5f; // 전체 시간 (상승 + 하강)
         float elapsedTime = 0f;
-        while (elapsedTime < 0.2f)
+
+        Vector3 direction = (end - start); // 시작과 끝 사이의 벡터
+        float horizontalDistance = direction.magnitude; // 수평 거리 (X, Z)
+        direction.y = 0; // Y값을 0으로 만들어 수평 방향만 계산
+        Vector3 moveDirection = direction.normalized; // 이동 방향 (수평)
+
+        // 최고점은 중간에 오도록 계산
+        float maxHeight = rSkillDistance; // 상승할 최대 높이
+
+        // 처음부터 끝까지 시간을 설정하여 위치 계산
+        while (elapsedTime < duration)
         {
-            transform.position = Vector3.Lerp(start, upPosition, elapsedTime / 0.1f);
+            float normalizedTime = elapsedTime / duration; // 0 to 1 사이로 변환
+
+            // Y값 (포물선 형태로 상승 후 하강)
+            float height = Mathf.Sin(Mathf.PI * normalizedTime) * maxHeight;
+
+            // X, Z값 (수평 이동)
+            Vector3 horizontalMove = moveDirection * normalizedTime * horizontalDistance;
+
+            // 최종 위치 계산
+            Vector3 newPosition = start + horizontalMove + Vector3.up * height;
+
+            transform.position = newPosition;
+
             elapsedTime += Time.deltaTime;
             yield return null;
         }
-        transform.position = upPosition; // 정확한 위치 설정
 
-        // 0.2초 동안 체공
-        yield return new WaitForSeconds(0.3f);
-
-        // 0.2초 동안 내려가면서 이동
-        elapsedTime = 0f;
-        while (elapsedTime < 0.2f)
-        {
-            transform.position = Vector3.Lerp(upPosition, end, elapsedTime / 0.2f);
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
-        transform.position = end; // 정확한 위치 설정
+        // 마지막 위치 설정 (end 지점에 정확히 맞추기)
+        transform.position = end + Vector3.up * Mathf.Sin(Mathf.PI) * maxHeight;
     }
 
     public void Skill4Atk1_Eff()
@@ -899,7 +945,9 @@ public class Samurai_Controller : Character_BehaviorCtrl_Base
                 GameManager.GMInstance.CamShakeRef.ShakeCam(CamShake_Intensity, CamShake_Time);
                 playscenemanager.HealthDown();
                 // Debug.Log(other.gameObject.name);
-                animator.SetTrigger("Hit");
+                int randomIndex = Random.Range(0, 4);
+                string triggerName = "Hit_" + randomIndex.ToString();
+                animator.SetTrigger(triggerName);
                 isHit = true;
 
                 Invoke("HitOut", 3f);
@@ -936,7 +984,9 @@ public class Samurai_Controller : Character_BehaviorCtrl_Base
                 GameManager.GMInstance.CamShakeRef.ShakeCam(CamShake_Intensity, CamShake_Time);
                 playscenemanager.HealthDown();
                 // Debug.Log(other.gameObject.name);
-                animator.SetTrigger("Hit");
+                int randomIndex = Random.Range(0, 4);
+                string triggerName = "Hit_" + randomIndex.ToString();
+                animator.SetTrigger(triggerName);
                 isHit = true;
 
                 Invoke("HitOut", 3f);
@@ -970,7 +1020,9 @@ public class Samurai_Controller : Character_BehaviorCtrl_Base
             if (playscenemanager.health > 1)
             {
                 GameManager.GMInstance.CamShakeRef.ShakeCam(CamShake_Intensity, CamShake_Time);
-                animator.SetTrigger("Hit");
+                int randomIndex = Random.Range(0, 4);
+                string triggerName = "Hit_" + randomIndex.ToString();
+                animator.SetTrigger(triggerName);
                 playscenemanager.HealthDown();
                 // Debug.Log(other.gameObject.name);
 
