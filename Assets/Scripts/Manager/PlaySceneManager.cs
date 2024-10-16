@@ -357,6 +357,11 @@ public class PlaySceneManager : MonoBehaviour
         {
             CurCharacter.transform.GetChild(0).GetComponent<Animator>().SetTrigger("StartAnim");
         }
+        // 사무라이면
+        if (GameManager.GMInstance.cur_Char == Define.Cur_Character.SAMURAI)
+        {
+            CurCharacter.transform.GetChild(0).GetComponent<Animator>().SetTrigger("StartAnim");
+        }
     }
 
     public void CutScene_End()
