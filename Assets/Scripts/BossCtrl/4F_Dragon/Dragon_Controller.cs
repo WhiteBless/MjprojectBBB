@@ -116,6 +116,8 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
 
     [Header("-----Dragon_Normal_ATK-----")]
     [SerializeField]
+    GameObject Normal_Atk_Eff;
+    [SerializeField]
     bool isEnterDown;
     [SerializeField]
     float DownValue_Min;
@@ -125,6 +127,12 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
     float NormalAtk_Down_Speed;
 
     [Header("-----Dragon_Wind_ATK-----")]
+    [SerializeField]
+    Transform Wind_Spawn_Point;
+    [SerializeField]
+    GameObject Wind_Atk_Eff;
+    [SerializeField]
+    GameObject[] WindAtks;
     [SerializeField]
     bool isEnterWindAtk;
     [SerializeField]
@@ -141,6 +149,8 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
     float WindAtk_Time;
 
     [Header("-----Dragon_Dash_ATK-----")]
+    [SerializeField]
+    GameObject Dash_Eff;
     [SerializeField]
     Transform[] Dash_StartPos;
     [SerializeField]
@@ -371,14 +381,14 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
             else if(CurrentElement == CurentElement_State.THUNDER_DRAGON)
             {
                 //ThunderDragon_State randomThunderState = (FireDragon_State)Random.Range(3, 8);
-                ThunderDragon_State randomThunderState = (ThunderDragon_State)10;
+                ThunderDragon_State randomThunderState = (ThunderDragon_State)6;
                 ThunderDragonState = randomThunderState;
             }
            
             else
             {
                 //FireDragon_State randomFireState = (FireDragon_State)Random.Range(3, 8);
-                FireDragon_State randomFireState = (FireDragon_State)10;
+                FireDragon_State randomFireState = (FireDragon_State)11;
                 FireDragonState = randomFireState;
             }
         }
@@ -667,11 +677,7 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
         DragonPos.localPosition = currentPosition;
     }
 
-    public void Close_NormalAtk()
-    {
-        Dragon_animator.SetTrigger("Close_NormalAtk");
-    }
-
+    // 전투종료 초기화
     public void Fly_Atk_Finish()
     {
         isEnterCoroutine = false;
@@ -680,6 +686,22 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
         isThink = false;
     }
 
+    // 근거리 기본 공격 실행
+    public void Close_NormalAtk()
+    {
+        Dragon_animator.SetTrigger("Close_NormalAtk");
+    }
+
+    // 기본공격 이펙트 활성화
+    public void Close_NormalAtk_Eff_On()
+    {
+        Normal_Atk_Eff.SetActive(true);
+    }
+    // 기본공격 이펙트 비활성화
+    public void Close_NormalAtk_Eff_Off()
+    {
+        Normal_Atk_Eff.SetActive(false);
+    }
     #endregion
 
     #region Dragon_WindAtk
@@ -746,6 +768,26 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
         WindAtk_Time = 0.0f;
         Left_Time = 0.0f;
     }
+
+    public void  WindAtk_Eff_On()
+    {
+        // Wind_Spawn_Point의 회전값을 Euler 각도로 변환
+        Vector3 spawnRotation = Wind_Spawn_Point.rotation.eulerAngles;
+
+        float Rot = -35.0f;
+
+        for (int i = 0; i < 3; i++)
+        {
+            WindAtks[i] = Dragon_ObjPoolRef.GetWindAtkFromPool();
+            WindAtks[i].transform.position = Wind_Spawn_Point.position;
+            // WindAtks[i].transform.rotation = Wind_Spawn_Point.rotation.eulerAngles;
+            // 최종적으로 WindAtks[i]의 회전 설정
+            WindAtks[i].transform.rotation = Quaternion.Euler(spawnRotation.x, spawnRotation.y + Rot, spawnRotation.z);
+            WindAtks[i].SetActive(true);
+
+            Rot += 35.0f;
+        }
+    }
     #endregion
 
     #region Dragon_Dash
@@ -765,6 +807,9 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
         if (isEnterDashAtk == true)
             yield break;
 
+        // 이펙트 활성화
+        Dash_Eff.SetActive(true);
+
         while (Dash_Time <= Dash_MaxTime)
         {
             Dash_Time += Time.deltaTime;
@@ -777,6 +822,8 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
 
     public void Dash_Atk_End()
     {
+        // 이펙트 비활성화 및 착지 모션
+        Dash_Eff.SetActive(false);
         Dragon_animator.SetTrigger("DashAtk_End");
     }
 

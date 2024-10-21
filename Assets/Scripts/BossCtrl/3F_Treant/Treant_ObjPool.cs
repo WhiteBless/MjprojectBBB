@@ -42,6 +42,7 @@ public class Treant_ObjPool : MonoBehaviour
         LeafPlace_objectPool = new List<GameObject>();
         LeafPlace_Guide_objectPool = new List<GameObject>();
         Stone_Crash_objectPool = new List<GameObject>();
+        Stone_Guide_objectPool = new List<GameObject>();
 
         // 초기에 풀에 오브젝트를 생성하여 저장
         for (int i = 0; i < poolSize; i++)
