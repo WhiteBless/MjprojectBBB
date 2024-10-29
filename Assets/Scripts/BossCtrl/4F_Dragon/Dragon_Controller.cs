@@ -273,16 +273,16 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
         Dragon_animator = GetComponent<Animator>();
 
         // CurrentElement = CurentElement_State.ICE_DRAGON;
-        // CurrentElement = CurentElement_State.FIRE_DRAGON;
-        CurrentElement = CurentElement_State.THUNDER_DRAGON;
+        CurrentElement = CurentElement_State.FIRE_DRAGON;
+        // CurrentElement = CurentElement_State.THUNDER_DRAGON;
 
         // IceDragonState = IceDragon_State.ICE_IDLE;
-        //FireDragonState = FireDragon_State.FIRE_IDLE;
-        ThunderDragonState = ThunderDragon_State.THUNDER_IDLE;
+        FireDragonState = FireDragon_State.FIRE_IDLE;
+        // ThunderDragonState = ThunderDragon_State.THUNDER_IDLE;
 
         IceDragonState = IceDragon_State.NONE;
-        //ThunderDragonState = ThunderDragon_State.NONE;
-        FireDragonState = FireDragon_State.NONE;
+        ThunderDragonState = ThunderDragon_State.NONE;
+        // FireDragonState = FireDragon_State.NONE;
        
 
         isMove = false;

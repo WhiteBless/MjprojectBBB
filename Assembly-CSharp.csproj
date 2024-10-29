@@ -55,7 +55,7 @@
     <UnityVersion>2022.3.17f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Analyzer Include="C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
+    <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\2022.3.17f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.SourceGenerators.dll" />
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\2022.3.17f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
@@ -1068,6 +1068,7 @@
     <None Include="Assets\TheReaper\Scrips\PhysicBone\ClassLibrary1.dll" />
     <None Include="Assets\Asset\Beautify\Resources\Shaders\BeautifyEA.cginc" />
     <None Include="Assets\Asset\Boss\1F_IronGuard\__CubemapsShaders\ASE_StandartSSS.shader" />
+    <None Include="Assets\Asset\VFX\SimuranStudio\Stylized Elemental Magic Spells vol.2\Shaders\Mesh.shader" />
     <None Include="Assets\Hovl Studio\Render Pipelines support\Documentation.txt" />
     <None Include="Assets\Asset\VFX\Hovl Studio\Sword slash VFX\Demo scene\Readme.txt" />
     <None Include="Assets\#NVJOB Dynamic Sky\Example Scenes\Environment\Standard Assets\Effects\ImageEffects\Shaders\_DepthOfField\SeparableBlur.shader" />
@@ -1112,6 +1113,7 @@
     <None Include="Assets\#NVJOB Dynamic Sky\Example Scenes\Environment\Standard Assets\Effects\ImageEffects\Shaders\NoiseEffectShaderRGB.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Surface.cginc" />
     <None Include="Assets\Piloto Studio\Shaders\VFX_Piloto\UberFX.shader" />
+    <None Include="Assets\Asset\VFX\SimuranStudio\Stylized Elemental Magic Spells vol.2\Shaders\Speed_noise.shader" />
     <None Include="Assets\Asset\VFX\JMO Assets\Cartoon FX Remaster\CFXR Prefabs\Texts\_Make your own text effect.txt" />
     <None Include="Assets\Asset\VFX\JMO Assets\Cartoon FX Remaster\CFXR Assets\Shaders\CFXR_PASSES.cginc" />
     <None Include="Assets\Asset\Boss\1F_IronGuard\__CubemapsShaders\ASE_StandartMaskedDetailsRim.shader" />
@@ -1130,6 +1132,7 @@
     <None Include="Assets\Asset\Lighting\GSpawn - Level Designer\Resources\USS\ButtonStyles.uss" />
     <None Include="Assets\Asset\Boss\1F_IronGuard\__CubemapsShaders\ASE_PortalSurface.shader" />
     <None Include="Assets\#NVJOB Dynamic Sky\Example Scenes\Environment\Standard Assets\Effects\ImageEffects\Shaders\ColorCorrectionCurvesSimple.shader" />
+    <None Include="Assets\Asset\VFX\SimuranStudio\Stylized Elemental Magic Spells vol.2\Shaders\3Tex.shader" />
     <None Include="Assets\Asset\Lighting\GSpawn - Level Designer\Resources\Shaders\XZGridCoordSystemLine.shader" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
     <None Include="Assets\Asset\Beautify\Resources\Shaders\BeautifyBasic.cginc" />
@@ -1185,6 +1188,7 @@
     <None Include="Assets\Asset\Boss\1F_IronGuard\__CubemapsShaders\ASE_Standart2SidedTrans.shader" />
     <None Include="Assets\Asset\Lighting\GSpawn - Level Designer\Docs\Readme.txt" />
     <None Include="Assets\#NVJOB Dynamic Sky\Example Scenes\Environment\Standard Assets\Effects\ImageEffects\Shaders\Contrast Stretch\Adaptation.shader" />
+    <None Include="Assets\Asset\VFX\SimuranStudio\Stylized Elemental Magic Spells vol.2\Shaders\Dark.shader" />
     <None Include="Assets\TheReaper\Shaders\DawnShaderURP\ClothingShader2SidesURP.shader" />
     <None Include="Assets\Asset\Boss\1F_IronGuard\__CubemapsShaders\ASE_StandartArray.shader" />
     <None Include="Assets\#NVJOB Dynamic Sky\license_unity.txt" />
@@ -1228,6 +1232,7 @@
     <None Include="Assets\#NVJOB Dynamic Sky\Example Scenes\Environment\Standard Assets\Effects\ImageEffects\Shaders\NoiseAndGrain.shader" />
     <None Include="Assets\Asset\VFX\Hovl Studio\HSFiles\Shaders\Explosion.shader" />
     <None Include="Assets\Malbers Animations\Common\Shaders\Mask8Realistic.shader" />
+    <None Include="Assets\Asset\VFX\SimuranStudio\Stylized Elemental Magic Spells vol.2\Shaders\Transparency_Noise.shader" />
     <None Include="Assets\Asset\Beautify\URP\Demo\DemoSources\Shaders\TextureLerp.shader" />
     <None Include="Assets\Piloto Studio\Shaders\VFX_Piloto\Screenspace_Alpha.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Sprite.shader" />
@@ -1580,6 +1585,18 @@
     </Reference>
     <Reference Include="Unity.VisualScripting.Antlr3.Runtime">
       <HintPath>Library\PackageCache\com.unity.visualscripting@1.9.1\Runtime\VisualScripting.Flow\Dependencies\NCalc\Unity.VisualScripting.Antlr3.Runtime.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.Android.Types">
+      <HintPath>C:\Program Files\Unity\Hub\Editor\2022.3.17f1\Editor\Data\PlaybackEngines\AndroidPlayer\Unity.Android.Types.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.Android.Gradle">
+      <HintPath>C:\Program Files\Unity\Hub\Editor\2022.3.17f1\Editor\Data\PlaybackEngines\AndroidPlayer\Unity.Android.Gradle.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.Android.GradleProject">
+      <HintPath>C:\Program Files\Unity\Hub\Editor\2022.3.17f1\Editor\Data\PlaybackEngines\AndroidPlayer\Unity.Android.GradleProject.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="netstandard">
