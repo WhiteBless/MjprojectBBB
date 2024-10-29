@@ -197,6 +197,18 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
     float Rope_Time;
     [SerializeField]
     float Rope_MaxTime;
+
+    [Header("-----Dragon_Fire_Fury_Atk-----")]
+    [SerializeField]
+    Transform[] Fury_Positions;
+
+    [Header("-----Dragon_Fire_Drop_Atk-----")]
+    [SerializeField]
+    GameObject Drop_VFX;
+    [SerializeField]
+    GameObject Drop_Fly_VFX;
+    [SerializeField]
+    GameObject Drop_Crack_VFX;
     #endregion
 
     #region Dragon_Rotate
@@ -388,7 +400,7 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
             else
             {
                 //FireDragon_State randomFireState = (FireDragon_State)Random.Range(3, 8);
-                FireDragon_State randomFireState = (FireDragon_State)11;
+                FireDragon_State randomFireState = (FireDragon_State)7;
                 FireDragonState = randomFireState;
             }
         }
@@ -1007,12 +1019,13 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
 
     public void Fire_Drop_Jump()
     {
-        DragonPos.localPosition = new Vector3(100.0f, 100.0f, 100.0f);
+        DragonPos.localPosition = new Vector3(100.0f, 100.0f, 100.0f);  
     }
 
     public void Fire_Drop_Land()
     {
         DragonPos.localPosition = Vector3.zero;
+        Drop_Crack_VFX.SetActive(true);
     }
 
     public void Fire_Drop_Down()
@@ -1020,9 +1033,21 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
         DragonPos.localPosition = Vector3.zero;
     }
 
+    // 불 이펙트 생성
+    public void Fire_Drop_Up_VFX_On()
+    {
+        Drop_Fly_VFX.SetActive(true);
+    }
+
     public void Fire_Drop_Stump()
     {
-        
+
+    }
+
+    public void Stump_VFX_On()
+    {
+        Drop_VFX.SetActive(true);
+        Drop_Fly_VFX.SetActive(false);
     }
 
     public void Fire_Drop_End()
@@ -1039,6 +1064,16 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
     {
         Dragon_animator.SetTrigger("Fire_Fury");
         isAttacking = true;
+    }
+
+    public void Spawn_Fury_VFX()
+    {
+        for (int i = 0; i < Fury_Positions.Length; i++)
+        {
+            GameObject Fury_VFX = Dragon_ObjPoolRef.GetFuryAtkFromPool();
+            Fury_VFX.transform.position = Fury_Positions[i].position;
+        }
+
     }
 
     public void Fire_Fury_Start()
