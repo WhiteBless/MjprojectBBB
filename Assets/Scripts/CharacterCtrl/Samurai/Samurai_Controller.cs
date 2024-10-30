@@ -141,7 +141,7 @@ public class Samurai_Controller : Character_BehaviorCtrl_Base
             RaycastHit hit;
             Ray ray = mainCam.ScreenPointToRay(Input.mousePosition);
 
-            if (Physics.Raycast(ray, out hit, Mathf.Infinity, groundLayer) && hit.collider.CompareTag("Ground") && !inGameSetting.isPaused)
+            if (Physics.Raycast(ray, out hit, 70f, groundLayer) && hit.collider.CompareTag("Ground") && !inGameSetting.isPaused)
             {
                 Vector3 spawnPosition = new Vector3(hit.point.x, hit.point.y + 2, hit.point.z);
                 // 프리팹을 생성하고 1초 후에 파괴
@@ -217,9 +217,19 @@ public class Samurai_Controller : Character_BehaviorCtrl_Base
         {
             if (isMove)
             {
-                Vector3 dir = destination - transform.position;
-                transform.forward = dir;
-                transform.position += dir.normalized * Time.deltaTime * (moveSpeed - moveSpeed_Discount);
+                if (GameManager.GMInstance.cur_Scene == Define.Cur_Scene.FLOOR_4)
+                {
+                    Vector3 dirr = destination - transform.position;
+                    transform.forward = dirr;
+                    transform.position += dirr.normalized * Time.deltaTime * (moveSpeed - moveSpeed_Discount);
+                    transform.rotation = Quaternion.Euler(0f, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z);
+                }
+                else
+                {
+                    Vector3 dir = destination - transform.position;
+                    transform.forward = dir;
+                    transform.position += dir.normalized * Time.deltaTime * (moveSpeed - moveSpeed_Discount);
+                }
             }
 
             if (Vector3.Distance(transform.position, destination) <= 0.3f)
