@@ -265,21 +265,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4538540715402149400, guid: cca18cd67d35ca745a3ec53672e37054, type: 3}
   m_PrefabInstance: {fileID: 9441550}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &13211812
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38a40404d9721ed4f984030fbce11d53, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _snapMode: 0
-  _snapHalfSpace: 0
-  _projectionSettings: {fileID: 0}
 --- !u!1001 &15364841
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2961,7 +2946,7 @@ MonoBehaviour:
   textPros: {fileID: 125737365}
   hideSkillTimeTexts: {fileID: 125737367}
   hideSkillmages: {fileID: 1840304460}
-  skillTimes: 20
+  skillTimes: 0
   getSkillTimes: 0
   isSkill1CT: 0
   isSkill2CT: 0
@@ -2969,12 +2954,14 @@ MonoBehaviour:
   isSkill4CT: 0
   isDodgeCT: 0
   inGameSetting: {fileID: 750823378}
+  uiImage: {fileID: 94156175}
+  uiImage2: {fileID: 1840304460}
   assassin_Controller: {fileID: 0}
+  icon_Assassin: {fileID: 952943735, guid: e5751b72ba23eb44497c96223caddc44, type: 3}
+  assassin_SkillTime: 20
   samurai_Controller: {fileID: 0}
-  uiImage: {fileID: 0}
-  uiImage2: {fileID: 0}
-  icon_Assassin: {fileID: 0}
-  icon_Samurai: {fileID: 0}
+  icon_Samurai: {fileID: 1692359284, guid: e5751b72ba23eb44497c96223caddc44, type: 3}
+  samurai_SkillTime: 15
 --- !u!1001 &96535021
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7844,7 +7831,7 @@ MonoBehaviour:
   _spawnGuide: {fileID: 2117108722}
   _extensionPlane:
     _refOBBFace: 4
-  _modularSnapSession: {fileID: 1752791329}
+  _modularSnapSession: {fileID: 380734532}
   _mirrorGizmo: {fileID: 1863135110}
 --- !u!1001 &270299756
 PrefabInstance:
@@ -11077,6 +11064,21 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5972420938592174080, guid: f29a8834d24062a4cb435ec3d8289bef, type: 3}
   m_PrefabInstance: {fileID: 376185625}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &380734532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38a40404d9721ed4f984030fbce11d53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _snapMode: 0
+  _snapHalfSpace: 0
+  _projectionSettings: {fileID: 0}
 --- !u!1 &380905021
 GameObject:
   m_ObjectHideFlags: 0
@@ -15138,7 +15140,7 @@ MonoBehaviour:
   textPros: {fileID: 1655733032}
   hideSkillTimeTexts: {fileID: 1655733034}
   hideSkillmages: {fileID: 724755875}
-  skillTimes: 15
+  skillTimes: 0
   getSkillTimes: 0
   isSkill1CT: 0
   isSkill2CT: 0
@@ -15146,12 +15148,14 @@ MonoBehaviour:
   isSkill4CT: 0
   isDodgeCT: 0
   inGameSetting: {fileID: 750823378}
+  uiImage: {fileID: 500736877}
+  uiImage2: {fileID: 724755875}
   assassin_Controller: {fileID: 0}
+  icon_Assassin: {fileID: 1063840741, guid: e5751b72ba23eb44497c96223caddc44, type: 3}
+  assassin_SkillTime: 15
   samurai_Controller: {fileID: 0}
-  uiImage: {fileID: 0}
-  uiImage2: {fileID: 0}
-  icon_Assassin: {fileID: 0}
-  icon_Samurai: {fileID: 0}
+  icon_Samurai: {fileID: 952943735, guid: e5751b72ba23eb44497c96223caddc44, type: 3}
+  samurai_SkillTime: 10
 --- !u!4 &503169529 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 873880662458531553, guid: 323f66117a9b44b44821122ef174d7fc, type: 3}
@@ -17318,12 +17322,14 @@ MonoBehaviour:
   isSkill4CT: 0
   isDodgeCT: 0
   inGameSetting: {fileID: 750823378}
+  uiImage: {fileID: 583920177}
+  uiImage2: {fileID: 63699417}
   assassin_Controller: {fileID: 0}
+  icon_Assassin: {fileID: 1692359284, guid: e5751b72ba23eb44497c96223caddc44, type: 3}
+  assassin_SkillTime: 5
   samurai_Controller: {fileID: 0}
-  uiImage: {fileID: 0}
-  uiImage2: {fileID: 0}
-  icon_Assassin: {fileID: 0}
-  icon_Samurai: {fileID: 0}
+  icon_Samurai: {fileID: -2108736454, guid: e5751b72ba23eb44497c96223caddc44, type: 3}
+  samurai_SkillTime: 5
 --- !u!1001 &586154281
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19207,7 +19213,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8725edae6a1fd4408036dedaf0199f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _projectionSettings: {fileID: 1924263709}
+  _projectionSettings: {fileID: 1473031121}
   _dragAndDropGuide: {fileID: 0}
 --- !u!1001 &655486229
 PrefabInstance:
@@ -24195,7 +24201,7 @@ MonoBehaviour:
   textPros: {fileID: 671317028}
   hideSkillTimeTexts: {fileID: 671317030}
   hideSkillmages: {fileID: 532019466}
-  skillTimes: 12
+  skillTimes: 0
   getSkillTimes: 0
   isSkill1CT: 0
   isSkill2CT: 0
@@ -24203,12 +24209,14 @@ MonoBehaviour:
   isSkill4CT: 0
   isDodgeCT: 0
   inGameSetting: {fileID: 750823378}
+  uiImage: {fileID: 805031557}
+  uiImage2: {fileID: 532019466}
   assassin_Controller: {fileID: 0}
+  icon_Assassin: {fileID: -438591426, guid: e5751b72ba23eb44497c96223caddc44, type: 3}
+  assassin_SkillTime: 12
   samurai_Controller: {fileID: 0}
-  uiImage: {fileID: 0}
-  uiImage2: {fileID: 0}
-  icon_Assassin: {fileID: 0}
-  icon_Samurai: {fileID: 0}
+  icon_Samurai: {fileID: 1063840741, guid: e5751b72ba23eb44497c96223caddc44, type: 3}
+  samurai_SkillTime: 8
 --- !u!1001 &809156340
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -28216,8 +28224,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.16309533, y: 0.6880407, z: -0.16309533, w: 0.6880407}
-  m_LocalPosition: {x: 69.96, y: 17.02, z: 696.5}
+  m_LocalRotation: {x: 0.371748, y: 0.6015009, z: -0.371748, w: 0.601501}
+  m_LocalPosition: {x: 114.899994, y: 40.44, z: 694.33}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -35011,6 +35019,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1211970568}
   m_CullTransparentMesh: 1
+--- !u!114 &1213143412
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38a40404d9721ed4f984030fbce11d53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _snapMode: 0
+  _snapHalfSpace: 0
+  _projectionSettings: {fileID: 0}
 --- !u!1001 &1215251335
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -42174,6 +42197,26 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0a5818da03ff27f429e6df7728788108, type: 3}
+--- !u!114 &1473031121
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49490255aaf1a2641a4c5771511bd253, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _halfSpace: 1
+  _alignAxis: 0
+  _alignmentAxis: 1
+  _invertAlignmentAxis: 0
+  _projectAsUnit: 0
+  _embedInSurface: 1
+  _inFrontOffset: 0
+  _behindOffset: 0
 --- !u!1001 &1478236217
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -48729,7 +48772,7 @@ MonoBehaviour:
   textPros: {fileID: 1211970568}
   hideSkillTimeTexts: {fileID: 1211970570}
   hideSkillmages: {fileID: 1926967444}
-  skillTimes: 8
+  skillTimes: 0
   getSkillTimes: 0
   isSkill1CT: 0
   isSkill2CT: 0
@@ -48737,12 +48780,14 @@ MonoBehaviour:
   isSkill4CT: 0
   isDodgeCT: 0
   inGameSetting: {fileID: 750823378}
-  assassin_Controller: {fileID: 0}
-  samurai_Controller: {fileID: 0}
   uiImage: {fileID: 1655360972}
   uiImage2: {fileID: 1926967444}
-  icon_Assassin: {fileID: 1063840741, guid: e5751b72ba23eb44497c96223caddc44, type: 3}
-  icon_Samurai: {fileID: 952943735, guid: e5751b72ba23eb44497c96223caddc44, type: 3}
+  assassin_Controller: {fileID: 0}
+  icon_Assassin: {fileID: -2108736454, guid: e5751b72ba23eb44497c96223caddc44, type: 3}
+  assassin_SkillTime: 8
+  samurai_Controller: {fileID: 0}
+  icon_Samurai: {fileID: -438591426, guid: e5751b72ba23eb44497c96223caddc44, type: 3}
+  samurai_SkillTime: 5
 --- !u!1 &1655733032
 GameObject:
   m_ObjectHideFlags: 0
@@ -50739,21 +50784,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 809156341}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
---- !u!114 &1752791329
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38a40404d9721ed4f984030fbce11d53, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _snapMode: 0
-  _snapHalfSpace: 0
-  _projectionSettings: {fileID: 0}
 --- !u!4 &1753801651 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 667033729184526641, guid: d357f7729e4db234fa9ed72a762fb1ce, type: 3}
@@ -54190,26 +54220,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 873880662458531553, guid: 323f66117a9b44b44821122ef174d7fc, type: 3}
   m_PrefabInstance: {fileID: 687314217}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1924263709
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 49490255aaf1a2641a4c5771511bd253, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _halfSpace: 1
-  _alignAxis: 0
-  _alignmentAxis: 1
-  _invertAlignmentAxis: 0
-  _projectAsUnit: 0
-  _embedInSurface: 1
-  _inFrontOffset: 0
-  _behindOffset: 0
 --- !u!1 &1926967440
 GameObject:
   m_ObjectHideFlags: 0
@@ -57603,7 +57613,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2039778901}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.14552462, y: -0.8043468, z: 0.53246987, w: 0.21982887}
+  m_LocalRotation: {x: 0.14552465, y: -0.8043468, z: 0.5324699, w: 0.21982887}
   m_LocalPosition: {x: 1.1424346, y: 3.2410002, z: 1.7928745}
   m_LocalScale: {x: 0.16666667, y: 0.16666667, z: 0.16666667}
   m_ConstrainProportionsScale: 0
@@ -57980,7 +57990,7 @@ MonoBehaviour:
   _extensionPlane:
     _refOBBFace: 4
   _heightPatternDirection: 0
-  _modularSnapSession: {fileID: 13211812}
+  _modularSnapSession: {fileID: 1213143412}
   _mirrorGizmo: {fileID: 642458978}
 --- !u!114 &2051596471
 MonoBehaviour:
