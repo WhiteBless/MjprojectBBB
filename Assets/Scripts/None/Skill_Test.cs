@@ -20,7 +20,7 @@ public class Skill_Test : MonoBehaviour
     public TextMeshProUGUI hideSkillTimeTexts;
     public Image hideSkillmages;
     private bool isHideSkills = false;
-    public float skillTimes = 30;
+    public float skillTimes;
     public float getSkillTimes = 0;
 
     public bool isSkill1CT;
@@ -31,8 +31,22 @@ public class Skill_Test : MonoBehaviour
 
     public InGameSetting inGameSetting;
 
+    public Image uiImage;
+    public Image uiImage2;
+
+    [Header("어쌔신")]
     public Assassin_Controller assassin_Controller;
+    [SerializeField]
+    Sprite icon_Assassin;
+    public float assassin_SkillTime;
+
+    [Header("사무라이")]
+
     public Samurai_Controller samurai_Controller;
+    [SerializeField]
+    Sprite icon_Samurai;
+    public float samurai_SkillTime;
+
 
 
     void Init()
@@ -42,10 +56,16 @@ public class Skill_Test : MonoBehaviour
         if (GameManager.GMInstance.cur_Char == Define.Cur_Character.ASSASIN)
         {
             assassin_Controller = GameManager.GMInstance.Get_PlaySceneManager().CurCharacter.transform.GetChild(0).GetComponent<Assassin_Controller>();
+            uiImage.sprite = icon_Assassin;
+            uiImage2.sprite = icon_Assassin;
+            skillTimes = assassin_SkillTime;
         }
         if (GameManager.GMInstance.cur_Char == Define.Cur_Character.SAMURAI)
         {
             samurai_Controller = GameManager.GMInstance.Get_PlaySceneManager().CurCharacter.transform.GetChild(0).GetComponent<Samurai_Controller>();
+            uiImage.sprite = icon_Samurai;
+            uiImage2.sprite= icon_Samurai;
+            skillTimes = samurai_SkillTime;
         }
     }
 

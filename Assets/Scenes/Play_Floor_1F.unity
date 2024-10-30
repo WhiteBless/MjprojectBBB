@@ -265,6 +265,21 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4538540715402149400, guid: cca18cd67d35ca745a3ec53672e37054, type: 3}
   m_PrefabInstance: {fileID: 9441550}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &13211812
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38a40404d9721ed4f984030fbce11d53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _snapMode: 0
+  _snapHalfSpace: 0
+  _projectionSettings: {fileID: 0}
 --- !u!1001 &15364841
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2956,6 +2971,10 @@ MonoBehaviour:
   inGameSetting: {fileID: 750823378}
   assassin_Controller: {fileID: 0}
   samurai_Controller: {fileID: 0}
+  uiImage: {fileID: 0}
+  uiImage2: {fileID: 0}
+  icon_Assassin: {fileID: 0}
+  icon_Samurai: {fileID: 0}
 --- !u!1001 &96535021
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7825,7 +7844,7 @@ MonoBehaviour:
   _spawnGuide: {fileID: 2117108722}
   _extensionPlane:
     _refOBBFace: 4
-  _modularSnapSession: {fileID: 1070274154}
+  _modularSnapSession: {fileID: 1752791329}
   _mirrorGizmo: {fileID: 1863135110}
 --- !u!1001 &270299756
 PrefabInstance:
@@ -15129,6 +15148,10 @@ MonoBehaviour:
   inGameSetting: {fileID: 750823378}
   assassin_Controller: {fileID: 0}
   samurai_Controller: {fileID: 0}
+  uiImage: {fileID: 0}
+  uiImage2: {fileID: 0}
+  icon_Assassin: {fileID: 0}
+  icon_Samurai: {fileID: 0}
 --- !u!4 &503169529 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 873880662458531553, guid: 323f66117a9b44b44821122ef174d7fc, type: 3}
@@ -17297,6 +17320,10 @@ MonoBehaviour:
   inGameSetting: {fileID: 750823378}
   assassin_Controller: {fileID: 0}
   samurai_Controller: {fileID: 0}
+  uiImage: {fileID: 0}
+  uiImage2: {fileID: 0}
+  icon_Assassin: {fileID: 0}
+  icon_Samurai: {fileID: 0}
 --- !u!1001 &586154281
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19180,7 +19207,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8725edae6a1fd4408036dedaf0199f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _projectionSettings: {fileID: 2115684880}
+  _projectionSettings: {fileID: 1924263709}
   _dragAndDropGuide: {fileID: 0}
 --- !u!1001 &655486229
 PrefabInstance:
@@ -24178,6 +24205,10 @@ MonoBehaviour:
   inGameSetting: {fileID: 750823378}
   assassin_Controller: {fileID: 0}
   samurai_Controller: {fileID: 0}
+  uiImage: {fileID: 0}
+  uiImage2: {fileID: 0}
+  icon_Assassin: {fileID: 0}
+  icon_Samurai: {fileID: 0}
 --- !u!1001 &809156340
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -28185,8 +28216,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.371748, y: 0.6015009, z: -0.371748, w: 0.601501}
-  m_LocalPosition: {x: 114.899994, y: 40.44, z: 694.33}
+  m_LocalRotation: {x: 0.16309533, y: 0.6880407, z: -0.16309533, w: 0.6880407}
+  m_LocalPosition: {x: 69.96, y: 17.02, z: 696.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -30620,21 +30651,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1068551119}
   m_CullTransparentMesh: 1
---- !u!114 &1070274154
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38a40404d9721ed4f984030fbce11d53, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _snapMode: 0
-  _snapHalfSpace: 0
-  _projectionSettings: {fileID: 0}
 --- !u!1001 &1070461566
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -48723,6 +48739,10 @@ MonoBehaviour:
   inGameSetting: {fileID: 750823378}
   assassin_Controller: {fileID: 0}
   samurai_Controller: {fileID: 0}
+  uiImage: {fileID: 1655360972}
+  uiImage2: {fileID: 1926967444}
+  icon_Assassin: {fileID: 1063840741, guid: e5751b72ba23eb44497c96223caddc44, type: 3}
+  icon_Samurai: {fileID: 952943735, guid: e5751b72ba23eb44497c96223caddc44, type: 3}
 --- !u!1 &1655733032
 GameObject:
   m_ObjectHideFlags: 0
@@ -49073,21 +49093,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5862613817031353211, guid: 4d9a3b35b3bc07649b697df7fb497b6d, type: 3}
   m_PrefabInstance: {fileID: 1672113851}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1672248063
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38a40404d9721ed4f984030fbce11d53, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _snapMode: 0
-  _snapHalfSpace: 0
-  _projectionSettings: {fileID: 0}
 --- !u!1 &1675042954
 GameObject:
   m_ObjectHideFlags: 0
@@ -50734,6 +50739,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 809156341}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!114 &1752791329
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38a40404d9721ed4f984030fbce11d53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _snapMode: 0
+  _snapHalfSpace: 0
+  _projectionSettings: {fileID: 0}
 --- !u!4 &1753801651 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 667033729184526641, guid: d357f7729e4db234fa9ed72a762fb1ce, type: 3}
@@ -54170,6 +54190,26 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 873880662458531553, guid: 323f66117a9b44b44821122ef174d7fc, type: 3}
   m_PrefabInstance: {fileID: 687314217}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1924263709
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49490255aaf1a2641a4c5771511bd253, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _halfSpace: 1
+  _alignAxis: 0
+  _alignmentAxis: 1
+  _invertAlignmentAxis: 0
+  _projectAsUnit: 0
+  _embedInSurface: 1
+  _inFrontOffset: 0
+  _behindOffset: 0
 --- !u!1 &1926967440
 GameObject:
   m_ObjectHideFlags: 0
@@ -57940,7 +57980,7 @@ MonoBehaviour:
   _extensionPlane:
     _refOBBFace: 4
   _heightPatternDirection: 0
-  _modularSnapSession: {fileID: 1672248063}
+  _modularSnapSession: {fileID: 13211812}
   _mirrorGizmo: {fileID: 642458978}
 --- !u!114 &2051596471
 MonoBehaviour:
@@ -60167,26 +60207,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 323f66117a9b44b44821122ef174d7fc, type: 3}
---- !u!114 &2115684880
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 49490255aaf1a2641a4c5771511bd253, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _halfSpace: 1
-  _alignAxis: 0
-  _alignmentAxis: 1
-  _invertAlignmentAxis: 0
-  _projectAsUnit: 0
-  _embedInSurface: 1
-  _inFrontOffset: 0
-  _behindOffset: 0
 --- !u!114 &2117108722
 MonoBehaviour:
   m_ObjectHideFlags: 0
