@@ -209,6 +209,10 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
     GameObject Drop_Fly_VFX;
     [SerializeField]
     GameObject Drop_Crack_VFX;
+
+    [Header("-----Dragon_Fire_Ball_Atk-----")]
+    [SerializeField]
+    Transform FireBall_Start_Pos;
     #endregion
 
     #region Dragon_Rotate
@@ -400,7 +404,7 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
             else
             {
                 //FireDragon_State randomFireState = (FireDragon_State)Random.Range(3, 8);
-                FireDragon_State randomFireState = (FireDragon_State)7;
+                FireDragon_State randomFireState = (FireDragon_State)9;
                 FireDragonState = randomFireState;
             }
         }
@@ -1093,6 +1097,14 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
     {
         isAttacking = false;
         isThink = false;
+    }
+
+    public void SpawnFireBall()
+    {
+        // 파이어 볼 생성
+        GameObject FireBall = Dragon_ObjPoolRef.GetFireBallAtkFromPool();
+        FireBall.transform.Rotate(Vector3.zero);
+        FireBall.transform.position = FireBall_Start_Pos.position;
     }
 
     #endregion

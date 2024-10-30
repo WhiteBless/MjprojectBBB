@@ -22,15 +22,19 @@ public class Fury_Atk : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // 플레이어를 찾음
         Target = GameObject.FindWithTag("Player");
         this.gameObject.SetActive(false);
     }
+
+    // 회오리 이동 + 방향
     void FixedUpdate()
     {
         LookAtPlayer();
         Move();
     }
 
+    // 스킬 지속 시간
     private void OnEnable()
     {
         StartCoroutine(VisibleTime());
@@ -44,6 +48,7 @@ public class Fury_Atk : MonoBehaviour
     // 스킬 이펙트 지속 시간
     IEnumerator VisibleTime()
     {
+        // Spawn_MaxTime 까지 스킬 지속, 이후 스킬 비활성화
         while (Current_SpawnTime <= Spawn_MaxTime)
         {
             Current_SpawnTime += Time.deltaTime;
