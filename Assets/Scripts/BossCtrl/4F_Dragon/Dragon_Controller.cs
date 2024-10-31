@@ -404,7 +404,7 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
             else
             {
                 //FireDragon_State randomFireState = (FireDragon_State)Random.Range(3, 8);
-                FireDragon_State randomFireState = (FireDragon_State)9;
+                FireDragon_State randomFireState = (FireDragon_State)7;
                 FireDragonState = randomFireState;
             }
         }
