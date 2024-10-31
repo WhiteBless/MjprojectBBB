@@ -404,7 +404,7 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
             else
             {
                 //FireDragon_State randomFireState = (FireDragon_State)Random.Range(3, 8);
-                FireDragon_State randomFireState = (FireDragon_State)7;
+                FireDragon_State randomFireState = (FireDragon_State)9;
                 FireDragonState = randomFireState;
             }
         }
@@ -551,6 +551,16 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
     public void Atk_Start()
     {
         isAttacking = true;
+        isLock = true;
+    }
+
+    public void Lock_Off()
+    {
+        isLock = false;
+    }
+
+    public void Lock_On()
+    {
         isLock = true;
     }
     #endregion
@@ -1101,6 +1111,7 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
 
     public void SpawnFireBall()
     {
+        isLock = true;
         // 파이어 볼 생성
         GameObject FireBall = Dragon_ObjPoolRef.GetFireBallAtkFromPool();
         FireBall.transform.Rotate(Vector3.zero);

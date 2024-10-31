@@ -12,6 +12,8 @@ public class FireBall_Ctrl : MonoBehaviour
     float FireBall_Rot_Speed;
     [SerializeField]
     bool isMove;
+    [SerializeField]
+    bool isLock;
 
     [SerializeField]
     GameObject FireBall_VFX;
@@ -25,17 +27,25 @@ public class FireBall_Ctrl : MonoBehaviour
     [SerializeField]
     float Current_SpawnTime;
 
+    [SerializeField]
+    float Rot_MaxTime;
+    [SerializeField]
+    float Current_RotTime;
+
     private void OnEnable()
     {
         isMove = true;
         StartCoroutine(VisibleTime());
+        StartCoroutine(Rotate_Time());
     }
 
     private void OnDisable()
     {
+        Current_RotTime = 0.0f;
         Current_SpawnTime = 0.0f;
         FireBall_VFX.SetActive(true);
         Explosion_VFX.SetActive(false);
+        isLock = false;
     }
 
     // Start is called before the first frame update
@@ -58,12 +68,27 @@ public class FireBall_Ctrl : MonoBehaviour
 
     public void LookAtPlayer()
     {
-        dir = Target.transform.position - transform.position;
-        // y축 정보 제거
-        dir.y = 0.0f;
+        if (!isLock)
+        {
+            dir = Target.transform.position - transform.position;
+            // y축 정보 제거
+            dir.y = 0.0f;
 
-        Quaternion rotation = Quaternion.LookRotation(dir, Vector3.up);
-        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * FireBall_Rot_Speed);
+            Quaternion rotation = Quaternion.LookRotation(dir, Vector3.up);
+            transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * FireBall_Rot_Speed);
+        }
+    }
+
+    IEnumerator Rotate_Time()
+    {
+        // Spawn_MaxTime 까지 스킬 지속, 이후 스킬 비활성화
+        while (Current_RotTime <= Rot_MaxTime)
+        {
+            Current_RotTime += Time.deltaTime;
+            yield return null;
+        }
+
+        isLock = true;
     }
 
     IEnumerator VisibleTime()
