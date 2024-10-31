@@ -47,13 +47,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Target: {fileID: 0}
-  FireBall_Speed: 17
-  FireBall_Rot_Speed: 1
+  FireBall_Speed: 60
+  FireBall_Rot_Speed: 50
   isMove: 0
+  isLock: 0
   FireBall_VFX: {fileID: 5355765474481114873}
   Explosion_VFX: {fileID: 3647010969864843578}
-  Spawn_MaxTime: 3
+  Spawn_MaxTime: 1
   Current_SpawnTime: 0
+  Rot_MaxTime: 0.1
+  Current_RotTime: 0
 --- !u!1001 &3646305761401108776
 PrefabInstance:
   m_ObjectHideFlags: 0
