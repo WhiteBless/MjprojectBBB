@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour
     Cur_Character Cur_Char;
     public Cur_Character cur_Char { get { return Cur_Char; } set { Cur_Char = value; } }
 
-    // 현재 캐릭터 
+    // 현재 씬
     [SerializeField]
     Cur_Scene Cur_Scene;
     public Cur_Scene cur_Scene { get { return Cur_Scene; } set { Cur_Scene = value; } }

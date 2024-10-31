@@ -1733,8 +1733,14 @@ MonoBehaviour:
   isSkill4CT: 0
   isDodgeCT: 0
   inGameSetting: {fileID: 750823378}
+  uiImage: {fileID: 0}
+  uiImage2: {fileID: 0}
   assassin_Controller: {fileID: 0}
+  icon_Assassin: {fileID: 0}
+  assassin_SkillTime: 0
   samurai_Controller: {fileID: 0}
+  icon_Samurai: {fileID: 0}
+  samurai_SkillTime: 0
 --- !u!1 &116428004
 GameObject:
   m_ObjectHideFlags: 0
@@ -5326,7 +5332,7 @@ Transform:
   m_GameObject: {fileID: 387737330}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 190.7, y: 0, z: 691.7}
+  m_LocalPosition: {x: 316, y: 0, z: 691.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6929,8 +6935,14 @@ MonoBehaviour:
   isSkill4CT: 0
   isDodgeCT: 0
   inGameSetting: {fileID: 750823378}
+  uiImage: {fileID: 0}
+  uiImage2: {fileID: 0}
   assassin_Controller: {fileID: 0}
+  icon_Assassin: {fileID: 0}
+  assassin_SkillTime: 0
   samurai_Controller: {fileID: 0}
+  icon_Samurai: {fileID: 0}
+  samurai_SkillTime: 0
 --- !u!1 &504190516
 GameObject:
   m_ObjectHideFlags: 0
@@ -8099,8 +8111,14 @@ MonoBehaviour:
   isSkill4CT: 0
   isDodgeCT: 0
   inGameSetting: {fileID: 750823378}
+  uiImage: {fileID: 0}
+  uiImage2: {fileID: 0}
   assassin_Controller: {fileID: 0}
+  icon_Assassin: {fileID: 0}
+  assassin_SkillTime: 0
   samurai_Controller: {fileID: 0}
+  icon_Samurai: {fileID: 0}
+  samurai_SkillTime: 0
 --- !u!1 &587078745
 GameObject:
   m_ObjectHideFlags: 0
@@ -8731,7 +8749,7 @@ Transform:
   m_GameObject: {fileID: 633881951}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -181, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -11756,8 +11774,14 @@ MonoBehaviour:
   isSkill4CT: 0
   isDodgeCT: 0
   inGameSetting: {fileID: 750823378}
+  uiImage: {fileID: 0}
+  uiImage2: {fileID: 0}
   assassin_Controller: {fileID: 0}
+  icon_Assassin: {fileID: 0}
+  assassin_SkillTime: 0
   samurai_Controller: {fileID: 0}
+  icon_Samurai: {fileID: 0}
+  samurai_SkillTime: 0
 --- !u!114 &814194140
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13506,7 +13530,7 @@ Transform:
   m_Children:
   - {fileID: 660539578}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 35, y: 90, z: 0}
+  m_LocalEulerAnglesHint: {x: 63.435, y: 90, z: 0.02}
 --- !u!114 &963194229
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13523,6 +13547,8 @@ MonoBehaviour:
   _delta: {x: -20, y: 35, z: 0}
   _player: {fileID: 0}
   wallDistance: 10
+  lockYPosition: 0
+  fixedYPosition: 0
 --- !u!114 &963194231
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17540,6 +17566,8 @@ MonoBehaviour:
   _delta: {x: -20, y: 35, z: 0}
   _player: {fileID: 0}
   wallDistance: 2
+  lockYPosition: 0
+  fixedYPosition: 0
 --- !u!114 &1260514097
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22508,8 +22536,14 @@ MonoBehaviour:
   isSkill4CT: 0
   isDodgeCT: 0
   inGameSetting: {fileID: 750823378}
+  uiImage: {fileID: 0}
+  uiImage2: {fileID: 0}
   assassin_Controller: {fileID: 0}
+  icon_Assassin: {fileID: 0}
+  assassin_SkillTime: 0
   samurai_Controller: {fileID: 0}
+  icon_Samurai: {fileID: 0}
+  samurai_SkillTime: 0
 --- !u!1 &1655733032
 GameObject:
   m_ObjectHideFlags: 0
@@ -24763,7 +24797,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1916441238}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.26589832, y: 0.13974321, z: -0.038989134, w: 0.9530214}
+  m_LocalRotation: {x: 0.26589832, y: 0.13974324, z: -0.038989145, w: 0.9530214}
   m_LocalPosition: {x: -3.3210754, y: 10, z: -11.081055}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -25357,7 +25391,7 @@ MonoBehaviour:
   m_OverrideTileSize: 0
   m_TileSize: 256
   m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.016666668
+  m_VoxelSize: 0.33333334
   m_MinRegionArea: 20
   m_NavMeshData: {fileID: 0}
   m_BuildHeightMesh: 0
