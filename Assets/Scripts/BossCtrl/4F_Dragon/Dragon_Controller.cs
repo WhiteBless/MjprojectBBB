@@ -173,14 +173,22 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
     float Drop_Time;
     [SerializeField]
     float Drop_MaxTime;
+    [SerializeField]
+    GameObject Ice_Drop_VFX;
 
     [Header("-----Dragon_ICE_Arrow-----")]
+    [SerializeField]
+    GameObject IceArrow_VFX;
     [SerializeField]
     bool isEnterIceArrow;
     [SerializeField]
     float IceArrow_Time;
     [SerializeField]
     float IceArrow_MaxTime;
+
+    [Header("-----Dragon_ICE_Wave-----")]
+    [SerializeField]
+    GameObject IceWave_VFX;
 
     [Header("-----Dragon_Thunder_Thunder_Atk-----")]
     [SerializeField]
@@ -288,17 +296,17 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
         Dragon_ObjPoolRef = GetComponent<Dragon_ObjPool>();
         Dragon_animator = GetComponent<Animator>();
 
-        // CurrentElement = CurentElement_State.ICE_DRAGON;
-        CurrentElement = CurentElement_State.FIRE_DRAGON;
+        CurrentElement = CurentElement_State.ICE_DRAGON;
+        //CurrentElement = CurentElement_State.FIRE_DRAGON;
         // CurrentElement = CurentElement_State.THUNDER_DRAGON;
 
-        // IceDragonState = IceDragon_State.ICE_IDLE;
-        FireDragonState = FireDragon_State.FIRE_IDLE;
+        IceDragonState = IceDragon_State.ICE_IDLE;
+        //FireDragonState = FireDragon_State.FIRE_IDLE;
         // ThunderDragonState = ThunderDragon_State.THUNDER_IDLE;
 
-        IceDragonState = IceDragon_State.NONE;
+        //IceDragonState = IceDragon_State.NONE;
         ThunderDragonState = ThunderDragon_State.NONE;
-        // FireDragonState = FireDragon_State.NONE;
+        FireDragonState = FireDragon_State.NONE;
        
 
         isMove = false;
@@ -391,7 +399,7 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
             if (CurrentElement == CurentElement_State.ICE_DRAGON)
             {
                 //IceDragon_State randomIceState = (IceDragon_State)Random.Range(3, 8);
-                IceDragon_State randomIceState = (IceDragon_State)11;
+                IceDragon_State randomIceState = (IceDragon_State)10;
                 IceDragonState = randomIceState;
             }
             else if(CurrentElement == CurentElement_State.THUNDER_DRAGON)
@@ -404,7 +412,7 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
             else
             {
                 //FireDragon_State randomFireState = (FireDragon_State)Random.Range(3, 8);
-                FireDragon_State randomFireState = (FireDragon_State)9;
+                FireDragon_State randomFireState = (FireDragon_State)8;
                 FireDragonState = randomFireState;
             }
         }
@@ -942,8 +950,18 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
         }
 
         DropDown_Atk_Anim();
+
+        yield return new WaitForSeconds(9.0f);
+        Ice_Drop_VFX.SetActive(false);
     }
 
+    // 이펙트 활성화
+    public void DropDown_VFX_On()
+    {
+        Ice_Drop_VFX.SetActive(true);
+    }
+
+    // 애니메이션 실행
     public void DropDown_Atk_Anim()
     {
         DragonPos.localPosition = Vector3.zero;
@@ -980,9 +998,15 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
 
     public void IceWave_Atk_End()
     {
+        IceWave_VFX.SetActive(false);
         isAttacking = false;
         isThink = false;
         isLock = false;
+    }
+
+    public void IceWave_VFX_On()
+    {
+        IceWave_VFX.SetActive(true);
     }
     #endregion
 
@@ -990,6 +1014,7 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
     public void IceArrow_Atk()
     {
         Dragon_animator.SetTrigger("IceArrowAtk");
+        isLock = true;
     }
 
     public void IceArrow_Start()
@@ -1001,7 +1026,7 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
 
     IEnumerator IceArrowTime()
     {
-        if (isEnterIceArrow == true)
+        if (isEnterIceArrow == true && isAttacking)
             yield break;
 
         while (IceArrow_Time <= IceArrow_MaxTime)
@@ -1011,15 +1036,23 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
         }
 
         IceArrow_End();
+        isAttacking = false;
+    }
+
+    public void IceArrow_VFX_On()
+    { 
+        IceArrow_VFX.SetActive(true);
     }
 
     public void IceArrow_End()
     {
-        Dragon_animator.SetTrigger("IceArrowAtk_End");
-        IceArrow_Time = 0.0f;
         isEnterIceArrow = false;
-        isAttacking = false;
+        IceArrow_VFX.SetActive(false);
+        isLock = false;
         isThink = false;
+        Dragon_animator.SetTrigger("IceArrowAtk_End");
+
+        IceArrow_Time = 0.0f;
     }
     #endregion
 
