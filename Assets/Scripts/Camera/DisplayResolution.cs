@@ -33,19 +33,19 @@ public class DisplayResolution : MonoBehaviour
     {
         for (int i = 0; i < Screen.resolutions.Length; i++)
         {
-            if(Screen.resolutions[i].width >= 1200)
+            if(Screen.resolutions[i].width >= 1200 && Screen.resolutions[i].height >= 800)
             {
                 resolutions.Add(Screen.resolutions[i]);
             }
         }
 
         // 해상도 저장
-        resolutions.AddRange(Screen.resolutions);
+        // resolutions.AddRange(Screen.resolutions);
         resolutionDropdown.options.Clear();
 
         int optionIndex = 0;
 
-        foreach(Resolution item in resolutions)
+        foreach (Resolution item in resolutions)
         {
             Dropdown.OptionData option = new Dropdown.OptionData();
             // text 저장
@@ -53,7 +53,7 @@ public class DisplayResolution : MonoBehaviour
             resolutionDropdown.options.Add(option);
 
             // 현재 적용 중인 해상도에 맞게 텍스트가 나올 수 있도록
-            if (item.width == Screen.width && item.height == Screen.height)
+            if (item.width == Screen.width && item.height == Screen.height && GameManager.GMInstance.isEnterFirst == false)
             {
                 // 현재 적용중인 해상도가 맞다면 value값을 바꿔 표시하도록
                 resolutionDropdown.value = optionIndex;
@@ -68,7 +68,10 @@ public class DisplayResolution : MonoBehaviour
         // 재설정
         resolutionDropdown.RefreshShownValue();
 
+        // 전체화면 적용 유무
         FullScreenBtn.isOn = Screen.fullScreenMode.Equals(FullScreenMode.FullScreenWindow) ? true : false;
+
+        GameManager.GMInstance.isEnterFirst = true;
     }
 
     public void DropboxOptionChange(int _x)

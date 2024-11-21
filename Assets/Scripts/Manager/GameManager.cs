@@ -5,6 +5,8 @@ using static Define;
 
 public class GameManager : MonoBehaviour
 {
+    public bool isEnterFirst;
+
     public int DisplayWidth;
     public int DisplayHeight;
     //// ManagerRef

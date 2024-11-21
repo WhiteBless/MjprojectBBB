@@ -121,8 +121,8 @@ public class Boss_HP_Controller : MonoBehaviour
             isDead = true;
             this.GetComponent<CapsuleCollider>().enabled = false;
 
-            Animator reaperanimator = GetComponent<Animator>();
-            reaperanimator.SetTrigger("isDeath");
+            Animator Treantanimator = GetComponent<Animator>();
+            Treantanimator.SetTrigger("isDeath");
             Boss_HP_Canvas.transform.localScale = Vector3.zero;
             playSceneManager.BossClear();
             PD.Play();
