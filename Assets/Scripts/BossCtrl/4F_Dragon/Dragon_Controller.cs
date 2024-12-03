@@ -192,13 +192,19 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
 
     [Header("-----Dragon_Thunder_Thunder_Atk-----")]
     [SerializeField]
+    GameObject[] ThundersAtk_VFX;
+    [SerializeField]
     bool isEnterThunderAtk;
+    [SerializeField]
+    float Thunder_DelayTime;
     [SerializeField]
     float Thunder_Time;
     [SerializeField]
     float Thunder_MaxTime;
 
     [Header("-----Dragon_Thunder_Rope_Atk-----")]
+    [SerializeField]
+    GameObject Rope_VFX;
     [SerializeField]
     bool isEnterRopeAtk;
     [SerializeField]
@@ -296,16 +302,16 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
         Dragon_ObjPoolRef = GetComponent<Dragon_ObjPool>();
         Dragon_animator = GetComponent<Animator>();
 
-        CurrentElement = CurentElement_State.ICE_DRAGON;
+        // CurrentElement = CurentElement_State.ICE_DRAGON;
         //CurrentElement = CurentElement_State.FIRE_DRAGON;
-        // CurrentElement = CurentElement_State.THUNDER_DRAGON;
+        CurrentElement = CurentElement_State.THUNDER_DRAGON;
 
-        IceDragonState = IceDragon_State.ICE_IDLE;
+        // IceDragonState = IceDragon_State.ICE_IDLE;
         //FireDragonState = FireDragon_State.FIRE_IDLE;
-        // ThunderDragonState = ThunderDragon_State.THUNDER_IDLE;
+        ThunderDragonState = ThunderDragon_State.THUNDER_IDLE;
 
-        //IceDragonState = IceDragon_State.NONE;
-        ThunderDragonState = ThunderDragon_State.NONE;
+        IceDragonState = IceDragon_State.NONE;
+        // ThunderDragonState = ThunderDragon_State.NONE;
         FireDragonState = FireDragon_State.NONE;
        
 
@@ -405,7 +411,7 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
             else if(CurrentElement == CurentElement_State.THUNDER_DRAGON)
             {
                 //ThunderDragon_State randomThunderState = (FireDragon_State)Random.Range(3, 8);
-                ThunderDragon_State randomThunderState = (ThunderDragon_State)6;
+                ThunderDragon_State randomThunderState = (ThunderDragon_State)8;
                 ThunderDragonState = randomThunderState;
             }
            
@@ -1164,12 +1170,40 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
     public void Thunder_Atk()
     {
         Dragon_animator.SetTrigger("Thunder_Atk");
+        StartCoroutine(Thunder_Atk_VFX_On());
     }
 
     public void Thunder_Flying()
     {
         StartCoroutine(Thunder_Atk_Fly());
         isEnterThunderAtk = true;
+    }
+
+    IEnumerator Thunder_Atk_VFX_On()
+    {
+        yield return new WaitForSeconds(Thunder_DelayTime);
+        ThundersAtk_VFX[0].SetActive(true);
+
+        yield return new WaitForSeconds(Thunder_DelayTime);
+        ThundersAtk_VFX[1].SetActive(true);
+
+        yield return new WaitForSeconds(Thunder_DelayTime);
+        ThundersAtk_VFX[2].SetActive(true);
+
+        yield return new WaitForSeconds(Thunder_DelayTime);
+        ThundersAtk_VFX[3].SetActive(true);
+
+        yield return new WaitForSeconds(Thunder_DelayTime);
+        ThundersAtk_VFX[4].SetActive(true);
+
+        yield return new WaitForSeconds(Thunder_DelayTime);
+        ThundersAtk_VFX[5].SetActive(true);
+
+        yield return new WaitForSeconds(Thunder_DelayTime);
+        ThundersAtk_VFX[6].SetActive(true);
+
+        yield return new WaitForSeconds(Thunder_DelayTime);
+        ThundersAtk_VFX[7].SetActive(true);
     }
 
     IEnumerator Thunder_Atk_Fly()
@@ -1189,6 +1223,11 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
     public void Thunder_Atk_Fly_End()
     {
         Dragon_animator.SetTrigger("Thunder_Atk_End");
+
+        for (int i = 0; i < ThundersAtk_VFX.Length; i++)
+        {
+            ThundersAtk_VFX[i].SetActive(false);
+        }
     }
 
     public void Thunder_Atk_End()
@@ -1224,6 +1263,8 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
         DragonPos.localPosition = Vector3.zero;
         isAttacking = true;
         isLock = true;
+
+        Rope_VFX.SetActive(true);
     }
 
     IEnumerator Rope_Atk_Fly()
@@ -1251,6 +1292,7 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
         isAttacking = false;
         isEnterRopeAtk = false;
         isLock = false;
+        Rope_VFX.SetActive(false);
     }
     #endregion
 

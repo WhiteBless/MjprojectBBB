@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 1049895169098164}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: 1, z: 0.091}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4921,9 +4921,15 @@ MonoBehaviour:
   UseFirePointRotation: 1
   rotationOffset: {x: 0, y: 0, z: 0}
   hit: {fileID: 1186752452136346, guid: 8fea08f7cd39cd243840dcfe935c84bc, type: 3}
+  hitPS: {fileID: 0}
   flash: {fileID: 1554156215293492, guid: b15ff8497c1816242b4531a624ad5784, type: 3}
+  rb: {fileID: 0}
+  col: {fileID: 0}
+  lightSourse: {fileID: 0}
   Detached:
   - {fileID: 1087620334247294}
+  projectilePS: {fileID: 0}
+  notDestroy: 0
 --- !u!54 &54908155343697094
 Rigidbody:
   m_ObjectHideFlags: 0
