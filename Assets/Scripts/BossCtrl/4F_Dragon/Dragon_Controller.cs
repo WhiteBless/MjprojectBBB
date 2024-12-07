@@ -411,7 +411,7 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
             else if(CurrentElement == CurentElement_State.THUNDER_DRAGON)
             {
                 //ThunderDragon_State randomThunderState = (FireDragon_State)Random.Range(3, 8);
-                ThunderDragon_State randomThunderState = (ThunderDragon_State)8;
+                ThunderDragon_State randomThunderState = (ThunderDragon_State)10;
                 ThunderDragonState = randomThunderState;
             }
            
