@@ -168,6 +168,8 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
 
     [Header("-----Dragon_ICE_DropDown-----")]
     [SerializeField]
+    GameObject IceDrop_Guide;
+    [SerializeField]
     bool isEnterDropDown;
     [SerializeField]
     float Drop_Time;
@@ -177,6 +179,8 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
     GameObject Ice_Drop_VFX;
 
     [Header("-----Dragon_ICE_Arrow-----")]
+    [SerializeField]
+    GameObject IceArrow_Guide;
     [SerializeField]
     GameObject IceArrow_VFX;
     [SerializeField]
@@ -416,7 +420,7 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
             if (CurrentElement == CurentElement_State.ICE_DRAGON)
             {
                 //IceDragon_State randomIceState = (IceDragon_State)Random.Range(3, 8);
-                IceDragon_State randomIceState = (IceDragon_State)8;
+                IceDragon_State randomIceState = (IceDragon_State)11;
                 IceDragonState = randomIceState;
             }
             else if (CurrentElement == CurentElement_State.THUNDER_DRAGON)
@@ -982,6 +986,8 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
         if (isEnterDropDown == true)
             yield break;
 
+        IceDrop_Guide.SetActive(true);
+
         while (Drop_Time <= Drop_MaxTime)
         {
             Drop_Time += Time.deltaTime;
@@ -990,7 +996,7 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
 
         DropDown_Atk_Anim();
 
-        yield return new WaitForSeconds(9.0f);
+        yield return new WaitForSeconds(5.0f);
         Ice_Drop_VFX.SetActive(false);
     }
 
@@ -1054,6 +1060,8 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
     {
         Dragon_animator.SetTrigger("IceArrowAtk");
         isLock = true;
+
+        IceArrow_Guide.SetActive(true);
     }
 
     public void IceArrow_Start()

@@ -134,7 +134,7 @@ public class Boss_HP_Controller : MonoBehaviour
     {
         if (other.CompareTag("Weapon"))
         {
-            Debug.Log(this.name);
+            // Debug.Log(this.name);
 
             // 보스 피격 소리 재생
             GameManager.GMInstance.SoundManagerRef.PlaySFX(((SoundManager.SFX)Random.Range((int)SoundManager.SFX.BOSS_HIT_1, (int)SoundManager.SFX.CLEAR_SOUND)));
