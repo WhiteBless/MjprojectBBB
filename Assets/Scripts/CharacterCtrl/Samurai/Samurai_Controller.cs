@@ -43,6 +43,8 @@ public class Samurai_Controller : Character_BehaviorCtrl_Base
 
     public bool isIce;
     public bool isStun;
+    public GameObject iceEffect;
+    public GameObject stunEffect;
 
     public PlaySceneManager playscenemanager;
     public InGameSetting inGameSetting;
@@ -979,6 +981,7 @@ public class Samurai_Controller : Character_BehaviorCtrl_Base
         if(other.tag == "IceAttack" && !isHit)
         {
             other.gameObject.SetActive(false);
+            iceEffect.SetActive(true);
             animator.speed = 0;
             CantMove();
             Invoke("ResumeAnimation", 3f);
@@ -988,6 +991,7 @@ public class Samurai_Controller : Character_BehaviorCtrl_Base
         if(other.tag == "LightningAttack" && !isHit)
         {
             other.gameObject.SetActive(false);
+            stunEffect.SetActive(true);
             CantMove();
             animator.SetTrigger("Stun");
             Invoke("ResumeAnimation", 3f);
@@ -999,6 +1003,7 @@ public class Samurai_Controller : Character_BehaviorCtrl_Base
     {
         if(isIce == true)
         {
+            iceEffect.SetActive(false);
             animator.speed = 1;
             animator.SetBool("isMove", false);
             animator.Play("Idle");
@@ -1007,6 +1012,7 @@ public class Samurai_Controller : Character_BehaviorCtrl_Base
         }
         if(isStun == true)
         {
+            stunEffect.SetActive(false);
             animator.SetBool("isMove", false);
             animator.Play("Idle");
             isHitOut = true;
