@@ -7126,7 +7126,7 @@ GameObject:
   - component: {fileID: 537761698963464962}
   m_Layer: 0
   m_Name: AlphaSmoke
-  m_TagString: 
+  m_TagString: Particle_EnemyAtk
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9143,9 +9143,9 @@ ParticleSystem:
         m_NumAlphaKeys: 2
     range: {x: 0, y: 1}
   CollisionModule:
-    enabled: 0
+    enabled: 1
     serializedVersion: 4
-    type: 0
+    type: 1
     collisionMode: 0
     colliderForce: 0
     multiplyColliderForceByParticleSize: 0
@@ -9218,7 +9218,7 @@ ParticleSystem:
     maxCollisionShapes: 256
     quality: 0
     voxelSize: 0.5
-    collisionMessages: 0
+    collisionMessages: 1
     collidesWithDynamic: 1
     interiorCollisions: 1
   TriggerModule:
@@ -58376,6 +58376,7 @@ GameObject:
   - component: {fileID: 8637134427848325192}
   - component: {fileID: 8637134427848325206}
   - component: {fileID: 8637134427848325193}
+  - component: {fileID: -1723157830086430932}
   m_Layer: 0
   m_Name: SkyFlurry_Nature
   m_TagString: Untagged
@@ -63199,6 +63200,19 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &-1723157830086430932
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8637134427848325195}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e88ee69902a4e9541be0fa681b79f609, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ActiveTime: 5
 --- !u!1 &8637134427994548333
 GameObject:
   m_ObjectHideFlags: 0
