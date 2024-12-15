@@ -193,6 +193,8 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
 
     [Header("-----Dragon_Ice_WaterWave-----")]
     [SerializeField]
+    GameObject[] WaterWaves_GuideLine;
+    [SerializeField]
     Transform[] WaterWaves_Pos;
     [SerializeField]
     int WaterWave_Pos_1;
@@ -918,17 +920,6 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
     public void Tsunami_Atk()
     {
         Dragon_animator.SetTrigger("Tsunami_Atk");
-    }
-
-    public void Set_Tsunami_Pos()
-    {
-        DragonPos.localPosition = Vector3.zero;
-        isAttacking = true;
-    }
-
-    public void Tsunami_Start()
-    {
-        isLock = true;
 
         while (true)
         {
@@ -940,6 +931,20 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
                 break;
             }
         }
+    }
+
+    public void Set_Tsunami_Pos()
+    {
+        DragonPos.localPosition = Vector3.zero;
+        isAttacking = true;
+
+        WaterWaves_GuideLine[WaterWave_Pos_1].SetActive(true);
+        WaterWaves_GuideLine[WaterWave_Pos_2].SetActive(true);
+    }
+
+    public void Tsunami_Start()
+    {
+        isLock = true;
 
         GameObject WaterWave_1 = Dragon_ObjPoolRef.GetWaterWaveAtkFromPool();
         GameObject WaterWave_2 = Dragon_ObjPoolRef.GetWaterWaveAtkFromPool();
