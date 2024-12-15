@@ -190,6 +190,15 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
     [SerializeField]
     GameObject IceWave_VFX;
 
+
+    [Header("-----Dragon_Ice_WaterWave-----")]
+    [SerializeField]
+    Transform[] WaterWaves_Pos;
+    [SerializeField]
+    int WaterWave_Pos_1;
+    [SerializeField]
+    int WaterWave_Pos_2;
+
     [Header("-----Dragon_Thunder_Thunder_Atk-----")]
     [SerializeField]
     GameObject[] ThundersAtk_VFX;
@@ -302,16 +311,16 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
         Dragon_ObjPoolRef = GetComponent<Dragon_ObjPool>();
         Dragon_animator = GetComponent<Animator>();
 
-        // CurrentElement = CurentElement_State.ICE_DRAGON;
+        CurrentElement = CurentElement_State.ICE_DRAGON;
         //CurrentElement = CurentElement_State.FIRE_DRAGON;
-        CurrentElement = CurentElement_State.THUNDER_DRAGON;
+        //CurrentElement = CurentElement_State.THUNDER_DRAGON;
 
-        // IceDragonState = IceDragon_State.ICE_IDLE;
+        IceDragonState = IceDragon_State.ICE_IDLE;
         //FireDragonState = FireDragon_State.FIRE_IDLE;
-        ThunderDragonState = ThunderDragon_State.THUNDER_IDLE;
+        // ThunderDragonState = ThunderDragon_State.THUNDER_IDLE;
 
-        IceDragonState = IceDragon_State.NONE;
-        // ThunderDragonState = ThunderDragon_State.NONE;
+        // IceDragonState = IceDragon_State.NONE;
+        ThunderDragonState = ThunderDragon_State.NONE;
         FireDragonState = FireDragon_State.NONE;
        
 
@@ -405,7 +414,7 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
             if (CurrentElement == CurentElement_State.ICE_DRAGON)
             {
                 //IceDragon_State randomIceState = (IceDragon_State)Random.Range(3, 8);
-                IceDragon_State randomIceState = (IceDragon_State)10;
+                IceDragon_State randomIceState = (IceDragon_State)8;
                 IceDragonState = randomIceState;
             }
             else if(CurrentElement == CurentElement_State.THUNDER_DRAGON)
@@ -911,7 +920,7 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
         Dragon_animator.SetTrigger("Tsunami_Atk");
     }
 
-    public void Set_Tsunmai_Pos()
+    public void Set_Tsunami_Pos()
     {
         DragonPos.localPosition = Vector3.zero;
         isAttacking = true; 
@@ -920,6 +929,25 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
     public void Tsunami_Start()
     {
         isLock = true;
+
+        while(true)
+        {
+            WaterWave_Pos_1 = Random.Range(0, 4);
+            WaterWave_Pos_2 = Random.Range(0, 4);
+
+            if (WaterWave_Pos_1 != WaterWave_Pos_2)
+            {
+                break;
+            }
+        }
+
+        GameObject WaterWave_1 = Dragon_ObjPoolRef.GetWaterWaveAtkFromPool();
+        GameObject WaterWave_2 = Dragon_ObjPoolRef.GetWaterWaveAtkFromPool();
+
+        WaterWave_1.transform.position = WaterWaves_Pos[WaterWave_Pos_1].position;
+        WaterWave_1.transform.rotation = Quaternion.Euler(0.0f, 90.0f, 0.0f);
+        WaterWave_2.transform.position = WaterWaves_Pos[WaterWave_Pos_2].position;
+        WaterWave_2.transform.rotation = Quaternion.Euler(0.0f, 90.0f, 0.0f);
     }
 
     public void Tsunami_End()
