@@ -46,6 +46,14 @@ public class Samurai_Controller : Character_BehaviorCtrl_Base
     public GameObject iceEffect;
     public GameObject stunEffect;
 
+    public float knockbackSpeed = 10f;        // 넉백 속도
+    public float knockbackDuration = 0.5f;   // 넉백 지속 시간
+    public float upwardKnockback = 2f;       // 위쪽 이동량
+
+    private Vector3 knockbackDirection;      // 넉백 방향
+    private bool isKnockback = false;        // 넉백 상태
+    private float knockbackTimer = 0f;       // 넉백 타이머
+
     public PlaySceneManager playscenemanager;
     public InGameSetting inGameSetting;
 
@@ -196,6 +204,35 @@ public class Samurai_Controller : Character_BehaviorCtrl_Base
         }
 
         UpdateComboStep();
+
+        if (isKnockback)
+        {
+            // 지속 시간 동안 넉백 이동
+            if (knockbackTimer > 0)
+            {
+                Vector3 movement = knockbackDirection * knockbackSpeed * Time.deltaTime;
+                transform.position += movement;  // 위치 업데이트
+                knockbackTimer -= Time.deltaTime;
+            }
+            else
+            {
+                isKnockback = false; // 넉백 종료
+                //animator.Play("Idle");
+            }
+        }
+    }
+
+    public void ApplyKnockback(Vector3 sourcePosition)
+    {
+        // 넉백 방향 계산 (공격 받은 방향에서 멀어지도록)
+        knockbackDirection = (transform.position - sourcePosition).normalized;
+
+        // 위쪽 이동 추가
+        knockbackDirection.y += upwardKnockback;
+
+        // 넉백 상태 설정
+        isKnockback = true;
+        knockbackTimer = knockbackDuration;
     }
     private IEnumerator MouseEffectFalse(GameObject obj, float delay)
     {
@@ -997,8 +1034,16 @@ public class Samurai_Controller : Character_BehaviorCtrl_Base
             Invoke("ResumeAnimation", 3f);
             isStun = true;
         }
-    }
 
+        if (other.tag == "KnockBackAttack" && !isHit)
+        {
+            Vector3 enemyPosition = other.transform.position;
+            ApplyKnockback(enemyPosition); // 적의 위치를 기반으로 넉백 적용
+            CantMove();
+            animator.SetBool("isMove", false);
+            animator.SetTrigger("KnockDown");
+        }
+    }
     public void ResumeAnimation()
     {
         if(isIce == true)
