@@ -53,6 +53,8 @@ public class Samurai_Controller : Character_BehaviorCtrl_Base
     private Vector3 knockbackDirection;      // 넉백 방향
     private bool isKnockback = false;        // 넉백 상태
     private float knockbackTimer = 0f;       // 넉백 타이머
+    private Vector3 KnockbackPosition;       // 충돌 위치 저장
+    private bool isFalling = false;        // 낙사 판정 변수
 
     public PlaySceneManager playscenemanager;
     public InGameSetting inGameSetting;
@@ -220,6 +222,7 @@ public class Samurai_Controller : Character_BehaviorCtrl_Base
                 //animator.Play("Idle");
             }
         }
+
     }
 
     public void ApplyKnockback(Vector3 sourcePosition)
@@ -1042,6 +1045,14 @@ public class Samurai_Controller : Character_BehaviorCtrl_Base
             CantMove();
             animator.SetBool("isMove", false);
             animator.SetTrigger("KnockDown");
+            KnockbackPosition = other.ClosestPoint(transform.position);
+        }
+
+        if (other.tag == "DeathZone")
+        {
+            transform.position = KnockbackPosition;
+            isHit = true;
+            Invoke("HitOut", 3.0f);
         }
     }
     public void ResumeAnimation()
