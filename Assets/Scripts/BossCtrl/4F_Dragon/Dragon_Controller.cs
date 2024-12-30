@@ -57,8 +57,8 @@ public enum FireDragon_State
     FIRE_DRAGON_DROP,           // 7
     FIRE_DRAGON_FURY,           // 8
     FIRE_BALL_ATK,              // 9
-    FIRE_HEAL,                  // 10
-    FIRE_CLOSE_NORMAL_ATK,      // 11
+    FIRE_CLOSE_NORMAL_ATK,      // 10
+                                // FIRE_HEAL,                  // 10
     END
 }
 
@@ -209,6 +209,8 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
     [SerializeField]
     GameObject[] ThundersAtk_VFX;
     [SerializeField]
+    GameObject[] ThundersAtk_Guides;
+    [SerializeField]
     bool isEnterThunderAtk;
     [SerializeField]
     float Thunder_DelayTime;
@@ -220,6 +222,8 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
     [Header("-----Dragon_Thunder_Rope_Atk-----")]
     [SerializeField]
     GameObject Rope_VFX;
+    [SerializeField]
+    GameObject Rope_Guide;
     [SerializeField]
     bool isEnterRopeAtk;
     [SerializeField]
@@ -317,17 +321,17 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
         Dragon_ObjPoolRef = GetComponent<Dragon_ObjPool>();
         Dragon_animator = GetComponent<Animator>();
 
-        CurrentElement = CurentElement_State.ICE_DRAGON;
-        //CurrentElement = CurentElement_State.FIRE_DRAGON;
+        //CurrentElement = CurentElement_State.ICE_DRAGON;
+        CurrentElement = CurentElement_State.FIRE_DRAGON;
         //CurrentElement = CurentElement_State.THUNDER_DRAGON;
 
-        IceDragonState = IceDragon_State.ICE_IDLE;
-        //FireDragonState = FireDragon_State.FIRE_IDLE;
-        // ThunderDragonState = ThunderDragon_State.THUNDER_IDLE;
+        //IceDragonState = IceDragon_State.ICE_IDLE;
+        FireDragonState = FireDragon_State.FIRE_IDLE;
+        //ThunderDragonState = ThunderDragon_State.THUNDER_IDLE;
 
-        // IceDragonState = IceDragon_State.NONE;
+        IceDragonState = IceDragon_State.NONE;
         ThunderDragonState = ThunderDragon_State.NONE;
-        FireDragonState = FireDragon_State.NONE;
+        //FireDragonState = FireDragon_State.NONE;
 
 
         isMove = false;
@@ -426,7 +430,7 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
             else if (CurrentElement == CurentElement_State.THUNDER_DRAGON)
             {
                 //ThunderDragon_State randomThunderState = (FireDragon_State)Random.Range(3, 8);
-                ThunderDragon_State randomThunderState = (ThunderDragon_State)10;
+                ThunderDragon_State randomThunderState = (ThunderDragon_State)8;
                 ThunderDragonState = randomThunderState;
             }
 
@@ -555,9 +559,9 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
                     case FireDragon_State.FIRE_BALL_ATK:
                         FireBall_Atk();
                         break;
-                    case FireDragon_State.FIRE_HEAL:
-                        Fire_Heal();
-                        break;
+                    //case FireDragon_State.FIRE_HEAL:
+                    //    Fire_Heal();
+                    //    break;
                     default:
                         break;
                 }
@@ -1223,26 +1227,43 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
     IEnumerator Thunder_Atk_VFX_On()
     {
         yield return new WaitForSeconds(Thunder_DelayTime);
+        ThundersAtk_Guides[0].SetActive(true);
+        yield return new WaitForSeconds(Thunder_DelayTime);
         ThundersAtk_VFX[0].SetActive(true);
 
+        yield return new WaitForSeconds(Thunder_DelayTime);
+        ThundersAtk_Guides[1].SetActive(true);
         yield return new WaitForSeconds(Thunder_DelayTime);
         ThundersAtk_VFX[1].SetActive(true);
 
         yield return new WaitForSeconds(Thunder_DelayTime);
+        ThundersAtk_Guides[2].SetActive(true);
+        yield return new WaitForSeconds(Thunder_DelayTime);
         ThundersAtk_VFX[2].SetActive(true);
 
+        yield return new WaitForSeconds(Thunder_DelayTime);
+        ThundersAtk_Guides[3].SetActive(true);
         yield return new WaitForSeconds(Thunder_DelayTime);
         ThundersAtk_VFX[3].SetActive(true);
 
         yield return new WaitForSeconds(Thunder_DelayTime);
+        ThundersAtk_Guides[4].SetActive(true);
+        yield return new WaitForSeconds(Thunder_DelayTime);
         ThundersAtk_VFX[4].SetActive(true);
 
+
+        yield return new WaitForSeconds(Thunder_DelayTime);
+        ThundersAtk_Guides[5].SetActive(true);
         yield return new WaitForSeconds(Thunder_DelayTime);
         ThundersAtk_VFX[5].SetActive(true);
 
         yield return new WaitForSeconds(Thunder_DelayTime);
+        ThundersAtk_Guides[6].SetActive(true);
+        yield return new WaitForSeconds(Thunder_DelayTime);
         ThundersAtk_VFX[6].SetActive(true);
 
+        yield return new WaitForSeconds(Thunder_DelayTime);
+        ThundersAtk_Guides[7].SetActive(true);
         yield return new WaitForSeconds(Thunder_DelayTime);
         ThundersAtk_VFX[7].SetActive(true);
     }
@@ -1291,6 +1312,8 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
     public void Rope_Atk()
     {
         Dragon_animator.SetTrigger("Rope_Atk_Start");
+        Rope_Guide.SetActive(true);
+        Rope_VFX.transform.localRotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
     }
 
     public void Rope_Jump()
@@ -1304,6 +1327,7 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
         DragonPos.localPosition = Vector3.zero;
         isAttacking = true;
         isLock = true;
+
 
         Rope_VFX.SetActive(true);
     }
