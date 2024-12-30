@@ -30,6 +30,21 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
     public bool isHitOut;
     public bool isDie;
 
+    public bool isIce;
+    public bool isStun;
+    public GameObject iceEffect;
+    public GameObject stunEffect;
+
+    public float knockbackSpeed = 10f;        // 넉백 속도
+    public float knockbackDuration = 0.5f;   // 넉백 지속 시간
+    public float upwardKnockback = 2f;       // 위쪽 이동량
+
+    private Vector3 knockbackDirection;      // 넉백 방향
+    private bool isKnockback = false;        // 넉백 상태
+    private float knockbackTimer = 0f;       // 넉백 타이머
+    private Vector3 KnockbackPosition;       // 충돌 위치 저장
+    private bool isFalling = false;        // 낙사 판정 변수
+
     public PlaySceneManager playscenemanager;
     public InGameSetting inGameSetting;
 
@@ -143,7 +158,7 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
             }
         }
 
-        if (Input.GetMouseButton(1) && GameManager.GMInstance.Get_PlaySceneManager().isCutScene == false && !inGameSetting.isPaused)
+        if (Input.GetMouseButton(1) && GameManager.GMInstance.Get_PlaySceneManager().isCutScene == false && !inGameSetting.isPaused && !isIce && !isStun && !isFalling)
         {
             RaycastHit hit;
             Ray ray = mainCam.ScreenPointToRay(Input.mousePosition);
@@ -179,6 +194,21 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
         {
             Dodge();
         }
+
+        if (isKnockback)
+        {
+            // 지속 시간 동안 넉백 이동
+            if (knockbackTimer > 0)
+            {
+                Vector3 movement = knockbackDirection * knockbackSpeed * Time.deltaTime;
+                transform.position += movement;  // 위치 업데이트
+                knockbackTimer -= Time.deltaTime;
+            }
+            else
+            {
+                isKnockback = false; // 넉백 종료
+            }
+        }
     }
     private IEnumerator MouseEffectFalse(GameObject obj, float delay)
     {
@@ -201,13 +231,24 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
         if (isHitOut == false)
             return;
 
+
         if (!isSkill1 && !isSkill2 && !isSkill3 && !isSkill4 && !isAttack && !isDodge && !isDie)
         {
             if (isMove)
             {
-                Vector3 dir = destination - transform.position;
-                transform.forward = dir;
-                transform.position += dir.normalized * Time.deltaTime * (moveSpeed - moveSpeed_Discount);
+                if (GameManager.GMInstance.cur_Scene == Define.Cur_Scene.FLOOR_4)
+                {
+                    Vector3 dirr = destination - transform.position;
+                    transform.forward = dirr;
+                    transform.position += dirr.normalized * Time.deltaTime * (moveSpeed - moveSpeed_Discount);
+                    transform.rotation = Quaternion.Euler(0f, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z);
+                }
+                else
+                {
+                    Vector3 dir = destination - transform.position;
+                    transform.forward = dir;
+                    transform.position += dir.normalized * Time.deltaTime * (moveSpeed - moveSpeed_Discount);
+                }
             }
 
             if (Vector3.Distance(transform.position, destination) <= 0.3f)
@@ -237,7 +278,7 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
         if (GameManager.GMInstance.Get_PlaySceneManager().isCutScene == true)
             return;
 
-        if (Input.GetMouseButtonDown(0) && !isSkill1 && !isSkill2 && !isSkill3 && !isSkill4 && !isDie && !inGameSetting.isPaused)
+        if (Input.GetMouseButtonDown(0) && !isSkill1 && !isSkill2 && !isSkill3 && !isSkill4 && !isDie && !inGameSetting.isPaused && !isIce && !isStun)
         {
             CancelInvoke("AttackOut");
             isMove = false;
@@ -397,7 +438,7 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
 
     public override void Dodge()
     {
-        if (!isDodge && !skillManager5.isDodgeCT && !isDie && !inGameSetting.isPaused)
+        if (!isDodge && !skillManager5.isDodgeCT && !isDie && !inGameSetting.isPaused && !isIce && !isStun)
         {
             animator.SetBool("isMove", false);
             animator.SetTrigger("doDodge");
@@ -450,7 +491,7 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
 
     public override void Skill_1()
     {
-        if (!isSkill1 && !isSkill2 && !isSkill3 && !isSkill4 && !isAttack && !isDodge && !skillManager1.isSkill1CT && !isDie && !inGameSetting.isPaused) 
+        if (!isSkill1 && !isSkill2 && !isSkill3 && !isSkill4 && !isAttack && !isDodge && !skillManager1.isSkill1CT && !isDie && !inGameSetting.isPaused && !isIce && !isStun) 
         {
             animator.SetBool("isMove", false);
 
@@ -502,7 +543,7 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
 
     public override void Skill_2()
     {
-        if (!isSkill1 && !isSkill2 && !isSkill3 && !isSkill4 && !isAttack && !isDodge && !skillManager2.isSkill2CT && !isDie && !inGameSetting.isPaused)
+        if (!isSkill1 && !isSkill2 && !isSkill3 && !isSkill4 && !isAttack && !isDodge && !skillManager2.isSkill2CT && !isDie && !inGameSetting.isPaused && !isIce && !isStun)
         {
             animator.SetBool("isMove", false);
 
@@ -636,7 +677,7 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
 
     public override void Skill_3()
     {
-        if (!isSkill1 && !isSkill2 && !isSkill3 && !isSkill4 && !isAttack && !isDodge && !skillManager3.isSkill3CT && !isDie && !inGameSetting.isPaused)
+        if (!isSkill1 && !isSkill2 && !isSkill3 && !isSkill4 && !isAttack && !isDodge && !skillManager3.isSkill3CT && !isDie && !inGameSetting.isPaused && !isIce && !isStun)
         {
             animator.SetBool("isMove", false);
             // 보이스 랜덤 재생
@@ -711,7 +752,7 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
 
     public override void Skill_4()
     {
-        if (!isSkill1 && !isSkill2 && !isSkill3 && !isSkill4 && !isAttack && !isDodge && !skillManager4.isSkill4CT && !isDie && !inGameSetting.isPaused)
+        if (!isSkill1 && !isSkill2 && !isSkill3 && !isSkill4 && !isAttack && !isDodge && !skillManager4.isSkill4CT && !isDie && !inGameSetting.isPaused && !isIce && !isStun)
         {
             GameManager.GMInstance.SoundManagerRef.Play_Assasin_SFX(SoundManager.Assasin_SFX.ASSASIN_VOICE_1);
             animator.SetBool("isMove", false);
@@ -892,8 +933,88 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
 
                 Invoke("CharacterDie", 0.5f);
             }
-            
+  
         }
+
+        if (other.tag == "IceAttack" && !isHit)
+        {
+            other.gameObject.SetActive(false);
+            iceEffect.SetActive(true);
+            animator.speed = 0;
+            CantMove();
+            Invoke("ResumeAnimation", 3f);
+            isIce = true;
+        }
+
+        if (other.tag == "LightningAttack" && !isHit)
+        {
+            other.gameObject.SetActive(false);
+            stunEffect.SetActive(true);
+            CantMove();
+            animator.SetTrigger("Stun");
+            Invoke("ResumeAnimation", 3f);
+            isStun = true;
+        }
+
+        if (other.tag == "KnockBackAttack" && !isHit)
+        {
+            Vector3 enemyPosition = other.transform.position;
+            ApplyKnockback(enemyPosition); // 적의 위치를 기반으로 넉백 적용
+            CantMove();
+            animator.SetBool("isMove", false);
+            animator.SetTrigger("KnockDown");
+            KnockbackPosition = other.ClosestPoint(transform.position);
+        }
+
+        if (other.tag == "DeathZone")
+        {
+            Invoke("ResumeAnimation", 1f);
+            isFalling = true;
+        }
+    }
+    public void ResumeAnimation()
+    {
+        if (isIce == true)
+        {
+            iceEffect.SetActive(false);
+            animator.speed = 1;
+            animator.SetBool("isMove", false);
+            animator.Play("Idle");
+            isHitOut = true;
+            isIce = false;
+        }
+        if (isStun == true)
+        {
+            stunEffect.SetActive(false);
+            animator.SetBool("isMove", false);
+            animator.Play("Idle");
+            isHitOut = true;
+            isStun = false;
+        }
+        if (isFalling == true)
+        {
+            transform.position = KnockbackPosition;
+            animator.SetBool("isMove", false);
+            animator.Play("Idle");
+            CantMove(); isHitOut = true;
+            isHit = true;
+            isFalling = false;
+            Invoke("HitOut", 3.0f);
+        }
+    }
+    public void ApplyKnockback(Vector3 sourcePosition)
+    {
+        // 넉백 방향 계산 (공격 받은 방향에서 멀어지도록)
+        knockbackDirection = (transform.position - sourcePosition).normalized;
+
+        // 위쪽 이동 추가
+        knockbackDirection.y += upwardKnockback;
+
+        // 넉백 상태 설정
+        isKnockback = true;
+        knockbackTimer = knockbackDuration;
+
+        Debug.Log("1");
     }
 
     // 콜라이더에 계속 들어가 있을 시
@@ -906,7 +1027,7 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
             if (playscenemanager.health > 1)
             {
                 GameManager.GMInstance.CamShakeRef.ShakeCam(CamShake_Intensity, CamShake_Time);
-                // playscenemanager.HealthDown();
+                playscenemanager.HealthDown();
                 // Debug.Log(other.gameObject.name);
                 animator.SetTrigger("Hit");
                 isHit = true;
@@ -917,7 +1038,7 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
             {
                 GameManager.GMInstance.CamShakeRef.ShakeCam(CamShake_Intensity, CamShake_Time);
                 // Debug.Log("1");
-                // playscenemanager.HealthDown();
+                playscenemanager.HealthDown();
                 animator.SetBool("isMove", false);
                 animator.SetTrigger("doDie");
                 SkillOut();
@@ -943,7 +1064,7 @@ public class Assassin_Controller : Character_BehaviorCtrl_Base
             {
                 GameManager.GMInstance.CamShakeRef.ShakeCam(CamShake_Intensity, CamShake_Time);
                 animator.SetTrigger("Hit");
-                // playscenemanager.HealthDown();
+                playscenemanager.HealthDown();
                 // Debug.Log(other.gameObject.name);
 
                 isHit = true;

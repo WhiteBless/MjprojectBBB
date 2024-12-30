@@ -168,7 +168,7 @@ public class Samurai_Controller : Character_BehaviorCtrl_Base
             }
         }
 
-        if (Input.GetMouseButton(1) && GameManager.GMInstance.Get_PlaySceneManager().isCutScene == false && !inGameSetting.isPaused && !isIce && !isStun)
+        if (Input.GetMouseButton(1) && GameManager.GMInstance.Get_PlaySceneManager().isCutScene == false && !inGameSetting.isPaused && !isIce && !isStun && !isFalling)
         {
             RaycastHit hit;
             Ray ray = mainCam.ScreenPointToRay(Input.mousePosition);
@@ -219,24 +219,11 @@ public class Samurai_Controller : Character_BehaviorCtrl_Base
             else
             {
                 isKnockback = false; // 넉백 종료
-                //animator.Play("Idle");
             }
         }
 
     }
 
-    public void ApplyKnockback(Vector3 sourcePosition)
-    {
-        // 넉백 방향 계산 (공격 받은 방향에서 멀어지도록)
-        knockbackDirection = (transform.position - sourcePosition).normalized;
-
-        // 위쪽 이동 추가
-        knockbackDirection.y += upwardKnockback;
-
-        // 넉백 상태 설정
-        isKnockback = true;
-        knockbackTimer = knockbackDuration;
-    }
     private IEnumerator MouseEffectFalse(GameObject obj, float delay)
     {
         yield return new WaitForSeconds(delay);
@@ -1050,9 +1037,8 @@ public class Samurai_Controller : Character_BehaviorCtrl_Base
 
         if (other.tag == "DeathZone")
         {
-            transform.position = KnockbackPosition;
-            isHit = true;
-            Invoke("HitOut", 3.0f);
+            Invoke("ResumeAnimation", 1f);
+            isFalling = true;
         }
     }
     public void ResumeAnimation()
@@ -1074,6 +1060,28 @@ public class Samurai_Controller : Character_BehaviorCtrl_Base
             isHitOut = true;
             isStun = false;
         }
+        if(isFalling == true)
+        {
+            transform.position = KnockbackPosition;
+            animator.SetBool("isMove", false);
+            animator.Play("Idle");
+            CantMove();isHitOut = true;
+            isHit = true;
+            isFalling = false;
+            Invoke("HitOut", 3.0f);
+        }
+    }
+    public void ApplyKnockback(Vector3 sourcePosition)
+    {
+        // 넉백 방향 계산 (공격 받은 방향에서 멀어지도록)
+        knockbackDirection = (transform.position - sourcePosition).normalized;
+
+        // 위쪽 이동 추가
+        knockbackDirection.y += upwardKnockback;
+
+        // 넉백 상태 설정
+        isKnockback = true;
+        knockbackTimer = knockbackDuration;
     }
 
     // 콜라이더에 계속 들어가 있을 시
