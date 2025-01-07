@@ -47,21 +47,30 @@ public class Boss_HP_Controller : MonoBehaviour
     bool isTriggerHandled = false;
     const int ChangeThunder_HP = 70;
     public bool isChange_Thunder;
+    public Material[] DragonSkin;
 
     [SerializeField]
     const int ChangeFire_HP = 40;
     public bool isChange_Fire;
-
+    [SerializeField]
+    SkinnedMeshRenderer SkinRender;
 
     public PlaySceneManager playSceneManager;
-
-
 
     // Start is called before the first frame update
     void Start()
     {
         Boss_HP_Canvas.transform.localScale = Vector3.zero;
         // PD.GetComponent<PlayableDirector>();
+
+        SkinTest();
+    }
+
+    public void SkinTest()
+    {
+        Material[] mats = SkinRender.materials;
+        mats[0] = DragonSkin[2];
+        SkinRender.materials = mats;
     }
 
     void Update()

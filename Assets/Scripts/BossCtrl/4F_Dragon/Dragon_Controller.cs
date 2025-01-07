@@ -237,6 +237,8 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
 
     [Header("-----Dragon_Fire_Drop_Atk-----")]
     [SerializeField]
+    GameObject[] FireDropGuideLines;
+    [SerializeField]
     GameObject Drop_VFX;
     [SerializeField]
     GameObject Drop_Fly_VFX;
@@ -436,8 +438,8 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
 
             else
             {
-                //FireDragon_State randomFireState = (FireDragon_State)Random.Range(3, 8);
-                FireDragon_State randomFireState = (FireDragon_State)8;
+                //FireDragon_State randomFireState = (FireDragon_State)Random.Range(3, 10);
+                FireDragon_State randomFireState = (FireDragon_State)9;
                 FireDragonState = randomFireState;
             }
         }
@@ -1118,11 +1120,14 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
     public void Fire_Drop_Jump()
     {
         DragonPos.localPosition = new Vector3(100.0f, 100.0f, 100.0f);
+        FireDropGuideLines[0].SetActive(true);
     }
 
     public void Fire_Drop_Land()
     {
         DragonPos.localPosition = Vector3.zero;
+        FireDropGuideLines[0].SetActive(false);
+        FireDropGuideLines[1].SetActive(true);
         Drop_Crack_VFX.SetActive(true);
     }
 
@@ -1145,6 +1150,7 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
     public void Stump_VFX_On()
     {
         Drop_VFX.SetActive(true);
+        FireDropGuideLines[1].SetActive(false);
         Drop_Fly_VFX.SetActive(false);
     }
 

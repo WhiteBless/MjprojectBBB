@@ -19380,9 +19380,10 @@ GameObject:
   - component: {fileID: 198533276141313876}
   - component: {fileID: 199176809758892682}
   - component: {fileID: -348719798352667311}
+  - component: {fileID: -3713653743715384439}
   m_Layer: 0
   m_Name: FireBall
-  m_TagString: Untagged
+  m_TagString: EnemyAttack
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -24229,4 +24230,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Target: {fileID: 0}
   FireBall_Speed: 15
+  FireBall_Rot_Speed: 0
   isMove: 0
+  isLock: 0
+  FireBall_VFX: {fileID: 0}
+  Explosion_VFX: {fileID: 0}
+  Spawn_MaxTime: 0
+  Current_SpawnTime: 0
+  Rot_MaxTime: 0
+  Current_RotTime: 0
+--- !u!135 &-3713653743715384439
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1725317912486240}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: -0.5}

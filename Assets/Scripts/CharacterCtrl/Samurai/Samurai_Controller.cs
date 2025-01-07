@@ -1128,8 +1128,8 @@ public class Samurai_Controller : Character_BehaviorCtrl_Base
         // 파티클에 닿을 시 데미지 
         if (other.gameObject.CompareTag("Particle_EnemyAtk") && !isHit)
         {
-
-            if (playscenemanager.health > 1)
+            Debug.Log("Particle");
+            if (playscenemanager.health > 0)
             {
                 GameManager.GMInstance.CamShakeRef.ShakeCam(CamShake_Intensity, CamShake_Time);
                 int randomIndex = Random.Range(0, 4);
