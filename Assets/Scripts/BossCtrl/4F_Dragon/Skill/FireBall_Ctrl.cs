@@ -52,7 +52,7 @@ public class FireBall_Ctrl : MonoBehaviour
     void Start()
     {
         isMove = false;
-        Target = GameObject.FindWithTag("Player");
+        Target = GameObject.FindWithTag("TargetPoint");
         this.gameObject.SetActive(false);
     }
 
@@ -72,7 +72,7 @@ public class FireBall_Ctrl : MonoBehaviour
         {
             dir = Target.transform.position - transform.position;
             // y축 정보 제거
-            dir.y = 0.0f;
+            // dir.y = 0.0f;
 
             Quaternion rotation = Quaternion.LookRotation(dir, Vector3.up);
             transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * FireBall_Rot_Speed);
