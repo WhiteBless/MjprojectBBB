@@ -51,7 +51,7 @@ public class Samurai_Controller : Character_BehaviorCtrl_Base
     public float upwardKnockback = 2f;       // 위쪽 이동량
 
     private Vector3 knockbackDirection;      // 넉백 방향
-    private bool isKnockback = false;        // 넉백 상태
+    public bool isKnockback = false;        // 넉백 상태
     private float knockbackTimer = 0f;       // 넉백 타이머
     private Vector3 KnockbackPosition;       // 충돌 위치 저장
     private bool isFalling = false;        // 낙사 판정 변수
@@ -291,7 +291,7 @@ public class Samurai_Controller : Character_BehaviorCtrl_Base
         if (GameManager.GMInstance.Get_PlaySceneManager().isCutScene == true)
             return;
 
-        if (Input.GetMouseButtonDown(0) && !isSkill1 && !isSkill2 && !isSkill3 && !isSkill4 && !isDie && !inGameSetting.isPaused && !isIce && !isStun)
+        if (Input.GetMouseButtonDown(0) && !isSkill1 && !isSkill2 && !isSkill3 && !isSkill4 && !isDie && !inGameSetting.isPaused && !isIce && !isStun && !isKnockback)
         {
             CancelInvoke("AttackOut");
             isMove = false;
@@ -472,7 +472,7 @@ public class Samurai_Controller : Character_BehaviorCtrl_Base
 
     public override void Dodge()
     {
-        if (!isDodge && !skillManager5.isDodgeCT && !isDie && !inGameSetting.isPaused && !isIce && !isStun )
+        if (!isDodge && !skillManager5.isDodgeCT && !isDie && !inGameSetting.isPaused && !isIce && !isStun && !isKnockback)
         {
             animator.SetBool("isMove", false);
             animator.SetTrigger("doDodge");
@@ -525,7 +525,7 @@ public class Samurai_Controller : Character_BehaviorCtrl_Base
 
     public override void Skill_1()
     {
-        if (!isSkill1 && !isAttack && !isDodge && !skillManager1.isSkill1CT && !isDie && !inGameSetting.isPaused && !isIce && !isStun)
+        if (!isSkill1 && !isAttack && !isDodge && !skillManager1.isSkill1CT && !isDie && !inGameSetting.isPaused && !isIce && !isStun && !isKnockback)
         {
             animator.SetBool("isMove", false);
 
@@ -578,7 +578,7 @@ public class Samurai_Controller : Character_BehaviorCtrl_Base
 
     public override void Skill_2()
     {
-        if (!isComboTimeout && !isSkill2 && !isAttack && !isDodge && !skillManager2.isSkill2CT && !isDie && !inGameSetting.isPaused && !isIce && !isStun)
+        if (!isComboTimeout && !isSkill2 && !isAttack && !isDodge && !skillManager2.isSkill2CT && !isDie && !inGameSetting.isPaused && !isIce && !isStun && !isKnockback)
         {
             if (comboStep == 0)
             {
@@ -774,7 +774,7 @@ public class Samurai_Controller : Character_BehaviorCtrl_Base
 
     public override void Skill_3()
     {
-        if (!isSkill3 && !isAttack && !isDodge && !skillManager3.isSkill3CT && !isDie && !inGameSetting.isPaused && !isIce && !isStun)
+        if (!isSkill3 && !isAttack && !isDodge && !skillManager3.isSkill3CT && !isDie && !inGameSetting.isPaused && !isIce && !isStun && !isKnockback)
         {
             animator.SetBool("isMove", false);
 
@@ -833,7 +833,7 @@ public class Samurai_Controller : Character_BehaviorCtrl_Base
 
     public override void Skill_4()
     {
-        if (!isSkill4 && !isAttack && !isDodge && !skillManager4.isSkill4CT && !isDie && !inGameSetting.isPaused && !isIce && !isStun )
+        if (!isSkill4 && !isAttack && !isDodge && !skillManager4.isSkill4CT && !isDie && !inGameSetting.isPaused && !isIce && !isStun && !isKnockback)
         {
             GameManager.GMInstance.SoundManagerRef.Play_Assasin_SFX(SoundManager.Assasin_SFX.ASSASIN_VOICE_1);
             animator.SetBool("isMove", false);
@@ -1067,6 +1067,7 @@ public class Samurai_Controller : Character_BehaviorCtrl_Base
             animator.Play("Idle");
             CantMove();isHitOut = true;
             isHit = true;
+            isKnockback = false;
             isFalling = false;
             Invoke("HitOut", 3.0f);
         }
