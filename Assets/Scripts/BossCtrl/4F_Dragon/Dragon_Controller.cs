@@ -231,6 +231,11 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
     [SerializeField]
     float Rope_MaxTime;
 
+    [Header("-----Dragon_Laser_Atk-----")]
+    [SerializeField]
+    GameObject RaserPilar;
+
+
     [Header("-----Dragon_Fire_Fury_Atk-----")]
     [SerializeField]
     Transform[] Fury_Positions;
@@ -324,16 +329,16 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
         Dragon_animator = GetComponent<Animator>();
 
         //CurrentElement = CurentElement_State.ICE_DRAGON;
-        CurrentElement = CurentElement_State.FIRE_DRAGON;
-        //CurrentElement = CurentElement_State.THUNDER_DRAGON;
+        // CurrentElement = CurentElement_State.FIRE_DRAGON;
+        CurrentElement = CurentElement_State.THUNDER_DRAGON;
 
         //IceDragonState = IceDragon_State.ICE_IDLE;
-        FireDragonState = FireDragon_State.FIRE_IDLE;
-        //ThunderDragonState = ThunderDragon_State.THUNDER_IDLE;
+        // FireDragonState = FireDragon_State.FIRE_IDLE;
+        ThunderDragonState = ThunderDragon_State.THUNDER_IDLE;
 
         IceDragonState = IceDragon_State.NONE;
-        ThunderDragonState = ThunderDragon_State.NONE;
-        //FireDragonState = FireDragon_State.NONE;
+        //ThunderDragonState = ThunderDragon_State.NONE;
+        FireDragonState = FireDragon_State.NONE;
 
 
         isMove = false;
@@ -432,7 +437,7 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
             else if (CurrentElement == CurentElement_State.THUNDER_DRAGON)
             {
                 //ThunderDragon_State randomThunderState = (FireDragon_State)Random.Range(3, 8);
-                ThunderDragon_State randomThunderState = (ThunderDragon_State)8;
+                ThunderDragon_State randomThunderState = (ThunderDragon_State)9;
                 ThunderDragonState = randomThunderState;
             }
 
@@ -1311,6 +1316,11 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
     public void Laser_Atk()
     {
         Dragon_animator.SetTrigger("Laser_Atk");
+        RaserPilar.SetActive(true);
+
+        RaserPilar.transform.position = Target.transform.position;
+
+        // RaserPilar.transform.localPosition = new Vector3(RaserPilar.transform.localPosition.x, RaserPilar.transform.localPosition.y, 13.0f);
     }
     #endregion
 
