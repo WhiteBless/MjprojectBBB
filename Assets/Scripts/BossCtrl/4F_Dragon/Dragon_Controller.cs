@@ -231,11 +231,18 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
     [SerializeField]
     float Rope_MaxTime;
 
+    [Header("-----Dragon_Laser_Atk-----")]
+    [SerializeField]
+    GameObject RaserPilar;
+
+
     [Header("-----Dragon_Fire_Fury_Atk-----")]
     [SerializeField]
     Transform[] Fury_Positions;
 
     [Header("-----Dragon_Fire_Drop_Atk-----")]
+    [SerializeField]
+    GameObject[] FireDropGuideLines;
     [SerializeField]
     GameObject Drop_VFX;
     [SerializeField]
@@ -322,16 +329,16 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
         Dragon_animator = GetComponent<Animator>();
 
         //CurrentElement = CurentElement_State.ICE_DRAGON;
-        CurrentElement = CurentElement_State.FIRE_DRAGON;
-        //CurrentElement = CurentElement_State.THUNDER_DRAGON;
+        // CurrentElement = CurentElement_State.FIRE_DRAGON;
+        CurrentElement = CurentElement_State.THUNDER_DRAGON;
 
         //IceDragonState = IceDragon_State.ICE_IDLE;
-        FireDragonState = FireDragon_State.FIRE_IDLE;
-        //ThunderDragonState = ThunderDragon_State.THUNDER_IDLE;
+        // FireDragonState = FireDragon_State.FIRE_IDLE;
+        ThunderDragonState = ThunderDragon_State.THUNDER_IDLE;
 
         IceDragonState = IceDragon_State.NONE;
-        ThunderDragonState = ThunderDragon_State.NONE;
-        //FireDragonState = FireDragon_State.NONE;
+        //ThunderDragonState = ThunderDragon_State.NONE;
+        FireDragonState = FireDragon_State.NONE;
 
 
         isMove = false;
@@ -430,14 +437,14 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
             else if (CurrentElement == CurentElement_State.THUNDER_DRAGON)
             {
                 //ThunderDragon_State randomThunderState = (FireDragon_State)Random.Range(3, 8);
-                ThunderDragon_State randomThunderState = (ThunderDragon_State)8;
+                ThunderDragon_State randomThunderState = (ThunderDragon_State)9;
                 ThunderDragonState = randomThunderState;
             }
 
             else
             {
-                //FireDragon_State randomFireState = (FireDragon_State)Random.Range(3, 8);
-                FireDragon_State randomFireState = (FireDragon_State)8;
+                //FireDragon_State randomFireState = (FireDragon_State)Random.Range(3, 10);
+                FireDragon_State randomFireState = (FireDragon_State)9;
                 FireDragonState = randomFireState;
             }
         }
@@ -1118,11 +1125,14 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
     public void Fire_Drop_Jump()
     {
         DragonPos.localPosition = new Vector3(100.0f, 100.0f, 100.0f);
+        FireDropGuideLines[0].SetActive(true);
     }
 
     public void Fire_Drop_Land()
     {
         DragonPos.localPosition = Vector3.zero;
+        FireDropGuideLines[0].SetActive(false);
+        FireDropGuideLines[1].SetActive(true);
         Drop_Crack_VFX.SetActive(true);
     }
 
@@ -1145,6 +1155,7 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
     public void Stump_VFX_On()
     {
         Drop_VFX.SetActive(true);
+        FireDropGuideLines[1].SetActive(false);
         Drop_Fly_VFX.SetActive(false);
     }
 
@@ -1305,6 +1316,11 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
     public void Laser_Atk()
     {
         Dragon_animator.SetTrigger("Laser_Atk");
+        RaserPilar.SetActive(true);
+
+        RaserPilar.transform.position = Target.transform.position;
+
+        // RaserPilar.transform.localPosition = new Vector3(RaserPilar.transform.localPosition.x, RaserPilar.transform.localPosition.y, 13.0f);
     }
     #endregion
 
