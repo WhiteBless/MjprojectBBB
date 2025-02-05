@@ -430,8 +430,8 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
         {
             if (CurrentElement == CurentElement_State.ICE_DRAGON)
             {
-                //IceDragon_State randomIceState = (IceDragon_State)Random.Range(3, 8);
-                IceDragon_State randomIceState = (IceDragon_State)11;
+                IceDragon_State randomIceState = (IceDragon_State)Random.Range(3, 8);
+                // IceDragon_State randomIceState = (IceDragon_State)11;
                 IceDragonState = randomIceState;
             }
             else if (CurrentElement == CurentElement_State.THUNDER_DRAGON)
@@ -443,14 +443,14 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
 
             else
             {
-                //FireDragon_State randomFireState = (FireDragon_State)Random.Range(3, 10);
-                FireDragon_State randomFireState = (FireDragon_State)9;
+                FireDragon_State randomFireState = (FireDragon_State)Random.Range(3, 10);
+                // FireDragon_State randomFireState = (FireDragon_State)9;
                 FireDragonState = randomFireState;
             }
         }
 
         #region Dragon_FormChange_Function
-        Change_Thuunder();
+        Change_Ice();
         Change_Fire();
         #endregion
 
@@ -464,7 +464,7 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
                         Dragon_Move();
                         break;
                     case IceDragon_State.CHANGE_FORM:
-                        Change_Thunder_Element();
+                        Change_Fire_Element();
                         break;
                     case IceDragon_State.ICE_FLY_NORMAL_ATK:
                         Fly_NormalAtk();
@@ -505,7 +505,7 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
                         Dragon_Move();
                         break;
                     case ThunderDragon_State.CHANGE_FORM:
-                        Change_Fire_Element();
+                        Change_Ice_Element();
                         break;
                     case ThunderDragon_State.THUNDER_FLY_NORMAL_ATK:
                         Fly_NormalAtk();
@@ -631,17 +631,15 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
     #endregion
 
     #region Dragon_Change
-    public void Change_Thunder_Element()
+    public void Change_Ice_Element()
     {
-        Debug.Log(1);
-
         // 번개드래곤 변신
-        Dragon_animator.SetTrigger("ChangeThunderForm");
+        Dragon_animator.SetTrigger("ChangeIceForm");
 
         // 상태값 초기화
-        CurrentElement = CurentElement_State.THUNDER_DRAGON;
-        IceDragonState = IceDragon_State.NONE;
-        ThunderDragonState = ThunderDragon_State.THUNDER_IDLE;
+        CurrentElement = CurentElement_State.ICE_DRAGON;
+        IceDragonState = IceDragon_State.ICE_IDLE;
+        ThunderDragonState = ThunderDragon_State.NONE;
         FireDragonState = FireDragon_State.NONE;
     }
 
@@ -657,21 +655,21 @@ public class Dragon_Controller : Boss_BehaviorCtrl_Base
         FireDragonState = FireDragon_State.FIRE_IDLE;
     }
 
-    public void Change_Thuunder()
+    public void Change_Ice()
     {
         // 번개 변신이 가능할때
-        if (boss_hp_ctrl.isChange_Thunder == true && CurrentElement == CurentElement_State.ICE_DRAGON)
+        if (boss_hp_ctrl.isChange_Ice == true && CurrentElement == CurentElement_State.THUNDER_DRAGON)
         {
-            IceDragonState = IceDragon_State.CHANGE_FORM;
+            ThunderDragonState = ThunderDragon_State.CHANGE_FORM;
         }
     }
 
     public void Change_Fire()
     {
         // 불 변신이 가능할때
-        if (boss_hp_ctrl.isChange_Fire == true && CurrentElement == CurentElement_State.THUNDER_DRAGON)
+        if (boss_hp_ctrl.isChange_Fire == true && CurrentElement == CurentElement_State.ICE_DRAGON)
         {
-            ThunderDragonState = ThunderDragon_State.CHANGE_FORM;
+            IceDragonState = IceDragon_State.CHANGE_FORM;
         }
     }
 

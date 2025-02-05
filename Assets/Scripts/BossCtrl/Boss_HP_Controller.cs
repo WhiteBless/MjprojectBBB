@@ -43,17 +43,20 @@ public class Boss_HP_Controller : MonoBehaviour
 
 
     [Header("-----Dragon-----")] // 4층 보스의 경우
-    [SerializeField]
-    bool isTriggerHandled = false;
+    public bool isChange_Ice;
+    public bool isChange_Fire;
+
     const int ChangeThunder_HP = 70;
-    public bool isChange_Thunder;
-    public Material[] DragonSkin;
+    const int ChangeFire_HP = 40;
 
     [SerializeField]
-    const int ChangeFire_HP = 40;
-    public bool isChange_Fire;
+    BoxCollider Dragon_Body_Hit_Col;
+    [SerializeField]
+    CapsuleCollider Dragon_Tail_Hit_Col;
+
     [SerializeField]
     SkinnedMeshRenderer SkinRender;
+    public Material[] DragonSkin;
 
     public PlaySceneManager playSceneManager;
 
@@ -62,11 +65,16 @@ public class Boss_HP_Controller : MonoBehaviour
     {
         Boss_HP_Canvas.transform.localScale = Vector3.zero;
         // PD.GetComponent<PlayableDirector>();
-
-        SkinTest();
     }
 
-    public void SkinTest()
+    public void Change_Ice_Skin()
+    {
+        Material[] mats = SkinRender.materials;
+        mats[0] = DragonSkin[1];
+        SkinRender.materials = mats;
+    }
+
+    public void Change_Fire_Skin()
     {
         Material[] mats = SkinRender.materials;
         mats[0] = DragonSkin[2];
@@ -137,6 +145,22 @@ public class Boss_HP_Controller : MonoBehaviour
             PD.Play();
         }
         #endregion
+
+        #region Dragon_Death
+        if (this.gameObject.name == "Dragon" && BossCurHP <= 0 && !isDead)
+        {
+            BossCurHP = 0;
+            isDead = true;
+            Dragon_Body_Hit_Col.enabled = false;
+            Dragon_Tail_Hit_Col.enabled = false;
+
+            Animator Dragonanimator = GetComponent<Animator>();
+            Dragonanimator.SetTrigger("isDeath");
+            Boss_HP_Canvas.transform.localScale = Vector3.zero;
+            playSceneManager.BossClear();
+            //PD.Play();
+        }
+        #endregion
     }
 
     private void OnTriggerEnter(Collider other)
@@ -202,9 +226,9 @@ public class Boss_HP_Controller : MonoBehaviour
                 if (this.gameObject.name == "Dragon")
                 {
                     // 보스 체력이 70퍼 보다 작고 번개폼으로 변신하지 않았다면
-                    if (BossCurHP <= (BossMaxHP / 100) * ChangeThunder_HP && isChange_Thunder == false)
+                    if (BossCurHP <= (BossMaxHP / 100) * ChangeThunder_HP && isChange_Ice == false)
                     {
-                        isChange_Thunder = true;
+                        isChange_Ice = true;
                     }
                     // 보스 체력이 40퍼 보다 작아지면
                     else if (BossCurHP <= (BossMaxHP / 100) * ChangeFire_HP && isChange_Fire == false)
@@ -240,10 +264,5 @@ public class Boss_HP_Controller : MonoBehaviour
             // this.GetComponent<Reaper_Controller>().CurHP = BossCurHP;
             Boss_HP_Canvas.GetComponent<BossHP_UI_Ctrl>().Refresh_BossHP();
         }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        isTriggerHandled = false; // 트리거 종료 시 플래그 초기화
     }
 }
